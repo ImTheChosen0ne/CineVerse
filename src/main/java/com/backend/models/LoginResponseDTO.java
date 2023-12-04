@@ -1,20 +1,20 @@
 package com.backend.models;
 
 public class LoginResponseDTO {
-    private ApplicationUser user;
+    private User user;
     private String jwt;
 
     public LoginResponseDTO(){}
-    public LoginResponseDTO(ApplicationUser user, String jwt) {
+    public LoginResponseDTO(User user, String jwt) {
         this.user = user;
         this.jwt = jwt;
     }
 
-    public ApplicationUser getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(ApplicationUser user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

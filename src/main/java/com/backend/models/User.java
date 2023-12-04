@@ -10,10 +10,10 @@ import java.util.Set;
 
 @Entity
 @Table(name="users")
-public class ApplicationUser implements UserDetails {
+public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer userId;
     @Column(unique = true)
@@ -29,12 +29,12 @@ public class ApplicationUser implements UserDetails {
 
     private Set<Role> authorities;
 
-    public ApplicationUser() {
+    public User() {
         super();
         this.authorities = new HashSet<Role>();
     }
 
-    public ApplicationUser(Integer userId, String username, String password, Set<Role> authorities) {
+    public User(Integer userId, String username, String password, Set<Role> authorities) {
         this.userId = userId;
         this.username = username;
         this.password = password;

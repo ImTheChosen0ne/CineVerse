@@ -1,6 +1,6 @@
 package com.backend.services;
 
-import com.backend.models.ApplicationUser;
+import com.backend.models.User;
 import com.backend.models.LoginResponseDTO;
 import com.backend.models.Role;
 import com.backend.repository.RoleRepository;
@@ -38,7 +38,7 @@ public class AuthenticationService {
         this.roleRepository = roleRepository;
     }
 
-    public ApplicationUser registerUser(String username, String password) {
+    public User registerUser(String username, String password) {
 
         String encodedPassword = passwordEncoder.encode(password);
         Role userRole = roleRepository.findByAuthority("USER").get();
@@ -47,7 +47,7 @@ public class AuthenticationService {
 
         authorities.add(userRole);
 
-        return userRepository.save(new ApplicationUser(0, username, encodedPassword, authorities));
+        return userRepository.save(new User(0, username, encodedPassword, authorities));
     }
 
     public LoginResponseDTO loginUser(String username, String password) {

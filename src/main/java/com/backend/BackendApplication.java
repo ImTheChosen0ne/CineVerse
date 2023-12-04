@@ -1,6 +1,6 @@
 package com.backend;
 
-import com.backend.models.ApplicationUser;
+import com.backend.models.User;
 import com.backend.models.Role;
 import com.backend.repository.RoleRepository;
 import com.backend.repository.UserRepository;
@@ -31,7 +31,7 @@ public class BackendApplication {
 			Set<Role> roles = new HashSet<>();
 			roles.add(adminRole);
 
-			ApplicationUser admin = new ApplicationUser(1, "admin", passwordEncoder.encode("password"), roles);
+			User admin = new User(1, "admin", passwordEncoder.encode("password"), roles);
 
 			userRepository.save(admin);
 		};

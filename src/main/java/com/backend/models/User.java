@@ -19,6 +19,9 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
     private String password;
+    private String email;
+    private String firstName;
+    private String lastName;
 
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
@@ -30,17 +33,41 @@ public class User implements UserDetails {
     private Set<Role> authorities;
 
     public User() {
-        super();
         this.authorities = new HashSet<Role>();
     }
 
-    public User(Integer userId, String username, String password, Set<Role> authorities) {
+    public User(Integer userId, String username, String password, String firstName, String lastName, String email, Set<Role> authorities) {
         this.userId = userId;
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.authorities = authorities;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public Integer getUserId() {
         return userId;
     }

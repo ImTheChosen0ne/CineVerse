@@ -1,5 +1,6 @@
 package com.backend.controller;
 
+import com.backend.models.LoginDTO;
 import com.backend.models.User;
 import com.backend.models.LoginResponseDTO;
 import com.backend.models.RegistrationDTO;
@@ -15,11 +16,11 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
     @PostMapping("/register")
     public User registerUser(@RequestBody RegistrationDTO body) {
-        return authenticationService.registerUser(body.getUsername(), body.getPassword());
+        return authenticationService.registerUser(body.getUsername(), body.getPassword(), body.getFirstName(), body.getLastName(), body.getEmail());
     }
 
     @PostMapping("/login")
-    public LoginResponseDTO loginUser(@RequestBody RegistrationDTO body) {
+    public LoginResponseDTO loginUser(@RequestBody LoginDTO body) {
         return authenticationService.loginUser(body.getUsername(), body.getPassword());
     }
 }

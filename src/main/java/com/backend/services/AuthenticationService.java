@@ -38,7 +38,7 @@ public class AuthenticationService {
         this.roleRepository = roleRepository;
     }
 
-    public User registerUser(String username, String password) {
+    public User registerUser(String username, String password, String firstName, String lastName, String email) {
 
         String encodedPassword = passwordEncoder.encode(password);
         Role userRole = roleRepository.findByAuthority("USER").get();
@@ -47,7 +47,7 @@ public class AuthenticationService {
 
         authorities.add(userRole);
 
-        return userRepository.save(new User(0, username, encodedPassword, authorities));
+        return userRepository.save(new User(0, username, encodedPassword, firstName, lastName, email, authorities));
     }
 
     public LoginResponseDTO loginUser(String username, String password) {

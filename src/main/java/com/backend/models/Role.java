@@ -16,7 +16,6 @@ public class Role implements GrantedAuthority {
     private String authority;
 
     public Role() {
-        super();
     }
 
     public Role(Integer roleId, String authority) {

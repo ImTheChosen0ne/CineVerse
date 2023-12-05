@@ -32,11 +32,31 @@ public class User implements UserDetails {
 
     private Set<Role> authorities;
 
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name="user_movie_likes",
+            joinColumns = {@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="movie_id")}
+    )
+
+    private Set<Movie> likedMovies;
+
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name="user_movie_watch_later",
+            joinColumns = {@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="movie_id")}
+    )
+
+    private Set<Movie> watchLaterMovies;
+
     public User() {
         this.authorities = new HashSet<Role>();
+        this.likedMovies = new HashSet<Movie>();
+        this.watchLaterMovies = new HashSet<Movie>();
     }
 
-    public User(Integer userId, String username, String password, String firstName, String lastName, String email, Set<Role> authorities) {
+    public User(Integer userId, String username, String password, String firstName, String lastName, String email, Set<Role> authorities, Set<Movie> likedMovies, Set<Movie> watchLaterMovies) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -44,6 +64,8 @@ public class User implements UserDetails {
         this.lastName = lastName;
         this.email = email;
         this.authorities = authorities;
+        this.likedMovies = likedMovies;
+        this.watchLaterMovies = watchLaterMovies;
     }
 
     public String getFirstName() {
@@ -86,6 +108,22 @@ public class User implements UserDetails {
 
     public void setAuthorities(Set<Role> authorities) {
         this.authorities = authorities;
+    }
+
+    public Set<Movie> getLikedMovies() {
+        return likedMovies;
+    }
+
+    public void setLikedMovies(Set<Movie> likedMovies) {
+        this.likedMovies = likedMovies;
+    }
+
+    public Set<Movie> getWatchLaterMovies() {
+        return watchLaterMovies;
+    }
+
+    public void setWatchLaterMovies(Set<Movie> watchLaterMovies) {
+        this.watchLaterMovies = watchLaterMovies;
     }
 
     @Override

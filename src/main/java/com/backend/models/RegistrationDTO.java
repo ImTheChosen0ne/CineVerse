@@ -61,7 +61,7 @@ public class RegistrationDTO {
     }
 
     public String toString() {
-        return "Registration info: username: " + this.username + " password: " + this.password;
+        return "Registration info: username: " + this.username + " password: " + this.password + " firstName: " + this.firstName + " lastName: " + this.lastName + " email: " + this.email;
     }
 
 }

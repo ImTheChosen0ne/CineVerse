@@ -46,7 +46,6 @@ public class BackendApplication {
 
 			Movie newMovie = new Movie(1, "Avatar", "none", "en", "test movie", movieGenres, "disney", LocalDate.of(2009,10,12), 162);
 			Movie movie = movieRepository.save(newMovie);
-			System.out.println("Saved Movie: " + movie);
 
 			Set<Movie> likes = new HashSet<>();
 			likes.add(movie);

@@ -1,10 +1,7 @@
 package com.backend.services;
 
 import com.backend.exceptions.DataException;
-import com.backend.models.Movie;
-import com.backend.models.User;
-import com.backend.models.LoginResponseDTO;
-import com.backend.models.Role;
+import com.backend.models.*;
 import com.backend.repository.MovieRepository;
 import com.backend.repository.RoleRepository;
 import com.backend.repository.UserRepository;
@@ -41,23 +38,51 @@ public class AuthenticationService {
         this.movieRepository = movieRepository;
     }
 
-    public User registerUser(String username, String password, String firstName, String lastName, String email) {
-        validateRegistrationInput(username, password, firstName, lastName, email);
+//    public User registerUser(String username, String password, String firstName, String lastName, String email) {
+//        validateRegistrationInput(username, password, firstName, lastName, email);
+//
+//        String encodedPassword = passwordEncoder.encode(password);
+//        Role userRole = roleRepository.findByAuthority("USER").get();
+//
+//        Set<Role> authorities = new HashSet<>();
+//        authorities.add(userRole);
+//
+//        Movie movie = movieRepository.findByTitle("Avatar").get();
+//        Set<Movie> likedMovies = new HashSet<>();
+//
+//        Movie watchMovie = movieRepository.findByTitle("Avatar").get();
+//        Set<Movie> watchLaterMovies = new HashSet<>();
+//
+//
+//        return userRepository.save(new User(0, username, encodedPassword, firstName, lastName, email, authorities, likedMovies, watchLaterMovies));
+//    }
 
-        String encodedPassword = passwordEncoder.encode(password);
+    public User registerUser(RegistrationDTO body) {
+//        validateRegistrationInput(body);
+
+        User user = new User();
+        user.setUsername(body.getUsername());
+        user.setPassword(passwordEncoder.encode(body.getPassword()));
+        user.setFirstName(body.getFirstName());
+        user.setLastName(body.getLastName());
+        user.setEmail(body.getEmail());
+
+        Set<Movie> likedMovies = new HashSet<>();
+        user.setLikedMovies(likedMovies);
+
+        Set<Movie> watchLaterMovies = new HashSet<>();
+        user.setWatchLaterMovies(watchLaterMovies);
+
         Role userRole = roleRepository.findByAuthority("USER").get();
-
         Set<Role> authorities = new HashSet<>();
         authorities.add(userRole);
+        user.setAuthorities(authorities);
 
-        Movie movie = movieRepository.findByTitle("Avatar").get();
-        Set<Movie> likedMovies = new HashSet<>();
-
-        Movie watchMovie = movieRepository.findByTitle("Avatar").get();
-        Set<Movie> watchLaterMovies = new HashSet<>();
-
-
-        return userRepository.save(new User(0, username, encodedPassword, firstName, lastName, email, authorities, likedMovies, watchLaterMovies));
+        try {
+        return userRepository.save(user);
+        } catch(Exception e) {
+            throw new DataException("Email already in use.");
+        }
     }
 
     public LoginResponseDTO loginUser(String username, String password) {
@@ -76,11 +101,11 @@ public class AuthenticationService {
         }
     }
 
-    private void validateRegistrationInput(String username, String password, String firstName, String lastName, String email) {
-        if (username.isEmpty() || password.isEmpty() || firstName.isEmpty()
-                || lastName.isEmpty() || email.isEmpty()) {
-            throw new DataException("All registration fields must be provided");
-        }
-    }
+//    private void validateRegistrationInput(RegistrationDTO user) {
+//        if (user.getUsername().isEmpty() || user.getPassword().isEmpty() || user.getFirstName().isEmpty()
+//                || user.getLastName().isEmpty() || user.getEmail().isEmpty()) {
+//            throw new DataException("All registration fields must be provided");
+//        }
+//    }
 
 }

@@ -1,6 +1,6 @@
 package com.backend.configuration;
 
-import com.backend.exceptions.CustomAuthenticationEntryPoint;
+//import com.backend.exceptions.CustomAuthenticationEntryPoint;
 import com.backend.utils.RSAKeyProperties;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -75,9 +75,9 @@ public class SecurityConfiguration {
                     )
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling(configurer -> configurer
-                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-                )
+//                .exceptionHandling(configurer -> configurer
+//                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+//                )
                 .build();
     }
 
@@ -106,7 +106,7 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://localhost:5000"));
+        configuration.setAllowedOrigins(Arrays.asList("https://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST"));
         configuration.setAllowedHeaders(List.of("Authorization"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

@@ -1,6 +1,7 @@
 package com.backend.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,7 +19,9 @@ public class User implements UserDetails {
     private Integer userId;
     @Column(unique = true)
     private String username;
+
     private String password;
+    @Column(unique = true)
     private String email;
     private String firstName;
     private String lastName;

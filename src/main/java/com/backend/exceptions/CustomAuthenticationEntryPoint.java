@@ -12,29 +12,29 @@ import org.springframework.security.core.AuthenticationException;
 import java.io.IOException;
 
 
-@Component("customAuthenticationEntryPoint")
-public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException)
-            throws IOException, ServletException {
-
-        String errorMessage;
-
-        if (authenticationException instanceof BadCredentialsException) {
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            errorMessage = "Invalid username or password";
-        } else if (authenticationException instanceof InsufficientAuthenticationException) {
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            errorMessage = "All registration fields must be provided";
-        } else {
-            errorMessage = authenticationException.getMessage();
-        }
-
-        response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getOutputStream().println("{ \"message\": \"" + errorMessage + "\" }");
-    }
-}
+//@Component("customAuthenticationEntryPoint")
+//public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
+//
+//    @Override
+//    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException)
+//            throws IOException, ServletException {
+//
+//        String errorMessage;
+//
+//        if (authenticationException instanceof BadCredentialsException) {
+//            response.setContentType("application/json");
+//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//            errorMessage = "Invalid username or password";
+//        } else if (authenticationException instanceof InsufficientAuthenticationException) {
+//            response.setContentType("application/json");
+//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//            errorMessage = "All registration fields must be provided";
+//        } else {
+//            errorMessage = authenticationException.getMessage();
+//        }
+//
+//        response.setContentType("application/json");
+//        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//        response.getOutputStream().println("{ \"message\": \"" + errorMessage + "\" }");
+//    }
+//}

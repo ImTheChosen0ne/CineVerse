@@ -18,7 +18,9 @@ public class Movie {
     private String poster;
     private String language;
     private String description;
-    private Set<String> genres;
+    @ElementCollection(targetClass = Genre.class)
+    @Enumerated(EnumType.STRING)
+    private Set<Genre> genres;
     private String company;
     private LocalDate releaseDate;
     private Integer runtime;
@@ -35,7 +37,7 @@ public class Movie {
     public Movie() {
 //        this.ratings = new HashSet<Integer>();
     }
-    public Movie(Integer movieId, String title, String poster, String language, String description, Set<String> genres, String company, LocalDate releaseDate, Integer runtime) {
+    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, String company, LocalDate releaseDate, Integer runtime) {
         this.movieId = movieId;
         this.title = title;
         this.poster = poster;
@@ -88,11 +90,11 @@ public class Movie {
         this.description = description;
     }
 
-    public Set<String> getGenres() {
+    public Set<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(Set<String> genres) {
+    public void setGenres(Set<Genre> genres) {
         this.genres = genres;
     }
 

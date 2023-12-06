@@ -8,6 +8,7 @@ import com.backend.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,11 +18,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-@Transactional
 public class AuthenticationService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final MovieRepository movieRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -32,10 +31,9 @@ public class AuthenticationService {
     @Autowired
     private TokenService tokenService;
 
-    public AuthenticationService(UserRepository userRepository, RoleRepository roleRepository, MovieRepository movieRepository) {
+    public AuthenticationService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.movieRepository = movieRepository;
     }
 
 //    public User registerUser(String username, String password, String firstName, String lastName, String email) {
@@ -58,7 +56,6 @@ public class AuthenticationService {
 //    }
 
     public User registerUser(RegistrationDTO body) {
-//        validateRegistrationInput(body);
 
         User user = new User();
         user.setUsername(body.getUsername());
@@ -85,27 +82,18 @@ public class AuthenticationService {
         }
     }
 
-    public LoginResponseDTO loginUser(String username, String password) {
-
+    public LoginResponseDTO loginUser(LoginDTO body) {
         try {
             Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
+                    new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword())
             );
 
             String token = tokenService.generateJwt(auth);
 
-            return new LoginResponseDTO(userRepository.findByUsername(username).get(), token);
+            return new LoginResponseDTO(userRepository.findByUsername(body.getUsername()).get(), token);
 
-        } catch (DataException e) {
-            throw new DataException("Invalid credentials: " + e.getMessage(), e);
+        } catch (BadCredentialsException e) {
+            throw new DataException("Invalid credentials");
         }
     }
-
-//    private void validateRegistrationInput(RegistrationDTO user) {
-//        if (user.getUsername().isEmpty() || user.getPassword().isEmpty() || user.getFirstName().isEmpty()
-//                || user.getLastName().isEmpty() || user.getEmail().isEmpty()) {
-//            throw new DataException("All registration fields must be provided");
-//        }
-//    }
-
 }

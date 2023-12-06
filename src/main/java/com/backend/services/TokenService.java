@@ -1,12 +1,10 @@
 package com.backend.services;
 
-import org.springframework.boot.autoconfigure.pulsar.PulsarProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.jwt.JwtClaimsSet;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -18,6 +16,7 @@ public class TokenService {
     private JwtEncoder jwtEncoder;
     private JwtDecoder jwtDecoder;
 
+    @Autowired
     public TokenService(JwtEncoder jwtEncoder, JwtDecoder jwtDecoder) {
         this.jwtEncoder = jwtEncoder;
         this.jwtDecoder = jwtDecoder;
@@ -39,5 +38,16 @@ public class TokenService {
                 .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+    }
+
+    public String getUserNameFromToken(String token) {
+        System.out.println("hi");
+        if (!token.substring(0,6).equals("Bearer")) throw new InvalidBearerTokenException("Token is not a Bearer token");
+
+        String strippedToken = token.substring(7);
+        Jwt decoded = jwtDecoder.decode(strippedToken);
+
+        String username = decoded.getSubject();
+        return username;
     }
 }

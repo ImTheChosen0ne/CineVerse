@@ -1,5 +1,6 @@
 package com.backend;
 
+import com.backend.models.Genre;
 import com.backend.models.Movie;
 import com.backend.models.User;
 import com.backend.models.Role;
@@ -36,10 +37,10 @@ public class BackendApplication {
 			Set<Role> roles = new HashSet<>();
 			roles.add(adminRole);
 
-			Set<String> movieGenres = new HashSet<>();
-			movieGenres.add("Action");
-			movieGenres.add("Adventure");
-			movieGenres.add("Sci-Fi");
+			Set<Genre> movieGenres = new HashSet<>();
+			movieGenres.add(Genre.ACTION);
+			movieGenres.add(Genre.ADVENTURE);
+			movieGenres.add(Genre.SCI_FI);
 
 //			Set<Integer> ratings = new HashSet<>();
 //			ratings.add(5);

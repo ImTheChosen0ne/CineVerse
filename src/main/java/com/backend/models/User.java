@@ -1,7 +1,7 @@
 package com.backend.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,23 +19,14 @@ public class User implements UserDetails {
     private Integer userId;
     @Column(unique = true)
     private String username;
-
+    @JsonIgnore
     private String password;
     @Column(unique = true)
     private String email;
     private String firstName;
     private String lastName;
 
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(
-            name="user_role_junction",
-            joinColumns = {@JoinColumn(name="user_id")},
-            inverseJoinColumns = {@JoinColumn(name="role_id")}
-    )
-
-    private Set<Role> authorities;
-
-    @ManyToMany(fetch=FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
             name="user_movie_likes",
             joinColumns = {@JoinColumn(name="user_id")},
@@ -44,7 +35,7 @@ public class User implements UserDetails {
 
     private Set<Movie> likedMovies;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
             name="user_movie_watch_later",
             joinColumns = {@JoinColumn(name="user_id")},
@@ -52,6 +43,14 @@ public class User implements UserDetails {
     )
 
     private Set<Movie> watchLaterMovies;
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name="user_role_junction",
+            joinColumns = {@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="role_id")}
+    )
+
+    private Set<Role> authorities;
 
     public User() {
         this.authorities = new HashSet<Role>();
@@ -127,6 +126,21 @@ public class User implements UserDetails {
 
     public void setWatchLaterMovies(Set<Movie> watchLaterMovies) {
         this.watchLaterMovies = watchLaterMovies;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", likedMovies=" + likedMovies +
+                ", watchLaterMovies=" + watchLaterMovies +
+                ", authorities=" + authorities +
+                '}';
     }
 
     @Override

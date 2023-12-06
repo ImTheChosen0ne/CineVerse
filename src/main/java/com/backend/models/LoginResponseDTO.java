@@ -1,6 +1,9 @@
 package com.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class LoginResponseDTO {
+//    @JsonIgnore
     private User user;
     private String jwt;
 

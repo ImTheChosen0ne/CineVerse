@@ -16,8 +16,7 @@ public class RegistrationDTO {
     @NotBlank(message = "Last Name is required.")
     private String lastName;
 
-    public RegistrationDTO() {
-    }
+    public RegistrationDTO() {}
     public RegistrationDTO(String username, String password, String firstName, String lastName, String email) {
         this.username = username;
         this.password = password;

@@ -1,7 +1,10 @@
 package com.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class LoginDTO {
     private String username;
+
     private String password;
 
     public LoginDTO() {

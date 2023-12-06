@@ -37,6 +37,7 @@ public class Movie {
     public Movie() {
 //        this.ratings = new HashSet<Integer>();
     }
+
     public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, String company, LocalDate releaseDate, Integer runtime) {
         this.movieId = movieId;
         this.title = title;

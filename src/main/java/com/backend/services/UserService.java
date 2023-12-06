@@ -62,12 +62,6 @@ public class UserService implements UserDetailsService {
         return loggedInUser.getWatchLaterMovies();
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + username));
-    }
-
-
     public Set<Movie> getLikedMoviesList(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + username));
         return user.getLikedMovies();
@@ -76,5 +70,10 @@ public class UserService implements UserDetailsService {
     public Set<Movie> getWatchMoviesList(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + username));
         return user.getWatchLaterMovies();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + username));
     }
 }

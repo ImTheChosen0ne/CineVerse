@@ -1,5 +1,6 @@
-package com.backend.models;
+package com.backend.dto;
 
+import com.backend.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class LoginResponseDTO {

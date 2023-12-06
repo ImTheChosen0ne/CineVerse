@@ -1,10 +1,8 @@
 package com.backend.controller;
 
 import com.backend.exceptions.DataException;
-import com.backend.models.LoginDTO;
 import com.backend.models.Movie;
 import com.backend.models.User;
-import com.backend.repository.UserRepository;
 import com.backend.services.TokenService;
 import com.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +10,16 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedHashMap;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-
     private final UserService userService;
     private final TokenService tokenService;
 
-    private User users;
     @Autowired
     public UserController(UserService userService, TokenService tokenService) {
         this.userService = userService;
@@ -41,7 +34,6 @@ public class UserController {
     @GetMapping("/")
     public UserDetails getUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         String username = tokenService.getUserNameFromToken(token);
-
         return userService.loadUserByUsername(username);
     }
 
@@ -53,14 +45,12 @@ public class UserController {
     @PutMapping("/like")
     public Set<Movie> likedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody Movie movie) {
         String loggedInUser = tokenService.getUserNameFromToken(token);
-
         return userService.likedMovie(loggedInUser, movie);
     }
 
-    @PutMapping("/watch")
+    @PutMapping("/watch_later")
     public Set<Movie> watchMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody Movie movie) {
         String loggedInUser = tokenService.getUserNameFromToken(token);
-
         return userService.watchMovie(loggedInUser, movie);
     }
 
@@ -69,7 +59,7 @@ public class UserController {
         return userService.getLikedMoviesList(username);
     }
 
-    @GetMapping("/movies/watchlater/{username}")
+    @GetMapping("/movies/watch_later/{username}")
     public Set<Movie> getWatchLaterMovies(@PathVariable("username") String username) {
         return userService.getWatchMoviesList(username);
     }

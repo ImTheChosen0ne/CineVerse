@@ -39,9 +39,7 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-
     private final RSAKeyProperties keys;
-
     public SecurityConfiguration(RSAKeyProperties keys) {
         this.keys = keys;
     }

@@ -1,11 +1,12 @@
 package com.backend.services;
 
+import com.backend.dto.LoginDTO;
+import com.backend.dto.LoginResponseDTO;
+import com.backend.dto.RegistrationDTO;
 import com.backend.exceptions.DataException;
 import com.backend.models.*;
-import com.backend.repository.MovieRepository;
 import com.backend.repository.RoleRepository;
 import com.backend.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,13 +22,10 @@ import java.util.Set;
 public class AuthenticationService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private TokenService tokenService;
 
@@ -35,25 +33,6 @@ public class AuthenticationService {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
-
-//    public User registerUser(String username, String password, String firstName, String lastName, String email) {
-//        validateRegistrationInput(username, password, firstName, lastName, email);
-//
-//        String encodedPassword = passwordEncoder.encode(password);
-//        Role userRole = roleRepository.findByAuthority("USER").get();
-//
-//        Set<Role> authorities = new HashSet<>();
-//        authorities.add(userRole);
-//
-//        Movie movie = movieRepository.findByTitle("Avatar").get();
-//        Set<Movie> likedMovies = new HashSet<>();
-//
-//        Movie watchMovie = movieRepository.findByTitle("Avatar").get();
-//        Set<Movie> watchLaterMovies = new HashSet<>();
-//
-//
-//        return userRepository.save(new User(0, username, encodedPassword, firstName, lastName, email, authorities, likedMovies, watchLaterMovies));
-//    }
 
     public User registerUser(RegistrationDTO body) {
 

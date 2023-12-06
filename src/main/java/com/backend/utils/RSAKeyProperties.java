@@ -9,7 +9,6 @@ import java.security.interfaces.RSAPublicKey;
 
 @Component
 public class RSAKeyProperties {
-
     private RSAPublicKey publicKey;
     private RSAPrivateKey privateKey;
 

@@ -1,18 +1,15 @@
 package com.backend.controller;
 
 import com.backend.exceptions.DataException;
-import com.backend.models.LoginDTO;
+import com.backend.dto.LoginDTO;
 import com.backend.models.User;
-import com.backend.models.LoginResponseDTO;
-import com.backend.models.RegistrationDTO;
+import com.backend.dto.LoginResponseDTO;
+import com.backend.dto.RegistrationDTO;
 import com.backend.services.AuthenticationService;
-import com.backend.services.TokenService;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 

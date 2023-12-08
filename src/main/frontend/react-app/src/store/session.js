@@ -14,9 +14,17 @@ const removeUser = () => ({
 const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
+	const token = localStorage.getItem("token");
+
+	if (!token) {
+		dispatch(removeUser());
+		return;
+	}
+
 	const response = await fetch("/api/auth/", {
 		headers: {
-			"Content-Type": "application/json",
+			// "Content-Type": "application/json",
+			"Authorization": `Bearer ${token}`,
 		},
 	});
 	if (response.ok) {
@@ -43,6 +51,7 @@ export const login = (username, password) => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
+		localStorage.setItem("token", data.jwt);
 		dispatch(setUser(data));
 		return null;
 	} else if (response.status < 500) {
@@ -63,6 +72,7 @@ export const logout = () => async (dispatch) => {
 	});
 
 	if (response.ok) {
+		localStorage.removeItem("token");
 		dispatch(removeUser());
 	}
 };
@@ -84,6 +94,7 @@ export const signUp = (username, password, email, firstName, lastName) => async 
 
 	if (response.ok) {
 		const data = await response.json();
+		localStorage.setItem("token", data.jwt);
 		dispatch(setUser(data));
 		return null;
 	} else if (response.status < 500) {

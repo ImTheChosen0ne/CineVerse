@@ -33,6 +33,16 @@ public class AuthenticationController {
         return new ResponseEntity<String>(dataException.getMessage(), HttpStatus.CONFLICT);
     }
 
+//    @ExceptionHandler({DataException.class})
+//    public ResponseEntity<Map<String, String>> handleException(DataException dataException) {
+//        Map<String, String> errorResponse = new HashMap<>();
+//        errorResponse.put("error", dataException.getMessage());
+//        return ResponseEntity
+//                .status(HttpStatus.FORBIDDEN)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .body(errorResponse);
+//    }
+
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex) {
         String errorMessage = ex.getBindingResult().getFieldError().getDefaultMessage();

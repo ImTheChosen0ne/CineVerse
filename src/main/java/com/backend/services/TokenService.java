@@ -41,7 +41,6 @@ public class TokenService {
     }
 
     public String getUserNameFromToken(String token) {
-        System.out.println("hi");
         if (!token.substring(0,6).equals("Bearer")) throw new InvalidBearerTokenException("Token is not a Bearer token");
 
         String strippedToken = token.substring(7);

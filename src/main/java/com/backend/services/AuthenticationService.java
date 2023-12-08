@@ -1,7 +1,7 @@
 package com.backend.services;
 
 import com.backend.dto.LoginDTO;
-import com.backend.dto.LoginResponseDTO;
+import com.backend.dto.ResponseDTO;
 import com.backend.dto.RegistrationDTO;
 import com.backend.exceptions.DataException;
 import com.backend.models.*;
@@ -12,6 +12,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,7 @@ public class AuthenticationService {
         this.roleRepository = roleRepository;
     }
 
-    public User registerUser(RegistrationDTO body) {
+    public ResponseDTO registerUser(RegistrationDTO body) {
 
         User user = new User();
         user.setUsername(body.getUsername());
@@ -55,13 +57,18 @@ public class AuthenticationService {
         user.setAuthorities(authorities);
 
         try {
-        return userRepository.save(user);
+            User newUser = userRepository.save(user);
+
+            Authentication auth = new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword());
+            String token = tokenService.generateJwt(auth);
+
+            return new ResponseDTO(newUser, token);
         } catch(Exception e) {
             throw new DataException("Email already in use.");
         }
     }
 
-    public LoginResponseDTO loginUser(LoginDTO body) {
+    public ResponseDTO loginUser(LoginDTO body) {
         try {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword())
@@ -69,10 +76,14 @@ public class AuthenticationService {
 
             String token = tokenService.generateJwt(auth);
 
-            return new LoginResponseDTO(userRepository.findByUsername(body.getUsername()).get(), token);
+            return new ResponseDTO(userRepository.findByUsername(body.getUsername()).get(), token);
 
         } catch (BadCredentialsException e) {
             throw new DataException("Invalid credentials");
         }
+    }
+
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + username));
     }
 }

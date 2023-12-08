@@ -17,7 +17,6 @@ export const authenticate = () => async (dispatch) => {
 	const token = localStorage.getItem("token");
 
 	if (!token) {
-		dispatch(removeUser());
 		return;
 	}
 
@@ -52,7 +51,7 @@ export const login = (username, password) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		localStorage.setItem("token", data.jwt);
-		dispatch(setUser(data));
+		dispatch(setUser(data.user));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -95,7 +94,7 @@ export const signUp = (username, password, email, firstName, lastName) => async 
 	if (response.ok) {
 		const data = await response.json();
 		localStorage.setItem("token", data.jwt);
-		dispatch(setUser(data));
+		dispatch(setUser(data.user));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();

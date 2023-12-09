@@ -1,4 +1,6 @@
 // constants
+import {getMovies} from "./movies";
+
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 
@@ -26,6 +28,7 @@ export const authenticate = () => async (dispatch) => {
 			"Authorization": `Bearer ${token}`,
 		},
 	});
+
 	if (response.ok) {
 		const data = await response.json();
 		if (data.errors) {

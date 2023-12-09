@@ -68,12 +68,11 @@ public class SecurityConfiguration {
                     auth.requestMatchers("/api/user/**").hasAnyRole("ADMIN", "USER");
                     auth.anyRequest().authenticated();
                 })
-//                .oauth2ResourceServer(configurer -> configurer
-//                    .jwt(jwtConfigurer -> jwtConfigurer
-//                        .jwtAuthenticationConverter(jwtAuthenticationConverter())
-//                    )
-//                )
-                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwtConfigurer -> jwtConfigurer
+                        .jwtAuthenticationConverter(jwtAuthenticationConverter())
+                    )
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
     }
@@ -104,7 +103,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("https://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
         configuration.setAllowedHeaders(List.of("Authorization"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

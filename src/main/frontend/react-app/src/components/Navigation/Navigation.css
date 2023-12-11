@@ -5,3 +5,43 @@
 .hidden {
   display: none;
 }
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: inherit;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  margin: auto;
+  list-style-type: none;
+  border-bottom: none;
+  max-width: calc(83.33333333333334% - 6rem);
+  z-index: 1;
+}
+
+.navigation a {
+  text-decoration: none;
+}
+
+.sign-in {
+  align-items: center;
+  line-height: 1;
+  border: 0;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: .8rem;
+  font-weight: 600;
+
+  width: 77px;
+  height: 32px;
+  background: rgb(229, 9, 20);
+  color: rgb(255, 255, 255);
+}
+
+.sign-in:hover {
+  background: rgb(182, 19, 25);
+}

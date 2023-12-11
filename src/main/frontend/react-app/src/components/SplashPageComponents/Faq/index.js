@@ -14,7 +14,7 @@ function Faq() {
                         <h3>
                             <button>
                                         <span>
-                                            What is Netflix?
+                                            What is CineVerse?
                                         </span>
                             </button>
                         </h3>
@@ -23,7 +23,7 @@ function Faq() {
                         <h3>
                             <button>
                                         <span>
-                                            How much does NetFlix cost?
+                                            How much does CineVerse cost?
                                         </span>
                             </button>
                         </h3>
@@ -50,7 +50,7 @@ function Faq() {
                         <h3>
                             <button>
                                         <span>
-                                            What can I watch on Netflix?
+                                            What can I watch on CineVerse?
                                         </span>
                             </button>
                         </h3>
@@ -59,7 +59,7 @@ function Faq() {
                         <h3>
                             <button>
                                         <span>
-                                            Is Netflix good for kids?
+                                            Is CineVerse good for kids?
                                         </span>
                             </button>
                         </h3>

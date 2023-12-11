@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import {Redirect, useLocation} from "react-router-dom";
 import { signUp } from "../../store/session";
 import './SignupForm.css';
 
@@ -14,6 +14,9 @@ function SignupFormPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
+  const location = useLocation();
+  const signUpEmail = location.state.signUpEmail;
 
   if (sessionUser) return <Redirect to="/profile" />;
 
@@ -40,7 +43,7 @@ function SignupFormPage() {
           Email
           <input
             type="text"
-            value={email}
+            value={signUpEmail}
             onChange={(e) => setEmail(e.target.value)}
             required
           />

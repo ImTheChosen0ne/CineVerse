@@ -1,0 +1,82 @@
+.splashPage {
+    background-color: black;
+    color: white;
+}
+
+.splash-main {
+    min-height: 43.75rem;
+    padding: 9.875rem 0 4rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    color: rgb(255,255,255);
+    text-align: center;
+    height: 100%;
+    transform: translateY(-12%);
+
+}
+
+.splash-main-img {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    color: rgb(255,255,255);
+    text-align: center;
+    overflow: hidden;
+}
+
+.splash-main-img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transform: scale(1.25) translateY(-10%);
+    border: 0;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
+
+.gradient {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.8) 100%);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.splash-main-text {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    max-width: calc( 83.33333333333334% - 6rem );
+    z-index: 1;
+    width: 100%;
+    flex-basis: 50%;
+    padding: 0;
+}
+
+.splash-main-text h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 0;
+    text-align: center;
+}
+
+.splash-main-text p {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 1rem 0 0;
+    text-align: center;
+    color: rgb(255,255,255);
+}
+
+.signup-container {
+    display: flex;
+    margin: 1.5rem 0 0;
+    text-align: center;
+    justify-content: center;
+    color: rgb(255,255,255);
+}

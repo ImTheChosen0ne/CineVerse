@@ -16,7 +16,7 @@ function SignupFormPage() {
   const [errors, setErrors] = useState([]);
 
   const location = useLocation();
-  const signUpEmail = location.state.signUpEmail;
+  const signUpEmail = location.state?.signUpEmail || email;
 
   if (sessionUser) return <Redirect to="/profile" />;
 

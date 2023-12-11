@@ -3,8 +3,6 @@ import React from "react";
 import './Faq.css';
 
 function Faq() {
-
-
     return (
         <>
             <h2>Frequently Asked Questions</h2>

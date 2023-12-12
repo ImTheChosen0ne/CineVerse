@@ -1,5 +1,5 @@
 # Stage 1: Build React frontend
-FROM node:alpine AS frontend_builder
+FROM node:20.9.0-alpine AS frontend_builder
 
 WORKDIR /Java-web-app/src/main/frontend/react-app
 

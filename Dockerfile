@@ -1,7 +1,7 @@
 # Stage 1: Build React frontend
 FROM node:alpine AS frontend_builder
 
-WORKDIR /src/main/frontend/react-app
+WORKDIR /Java-web-app/src/main/frontend/react-app
 
 COPY package.json .
 

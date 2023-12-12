@@ -18,27 +18,55 @@ const initialState = { user: null };
 export const authenticate = () => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	console.log("Token:", token);
-	if (!token) {
-		console.log("No token found, returning.");
-		return;
-	}
 
-	const response = await fetch("/api/auth/", {
-		headers: {
-			"Content-Type": "application/json",
-			// "Authorization": `Bearer ${token}`,
-		},
-	});
-	console.log("Response:", response);
-	if (response.ok) {
-		const data = await response.json();
-		if (data.errors) {
-			console.log("Error fetching user data:", data.errors);
-			return;
+	if (token) {
+		// Include the Authorization header only if the token exists
+		const response = await fetch("/api/auth/", {
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${token}`,
+			},
+		});
+
+		console.log("Response:", response);
+
+		if (response.ok) {
+			const data = await response.json();
+			if (data.errors) {
+				console.log("Error fetching user data:", data.errors);
+				return;
+			}
+
+			dispatch(setUser(data));
 		}
-
-		dispatch(setUser(data));
+	} else {
+		// Handle the case where there is no token (user is not authenticated)
+		console.log("No token found, user not authenticated.");
+		dispatch(removeUser());
 	}
+
+
+	// if (!token) {
+	// 	console.log("No token found, returning.");
+	// 	return;
+	// }
+	//
+	// const response = await fetch("/api/auth/", {
+	// 	headers: {
+	// 		"Content-Type": "application/json",
+	// 		// "Authorization": `Bearer ${token}`,
+	// 	},
+	// });
+	// console.log("Response:", response);
+	// if (response.ok) {
+	// 	const data = await response.json();
+	// 	if (data.errors) {
+	// 		console.log("Error fetching user data:", data.errors);
+	// 		return;
+	// 	}
+	//
+	// 	dispatch(setUser(data));
+	// }
 
 };
 

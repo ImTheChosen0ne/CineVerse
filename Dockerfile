@@ -1,7 +1,7 @@
 # Stage 1: Build React frontend
 FROM node:20.9.0-alpine AS frontend_builder
 
-WORKDIR ./src/main/frontend/react-app
+WORKDIR /app
 
 COPY ./src/main/frontend/react-app/package.json .
 

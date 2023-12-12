@@ -15,31 +15,32 @@ const removeUser = () => ({
 
 const initialState = { user: null };
 
-// export const authenticate = () => async (dispatch) => {
-// 	const token = localStorage.getItem("token");
-// 	console.log("Token:", token);
-// 	if (!token) {
-// 		console.log("No token found, returning.");
-// 		return;
-// 	}
-//
-// 	const response = await fetch("/api/auth/", {
-// 		headers: {
-// 			// "Content-Type": "application/json",
-// 			"Authorization": `Bearer ${token}`,
-// 		},
-// 	});
-// 	console.log("Response:", response);
-// 	if (response.ok) {
-// 		const data = await response.json();
-// 		if (data.errors) {
-// 			console.log("Error fetching user data:", data.errors);
-// 			return;
-// 		}
-//
-// 		dispatch(setUser(data));
-// 	}
-// };
+export const authenticate = () => async (dispatch) => {
+	const token = localStorage.getItem("token");
+	console.log("Token:", token);
+	if (!token) {
+		console.log("No token found, returning.");
+		return;
+	}
+
+	const response = await fetch("/api/auth/", {
+		headers: {
+			// "Content-Type": "application/json",
+			"Authorization": `Bearer ${token}`,
+		},
+	});
+	console.log("Response:", response);
+	if (response.ok) {
+		const data = await response.json();
+		if (data.errors) {
+			console.log("Error fetching user data:", data.errors);
+			return;
+		}
+
+		dispatch(setUser(data));
+	}
+
+};
 
 export const login = (username, password) => async (dispatch) => {
 	const response = await fetch("/api/auth/login", {

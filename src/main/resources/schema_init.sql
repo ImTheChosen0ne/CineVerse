@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255) UNIQUE,
     first_name VARCHAR(255),
     last_name VARCHAR(255)
-    );
+);
 
 -- Create the movies table
 CREATE TABLE IF NOT EXISTS movies (

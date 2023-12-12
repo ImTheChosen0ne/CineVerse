@@ -23,3 +23,5 @@ spring:
 #    sql:
 #        init:
 #            schema-locations: classpath:schema_init.sql
+server:
+    address: 0.0.0.0

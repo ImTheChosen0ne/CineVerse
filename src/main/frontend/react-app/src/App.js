@@ -26,16 +26,16 @@ function App() {
           <Route exact path="/" >
             <SplashPage />
           </Route>
-          <ProtectedRoute path="/profile" >
+          <ProtectedRoute exact path="/profile" >
             <SelectProfilePage />
           </ProtectedRoute>
-          <ProtectedRoute path="/browse" >
+          <ProtectedRoute exact path="/browse" >
             <BrowsePage />
           </ProtectedRoute>
-          <Route path="/login" >
+          <Route exact path="/login" >
             <LoginFormPage />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignupFormPage />
           </Route>
         </Switch>

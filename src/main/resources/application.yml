@@ -20,5 +20,5 @@ spring:
 
 #        database-platform: org.hibernate.dialect.MySQLDialect
         database-platform: org.hibernate.dialect.PostgreSQLDialect
-    schema:
-        - classpath:schema_init.sql
+schema:
+    - classpath:schema_init.sql

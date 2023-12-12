@@ -49,11 +49,25 @@ public class AuthenticationController {
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
-//    @RequestHeader(HttpHeaders.AUTHORIZATION)
+//    @GetMapping("/")
+//    public UserDetails getUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+//        String username = tokenService.getUserNameFromToken(token);
+//        return authenticationService.loadUserByUsername(username);
+//    }
+
     @GetMapping("/")
-    public UserDetails getUser(String token) {
+    public ResponseEntity<Object> getUser(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String token) {
+        if (token == null || !token.startsWith("Bearer ")) {
+            // No Authorization header or it doesn't start with "Bearer"
+            // Handle the case where no token is present, maybe return some public information
+            return ResponseEntity.ok("Welcome to the public route!");
+        }
+
         String username = tokenService.getUserNameFromToken(token);
-        return authenticationService.loadUserByUsername(username);
+        UserDetails userDetails = authenticationService.loadUserByUsername(username);
+
+        // Return user details or any other data for authenticated users
+        return ResponseEntity.ok(userDetails);
     }
 
     @PostMapping("/register")

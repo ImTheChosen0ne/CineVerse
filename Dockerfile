@@ -7,7 +7,7 @@ COPY ./src/main/frontend/react-app/package.json .
 
 RUN npm install
 
-COPY . .
+COPY /Java-web-app/src/main/frontend/react-app .
 
 RUN npm run build
 

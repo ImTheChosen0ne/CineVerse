@@ -17,8 +17,9 @@ const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
 	const token = localStorage.getItem("token");
-
+	console.log("Token:", token);
 	if (!token) {
+		console.log("No token found, returning.");
 		return;
 	}
 
@@ -28,7 +29,7 @@ export const authenticate = () => async (dispatch) => {
 			"Authorization": `Bearer ${token}`,
 		},
 	});
-
+	console.log("Response:", response);
 	if (response.ok) {
 		const data = await response.json();
 		if (data.errors) {

@@ -14,14 +14,14 @@ import BrowsePage from "./pages/BrowsePage";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    dispatch(authenticate()).then(() => setIsLoaded(true));
-  }, [dispatch]);
-
+  // useEffect(() => {
+  //   dispatch(authenticate()).then(() => setIsLoaded(true));
+  // }, [dispatch]);
+  // isLoaded={isLoaded}
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
+      <Navigation />
+      {/*{isLoaded && (*/}
         <Switch>
           <Route exact path="/" >
             <SplashPage />
@@ -39,7 +39,7 @@ function App() {
             <SignupFormPage />
           </Route>
         </Switch>
-      )}
+      {/*)}*/}
     </>
   );
 }

@@ -3,7 +3,7 @@ FROM node:alpine AS frontend_builder
 
 WORKDIR /Java-web-app/src/main/frontend/react-app
 
-COPY package.json .
+COPY ./src/main/frontend/react-app/package.json .
 
 RUN npm install
 

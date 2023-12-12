@@ -1,5 +1,11 @@
 CREATE SCHEMA IF NOT EXISTS cineverse_schema;
 
+-- Create the roles table
+CREATE TABLE IF NOT EXISTS roles (
+    role_id INTEGER PRIMARY KEY,
+    authority VARCHAR(255) UNIQUE
+);
+
 -- Create the users table
 CREATE TABLE IF NOT EXISTS users (
     user_id INTEGER PRIMARY KEY,
@@ -9,12 +15,6 @@ CREATE TABLE IF NOT EXISTS users (
     first_name VARCHAR(255),
     last_name VARCHAR(255)
     );
-
--- Create the roles table
-CREATE TABLE IF NOT EXISTS roles (
-    role_id INTEGER PRIMARY KEY,
-    authority VARCHAR(255) UNIQUE
-);
 
 -- Create the movies table
 CREATE TABLE IF NOT EXISTS movies (

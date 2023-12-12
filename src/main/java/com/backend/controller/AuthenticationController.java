@@ -49,8 +49,9 @@ public class AuthenticationController {
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
+//    @RequestHeader(HttpHeaders.AUTHORIZATION)
     @GetMapping("/")
-    public UserDetails getUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public UserDetails getUser(String token) {
         String username = tokenService.getUserNameFromToken(token);
         return authenticationService.loadUserByUsername(username);
     }

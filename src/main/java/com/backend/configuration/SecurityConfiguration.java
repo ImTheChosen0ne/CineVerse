@@ -105,10 +105,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-//        configuration.addAllowedOrigin("*");
-//        configuration.addAllowedHeader("*");
-//        configuration.addAllowedMethod("*");
-        configuration.setAllowedOrigins(Arrays.asList("https://localhost:3000", "https://cineverse-3smb.onrender.com"));
+        configuration.setAllowedOrigins(Arrays.asList("https://localhost:3000", "https://cineverse-3smb.onrender.com", "https://cineverse-ualn.onrender.com"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

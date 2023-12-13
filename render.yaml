@@ -10,13 +10,13 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: "production"
       - key: SPRING_DATASOURCE_URL
-        value: SPRING_DATASOURCE_URL
+        value: ${SPRING_DATASOURCE_URL}
       - key: SPRING_DATASOURCE_USERNAME
-        value: SPRING_DATASOURCE_USERNAME
+        value: ${SPRING_DATASOURCE_USERNAME}
       - key: SPRING_DATASOURCE_PASSWORD
-        value: SPRING_DATASOURCE_PASSWORD
+        value: ${SPRING_DATASOURCE_PASSWORD}
       - key: SCHEMA
-        value: SCHEMA
+        value: ${SCHEMA}
       - key: PORT
         value: 8080
 
@@ -29,7 +29,7 @@ services:
     dockerCommand: src/main/frontend/react-app.sh
     envVars:
       - key: REACT_APP_API_URL
-      - value: REACT_APP_API_URL
+        value: ${REACT_APP_API_URL}
       - key: PORT
         value: 3000
 
@@ -37,8 +37,8 @@ envVarGroups:
   - name: backend-env
     envVars:
       - key: DATABASE_URL
-        value: DATABASE_URL
+        value: ${DATABASE_URL}
       - key: SPRING_DATASOURCE_USERNAME
-        value: SPRING_DATASOURCE_USERNAME
+        value: ${SPRING_DATASOURCE_USERNAME}
       - key: SPRING_DATASOURCE_PASSWORD
-        value: SPRING_DATASOURCE_PASSWORD
+        value: ${SPRING_DATASOURCE_PASSWORD}

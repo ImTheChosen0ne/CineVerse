@@ -8,6 +8,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,6 +39,9 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfiguration {
     private final RSAKeyProperties keys;
+
+    @Value("${REACT_APP_BACKEND_URL}")
+    private String reactAppBackendUrl;
     public SecurityConfiguration(RSAKeyProperties keys) {
         this.keys = keys;
     }
@@ -104,7 +108,7 @@ public class SecurityConfiguration {
         configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
-//        configuration.setAllowedOrigins(Collections.singletonList("*"));
+        configuration.setAllowedOrigins(Arrays.asList("https://localhost:3000", reactAppBackendUrl));
 //        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
 //        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

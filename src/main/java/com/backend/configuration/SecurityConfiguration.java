@@ -40,8 +40,8 @@ import java.util.List;
 public class SecurityConfiguration {
     private final RSAKeyProperties keys;
 
-    @Value("${REACT_APP_BACKEND_URL}")
-    private String reactAppBackendUrl;
+//    @Value("${REACT_APP_FRONTEND_URL}")
+//    private String reactAppURL;
     public SecurityConfiguration(RSAKeyProperties keys) {
         this.keys = keys;
     }
@@ -106,11 +106,11 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
 //        configuration.addAllowedOrigin("*");
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowedOrigins(Arrays.asList("https://localhost:3000", reactAppBackendUrl));
-//        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
-//        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+//        configuration.addAllowedHeader("*");
+//        configuration.addAllowedMethod("*");
+        configuration.setAllowedOrigins(Arrays.asList("https://localhost:3000", "https://cineverse-3smb.onrender.com"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

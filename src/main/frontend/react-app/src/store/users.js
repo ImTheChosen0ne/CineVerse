@@ -1,3 +1,5 @@
+import config from "../config/config";
+
 // constants
 const GET_LIKED_MOVIES = "user/GET_LIKED_MOVIES";
 const GET_WATCH_LATER_MOVIES = "user/GET_WATCH_LATER_MOVIES";
@@ -15,7 +17,7 @@ const getWatchLaterMovie = (movies) => ({
 const initialState = { movies: null };
 
 export const getLikedMovies = (username) => async (dispatch) => {
-    const response = await fetch(`/api/user/liked/${username}`, {
+    const response = await fetch(`${config.apiUrl}/api/user/liked/${username}`, {
         method: "GET",
     });
 
@@ -34,7 +36,7 @@ export const getLikedMovies = (username) => async (dispatch) => {
 };
 
 export const getWatchLaterMovies = (username) => async (dispatch) => {
-    const response = await fetch(`/api/user/watch_later/${username}`, {
+    const response = await fetch(`${config.apiUrl}/api/user/watch_later/${username}`, {
         method: "GET",
     });
 
@@ -53,7 +55,7 @@ export const getWatchLaterMovies = (username) => async (dispatch) => {
 };
 
 // export const addLikedMovie = (postId, userId) => async (dispatch) => {
-//     const response = await fetch(`/api/user/${userId}/favorites/posts/${postId}`,{
+//     const response = await fetch(`${config.apiUrl}/api/user/${userId}/favorites/posts/${postId}`,{
 //         method:'PUT',
 //         headers:{ "Content-Type" : 'application/json' },
 //     })
@@ -65,7 +67,7 @@ export const getWatchLaterMovies = (username) => async (dispatch) => {
 // }
 //
 // export const deleteLikedMovie = (postId, userId) => async (dispatch) => {
-//     const response = await fetch(`/api/user/${userId}/favorites/posts/${postId}`,{
+//     const response = await fetch(`${config.apiUrl}/api/user/${userId}/favorites/posts/${postId}`,{
 //         method:'DELETE',
 //     })
 //     if(response.ok) {
@@ -76,7 +78,7 @@ export const getWatchLaterMovies = (username) => async (dispatch) => {
 // }
 //
 // export const addWatchLaterMovie = (postId, userId) => async (dispatch) => {
-//     const response = await fetch(`/api/users/${userId}/favorites/posts/${postId}`,{
+//     const response = await fetch(`${config.apiUrl}/api/users/${userId}/favorites/posts/${postId}`,{
 //         method:'PUT',
 //         headers:{ "Content-Type" : 'application/json' },
 //     })
@@ -88,7 +90,7 @@ export const getWatchLaterMovies = (username) => async (dispatch) => {
 // }
 //
 // export const deleteWatchLaterMovie = (postId, userId) => async (dispatch) => {
-//     const response = await fetch(`/api/users/${userId}/favorites/posts/${postId}`,{
+//     const response = await fetch(`${config.apiUrl}/api/users/${userId}/favorites/posts/${postId}`,{
 //         method:'DELETE',
 //     })
 //     if(response.ok) {

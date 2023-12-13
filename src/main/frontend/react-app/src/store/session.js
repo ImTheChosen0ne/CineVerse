@@ -1,3 +1,4 @@
+import config from "../config/config";
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
@@ -21,7 +22,7 @@ export const authenticate = () => async (dispatch) => {
 		return;
 	}
 
-	const response = await fetch("/api/auth/", {
+	const response = await fetch(`${config.apiUrl}/api/auth/`, {
 		headers: {
 			// "Content-Type": "application/json",
 			"Authorization": `Bearer ${token}`,
@@ -38,9 +39,9 @@ export const authenticate = () => async (dispatch) => {
 	}
 
 };
-
+console.log(config.apiUrl)
 export const login = (username, password) => async (dispatch) => {
-	const response = await fetch("/api/auth/login", {
+	const response = await fetch(`${config.apiUrl}/api/auth/login`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -67,7 +68,7 @@ export const login = (username, password) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-	const response = await fetch("/api/auth/logout", {
+	const response = await fetch(`${config.apiUrl}/api/auth/logout`, {
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -80,7 +81,7 @@ export const logout = () => async (dispatch) => {
 };
 
 export const signUp = (username, password, email, firstName, lastName) => async (dispatch) => {
-	const response = await fetch("/api/auth/register", {
+	const response = await fetch(`${config.apiUrl}/api/auth/register`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",

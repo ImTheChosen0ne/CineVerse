@@ -1,3 +1,5 @@
+import config from "../config/config";
+
 // constants
 const GET_MOVIES = "movie/GET_MOVIES";
 
@@ -7,7 +9,7 @@ const getMovie = (movies) => ({
 });
 
 export const getMovies = () => async (dispatch) => {
-    const response = await fetch("/api/movies/");
+    const response = await fetch(`${config.apiUrl}/api/movies/`);
 
     if (response.ok) {
         const data = await response.json();

@@ -17,7 +17,7 @@ RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-slim
 WORKDIR /Java-web-app/src/main
-COPY --from=frontend_builder /app/build /Java-web-app/src/main/frontend/react-app/build
+#COPY --from=frontend_builder /app/build /Java-web-app/src/main/frontend/react-app/build
 COPY --from=build /target/backend-0.0.1-SNAPSHOT.jar backend.jar
 EXPOSE 10000
 

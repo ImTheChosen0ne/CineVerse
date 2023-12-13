@@ -1,0 +1,15 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "10000:10000"
+
+  frontend:
+    build:
+      context: src/main/frontend/react-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"

@@ -33,12 +33,12 @@ services:
       - key: PORT
         value: 3000
 
-#envVarGroups:
-#  - name: backend-env
-#    envVars:
-#      - key: DATABASE_URL
-#        value: DATABASE_URL
-#      - key: SPRING_DATASOURCE_USERNAME
-#        value: SPRING_DATASOURCE_USERNAME
-#      - key: SPRING_DATASOURCE_PASSWORD
-#        value: SPRING_DATASOURCE_PASSWORD
+envVarGroups:
+  - name: backend-env
+    envVars:
+      - key: DATABASE_URL
+        value: DATABASE_URL
+      - key: SPRING_DATASOURCE_USERNAME
+        value: SPRING_DATASOURCE_USERNAME
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: SPRING_DATASOURCE_PASSWORD

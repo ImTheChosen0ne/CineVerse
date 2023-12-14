@@ -27,6 +27,15 @@ public class User implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
+            name="user_profiles",
+            joinColumns = {@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="profile_id")}
+    )
+
+    private Set<Profile> profiles;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(
             name="user_movie_likes",
             joinColumns = {@JoinColumn(name="user_id")},
             inverseJoinColumns = {@JoinColumn(name="movie_id")}
@@ -55,9 +64,10 @@ public class User implements UserDetails {
         this.authorities = new HashSet<Role>();
         this.likedMovies = new HashSet<Movie>();
         this.watchLaterMovies = new HashSet<Movie>();
+        this.profiles = new HashSet<Profile>();
     }
 
-    public User(Integer userId, String password, String firstName, String lastName, String email, Set<Role> authorities, Set<Movie> likedMovies, Set<Movie> watchLaterMovies) {
+    public User(Integer userId, String password, String firstName, String lastName, String email, Set<Role> authorities, Set<Movie> likedMovies, Set<Movie> watchLaterMovies, Set<Profile> profiles) {
         this.userId = userId;
 //        this.username = username;
         this.password = password;
@@ -67,6 +77,7 @@ public class User implements UserDetails {
         this.authorities = authorities;
         this.likedMovies = likedMovies;
         this.watchLaterMovies = watchLaterMovies;
+        this.profiles = profiles;
     }
 
     public String getFirstName() {
@@ -125,6 +136,14 @@ public class User implements UserDetails {
 
     public void setWatchLaterMovies(Set<Movie> watchLaterMovies) {
         this.watchLaterMovies = watchLaterMovies;
+    }
+
+    public Set<Profile> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(Set<Profile> profiles) {
+        this.profiles = profiles;
     }
 
     @Override

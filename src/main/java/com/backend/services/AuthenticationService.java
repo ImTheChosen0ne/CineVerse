@@ -5,6 +5,7 @@ import com.backend.dto.ResponseDTO;
 import com.backend.dto.RegistrationDTO;
 import com.backend.exceptions.DataException;
 import com.backend.models.*;
+import com.backend.repository.ProfileRepository;
 import com.backend.repository.RoleRepository;
 import com.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.util.Set;
 public class AuthenticationService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final ProfileRepository profileRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -31,9 +33,10 @@ public class AuthenticationService {
     @Autowired
     private TokenService tokenService;
 
-    public AuthenticationService(UserRepository userRepository, RoleRepository roleRepository) {
+    public AuthenticationService(UserRepository userRepository, RoleRepository roleRepository, ProfileRepository profileRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.profileRepository = profileRepository;
     }
 
     public ResponseDTO registerUser(RegistrationDTO body) {
@@ -50,6 +53,14 @@ public class AuthenticationService {
 
         Set<Movie> watchLaterMovies = new HashSet<>();
         user.setWatchLaterMovies(watchLaterMovies);
+
+        Profile profile = new Profile(0, user.getFirstName(), "img");
+        Profile profiles = profileRepository.save(profile);
+
+        Set<Profile> userProfile = new HashSet<>();
+        userProfile.add(profiles);
+
+        user.setProfiles(userProfile);
 
         Role userRole = roleRepository.findByAuthority("USER").get();
         Set<Role> authorities = new HashSet<>();

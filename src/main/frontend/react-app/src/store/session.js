@@ -16,7 +16,6 @@ const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
 	const token = localStorage.getItem("token");
-	console.log("Token:", token);
 
 	if (!token) {
 		return;

@@ -1,0 +1,79 @@
+.profiles-container {
+    background: #141414;
+    text-align: center;
+    letter-spacing: 0 !important;
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    cursor: default;
+}
+
+.profiles {
+    max-width: 80%;
+}
+
+.profiles h1 {
+    color: #fff;
+    font-size: 3.5vw;
+    font-weight: unset;
+    width: 100%;
+    opacity: 1;
+    transition: opacity .4s ease-out;
+    margin: .67em 0;
+    text-align: center;
+}
+
+.profiles ul {
+    margin: 2em 0;
+}
+
+.profiles li {
+    margin: 0 2vw 0 0;
+    max-width: 200px;
+    min-width: 84px;
+    width: 10vw;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    font-size: 1.3vw;
+}
+
+.profiles a {
+    text-decoration: none;
+    color: grey;
+}
+
+.profile-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-icon img {
+    border: none;
+    border-radius: 4px;
+    height: 10vw;
+    max-height: 200px;
+    max-width: 200px;
+    min-height: 84px;
+    min-width: 84px;
+    position: relative;
+    width: 10vw;
+}
+
+.profiles span {
+    display: block;
+    font-size: 1.3vw;
+    line-height: 1.2em;
+    margin: .6em 0;
+    min-height: 1.8em;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+}

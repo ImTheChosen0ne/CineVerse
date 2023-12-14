@@ -1,10 +1,8 @@
 package com.backend;
 
-import com.backend.models.Genre;
-import com.backend.models.Movie;
-import com.backend.models.User;
-import com.backend.models.Role;
+import com.backend.models.*;
 import com.backend.repository.MovieRepository;
+import com.backend.repository.ProfileRepository;
 import com.backend.repository.RoleRepository;
 import com.backend.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -14,9 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
@@ -26,7 +22,7 @@ public class BackendApplication {
 	}
 
 	@Bean
-	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, MovieRepository movieRepository, PasswordEncoder passwordEncoder) {
+	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, MovieRepository movieRepository, ProfileRepository profileRepository, PasswordEncoder passwordEncoder) {
 		return args -> {
 			if (roleRepository.findByAuthority("ADMIN").isPresent()) return ;
 
@@ -53,7 +49,13 @@ public class BackendApplication {
 			Set<Movie> watchLater = new HashSet<>();
 			watchLater.add(movie);
 
-			User admin = new User(1, passwordEncoder.encode("password"), "demo", "demo", "admin@admin.com", roles, likes, watchLater);
+			Profile profile = new Profile(1, "demo", "img");
+			Profile profiles = profileRepository.save(profile);
+
+			Set<Profile> userProfile = new HashSet<>();
+			userProfile.add(profiles);
+
+			User admin = new User(1, passwordEncoder.encode("password"), "demo", "demo", "admin@admin.com", roles, likes, watchLater, userProfile);
 
 			userRepository.save(admin);
 

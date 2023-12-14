@@ -16,8 +16,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer userId;
-    @Column(unique = true)
-    private String username;
+//    @Column(unique = true)
+//    private String username;
     @JsonIgnore
     private String password;
     @Column(unique = true)
@@ -57,9 +57,9 @@ public class User implements UserDetails {
         this.watchLaterMovies = new HashSet<Movie>();
     }
 
-    public User(Integer userId, String username, String password, String firstName, String lastName, String email, Set<Role> authorities, Set<Movie> likedMovies, Set<Movie> watchLaterMovies) {
+    public User(Integer userId, String password, String firstName, String lastName, String email, Set<Role> authorities, Set<Movie> likedMovies, Set<Movie> watchLaterMovies) {
         this.userId = userId;
-        this.username = username;
+//        this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -99,9 +99,9 @@ public class User implements UserDetails {
         this.userId = userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -131,7 +131,6 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
@@ -154,7 +153,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.email;
     }
 
     @Override

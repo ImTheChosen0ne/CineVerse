@@ -21,7 +21,7 @@ public class AdminController {
     }
 
     public UserDetails getAdmin(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        String username = tokenService.getUserNameFromToken(token);
+        String username = tokenService.getEmailFromToken(token);
         return userService.loadUserByUsername(username);
     }
 

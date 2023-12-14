@@ -52,8 +52,8 @@ public class AuthenticationController {
 
     @GetMapping("/")
     public UserDetails getUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        String username = tokenService.getUserNameFromToken(token);
-        return authenticationService.loadUserByUsername(username);
+        String email = tokenService.getEmailFromToken(token);
+        return authenticationService.loadUserByEmail(email);
     }
 
     @PostMapping("/register")

@@ -39,11 +39,11 @@ public class AuthenticationService {
     public ResponseDTO registerUser(RegistrationDTO body) {
 
         User user = new User();
-        user.setUsername(body.getUsername());
+//        user.setUsername(body.getUsername());
+        user.setEmail(body.getEmail());
         user.setPassword(passwordEncoder.encode(body.getPassword()));
         user.setFirstName(body.getFirstName());
         user.setLastName(body.getLastName());
-        user.setEmail(body.getEmail());
 
         Set<Movie> likedMovies = new HashSet<>();
         user.setLikedMovies(likedMovies);
@@ -59,7 +59,7 @@ public class AuthenticationService {
         try {
             User newUser = userRepository.save(user);
 
-            Authentication auth = new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword());
+            Authentication auth = new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword());
             String token = tokenService.generateJwt(auth);
 
             return new ResponseDTO(newUser, token);
@@ -71,19 +71,19 @@ public class AuthenticationService {
     public ResponseDTO loginUser(LoginDTO body) {
         try {
             Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword())
+                    new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword())
             );
 
             String token = tokenService.generateJwt(auth);
 
-            return new ResponseDTO(userRepository.findByUsername(body.getUsername()).get(), token);
+            return new ResponseDTO(userRepository.findByEmail(body.getEmail()).get(), token);
 
         } catch (BadCredentialsException e) {
             throw new DataException("Invalid credentials");
         }
     }
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + username));
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
     }
 }

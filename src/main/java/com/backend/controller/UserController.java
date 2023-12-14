@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping("/")
     public UserDetails getUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        String username = tokenService.getUserNameFromToken(token);
+        String username = tokenService.getEmailFromToken(token);
         return userService.loadUserByUsername(username);
     }
 
@@ -45,13 +45,13 @@ public class UserController {
 
     @PutMapping("/like")
     public Set<Movie> likedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody Movie movie) {
-        String loggedInUser = tokenService.getUserNameFromToken(token);
+        String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.likedMovie(loggedInUser, movie);
     }
 
     @PutMapping("/watch_later")
     public Set<Movie> watchMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody Movie movie) {
-        String loggedInUser = tokenService.getUserNameFromToken(token);
+        String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.watchMovie(loggedInUser, movie);
     }
 

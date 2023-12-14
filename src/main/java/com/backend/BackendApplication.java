@@ -53,7 +53,7 @@ public class BackendApplication {
 			Set<Movie> watchLater = new HashSet<>();
 			watchLater.add(movie);
 
-			User admin = new User(1, "admin", passwordEncoder.encode("password"), "demo", "demo", "demo@demo.com", roles, likes, watchLater);
+			User admin = new User(1, passwordEncoder.encode("password"), "demo", "demo", "admin@admin.com", roles, likes, watchLater);
 
 			userRepository.save(admin);
 

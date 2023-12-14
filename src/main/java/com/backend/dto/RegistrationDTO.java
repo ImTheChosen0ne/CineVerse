@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.Set;
 
 public class RegistrationDTO {
-    @NotBlank(message = "Username is required.")
-    private String username;
+//    @NotBlank(message = "Username is required.")
+//    private String username;
     @NotBlank(message = "Password is required.")
     private String password;
     @NotBlank(message = "Email is required.")
@@ -17,21 +17,21 @@ public class RegistrationDTO {
     private String lastName;
 
     public RegistrationDTO() {}
-    public RegistrationDTO(String username, String password, String firstName, String lastName, String email) {
-        this.username = username;
+    public RegistrationDTO(String email, String password, String firstName, String lastName) {
+//        this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
 
     public String getPassword() {
         return password;
@@ -66,7 +66,7 @@ public class RegistrationDTO {
     }
 
     public String toString() {
-        return "Registration info: username: " + this.username + " password: " + this.password + " firstName: " + this.firstName + " lastName: " + this.lastName + " email: " + this.email;
+        return "Registration info: email:"  + this.email + " password: " + this.password + " firstName: " + this.firstName + " lastName: " + this.lastName;
     }
 
 }

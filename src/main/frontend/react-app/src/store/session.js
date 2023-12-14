@@ -39,7 +39,7 @@ export const authenticate = () => async (dispatch) => {
 	}
 
 };
-console.log(config.apiUrl)
+
 export const login = (username, password) => async (dispatch) => {
 	const response = await fetch(`${config.apiUrl}/api/auth/login`, {
 		method: "POST",

@@ -7,9 +7,15 @@ import Enjoy from "../../components/SplashPageComponents/Enjoy";
 import Watch from "../../components/SplashPageComponents/Watch";
 import Create from "../../components/SplashPageComponents/Create";
 import splashPhoto from "./main-photo.jpg";
-
 import Download from "../../components/SplashPageComponents/Download";
+import { Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Footer from "../../components/Footer";
 function SplashPage() {
+    const sessionUser = useSelector((state) => state.session.user);
+
+    if (sessionUser) return <Redirect to="/profile" />;
+
     return (
         <div className="splashPage">
             <div className="splash-main">
@@ -51,7 +57,7 @@ function SplashPage() {
                 </div>
             </div>
             <div className="divider"/>
-
+            <Footer />
         </div>
     );
 }

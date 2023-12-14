@@ -1,0 +1,86 @@
+.signup-container {
+    padding-bottom: 95px;
+    flex-grow: 1;
+    overflow: hidden;
+    width: 100%;
+}
+
+.signup-form {
+    transform: none;
+    opacity: 1;
+    transition-duration: 250ms;
+    padding: 20px 32px 60px;
+    overflow: hidden;
+    margin: 0 auto 15px;
+    max-width: 978px;
+}
+
+.signup-page-one {
+    max-width: 340px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.signup-img {
+    margin: 100px 0 20px;
+    background: url(https://assets.nflxext.com/ffe/siteui/acquisition/simplicity/Devices.png) no-repeat 50% 50%;
+    background-size: 260px;
+    height: 90px;
+    text-align: center;
+}
+
+.signup-info {
+    text-align: center;
+}
+
+.signup-info span {
+    font-size: 13px;
+    text-align: inherit;
+    line-height: 19px;
+    color: #333;
+}
+
+.signup-info h1 {
+    color: #333;
+    font-weight: 500;
+    font-size: 32px;
+    margin: 0 0 0.4em;
+}
+
+.signup-info-text {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.info-form {
+    margin-top: 24px;
+    max-width: 340px;
+}
+
+.info-form button {
+    border-radius: 4px;
+    font-size: 24px;
+    font-weight: 400;
+    min-height: 64px;
+    line-height: 1;
+    min-width: 110px;
+    padding: 20.5px 2em;
+    width: 100%;
+    background-color: #e50914;
+    color: #fff;
+    position: relative;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    letter-spacing: .025rem;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    vertical-align: middle;
+}
+
+.info-form button:hover {
+    background-color: #f30915;
+}
+span { color: black}

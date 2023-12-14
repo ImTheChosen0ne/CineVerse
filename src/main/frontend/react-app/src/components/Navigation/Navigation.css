@@ -16,10 +16,9 @@
   padding-bottom: 1.5rem;
   padding-left: 3rem;
   padding-right: 3rem;
-  margin: auto;
+  margin: 0 60px;
   list-style-type: none;
   border-bottom: none;
-  max-width: calc(83.33333333333334% - 6rem);
   z-index: 1;
 }
 

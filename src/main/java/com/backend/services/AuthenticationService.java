@@ -9,6 +9,7 @@ import com.backend.repository.ProfileRepository;
 import com.backend.repository.RoleRepository;
 import com.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,8 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class AuthenticationService {
@@ -42,7 +42,6 @@ public class AuthenticationService {
     public ResponseDTO registerUser(RegistrationDTO body) {
 
         User user = new User();
-//        user.setUsername(body.getUsername());
         user.setEmail(body.getEmail());
         user.setPassword(passwordEncoder.encode(body.getPassword()));
         user.setFirstName(body.getFirstName());
@@ -96,5 +95,10 @@ public class AuthenticationService {
 
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
+    }
+
+    public User verifyUserEmail(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        return userOptional.orElse(null);
     }
 }

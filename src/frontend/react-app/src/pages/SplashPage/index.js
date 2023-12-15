@@ -31,7 +31,7 @@ function SplashPage() {
                     </div>
                 </div>
             </div>
-            <div className="">
+            <div className="info-container">
                 <Info/>
             </div>
             <div className="splash-container">
@@ -51,7 +51,7 @@ function SplashPage() {
             </div>
             <div className="divider"/>
             <div className="splash-container">
-                <div className="single-container">
+                <div className="single-faq-container">
                     <Faq/>
                     <SignUpSplash/>
                 </div>

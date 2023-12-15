@@ -9,7 +9,6 @@ import SplashPage from "./pages/SplashPage";
 import SelectProfilePage from "./pages/SelectProfilePage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import BrowsePage from "./pages/BrowsePage";
-import Footer from "./components/Footer";
 
 
 function App() {

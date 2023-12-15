@@ -108,6 +108,29 @@ export const signUp = (email, password, firstName, lastName) => async (dispatch)
 	}
 };
 
+export const verifyEmail = (email) => async (dispatch) => {
+	const response = await fetch(`${config.apiUrl}/api/auth/email_verification`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			email,
+		}),
+	});
+
+	if (response.ok) {
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.error) {
+			return data.error;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:

@@ -1,4 +1,7 @@
 .footer {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    /*margin-top: 4.5rem;*/
     background-color:rgba(0,0,0,.75);
     color: white;
     padding-top: 10px;
@@ -12,7 +15,64 @@
     /*position: relative;*/
 }
 
-.footer h1 {
-    background-color: transparent;
+.footer-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    margin-top: 4.5rem;
+    margin-bottom: 4.5rem;
+    margin-left: 4.5rem;
+    max-width: 100%;
+    flex-direction: row;
+    padding: 0;
+}
 
+.footer h3 {
+    font-size: 11px;
+}
+
+.footer-links {
+    display: flex;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+.footer-links p {
+    padding-right: 5px;
+}
+
+.footer-links .fa-linkedin {
+    color: rgb(10, 102, 194);
+}
+
+.footer-links a {
+    padding-right: 5px;
+}
+
+.made-with {
+    font-size: 12px;
+}
+
+.madeIcons i {
+    padding-right: 10px;
+    font-size: 25px;
+}
+
+.fa-react {
+    color: rgba(9, 56, 131, 0.5);
+}
+
+.fa-html5 {
+    color: #dd4b25;
+}
+
+.fa-css3-alt {
+    color: #254bdd;
+}
+
+.fa-square-js {
+    color: rgba(239,216,29, 1);
+}
+
+.fa-python {
+    color: #346fa0;
 }

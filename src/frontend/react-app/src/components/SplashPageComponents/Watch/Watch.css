@@ -1,0 +1,24 @@
+.splash-container-img {
+    position: relative;
+}
+
+.asset-div-vid-watch {
+    z-index: -1;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    max-width: 63%;
+    max-height: 47%;
+    position: absolute;
+    top: 34%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.asset-div-vid-watch video {
+    display: inline-block;
+    vertical-align: baseline;
+    object-fit: contain;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}

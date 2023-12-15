@@ -1,5 +1,7 @@
 import React from "react";
 import enjoyTv from "./tv.png";
+import tvVid from "./video-tv.m4v";
+
 import './Enjoy.css';
 
 function Enjoy() {
@@ -12,6 +14,9 @@ function Enjoy() {
             <div className="asset-div">
                 <div className="splash-container-img">
                     <img className="asset-img" src={enjoyTv} alt="enjoy"/>
+                    <div className="asset-div-vid">
+                        <video src={tvVid} autoPlay muted playsInline loop/>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ import React from "react";
 
 import './Watch.css';
 import watchImg from "./device-pile.png";
+import tvVid from "./video-devices.m4v";
 
 function Watch() {
     return (
@@ -9,6 +10,9 @@ function Watch() {
             <div className="asset-div">
                 <div className="splash-container-img">
                     <img className="asset-img" src={watchImg} alt="enjoy"/>
+                    <div className="asset-div-vid-watch">
+                        <video src={tvVid} autoPlay muted playsInline loop/>
+                    </div>
                 </div>
             </div>
             <div className="text-div">

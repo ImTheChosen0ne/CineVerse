@@ -1,5 +1,6 @@
 package com.backend.controller;
 
+import com.backend.dto.VerifyEmailDTO;
 import com.backend.exceptions.DataException;
 import com.backend.dto.LoginDTO;
 import com.backend.models.User;
@@ -15,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -57,7 +61,23 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseDTO registerUser(@RequestBody @Valid RegistrationDTO body) { return authenticationService.registerUser(body); }
+    public ResponseDTO registerUser(@RequestBody @Valid RegistrationDTO body) {
+        return authenticationService.registerUser(body);
+    }
+
+    @PostMapping("/email_verification")
+    public ResponseEntity<?> emailVerification(@RequestBody @Valid VerifyEmailDTO request) {
+        User user = authenticationService.verifyUserEmail(request.getEmail());
+        if (user != null) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "User already exists for email: " + request.getEmail());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        } else {
+            Map<String, String> successResponse = new HashMap<>();
+            successResponse.put("success", "Verification successful");
+            return ResponseEntity.ok(successResponse);
+        }
+    }
 
     @PostMapping("/login")
     public ResponseDTO loginUser(@RequestBody LoginDTO body) {

@@ -91,7 +91,6 @@
     text-align: center;
     height: 100%;
     overflow: hidden;
-
 }
 
 .divider {
@@ -101,4 +100,13 @@
     position: relative;
     bottom: -0.5rem;
     background-color: rgb(35,35,35);
+}
+
+.single-faq-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    max-width: calc( 83.33333333333334% - 6rem );
+    margin: auto;
 }

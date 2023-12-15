@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {Redirect, useLocation} from "react-router-dom";
-import { signUp } from "../../store/session";
+import {signUp, verifyEmail} from "../../store/session";
 import './SignupForm.css';
 import Footer from "../Footer";
 
@@ -16,7 +16,7 @@ function SignupFormPage() {
   const [errors, setErrors] = useState([]);
 
   const [step, setStep] = useState(1);
-  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [selectedPlan, setSelectedPlan] = useState("plan3");
 
   const location = useLocation();
   const initialEmail = location.state?.signUpEmail || email;
@@ -30,19 +30,53 @@ function SignupFormPage() {
   const handlePlanChange = (planId) => {
         setSelectedPlan(planId);
   };
+  const handleNextStepEmail = async (e) => {
+    e.preventDefault();
+
+    const errors = {};
+
+    if (password === confirmPassword) {
+      const data = await dispatch(verifyEmail(email));
+      if (data) {
+        errors.email = data
+        setErrors(errors);
+      } else if (email === "" || !email.includes("@")) {
+        errors.email = "Invalid Email";
+        setErrors(errors)
+      } else if (password.length < 8) {
+        errors.password = "Password must be at least 8 characters long.";
+        setErrors(errors)
+      } else {
+        setStep((prevStep) => prevStep + 1);
+      }
+    } else {
+      errors.confirmPassword = 'Confirm Password field must be the same as the Password field.'
+      setErrors(errors);
+    }
+  };
+
   const handleNextStep = () => {
-    setStep((prevStep) => prevStep + 1);
+        setStep((prevStep) => prevStep + 1);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const errors = {};
+    if (firstName === "") {
+      errors.firstName = "Please enter a first name.";
+      setErrors(errors)
+    }
+    if (lastName === "") {
+      errors.lastName = "Please enter a last name.";
+      setErrors(errors)
+    }
+
     if (password === confirmPassword) {
         const data = await dispatch(signUp(email, password, firstName, lastName));
         if (data) {
           setErrors(data)
         }
-    } else {
-        setErrors(['Confirm Password field must be the same as the Password field']);
     }
   };
 
@@ -69,43 +103,45 @@ function SignupFormPage() {
 
         {step === 2 && (
             <div className="signup-form">
-                <div className="input-form">
-                    <div className="signup-info-two">
-                        <span>{`STEP ${step - 1} OF 3`}</span>
-                        <h1>Create a password to start your membership</h1>
-                    </div>
-                    <div className="input-container">
+              <div className="input-form">
+                <div className="signup-info-two">
+                  <span>{`STEP ${step - 1} OF 3`}</span>
+                  <h1>Create a password to start your membership</h1>
+                </div>
+                <form onSubmit={handleNextStepEmail}>
+                  <div className="input-container">
                     <p>Just a few more steps and you're done!</p>
                     <p>We hate paperwork, too.</p>
-                    <ul>
-                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                    </ul>
-                        <div className="form-inputs">
-                    <input
-                        placeholder="Email"
-                        type="text"
-                        value={initialEmail}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                        <input
-                            placeholder="Add Password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                        <input
-                            placeholder="Confirm Password"
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                        />
-                        </div>
+                    <div className="form-inputs">
+                      <input
+                          placeholder="Email"
+                          type="email"
+                          value={initialEmail}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                      />
+                      <p className="formErrors">{errors.email}</p>
+                      <input
+                          placeholder="Add Password"
+                          type="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                      />
+                      <p className="formErrors">{errors.password}</p>
+                      <input
+                          placeholder="Confirm Password"
+                          type="password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          required
+                      />
+                      <p className="formErrors">{errors.confirmPassword}</p>
                     </div>
-                    <button onClick={handleNextStep}>Next</button>
-                </div>
+                  </div>
+                  <button type="submit">Next</button>
+                </form>
+              </div>
             </div>
         )}
           {step === 3 && (
@@ -315,27 +351,28 @@ function SignupFormPage() {
                       <div className="input-container">
                           <p>Just a few more steps and you're done!</p>
                           <p>We hate paperwork, too.</p>
-                          <ul>
-                              {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                          </ul>
-                          <div className="form-inputs">
-                                <input
-                                    placeholder="First Name"
-                                    type="text"
-                                    value={firstName}
-                                    onChange={(e) => setFirstName(e.target.value)}
-                                    required
-                                />
-                                <input
-                                    placeholder="Last Name"
-                                    type="text"
-                                    value={lastName}
-                                    onChange={(e) => setLastName(e.target.value)}
-                                    required
-                                />
-                          </div>
+                        <div className="form-inputs">
+                          <input
+                              placeholder="First Name"
+                              type="text"
+                              value={firstName}
+                              onChange={(e) => setFirstName(e.target.value)}
+                              required
+                          />
+                          <p className="formErrors">{errors.firstName}</p>
+
+                          <input
+                              placeholder="Last Name"
+                              type="text"
+                              value={lastName}
+                              onChange={(e) => setLastName(e.target.value)}
+                              required
+                          />
+                          <p className="formErrors">{errors.lastName}</p>
+
+                        </div>
                       </div>
-                      <button type="submit">Complete Sign Up</button>
+                    <button type="submit">Complete Sign Up</button>
                   </form>
               </div>
           )}

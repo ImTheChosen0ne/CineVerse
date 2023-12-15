@@ -8,7 +8,11 @@ import Footer from "../Footer";
 function SignupFormPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const [email, setEmail] = useState("");
+
+  const location = useLocation();
+  const initialEmail = location.state?.signUpEmail || "";
+
+  const [email, setEmail] = useState(initialEmail);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -18,12 +22,8 @@ function SignupFormPage() {
   const [step, setStep] = useState(1);
   const [selectedPlan, setSelectedPlan] = useState("plan3");
 
-  const location = useLocation();
-  const initialEmail = location.state?.signUpEmail || email;
 
-  useEffect(() => {
-    setEmail(initialEmail);
-  }, [initialEmail]);
+
 
   if (sessionUser) return <Redirect to="/profile" />;
 
@@ -116,7 +116,7 @@ function SignupFormPage() {
                       <input
                           placeholder="Email"
                           type="email"
-                          value={initialEmail}
+                          value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           required
                       />

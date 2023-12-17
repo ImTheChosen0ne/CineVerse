@@ -9,6 +9,8 @@ import SplashPage from "./pages/SplashPage";
 import SelectProfilePage from "./pages/SelectProfilePage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import BrowsePage from "./pages/BrowsePage";
+import ManageProfiles from "./pages/ManageProfilesPage";
+import Account from "./pages/AccountPage";
 
 
 function App() {
@@ -23,9 +25,12 @@ function App() {
       <Navigation isLoaded={isLoaded}/>
       {isLoaded && (
         <Switch>
-          <Route exact path="/" >
-            <SplashPage />
-          </Route>
+          <ProtectedRoute exact path="/manage_profiles" >
+            <ManageProfiles />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/account" >
+            <Account />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/profile" >
             <SelectProfilePage />
           </ProtectedRoute>
@@ -37,6 +42,9 @@ function App() {
           </Route>
           <Route exact path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path="/" >
+            <SplashPage />
           </Route>
         </Switch>
       )}

@@ -76,3 +76,9 @@
 .fa-python {
     color: #346fa0;
 }
+
+.signup-footer {
+    border-top: 1px solid #e6e6e6;
+    color: #737373;
+    background-color: #f3f3f3;
+}

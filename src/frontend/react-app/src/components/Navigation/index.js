@@ -13,8 +13,14 @@ function Navigation({ isLoaded }){
 		return null;
 	}
 
+	let navClassName = null;
+	const signInButton = location.pathname === '/signup'
+	if (signInButton) {
+		navClassName = "signup-nav";
+	}
+
 	return (
-		<ul className="navigation">
+		<ul className={`navigation ${navClassName}`}>
 			<li>
 				<NavLink exact to="/">CineVerse</NavLink>
 			</li>

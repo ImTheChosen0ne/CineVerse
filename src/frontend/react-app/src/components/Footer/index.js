@@ -1,11 +1,20 @@
 import React from "react";
 
 import './Footer.css';
+import {useLocation} from "react-router-dom";
 
 
 function Footer() {
+    const location = useLocation();
+
+    let footerClassName = null;
+    const footerCss = location.pathname === '/signup'
+    if (footerCss) {
+        footerClassName = "signup-footer";
+    }
+
     return (
-        <div className="footer">
+        <div className={`footer ${footerClassName}`}>
             <div className="footer-container">
                 <div>
                     <div className="about">

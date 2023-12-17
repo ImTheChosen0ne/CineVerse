@@ -1,5 +1,92 @@
 .profile-dropdown {
   position: absolute;
+  background-color: rgba(0,0,0,.9);
+  opacity: 1;
+  margin-left: 0;
+  padding: 0;
+  right: 0;
+  top: 52px;
+  width: 218px;
+  border: 1px solid hsla(0,0%,100%, .15);
+  color: #fff;
+  cursor: default;
+  font-size: 12px;
+  line-height: 21px;
+  letter-spacing: 0 !important;
+}
+
+.profile-dropdown-profiles-container {
+  height: auto;
+  overflow: hidden;
+  padding: 10px 0 5px;
+  display: block;
+  margin: 0;
+  width: 100%;
+  cursor: default;
+}
+
+.profile-dropdown-profiles-container li {
+  line-height: 32px;
+  display: block;
+  font-size: 13px;
+  padding: 5px 10px;
+  cursor: default;
+}
+
+.profile-dropdown-profiles-container li div {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-dropdown-profile-icon img {
+  border-radius: 4px;
+  height: 32px;
+  margin-right: 10px;
+  vertical-align: middle;
+  width: 32px;
+  border: 0;
+
+}
+
+.account {
+  padding-bottom: 10px;
+  display: block;
+  height: auto;
+  margin: 0;
+  width: 100%;
+  cursor: default;
+}
+
+.account li {
+  display: block;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 5px 10px;
+}
+
+.account li a{
+  align-items: center;
+  display: flex;
+  text-transform: none;
+  width: 100%;
+}
+
+.account svg {
+  box-sizing: content-box;
+  color: #b3b3b3;
+  padding: 0 13px 0 5px;
+  overflow: hidden;
+}
+
+.profile-dropdown a {
+  color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-dropdown a:hover {
+  text-decoration: underline;
 }
 
 .hidden {
@@ -34,7 +121,6 @@
   cursor: pointer;
   font-size: .8rem;
   font-weight: 600;
-
   width: 77px;
   height: 32px;
   background: rgb(229, 9, 20);
@@ -43,4 +129,49 @@
 
 .sign-in:hover {
   background: rgb(182, 19, 25);
+}
+
+.signup-nav {
+  border-bottom: 1px solid #e6e6e6;
+  height: 90px;
+  margin: 0;
+}
+
+.signup-nav button {
+  color: #333;
+  font-size: 19px;
+  font-weight: 500;
+  background-color: transparent;
+}
+
+.signup-nav button:hover {
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.dropDown-button {
+  border-top: 1px solid hsla(0,0%,100%,.25);
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  margin: 0;
+  width: 100%;
+  font-size: 13px;
+  line-height: 16px;
+
+}
+
+.dropDown-button button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.dropDown-button button:hover {
+  text-decoration: underline;
 }

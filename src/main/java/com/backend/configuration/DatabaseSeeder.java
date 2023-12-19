@@ -18,7 +18,7 @@ public class DatabaseSeeder {
     public void seedDatabase() {
         try {
             File file = new ClassPathResource("movies.csv").getFile();
-            movieService.seedDataFromCsv("src/main/resources/movies.csv");
+            movieService.seedDataFromCsv("./src/main/resources/movies.csv");
         } catch (Exception e) {
             throw new DataException("Error seeding database: " + e.getMessage());
         }

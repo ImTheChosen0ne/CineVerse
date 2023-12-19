@@ -9,11 +9,8 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.Reader;
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -48,8 +45,7 @@ public class MovieService {
                 logger.info("Parsed movie: {}", entity);
             }
 
-            // Clear existing data and save the updated entities
-            movieRepository.deleteAll();
+//            movieRepository.deleteAll();
             movieRepository.saveAll(entities);
 
             logger.info("Seed data from CSV completed successfully.");

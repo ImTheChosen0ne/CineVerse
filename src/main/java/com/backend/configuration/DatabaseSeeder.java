@@ -25,16 +25,15 @@ public class DatabaseSeeder {
     @Autowired
     private MovieService movieService;
 
-//    @PostConstruct
-//    public void seedDatabase() {
-//        try {
-//            URL resourceUrl = getClass().getClassLoader().getResource("movies.csv");
-//            String filePath = Paths.get(resourceUrl.toURI()).toString();
-//            movieService.seedDataFromCsv(filePath);
-//        } catch (Exception e) {
-//            throw new DataException("Error seeding database: " + e.getMessage());
-//        }
-//    }
+    @PostConstruct
+    public void seedDatabase() {
+        try {
+            ClassPathResource resource = new ClassPathResource("movies.csv");
+            movieService.seedDataFromCsv(resource);
+        } catch (Exception e) {
+            throw new DataException("Error seeding database: " + e.getMessage());
+        }
+    }
     @Bean
     CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, MovieRepository movieRepository, ProfileRepository profileRepository, PasswordEncoder passwordEncoder) {
         return args -> {

@@ -11,26 +11,26 @@ import java.util.Set;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @CsvBindByName(column = "movieId")
+    @CsvBindByName(column = "movieId")
     @Column(name = "movie_id")
     private Integer movieId;
-//    @CsvBindByName(column = "title")
+    @CsvBindByName(column = "title")
     private String title;
-//    @CsvBindByName(column = "poster")
+    @CsvBindByName(column = "poster")
     private String poster;
-//    @CsvBindByName(column = "language")
+    @CsvBindByName(column = "language")
     private String language;
     @Column(length = 1000)
-//    @CsvBindByName(column = "description")
+    @CsvBindByName(column = "description")
     private String description;
     @ElementCollection
-//    @CsvCustomBindByName(column = "genres", converter = GenreSetConverter.class)
+    @CsvCustomBindByName(column = "genres", converter = GenreSetConverter.class)
     private Set<Genre> genres;
-//    @CsvBindByName(column = "company")
+    @CsvBindByName(column = "company")
     private String company;
-//    @CsvBindByName(column = "releaseDate")
+    @CsvBindByName(column = "releaseDate")
     private String releaseDate;
-//    @CsvBindByName(column = "runtime")
+    @CsvBindByName(column = "runtime")
     private Integer runtime;
 
 //    @ManyToMany(fetch=FetchType.EAGER)

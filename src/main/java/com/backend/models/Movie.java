@@ -1,10 +1,9 @@
 package com.backend.models;
 
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvCustomBindByName;
 import jakarta.persistence.*;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,17 +11,26 @@ import java.util.Set;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @CsvBindByName(column = "movieId")
     @Column(name = "movie_id")
     private Integer movieId;
+    @CsvBindByName(column = "title")
     private String title;
+    @CsvBindByName(column = "poster")
     private String poster;
+    @CsvBindByName(column = "language")
     private String language;
+    @Column(length = 1000)
+    @CsvBindByName(column = "description")
     private String description;
-    @ElementCollection(targetClass = Genre.class)
-    @Enumerated(EnumType.STRING)
+    @ElementCollection
+    @CsvCustomBindByName(column = "genres", converter = GenreSetConverter.class)
     private Set<Genre> genres;
+    @CsvBindByName(column = "company")
     private String company;
-    private LocalDate releaseDate;
+    @CsvBindByName(column = "releaseDate")
+    private String releaseDate;
+    @CsvBindByName(column = "runtime")
     private Integer runtime;
 
 //    @ManyToMany(fetch=FetchType.EAGER)
@@ -38,7 +46,7 @@ public class Movie {
 //        this.ratings = new HashSet<Integer>();
     }
 
-    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, String company, LocalDate releaseDate, Integer runtime) {
+    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, String company, String releaseDate, Integer runtime) {
         this.movieId = movieId;
         this.title = title;
         this.poster = poster;
@@ -107,20 +115,16 @@ public class Movie {
         this.company = company;
     }
 
-    public LocalDate getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
-    public int getRuntime() {
+    public Integer getRuntime() {
         return runtime;
-    }
-
-    public void setRuntime(int runtime) {
-        this.runtime = runtime;
     }
 
     public void setRuntime(Integer runtime) {

@@ -1,15 +1,24 @@
 package com.backend.services;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.backend.models.Movie;
 import com.backend.repository.MovieRepository;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class MovieService {
+    private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
     private final MovieRepository movieRepository;
     @Autowired
     public MovieService(MovieRepository movieRepository) {
@@ -23,4 +32,32 @@ public class MovieService {
     public Optional<Movie> findMovieById(Integer id) {
         return movieRepository.findById(id);
     }
+
+    public void seedDataFromCsv(String filePath) throws Exception {
+        try (Reader reader = new FileReader(filePath)) {
+            CsvToBean<Movie> csvToBean = new CsvToBeanBuilder<Movie>(reader)
+                    .withType(Movie.class)
+                    .withSeparator(';')
+                    .withQuoteChar('"')
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+            List<Movie> entities = csvToBean.parse();
+
+            // Log the parsed entities
+            for (Movie entity : entities) {
+                logger.info("Parsed movie: {}", entity);
+            }
+
+            // Clear existing data and save the updated entities
+            movieRepository.deleteAll();
+            movieRepository.saveAll(entities);
+
+            logger.info("Seed data from CSV completed successfully.");
+        } catch (Exception e) {
+            logger.error("Error seeding data from CSV: {}", e.getMessage(), e);
+            throw e;  // rethrow the exception if needed
+        }
+    }
 }
+
+

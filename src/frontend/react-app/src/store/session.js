@@ -50,16 +50,16 @@ export const login = (email, password) => async (dispatch) => {
 			password,
 		}),
 	});
-
+	console.log("response", response)
 	if (response.ok) {
 		const data = await response.json();
 		localStorage.setItem("token", data.jwt);
 		dispatch(setUser(data.user));
 		return null;
 	} else if (response.status < 500) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors;
+		const data = await response.text();
+		if (data) {
+			return data;
 		}
 	} else {
 		return ["An error occurred. Please try again."];
@@ -122,9 +122,9 @@ export const verifyEmail = (email) => async (dispatch) => {
 	if (response.ok) {
 		return null;
 	} else if (response.status < 500) {
-		const data = await response.json();
-		if (data.error) {
-			return data.error;
+		const data = await response.text();
+		if (data) {
+			return data;
 		}
 	} else {
 		return ["An error occurred. Please try again."];

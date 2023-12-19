@@ -89,7 +89,7 @@ public class AuthenticationService {
             return new ResponseDTO(userRepository.findByEmail(body.getEmail()).get(), token);
 
         } catch (BadCredentialsException e) {
-            throw new DataException("Invalid credentials");
+            throw new DataException("Email and password combination is invalid.");
         }
     }
 

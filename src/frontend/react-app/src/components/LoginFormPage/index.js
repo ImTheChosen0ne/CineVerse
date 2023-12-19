@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import {login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import {NavLink, Redirect} from "react-router-dom";
+import {NavLink, Redirect, useHistory} from "react-router-dom";
 import './LoginForm.css';
 import splashPhoto from "../../pages/SplashPage/main-photo.jpg";
 import Footer from "../Footer";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,10 +19,23 @@ function LoginFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
+    const errors = {};
 
     if (data) {
-      setErrors(data);
+        errors.credentials = data
+        setErrors(errors);
     }
+  };
+
+  const handleDemoLogin = async (e) => {
+      e.preventDefault();
+      const data = await dispatch(login("demo@demo.com", "password"));
+      if (data) {
+          errors.credentials = data
+          setErrors(errors);
+      }
+
+      history.push("/profile")
   };
 
   return (
@@ -37,11 +51,6 @@ function LoginFormPage() {
                   <div className="login-body-form">
                       <h1>Sign In</h1>
                       <form onSubmit={handleSubmit}>
-                          <ul>
-                              {errors.map((error, idx) => (
-                                  <li key={idx}>{error}</li>
-                              ))}
-                          </ul>
                           <input
                               placeholder="Email"
                               type="text"
@@ -56,7 +65,14 @@ function LoginFormPage() {
                               onChange={(e) => setPassword(e.target.value)}
                               required
                           />
+                          <p className="formErrors">{errors.credentials}</p>
                           <button type="submit">Log In</button>
+                          <button
+                              type="submit"
+                              onClick={handleDemoLogin}
+                          >
+                              Log in as Demo User
+                          </button>
                       </form>
                       <div className="login-body-new">
                           New to CineVerse?

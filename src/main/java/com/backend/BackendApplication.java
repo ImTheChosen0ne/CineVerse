@@ -40,7 +40,7 @@ public class BackendApplication {
 //			Set<Integer> ratings = new HashSet<>();
 //			ratings.add(5);
 
-			Movie newMovie = new Movie(1, "Avatar", "none", "en", "test movie", movieGenres, "disney", LocalDate.of(2009,10,12), 162);
+			Movie newMovie = new Movie(11, "Avatar", "none", "en", "test movie", movieGenres, "disney", "12-10-2009", 162);
 			Movie movie = movieRepository.save(newMovie);
 
 			Set<Movie> likes = new HashSet<>();
@@ -55,7 +55,7 @@ public class BackendApplication {
 			Set<Profile> userProfile = new HashSet<>();
 			userProfile.add(profiles);
 
-			User admin = new User(1, passwordEncoder.encode("password"), "demo", "demo", "admin@admin.com", roles, likes, watchLater, userProfile);
+			User admin = new User(1, passwordEncoder.encode("password"), "demo", "demo", "demo@demo.com", roles, likes, watchLater, userProfile);
 
 			userRepository.save(admin);
 

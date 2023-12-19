@@ -66,16 +66,18 @@ public class AuthenticationController {
     }
 
     @PostMapping("/email_verification")
-    public ResponseEntity<?> emailVerification(@RequestBody @Valid VerifyEmailDTO request) {
+    public User emailVerification(@RequestBody @Valid VerifyEmailDTO request) {
         User user = authenticationService.verifyUserEmail(request.getEmail());
         if (user != null) {
-            Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("error", "User already exists for email: " + request.getEmail());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            throw new DataException("User already exists for email: " + request.getEmail());
+//            Map<String, String> errorResponse = new HashMap<>();
+//            errorResponse.put("error", "User already exists for email: " + request.getEmail());
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         } else {
-            Map<String, String> successResponse = new HashMap<>();
-            successResponse.put("success", "Verification successful");
-            return ResponseEntity.ok(successResponse);
+            return null;
+//            Map<String, String> successResponse = new HashMap<>();
+//            successResponse.put("success", "Verification successful");
+//            return ResponseEntity.ok(successResponse);
         }
     }
 

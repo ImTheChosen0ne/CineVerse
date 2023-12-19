@@ -34,7 +34,7 @@ function App() {
           <ProtectedRoute exact path="/profile" >
             <SelectProfilePage />
           </ProtectedRoute>
-          <ProtectedRoute exact path="/browse" >
+          <ProtectedRoute exact path="/browse/:profileName" >
             <BrowsePage />
           </ProtectedRoute>
           <Route exact path="/login" >

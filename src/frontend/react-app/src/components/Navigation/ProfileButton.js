@@ -52,7 +52,7 @@ function ProfileButton({ user }) {
           <ul className={ulClassName} ref={ulRef} onMouseLeave={closeMenu}>
             <div className="profile-dropdown-profiles-container">
             {sessionUser.profiles.map((profile) => (
-                    <li key={profile.id}>
+                    <li key={profile.profileId}>
                       <div>
                         <NavLink to={`/browse`}>
                           <div className="profile-dropdown-profile-icon">

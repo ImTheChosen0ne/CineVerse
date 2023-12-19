@@ -1,0 +1,59 @@
+.main-browse-container {
+    display: block;
+    position: relative;
+    z-index: 1;
+    transform: translateY(-15%);
+}
+
+.main {
+    left: 0;
+    position: relative;
+    right: 0;
+    top: 0;
+    background-color: #000;
+    margin-bottom: 20px;
+    padding-bottom: 40%;
+    touch-action: pan-y;
+    user-select: none;
+}
+
+.main-inner {
+    background-color: #000;
+    height: 56.25vw;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 2;
+}
+
+.main-inner video {
+    background-position: 50%;
+    background-size: cover;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+.image-overlay {
+    background-position: 50%;
+    background-size: cover;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: opacity 0.4s cubic-bezier(.665,.235,.265,.8);
+    width: 100%;
+}
+
+.movie-section {
+    transform: translateY(150%);
+}

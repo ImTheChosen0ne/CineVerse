@@ -32,6 +32,9 @@ public class Movie {
     private String releaseDate;
     @CsvBindByName(column = "runtime")
     private Integer runtime;
+    @Column(length = 1000)
+    @CsvBindByName(column = "trailer")
+    private String trailer;
 
 //    @ManyToMany(fetch=FetchType.EAGER)
 //    @JoinTable(
@@ -46,7 +49,7 @@ public class Movie {
 //        this.ratings = new HashSet<Integer>();
     }
 
-    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, String company, String releaseDate, Integer runtime) {
+    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, String company, String releaseDate, Integer runtime, String trailer) {
         this.movieId = movieId;
         this.title = title;
         this.poster = poster;
@@ -56,6 +59,7 @@ public class Movie {
         this.company = company;
         this.releaseDate = releaseDate;
         this.runtime = runtime;
+        this.trailer = trailer;
 //        this.ratings = ratings;
     }
 
@@ -131,7 +135,15 @@ public class Movie {
         this.runtime = runtime;
     }
 
-//    public Set<Integer> getRatings() {
+    public String getTrailer() {
+        return trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
+    }
+
+    //    public Set<Integer> getRatings() {
 //        return ratings;
 //    }
 //

@@ -175,3 +175,15 @@
 .dropDown-button button:hover {
   text-decoration: underline;
 }
+
+.browse-nav {
+  background-color: transparent;
+  position: sticky;
+  top: 0;
+  /*height: auto;*/
+  min-height: 70px;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  height: 68px;
+}

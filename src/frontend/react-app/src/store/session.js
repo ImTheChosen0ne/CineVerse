@@ -134,9 +134,9 @@ export const verifyEmail = (email) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-			return { user: action.payload };
+			return { ...state , user: action.payload };
 		case REMOVE_USER:
-			return { user: null };
+			return { ...state, user: null };
 		default:
 			return state;
 	}

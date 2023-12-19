@@ -1,0 +1,6 @@
+.react-multi-carousel-item {
+    flex: none;
+    width: 200px !important;
+    margin: 0 2px;
+    position: unset;
+}

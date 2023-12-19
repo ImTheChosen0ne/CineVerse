@@ -23,7 +23,7 @@ export default function reducer(state = initialState, action) {
         case GET_MOVIES:
             let newState = {};
             action.payload.forEach((movie) => {
-                newState[movie.id] = movie;
+                newState[movie.movieId] = movie;
             });
             return newState;
         default:

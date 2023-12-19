@@ -15,8 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.io.File;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,7 +51,7 @@ public class DatabaseSeeder {
 //			Set<Integer> ratings = new HashSet<>();
 //			ratings.add(5);
 
-            Movie newMovie = new Movie(11, "Avatar", "none", "en", "test movie", movieGenres, "disney", "12-10-2009", 162);
+            Movie newMovie = new Movie(11, "Avatar", "https://lumiere-a.akamaihd.net/v1/images/avatar_coverart_1600x686_36ea5484.jpeg?region=0,0,1600,686", "en", "test movie", movieGenres, "disney", "12-10-2009", 162, "https://imdb-video.media-imdb.com/vi531039513/1434659607842-pgv4ql-1440787227613.mp4?Expires=1703099369&Signature=aq2qhuTxJSoc4Jo2OFd9Vk51LBA9K7AXT~ROqwF9~WRTCx319kVzeZ~OTsP9rxniaqt4CwF6SuEdms97-3ASq3WX173jvO6Wk-5j7kAEg7VAeNwRqzOtBNErjBRU1h6yt2Wbp0P2NUXP9yVoA9waY5GjdEpMWPBD5~z-9b7XkHYaXMmSAmtFxKHrK0tNsMPROHWJXlY1qAMTMYXlJykEipAKwzS2lwD9rPUujI0ctbS9txOr1boqQJrMId34aAHsXX0~akbLO-oeGAgAh6owC0hav8tlzejR-Vh7dHOC~UeUEu4zi8sZEkxNJBbZfvIzsEByLM2c6ObAH-IM3LmLTg__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA");
             Movie movie = movieRepository.save(newMovie);
 
             Set<Movie> likes = new HashSet<>();
@@ -65,8 +63,12 @@ public class DatabaseSeeder {
             Profile profile = new Profile(1, "demo", "img");
             Profile profiles = profileRepository.save(profile);
 
+            Profile profile2 = new Profile(2, "demo2", "img");
+            Profile profiles2 = profileRepository.save(profile2);
+
             Set<Profile> userProfile = new HashSet<>();
             userProfile.add(profiles);
+            userProfile.add(profiles2);
 
             User admin = new User(1, passwordEncoder.encode("password"), "demo", "demo", "demo@demo.com", roles, likes, watchLater, userProfile);
 

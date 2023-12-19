@@ -2,6 +2,7 @@ import React from "react";
 import './SelectProfilePage.css';
 import { useSelector } from "react-redux";
 import {NavLink} from "react-router-dom";
+import BrowsePage from "../BrowsePage";
 
 function SelectProfilePage() {
     const sessionUser = useSelector(state => state.session.user);
@@ -17,9 +18,12 @@ function SelectProfilePage() {
             <h1>Who's watching?</h1>
                 <ul>
                 {sessionUser.profiles.map((profile) => (
-                    <li key={profile.id}>
+                    <li key={profile.profileId}>
                            <div>
-                               <NavLink to={`/browse/${profile.name}`}>
+                               <NavLink to={{
+                                   pathname: `/browse/${profile.name}`,
+                                   state: { profileName: profile.name }
+                               }}>
                                    <div className="profile-icon">
                                        <img src="https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbGa4GvjA3sdbhrXZi7RG0-nuSXUxt-IZoVxB_7lHtMKT-wQ-CsDeukenQ6z6x4iUdqx4NJR4Sr3RDraWK1uYyKWRapH8T-tnFtb.png?r=59d" alt="profile icon"/>
                                    </div>

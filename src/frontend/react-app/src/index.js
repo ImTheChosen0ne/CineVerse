@@ -9,6 +9,7 @@ import * as sessionActions from "./store/session";
 import App from "./App";
 
 import "./index.css";
+import {ProfileProvider} from "./context/Profile";
 
 const store = configureStore();
 
@@ -25,8 +26,10 @@ function Root() {
 		<ModalProvider>
 			<Provider store={store}>
 				<BrowserRouter>
+					<ProfileProvider>
 					<App />
 					<Modal />
+					</ProfileProvider>
 				</BrowserRouter>
 			</Provider>
 		</ModalProvider>

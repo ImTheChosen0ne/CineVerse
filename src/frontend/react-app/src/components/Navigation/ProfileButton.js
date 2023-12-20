@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef, useContext} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { logout } from "../../store/session";
 import {NavLink, useHistory, useLocation} from "react-router-dom";
+import {ProfileContext} from "../../context/Profile";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -10,7 +11,7 @@ function ProfileButton({ user }) {
 
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-
+  const { updateProfile } = useContext(ProfileContext);
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -41,6 +42,9 @@ function ProfileButton({ user }) {
   const handleSignIn = () => {
     history.push("/login")
   }
+  const handleProfileSelect = (profile) => {
+    updateProfile(profile);
+  };
 
   return (
     <>
@@ -54,7 +58,7 @@ function ProfileButton({ user }) {
             {sessionUser.profiles.map((profile) => (
                     <li key={profile.profileId}>
                       <div>
-                        <NavLink to={`/browse`}>
+                        <NavLink to={`/browse/${profile.name}`} onClick={() => handleProfileSelect(profile)}>
                           <div className="profile-dropdown-profile-icon">
                             <img
                                 src="https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbGa4GvjA3sdbhrXZi7RG0-nuSXUxt-IZoVxB_7lHtMKT-wQ-CsDeukenQ6z6x4iUdqx4NJR4Sr3RDraWK1uYyKWRapH8T-tnFtb.png?r=59d"

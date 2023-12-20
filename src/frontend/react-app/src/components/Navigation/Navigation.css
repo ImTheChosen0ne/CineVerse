@@ -13,6 +13,7 @@
   font-size: 12px;
   line-height: 21px;
   letter-spacing: 0 !important;
+  z-index: 5;
 }
 
 .profile-dropdown-profiles-container {
@@ -137,6 +138,14 @@
   margin: 0;
 }
 
+.signup-nav .nav-links {
+  display: none ;
+}
+
+.splash-nav .nav-links {
+  display: none;
+}
+
 .signup-nav button {
   color: #333;
   font-size: 19px;
@@ -187,3 +196,4 @@
   right: 0;
   height: 68px;
 }
+

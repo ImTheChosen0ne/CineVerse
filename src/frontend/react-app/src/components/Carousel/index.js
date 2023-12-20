@@ -2,6 +2,7 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './Carousel.css';
+import {NavLink} from "react-router-dom";
 function MovieCarousel({ movies }) {
 
     const responsive = {
@@ -26,6 +27,7 @@ function MovieCarousel({ movies }) {
     return (
             <Carousel responsive={responsive}>
                 {movies.map((movie) => (
+                    <NavLink to={`watch/${movie.movieId}`}>
                     <div key={movie.movieId} className="movie-carousel-div">
                         {/*<video*/}
                         {/*    src={movie.trailer}*/}
@@ -34,9 +36,10 @@ function MovieCarousel({ movies }) {
                         {/*    controls*/}
                         {/*    muted*/}
                         {/*/>*/}
-                        <img src={movie?.poster} width="200px" height="100px"/>
+                        <img src={movie?.poster}/>
                         {/*<p>{movie.title}</p>*/}
                     </div>
+                    </NavLink>
                 ))}
             </Carousel>
     );

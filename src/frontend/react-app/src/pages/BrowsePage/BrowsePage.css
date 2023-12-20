@@ -1,8 +1,16 @@
+.browse {
+    background-color: #000;
+    background-image: linear-gradient(180deg,hsla(0,0%,8%,0) 0,hsla(0,0%,8%,.15) 15%,hsla(0,0%,8%,.35) 29%,hsla(0,0%,8%,.58) 44%,#141414 68%,#141414);
+    height: 100%;
+    transform: translateY(-76px);
+    margin-bottom: -76px;
+}
+
 .main-browse-container {
     display: block;
     position: relative;
-    z-index: 1;
-    transform: translateY(-15%);
+    z-index: -1;
+    top: 0;
 }
 
 .main {
@@ -10,7 +18,7 @@
     position: relative;
     right: 0;
     top: 0;
-    background-color: #000;
+    background-color: transparent;
     margin-bottom: 20px;
     padding-bottom: 40%;
     touch-action: pan-y;
@@ -18,7 +26,8 @@
 }
 
 .main-inner {
-    background-color: #000;
+    background: transparent;
+    mask-image: linear-gradient(to top, transparent, #141414);
     height: 56.25vw;
     position: absolute;
     width: 100%;
@@ -26,7 +35,7 @@
     left: 0;
     right: 0;
     top: 0;
-    z-index: 2;
+    z-index: 1;
 }
 
 .main-inner video {
@@ -54,6 +63,22 @@
     width: 100%;
 }
 
+.movies {
+    z-index: 10;
+}
+
 .movie-section {
-    transform: translateY(150%);
+    position: relative;
+    z-index: 3;
+    margin: 3vw 0;
+    padding: 0;
+    outline: 0;
+}
+
+.movie-section h2 {
+    line-height: 1.3;
+    font-weight: 500;
+    color: #fff;
+    cursor: default;
+    margin: 0 4% 0.5rem 60px;
 }

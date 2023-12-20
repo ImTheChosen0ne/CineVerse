@@ -50,7 +50,7 @@ export const login = (email, password) => async (dispatch) => {
 			password,
 		}),
 	});
-	console.log("response", response)
+
 	if (response.ok) {
 		const data = await response.json();
 		localStorage.setItem("token", data.jwt);

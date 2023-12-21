@@ -5,6 +5,7 @@
     background-color: #aaa;
     overflow: hidden;
     border-radius: 3px;
+    position: relative;
 }
 
 .react-multi-carousel-list {
@@ -77,4 +78,60 @@
 
 .react-multiple-carousel__arrow--left::before {
     font-size: 30px;
+}
+
+.movies {
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-section {
+    margin-bottom: 20px;
+}
+
+/*.extra-info {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    bottom: 0;*/
+/*    background-color: rgba(255, 255, 255, 0.9);*/
+/*    padding: 20px;*/
+/*    border-radius: 5px;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+/*    z-index: 1;*/
+/*    display: none;*/
+/*}*/
+
+/*.react-multi-carousel-item:hover .extra-info {*/
+/*    display: flex;*/
+/*}*/
+
+.carousel-container {
+    position: relative;
+}
+
+.carousel-item {
+    position: relative;
+}
+
+.movie-carousel-div {
+    position: relative;
+}
+
+.extra-info {
+    position: fixed;
+    width: 22%;
+    height: 13%;
+    background-color: white;
+    color: #fff;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.react-multi-carousel-item:hover .extra-info {
+    opacity: 1;
+    position: absolute;
 }

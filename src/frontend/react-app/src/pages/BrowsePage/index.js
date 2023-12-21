@@ -4,6 +4,8 @@ import './BrowsePage.css';
 import {getMovies} from "../../store/movies";
 import MovieCarousel from "../../components/Carousel";
 import Footer from "../../components/Footer";
+import OpenModalButton from "../../components/OpenModalButton";
+import OpenMovieModal from "../../components/OpenMovieModal";
 
 function BrowsePage() {
     const dispatch = useDispatch();
@@ -65,7 +67,7 @@ function BrowsePage() {
                     <MovieCarousel movies={movies} className="carousel"/>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </div>
     );
 }

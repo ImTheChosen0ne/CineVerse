@@ -11,7 +11,8 @@ function ProfileButton({ user }) {
 
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  const { updateProfile } = useContext(ProfileContext);
+  const { updateProfile, clearProfileData } = useContext(ProfileContext);
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -34,6 +35,7 @@ function ProfileButton({ user }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    clearProfileData();
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");

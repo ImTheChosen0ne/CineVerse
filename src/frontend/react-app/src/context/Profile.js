@@ -6,6 +6,7 @@ const ProfileContext = createContext();
 const ProfileProvider = ({ children }) => {
     const SECRET_KEY = process.env.REACT_APP_SECRET_KEY;
     const PROFILE_KEY = process.env.REACT_APP_PROFILE_KEY;
+    const sessionUser = localStorage.getItem("token");
 
     const decrypt = (encryptedData) => {
         try {
@@ -21,42 +22,52 @@ const ProfileProvider = ({ children }) => {
         return CryptoJS.AES.encrypt(data, SECRET_KEY).toString();
     };
 
-    const storedEncryptedProfile = localStorage.getItem(PROFILE_KEY);
-    const [profile, setProfile] = useState(() => {
-        try {
-            const decryptedProfile = storedEncryptedProfile ? JSON.parse(decrypt(storedEncryptedProfile)) : null;
-            if (decryptedProfile && decryptedProfile.data && decryptedProfile.expiration) {
+    const [profile, setProfile] = useState(null);
+
+    useEffect(() => {
+        const storedEncryptedProfile = localStorage.getItem(PROFILE_KEY);
+
+        if (storedEncryptedProfile) {
+            try {
+                const decryptedProfile = JSON.parse(decrypt(storedEncryptedProfile));
+
                 const expirationDate = new Date(decryptedProfile.expiration);
                 if (expirationDate > new Date()) {
-                    return decryptedProfile.data;
+                    setProfile(decryptedProfile.data);
                 } else {
                     localStorage.removeItem(PROFILE_KEY);
                 }
+            } catch (error) {
+                console.error('Error parsing decrypted profile:', error);
+                localStorage.removeItem(PROFILE_KEY);
             }
-        } catch (error) {
-            console.error('Error parsing decrypted profile:', error);
         }
-        return null;
-    });
+    }, [PROFILE_KEY]);
 
     useEffect(() => {
-        if (profile) {
-            const expiration = new Date();
-            expiration.setMinutes(expiration.getDate() + 1);
-
-            const encryptedProfile = encrypt(JSON.stringify({ data: profile, expiration: expiration.toISOString() }));
-            localStorage.setItem(PROFILE_KEY, encryptedProfile);
-        } else {
+        if (sessionUser === null) {
+            setProfile(null);
             localStorage.removeItem(PROFILE_KEY);
         }
-    }, [profile]);
+    }, [sessionUser, PROFILE_KEY]);
 
     const updateProfile = (newProfile) => {
         setProfile(newProfile);
+
+        const expiration = new Date();
+        expiration.setDate(expiration.getDate() + 1);
+
+        const encryptedProfile = encrypt(JSON.stringify({ data: newProfile, expiration: expiration.toISOString() }));
+        localStorage.setItem(PROFILE_KEY, encryptedProfile);
+    };
+
+    const clearProfileData = () => {
+        setProfile(null);
+        localStorage.removeItem(PROFILE_KEY);
     };
 
     return (
-        <ProfileContext.Provider value={{ profile, updateProfile }}>
+        <ProfileContext.Provider value={{ profile, updateProfile, clearProfileData }}>
             {children}
         </ProfileContext.Provider>
     );

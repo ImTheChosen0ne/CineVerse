@@ -25,27 +25,16 @@ function MovieCarousel({ movies }) {
     };
 
     const responsive = {
-        superLargeDesktop: {
-            breakpoint: { max: 4000, min: 3000 },
-            items: 5
-        },
-        desktop: {
+        all: {
             breakpoint: { max: 3000, min: 1024 },
-            items: 3
-        },
-        tablet: {
-            breakpoint: { max: 1024, min: 464 },
-            items: 2
-        },
-        mobile: {
-            breakpoint: { max: 464, min: 0 },
-            items: 1
+            items: 5,
+            partialVisibilityGutter: 73
         }
     };
 
     return (
         <div className="carousel-container">
-            <Carousel responsive={responsive}>
+            <Carousel responsive={responsive} infinite={false} slidesToSlide={6} partialVisible={true}>
                 {movies.map((movie, index) => (
                     <div
                         key={movie?.movieId}
@@ -53,7 +42,7 @@ function MovieCarousel({ movies }) {
                         onMouseEnter={(event) => onMouseEnter(movie, event)}
                     >
                         <div className="movie-carousel-div">
-                            <img src={movie?.poster} alt={movie?.title} />
+                            <img className="poster"  src={movie?.poster} alt={movie?.title} />
                         </div>
                     </div>
                 ))}

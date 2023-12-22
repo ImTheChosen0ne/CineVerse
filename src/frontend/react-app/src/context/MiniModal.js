@@ -10,7 +10,7 @@ export function MiniModalProvider({ children }) {
     // callback function that will be called when modal is closing
     const [onModalClose, setOnModalClose] = useState(null);
 
-    const closeModal = () => {
+    const closeMiniModal = () => {
         setModalContent(null); // clear the modal contents
         // If callback function is truthy, call the callback function and reset it
         // to null:
@@ -25,7 +25,7 @@ export function MiniModalProvider({ children }) {
         modalContent, // React component to render inside modal
         setModalContent, // function to set the React component to render inside modal
         setOnModalClose, // function to set the callback function called when modal is closing
-        closeModal // function to close the modal
+        closeMiniModal // function to close the modal
     };
 
     return (
@@ -39,7 +39,7 @@ export function MiniModalProvider({ children }) {
 }
 
 export function MiniModal() {
-    const { modalRef, modalContent, closeModal } = useContext(MiniModalContext);
+    const { modalRef, modalContent, closeMiniModal } = useContext(MiniModalContext);
     // If there is no div referenced by the modalRef or modalContent is not a
     // truthy value, render nothing:
     if (!modalRef || !modalRef.current || !modalContent) return null;

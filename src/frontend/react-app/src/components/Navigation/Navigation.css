@@ -14,6 +14,7 @@
   line-height: 21px;
   letter-spacing: 0 !important;
   z-index: 5;
+  margin-top: 20px;
 }
 
 .profile-dropdown-profiles-container {
@@ -47,7 +48,6 @@
   vertical-align: middle;
   width: 32px;
   border: 0;
-
 }
 
 .account {
@@ -112,6 +112,7 @@
 
 .navigation a {
   text-decoration: none;
+  color: white;
 }
 
 .sign-in {
@@ -187,13 +188,128 @@
 
 .browse-nav {
   background-color: transparent;
-  position: sticky;
+  position: fixed;
   top: 0;
+  margin: 0;
   /*height: auto;*/
   min-height: 70px;
   z-index: 2;
   left: 0;
   right: 0;
   height: 68px;
+  transition: background-color 0.3s ease;
+  justify-content: unset;
 }
 
+
+.browse-nav.scrolled {
+  background-color: rgb(11, 11, 11);
+}
+
+.browse-nav .logo {
+  margin-right: 25px;
+  /*padding-left: 4%;*/
+  color: #e50914;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 25px;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.browse-links {
+  align-items: center;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0 !important;
+  font-size: 14px;
+}
+
+.browse-links li {
+  display: block;
+  margin-left: 20px;
+}
+
+.browse-links li a {
+  cursor: pointer;
+  font-weight: 500;
+  align-items: center;
+  color: #e5e5e5;
+  display: flex;
+  height: 100%;
+  position: relative;
+  transition: color .4s;
+}
+
+.browse-links li a:hover {
+  color: #b3b3b3;
+}
+
+.browse-nav-profile {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+  justify-content: flex-end;
+  position: absolute;
+  right: 4%;
+  top: 0;
+  letter-spacing: 0 !important;
+  font-size: 14px;
+}
+
+.browse-nav-profile li {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links-search {
+  margin-right: 15px;
+}
+
+.nav-profile-button {
+  border-radius: 6px;
+  border: none;
+}
+
+.nav-profile-button img{
+  border-radius: 6px;
+  height: 32px;
+  vertical-align: middle;
+  width: 32px;
+  cursor: pointer;
+}
+
+.nav-profile-container {
+  display: flex;
+  align-items: center;
+}
+
+.caret {
+  border-color: #fff transparent transparent;
+  border-style: solid;
+  border-width: 5px 5px 0;
+  height: 0;
+  margin-left: 10px;
+  transition: transform 367ms cubic-bezier(.21,0,.07,1);
+  width: 0;
+}
+
+.browse-nav-profile-button:hover .caret {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+.caret-dropdown{
+  position: absolute;
+  right: 30px;
+  border-color: rgba(255, 255, 255, 0.7) transparent transparent;
+  border-style: solid;
+  border-width: 7px 7px 0;
+  height: 20px;
+  margin-left: 10px;
+  transition: transform 367ms cubic-bezier(.21,0,.07,1);
+  width: 0;
+  transform: translateY(-25px) rotate(180deg);
+}

@@ -1,18 +1,25 @@
+.carousel-container {
+
+}
+
 .react-multi-carousel-item {
     display: flex;
-    margin-left: 6px;
-    width:18% !important;
-    background-color: #aaa;
+    width: 16.35% !important;
     overflow: hidden;
     border-radius: 3px;
     position: relative;
+    flex: none !important;
+    margin: 0 4px;
 }
 
 .react-multi-carousel-list {
-    padding: 0 60px;
-    margin: 0;
+    width: auto;
     position: relative;
     touch-action: pan-y;
+}
+
+.react-multi-carousel-track {
+    margin: 0 60px;
 }
 
 .movie-carousel-div {
@@ -28,10 +35,10 @@
     display: flex;
     bottom: 0;
     left: 0;
-    height: 165px;
+    height: 100%;
     right: 0;
     top: 0;
-    width: 295px;
+    width: 100%;
 }
 
 .react-multi-carousel-list:hover .react-multiple-carousel__arrow--right {

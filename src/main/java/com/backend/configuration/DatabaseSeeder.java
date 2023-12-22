@@ -60,10 +60,10 @@ public class DatabaseSeeder {
             Set<Movie> watchLater = new HashSet<>();
             watchLater.add(movie);
 
-            Profile profile = new Profile(1, "demo", "img");
+            Profile profile = new Profile(1, "demo", "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbGa4GvjA3sdbhrXZi7RG0-nuSXUxt-IZoVxB_7lHtMKT-wQ-CsDeukenQ6z6x4iUdqx4NJR4Sr3RDraWK1uYyKWRapH8T-tnFtb.png?r=59d");
             Profile profiles = profileRepository.save(profile);
 
-            Profile profile2 = new Profile(2, "demo2", "img");
+            Profile profile2 = new Profile(2, "demo2", "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbGa4GvjA3sdbhrXZi7RG0-nuSXUxt-IZoVxB_7lHtMKT-wQ-CsDeukenQ6z6x4iUdqx4NJR4Sr3RDraWK1uYyKWRapH8T-tnFtb.png?r=59d");
             Profile profiles2 = profileRepository.save(profile2);
 
             Set<Profile> userProfile = new HashSet<>();

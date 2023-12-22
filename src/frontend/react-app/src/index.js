@@ -10,6 +10,7 @@ import App from "./App";
 
 import "./index.css";
 import {ProfileProvider} from "./context/Profile";
+import {MiniModal, MiniModalProvider} from "./context/MiniModal";
 
 const store = configureStore();
 
@@ -24,14 +25,17 @@ if (process.env.NODE_ENV !== "production") {
 function Root() {
 	return (
 		<ModalProvider>
-			<Provider store={store}>
-				<BrowserRouter>
-					<ProfileProvider>
-					<App />
-					<Modal />
-					</ProfileProvider>
-				</BrowserRouter>
-			</Provider>
+			<MiniModalProvider>
+				<Provider store={store}>
+					<BrowserRouter>
+						<ProfileProvider>
+							<App />
+							<MiniModal/>
+							<Modal />
+						</ProfileProvider>
+					</BrowserRouter>
+				</Provider>
+			</MiniModalProvider>
 		</ModalProvider>
 	);
 }

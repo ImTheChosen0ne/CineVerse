@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import { useMiniModal } from "../../context/MiniModal";
-import "./LoginForm.css";
+import "./OpenMovieModal.css";
 
 
 function OpenMovieModal({movie, position}) {

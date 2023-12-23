@@ -28,25 +28,41 @@ function Navigation({ isLoaded }){
 		};
 	}, []);
 
-	const hideNavigation = location.pathname === '/login'
+	const hideNavigationRoutes = ['/login'];
+	const hideNavigation = hideNavigationRoutes.includes(location.pathname);
+
 	if (hideNavigation) {
 		return null;
 	}
 
+	const pageNotFound = ![
+		'/',
+		'/signup',
+		`/browse/${profile?.name}`,
+		'/browse/new',
+		'/browse/my_list',
+		'/browse/language',
+		'/browse/search',
+	].includes(location.pathname);
+
 	let navClassName = null;
-	const signInButton = location.pathname === '/signup'
-	if (signInButton) {
-		navClassName = "signup-nav";
-	}
+	let navHome = null;
 
-	const splash = location.pathname === '/'
-	if (splash) {
-		navClassName = "splash-nav";
-	}
-
-	const browse = location.pathname === `/browse/${profile?.name}`|| location.pathname === "/browse/new" || location.pathname === "/browse/my_list" || location.pathname === "/browse/language" || location.pathname === "/browse/search"
-	if (browse) {
-		navClassName = "browse-nav";
+	if (pageNotFound) {
+		navClassName = 'page-not-found-nav';
+	} else if (location.pathname === '/signup') {
+		navClassName = 'signup-nav';
+	} else if (location.pathname === '/') {
+		navClassName = 'splash-nav';
+		navHome = 'splash';
+	} else if (
+		location.pathname === `/browse/${profile?.name}` ||
+		location.pathname === '/browse/new' ||
+		location.pathname === '/browse/my_list' ||
+		location.pathname === '/browse/language' ||
+		location.pathname === '/browse/search'
+	) {
+		navClassName = 'browse-nav';
 		navClassName = scrolled ? 'browse-nav scrolled' : '';
 	}
 
@@ -70,7 +86,7 @@ function Navigation({ isLoaded }){
 				</li>
 				</div>
 			<div className="browse-nav-profile">
-				<li className="nav-links-search">
+				<li className={`nav-links-search ${navHome}`}>
 					<NavLink exact to="/browse/search">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
 							 className="search-icon ltr-4z3qvp e1svuwfo1" data-name="MagnifyingGlass" aria-hidden="true">

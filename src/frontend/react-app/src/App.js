@@ -12,7 +12,6 @@ import BrowsePage from "./pages/BrowsePage";
 import ManageProfiles from "./pages/ManageProfilesPage";
 import Account from "./pages/AccountPage";
 
-
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -45,6 +44,9 @@ function App() {
           </Route>
           <Route exact path="/" >
             <SplashPage />
+          </Route>
+          <Route>
+            <h1>PAGE NOT FOUND</h1>
           </Route>
         </Switch>
       )}

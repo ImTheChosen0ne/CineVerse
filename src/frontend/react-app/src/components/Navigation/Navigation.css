@@ -313,3 +313,11 @@
   width: 0;
   transform: translateY(-25px) rotate(180deg);
 }
+
+.nav-links-search.splash {
+  display: none;
+}
+
+.page-not-found-nav {
+  display: none;
+}

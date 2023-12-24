@@ -45,7 +45,7 @@ function BrowsePage() {
                     </div>
                 </div>
             </div>
-            <div className="movies">
+            {/*<div className="movies">*/}
                 <div className="movie-section">
                     <h2>Movies Title</h2>
                     <MovieCarousel movies={movies} className="carousel"/>
@@ -66,7 +66,7 @@ function BrowsePage() {
                     <h2>Movies Title</h2>
                     <MovieCarousel movies={movies} className="carousel"/>
                 </div>
-            </div>
+            {/*</div>*/}
             <Footer/>
         </div>
     );

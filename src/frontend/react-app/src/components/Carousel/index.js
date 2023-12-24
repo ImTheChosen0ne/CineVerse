@@ -1,6 +1,6 @@
 // MovieCarousel.jsx
 
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './Carousel.css';
@@ -9,9 +9,6 @@ import { useMiniModal } from "../../context/MiniModal";
 
 function MovieCarousel({ movies }) {
     const { setModalContent, modalRef } = useMiniModal();
-    const modalWrapperRef = useRef(null);
-    const [selectedMovieIndex, setSelectedMovieIndex] = useState(null);
-
     const onMouseEnter = (movie, event) => {
         const rect = event.target.getBoundingClientRect();
         const positionInfo = {
@@ -24,17 +21,60 @@ function MovieCarousel({ movies }) {
         setModalContent(<OpenMovieModal movie={movie} position={positionInfo} />);
     };
 
-    const responsive = {
-        all: {
-            breakpoint: { max: 3000, min: 1024 },
-            items: 5,
-            partialVisibilityGutter: 73
-        }
-    };
-
     return (
-        <div className="carousel-container">
-            <Carousel responsive={responsive} infinite={false} slidesToSlide={6} partialVisible={true}>
+        <Carousel
+            additionalTransfrom={54}
+            arrows
+            autoPlaySpeed={3000}
+            centerMode={false}
+            className=""
+            containerClass="carousel-container"
+            dotListClass=""
+            focusOnSelect={false}
+            infinite
+            itemClass="carousel-item"
+            keyBoardControl
+            minimumTouchDrag={20}
+            pauseOnHover
+            renderArrowsWhenDisabled={false}
+            renderButtonGroupOutside={false}
+            renderDotsOutside={false}
+            partialVisbile
+            responsive={{
+                desktop: {
+                    breakpoint: {
+                        max: 3000,
+                        min: 1381
+                    },
+                    items: 6,
+                    partialVisibilityGutter: 18
+                },
+                mobile: {
+                    breakpoint: {
+                        max: 1381,
+                        min: 0
+                    },
+                    items: 5,
+                    partialVisibilityGutter: 22
+                },
+                tablet: {
+                    breakpoint: {
+                        max: 1024,
+                        min: 464
+                    },
+                    items: 4,
+                    partialVisibilityGutter: 27
+                }
+            }}
+            rewind={false}
+            rewindWithAnimation={false}
+            rtl={false}
+            shouldResetAutoplay
+            showDots={false}
+            sliderClass="slider"
+            slidesToSlide={6}
+            swipeable
+        >
                 {movies.map((movie, index) => (
                     <div
                         key={movie?.movieId}
@@ -47,7 +87,6 @@ function MovieCarousel({ movies }) {
                     </div>
                 ))}
             </Carousel>
-        </div>
     );
 }
 

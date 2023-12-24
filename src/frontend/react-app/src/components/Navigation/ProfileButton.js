@@ -81,7 +81,7 @@ function ProfileButton({ user, profile }) {
                 </div>
                 <div className="account">
                   <li>
-                    <NavLink to={`/manage_profiles`}>
+                    <NavLink to={`/ManageProfiles`}>
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                            data-mirrorinrtl="true" className="ltr-4z3qvp e1svuwfo1" data-name="Pencil"
                            aria-hidden="true">

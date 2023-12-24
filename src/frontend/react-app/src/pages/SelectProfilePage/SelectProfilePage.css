@@ -1,7 +1,17 @@
 .profiles-container {
     background: #141414;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
     text-align: center;
-    letter-spacing: 0 !important;
+    top: 0;
+    z-index: 0;
+    font-size: .75vw;
+}
+
+.list-profiles {
+    animation: animateProfileGate .45s forwards;
     align-items: center;
     bottom: 0;
     display: flex;
@@ -12,7 +22,6 @@
     right: 0;
     top: 0;
     z-index: 100;
-    cursor: default;
 }
 
 .profiles {
@@ -30,11 +39,14 @@
     text-align: center;
 }
 
-.profiles ul {
+.choose-profile {
     margin: 2em 0;
+    opacity: 1;
+    transition: opacity .4s ease-out;
+    padding: 0;
 }
 
-.profiles li {
+.profile-wrapper {
     margin: 0 2vw 0 0;
     max-width: 200px;
     min-width: 84px;
@@ -51,20 +63,43 @@
 }
 
 .profile-icon {
-    position: relative;
-    cursor: pointer;
-}
-
-.profile-icon img {
+    background-color: #333;
     border: none;
     border-radius: 4px;
+    box-sizing: border-box;
     height: 10vw;
     max-height: 200px;
     max-width: 200px;
     min-height: 84px;
     min-width: 84px;
     position: relative;
+    text-decoration: none;
     width: 10vw;
+}
+
+.profile-icon::after {
+    border: .18em solid transparent;
+    border-radius: 4px;
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.profile-icon img {
+    display: flex;
+    border: none;
+    border-radius: 4px;
+    height: 100%;
+    max-height: 200px;
+    max-width: 200px;
+    min-height: 84px;
+    min-width: 84px;
+    position: relative;
+    width: 100%;
 }
 
 .profiles span {
@@ -77,3 +112,35 @@
     text-align: center;
     text-overflow: ellipsis;
 }
+
+.manage-profile-button {
+    text-align: center;
+    letter-spacing: 0 !important;
+}
+
+.manage-profile-button a {
+    background-color: transparent;
+    border: 1px solid grey;
+    color: grey;
+    cursor: pointer;
+    display: block;
+    font-size: 1.2vw;
+    letter-spacing: 2px;
+    margin: 2em 0 1em;
+    padding: .5em 1.5em;
+    text-decoration: none;
+}
+
+.manage-profile-button a:hover {
+    border: 1px solid #fff;
+    color:#fff;
+}
+
+.profile-wrapper a:hover .profile-icon:after {
+    border-color: #fff
+}
+
+.profile-wrapper a:hover span {
+    color: #e5e5e5;
+}
+

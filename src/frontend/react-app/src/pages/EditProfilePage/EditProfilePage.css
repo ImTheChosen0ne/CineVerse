@@ -1,0 +1,230 @@
+.edit-profile {
+    width: 100%;
+    background: #141414;
+    height: 100vh;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    height: auto;
+    min-height: 70px;
+    z-index: 1;
+    background-image: linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent);
+}
+
+.edit-profile-container {
+    position: static;
+    background: #141414;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 0;
+    z-index: 0;
+}
+
+.edit-profile-center {
+    opacity: 1;
+    transform: scale(1);
+    position: initial;
+    transition-duration: 450ms;
+    transition-delay: 200ms;
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.edit-profile-wrapper {
+    position: relative;
+    text-align: left;
+    font-size: .75vw;
+}
+
+.edit-profile-wrapper h1 {
+    font-size: 4vw;
+    margin: 0;
+    font-weight: 400;
+    text-align: left;
+    color: #fff;
+    cursor: default;
+}
+.profile-entry {
+    display: flex;
+    padding: 2em 0;
+    border-bottom: 1px solid #333;
+    border-top: 1px solid #333;
+    text-align: left;
+}
+
+.profile-edit-icon-container {
+    margin-right: 1.5vw;
+    max-width: 180px;
+    min-width: 80px;
+    white-space: nowrap;
+    width: 8vw;
+    text-align: left;
+}
+
+.profile-edit-icon {
+    position: relative;
+}
+
+.profile-edit-icon img {
+    border-radius: 4px;
+    transition-timing-function: cubic-bezier(.68,-.55,.265,1.55);
+    height: 8vw;
+    max-height: 180px;
+    max-width: 180px;
+    min-height: 80px;
+    min-width: 80px;
+    width: 8vw;
+    animation-name: animateScale;
+    animation-duration: 400ms;
+}
+
+.profile-edit-icon button {
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    bottom: 7%;
+    cursor: pointer;
+    left: 7%;
+    position: absolute;
+}
+
+.profile-edit-icon button {
+    background-color: rgba(0,0,0,.7);
+    border-radius: 5rem;
+    filter: drop-shadow(1px 1px 2px #000);
+    height: 2rem;
+    max-height: 45px;
+    max-width: 45px;
+    width: 2rem;
+    color: #fff;
+}
+
+.profile-edit-info {
+    max-width: 500px;
+}
+
+.profile-edit-inputs {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    text-align: left;
+}
+
+.profile-edit-inputs input {
+    color: #fff;
+    width: 100%;
+    background: #666;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    font-size: 1.3vw;
+    height: 2em;
+    text-indent: .1vw;
+    margin: 0 .8em 18px 0;
+    padding: .2em .6em;
+}
+
+.profile-edit-inputs input::placeholder {
+    border: none;
+    box-sizing: border-box;
+    color: #ccc;
+    font-size: 1.3vw;
+    height: 2em;
+    text-indent: .1vw;
+}
+
+.profile-edit-inputs input:focus {
+    outline: none;
+    border: none;
+}
+
+.game {
+    margin-top: 24px;
+}
+
+.game h2 {
+    font-size: 1.3vw;
+    margin: 0 0 7px;
+    color: rgb(204, 204, 204);
+    font-weight: 400;
+}
+
+.game p {
+    font-size: 1vw;
+    color: #fff;
+    margin: 17px 0
+}
+
+.profile-entry-restrictions {
+    border-top: 1px solid #333;
+    font-size: 1vw;
+    margin: 1.5vw 0 0;
+    padding: 1.5vw 0 0;
+}
+
+.profile-entry-restrictions h2 {
+    color: #ccc;
+    margin: 0 0 7px;
+    font-size: 1.3vw;
+    font-weight: 400;
+}
+
+.profile-maturity-label {
+    background: #333;
+    border-radius: 2px;
+    font-weight: 500;
+    margin: 16px 5px 16px 0;
+    padding: 7px 10px;
+    unicode-bidi: normal;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    color: #fff;
+}
+
+.profile-entry-restrictions p {
+    font-size: 1vw;
+    color: #fff;
+}
+
+.profile-button {
+    font-size: 1vw;
+    margin: 2em 0 1em;
+    display: inline-block;
+    background-color: transparent;
+    border: 1px solid grey;
+    color: grey;
+    cursor: pointer;
+    padding: .5em 1.5em;
+    text-decoration: none;
+}
+
+.profile-button:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+.profile-button.end {
+    margin-right: 20px;
+}
+
+.profile-button.save {
+    background: #fff;
+    border: 1px solid #fff;
+    color: #000;
+    font-weight: 500;
+}
+
+.profile-button.save:hover {
+    background: #c00;
+    border-color: #c00;
+    color: #fff;
+}

@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import BrowsePage from "./pages/BrowsePage";
 import ManageProfiles from "./pages/ManageProfilesPage";
 import Account from "./pages/AccountPage";
+import EditProfilePage from "./pages/EditProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,8 +25,11 @@ function App() {
       <Navigation isLoaded={isLoaded}/>
       {isLoaded && (
         <Switch>
-          <ProtectedRoute exact path="/manage_profiles" >
+          <ProtectedRoute exact path="/ManageProfiles" >
             <ManageProfiles />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/ManageProfiles/:profileName" >
+            <EditProfilePage />
           </ProtectedRoute>
           <ProtectedRoute exact path="/account" >
             <Account />

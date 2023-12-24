@@ -278,7 +278,6 @@ function SignupFormPage() {
                                       </span>
                                   </label>
                               </div>
-
                           </div>
                           <div className="plan-grid-plan-info">
                               <div className="plan-grid-plan-info-row">

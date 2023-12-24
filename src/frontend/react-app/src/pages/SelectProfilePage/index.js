@@ -7,6 +7,7 @@ import {ProfileContext} from "../../context/Profile";
 
 function SelectProfilePage() {
     const sessionUser = useSelector(state => state.session.user);
+
     const { updateProfile } = useContext(ProfileContext);
     const handleProfileSelect = (profile) => {
         updateProfile(profile);
@@ -15,11 +16,12 @@ function SelectProfilePage() {
 
     return (
         <div className="profiles-container">
+            <div className="list-profiles">
             <div className="profiles">
             <h1>Who's watching?</h1>
-                <ul>
+                <ul className="choose-profile">
                 {sessionUser.profiles.map((profile) => (
-                    <li key={profile.profileId}>
+                    <li key={profile.profileId} className="profile-wrapper">
                            <div>
                                <NavLink to={`/browse/${profile.name}`} onClick={() => handleProfileSelect(profile)}>
                                    <div className="profile-icon">
@@ -33,6 +35,12 @@ function SelectProfilePage() {
                     </li>
                 ))}
                 </ul>
+            </div>
+            <span className="manage-profile-button">
+                <NavLink to="/ManageProfiles">
+                    Manage Profiles
+                </NavLink>
+            </span>
             </div>
         </div>
     );

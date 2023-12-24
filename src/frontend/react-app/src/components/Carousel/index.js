@@ -1,6 +1,4 @@
-// MovieCarousel.jsx
-
-import React, {useEffect, useRef, useState} from "react";
+import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './Carousel.css';
@@ -18,7 +16,7 @@ function MovieCarousel({ movies }) {
             height: rect.height
         };
 
-        setModalContent(<OpenMovieModal movie={movie} position={positionInfo} />);
+        setModalContent(<OpenMovieModal movie={movie} position={positionInfo}/>);
     };
 
     return (

@@ -1,0 +1,62 @@
+.done-profile-button {
+    letter-spacing: 0 !important;
+    text-align: center;
+}
+
+.done-profile-button a {
+    background: #fff;
+    border: 1px solid #fff;
+    color: #000;
+    font-weight: 500;
+    cursor: pointer;
+    display: block;
+    font-size: 1.2vw;
+    letter-spacing: 2px;
+    margin: 2em 0 1em;
+    padding: .5em 1.5em;
+    text-decoration: none;
+    align-items: center;
+}
+
+.done-profile-button a:hover {
+    background: #c00;
+    border: 1px solid #c00;
+    color: #fff;
+}
+
+.list-profiles .profile-svg {
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #fff;
+    cursor: pointer;
+}
+
+.profile-svg .svg-icon-edit {
+    width: 25%;
+    height: auto;
+    max-width: 70px;
+    max-height: 70px;
+}
+
+.t_17d527 .svg-icon {
+    border: 1px solid transparent;
+    margin: 0 -1px;
+    overflow: visible;
+    transform: scale(1);
+}
+
+.manage-profile-wrapper {
+    position: relative;
+    text-align: center;
+    display: flex;
+}
+
+.profile-icon.manage {
+    opacity: .5;
+}

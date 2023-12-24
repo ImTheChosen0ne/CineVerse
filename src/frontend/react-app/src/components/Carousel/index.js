@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef, useState} from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './Carousel.css';
@@ -7,6 +7,10 @@ import { useMiniModal } from "../../context/MiniModal";
 
 function MovieCarousel({ movies }) {
     const { setModalContent, modalRef } = useMiniModal();
+    const carouselRef = useRef(null);
+
+    const [infinite, setInfinite] = useState(false);
+    const [currentSlide, setCurrentSlide] = useState(0);
     const onMouseEnter = (movie, event) => {
         const rect = event.target.getBoundingClientRect();
         const positionInfo = {
@@ -19,7 +23,25 @@ function MovieCarousel({ movies }) {
         setModalContent(<OpenMovieModal movie={movie} position={positionInfo}/>);
     };
 
+    const handleAfterChange = (previousSlide, { currentSlide }) => {
+
+        setInfinite(true);
+
+        // if (infinite && carouselRef.current) {
+        //     const nextSlide = (carouselRef.current.state.currentSlide) // Assuming 6 slides are visible at a time
+        //     carouselRef.current.goToSlide(nextSlide);
+        // }
+
+        // setInfinite(true);
+    };
+    const handleBeforeChange = () => {
+        setInfinite(true);
+    };
+
+
     return (
+        <div>
+            {/*<div className="filler"></div>*/}
         <Carousel
             additionalTransfrom={54}
             arrows
@@ -29,7 +51,6 @@ function MovieCarousel({ movies }) {
             containerClass="carousel-container"
             dotListClass=""
             focusOnSelect={false}
-            infinite
             itemClass="carousel-item"
             keyBoardControl
             minimumTouchDrag={20}
@@ -71,7 +92,11 @@ function MovieCarousel({ movies }) {
             showDots={false}
             sliderClass="slider"
             slidesToSlide={6}
-            swipeable
+            afterChange={handleAfterChange}
+            // beforeChange={handleBeforeChange}
+            infinite={infinite}
+            // ref={carouselRef}
+            key={infinite ? 'infinite-carousel' : 'normal-carousel'}
         >
                 {movies.map((movie, index) => (
                     <div
@@ -85,6 +110,7 @@ function MovieCarousel({ movies }) {
                     </div>
                 ))}
             </Carousel>
+        </div>
     );
 }
 

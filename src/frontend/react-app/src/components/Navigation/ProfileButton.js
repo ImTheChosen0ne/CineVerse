@@ -79,7 +79,7 @@ function ProfileButton({ user, profile }) {
                       )
                   )}
                 </div>
-                <div className="account">
+                <div className="account-pulldown">
                   <li>
                     <NavLink to={`/ManageProfiles`}>
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"

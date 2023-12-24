@@ -50,7 +50,7 @@
   border: 0;
 }
 
-.account {
+.account-pulldown {
   padding-bottom: 10px;
   display: block;
   height: auto;
@@ -59,21 +59,21 @@
   cursor: default;
 }
 
-.account li {
+.account-pulldown li {
   display: block;
   font-size: 13px;
   line-height: 16px;
   padding: 5px 10px;
 }
 
-.account li a{
+.account-pulldown li a{
   align-items: center;
   display: flex;
   text-transform: none;
   width: 100%;
 }
 
-.account svg {
+.account-pulldown svg {
   box-sizing: content-box;
   color: #b3b3b3;
   padding: 0 13px 0 5px;
@@ -325,4 +325,23 @@
 
 .page-not-found-nav {
   display: none;
+}
+
+.browse-links.account {
+  display: none;
+}
+
+.nav-links-search.account {
+  display: none;
+}
+
+.account {
+  height: auto;
+  z-index: 10;
+  background-color: rgba(0,0,0,.97);
+  position: relative;
+}
+
+.splash {
+  position: relative;
 }

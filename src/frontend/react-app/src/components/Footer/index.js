@@ -7,10 +7,17 @@ import {useLocation} from "react-router-dom";
 function Footer() {
     const location = useLocation();
 
-    let footerClassName = null;
-    const footerCss = location.pathname === '/signup'
-    if (footerCss) {
-        footerClassName = "signup-footer";
+    let footerClassName = "";
+    // const footerCss = location.pathname === '/signup' || location.pathname === '/account'
+    //
+    // if (footerCss) {
+    //     footerClassName = "signup-footer";
+    // }
+
+    if (location.pathname === '/signup') {
+        footerClassName = 'signup-footer';
+    } else if (location.pathname === '/account') {
+        footerClassName = 'account-footer';
     }
 
     return (

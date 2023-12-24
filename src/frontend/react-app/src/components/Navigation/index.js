@@ -43,10 +43,12 @@ function Navigation({ isLoaded }){
 		'/browse/my_list',
 		'/browse/language',
 		'/browse/search',
+		'/account'
 	].includes(location.pathname);
 
-	let navClassName = null;
-	let navHome = null;
+	let navClassName = "";
+	let navHome = "";
+	let navAccount = "";
 
 	if (pageNotFound) {
 		navClassName = 'page-not-found-nav';
@@ -55,6 +57,8 @@ function Navigation({ isLoaded }){
 	} else if (location.pathname === '/') {
 		navClassName = 'splash-nav';
 		navHome = 'splash';
+	} else if (location.pathname === '/account') {
+		navAccount = 'account';
 	} else if (
 		location.pathname === `/browse/${profile?.name}` ||
 		location.pathname === '/browse/new' ||
@@ -67,11 +71,11 @@ function Navigation({ isLoaded }){
 	}
 
 	return (
-		<ul className={`navigation browse-nav ${navClassName}`}>
+		<ul className={`navigation browse-nav ${navClassName} ${navAccount} ${navHome}`}>
 			<li className="logo">
-				<NavLink exact to={`/browse/${profile?.name}`}>CineVerse</NavLink>
+				<NavLink class="logo" exact to={`/browse/${profile?.name}`}>CineVerse</NavLink>
 			</li>
-			<div className="browse-links">
+			<div className={`browse-links ${navAccount}`}>
 				<li className="nav-links">
 					<NavLink exact to={`/browse/${profile?.name}`}>Home</NavLink>
 				</li>
@@ -84,9 +88,9 @@ function Navigation({ isLoaded }){
 				<li className="nav-links">
 					<NavLink exact to="/browse/language">Browse By Languages</NavLink>
 				</li>
-				</div>
+			</div>
 			<div className="browse-nav-profile">
-				<li className={`nav-links-search ${navHome}`}>
+				<li className={`nav-links-search ${navHome} ${navAccount}`}>
 					<NavLink exact to="/browse/search">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
 							 className="search-icon ltr-4z3qvp e1svuwfo1" data-name="MagnifyingGlass" aria-hidden="true">

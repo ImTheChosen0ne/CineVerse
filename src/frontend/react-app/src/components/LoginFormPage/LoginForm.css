@@ -48,7 +48,6 @@
     text-decoration: none;
     vertical-align: middle;
     background-color: transparent;
-    color: #0080ff;
     cursor: pointer;
 }
 
@@ -162,4 +161,8 @@
     font-size: 16px;
     font-weight: 400;
     padding-left: 5px;
+}
+
+.logo {
+    color: #e50914;
 }

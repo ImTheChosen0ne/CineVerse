@@ -2,7 +2,13 @@
     /*margin-right: 60px!important;*/
 }
 
-
+.filler{
+    background-color: #131313;
+    width: 50px;
+    height: 151.2px;
+    position: absolute;
+    z-index: 5000;
+}
 
 .react-multi-carousel-item {
     display: flex;

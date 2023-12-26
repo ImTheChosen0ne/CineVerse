@@ -91,7 +91,7 @@ function Navigation({ isLoaded }){
 			</div>
 			<div className="browse-nav-profile">
 				<li className={`nav-links-search ${navHome} ${navAccount}`}>
-					<NavLink exact to="/browse/search">
+					<NavLink exact to="/browse/search" className="search-link">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
 							 className="search-icon ltr-4z3qvp e1svuwfo1" data-name="MagnifyingGlass" aria-hidden="true">
 							<path fill-rule="evenodd" clip-rule="evenodd"

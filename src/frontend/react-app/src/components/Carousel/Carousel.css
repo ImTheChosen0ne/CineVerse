@@ -92,3 +92,80 @@
 .react-multiple-carousel__arrow--left::before {
     font-size: 30px;
 }
+
+.react-multi-carousel-list.top-carousel-container .react-multiple-carousel__arrow--left {
+    min-width: 47px;
+}
+
+.react-multi-carousel-list.top-carousel-container .react-multiple-carousel__arrow--right {
+    min-width: 45px;
+}
+
+
+.react-multi-carousel-item {
+    /*width: 18.66666667% !important;*/
+}
+
+.top-carousel-item {
+    overflow: hidden;
+    /*padding-right: 10px !important;*/
+    position: relative;
+    width: 100%;
+}
+
+.top-carousel-item:last-child {
+    overflow: hidden;
+    padding: 0!important;
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+
+.top-carousel-item .last-image {
+    transform: translateX(-1%);
+    bottom: 0;
+    height: 100%;
+    left: auto;
+    object-fit: cover;
+    right: 0;
+    top: 0;
+    position: relative;
+    justify-content: center;
+}
+
+.top-carousel-item #rank-10 {
+    width: 48%;
+    height: 100%;
+}
+
+.svg-icon-rank-10 {
+    transform: translateX(-1%);
+}
+
+.top-carousel-item svg {
+    border: 1px solid transparent;
+    /*margin: 0 -1px;*/
+    overflow: visible;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    top: 0;
+    width: 30%;
+}
+
+.top-carousel-item img {
+    bottom: 0;
+    height: 98.5%;
+    left: auto;
+    -o-object-fit: cover;
+    object-fit: cover;
+    right: 0;
+    top: 0;
+    width: 55%;
+    position: relative;
+    transform: translate(14%, 1%);
+}
+
+.react-multi-carousel-track.top-slider {
+    margin-right: 200px !important;
+}

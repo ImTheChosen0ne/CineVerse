@@ -6,6 +6,7 @@ import MovieCarousel from "../../components/Carousel";
 import Footer from "../../components/Footer";
 import OpenModalButton from "../../components/OpenModalButton";
 import OpenMovieModal from "../../components/OpenMovieModal";
+import TopMovieCarousel from "../../components/Carousel/TopMovieCarousel";
 
 function BrowsePage() {
     const dispatch = useDispatch();
@@ -46,26 +47,30 @@ function BrowsePage() {
                 </div>
             </div>
             {/*<div className="movies">*/}
-                <div className="movie-section">
-                    <h2>Movies Title</h2>
-                    <MovieCarousel movies={movies} className="carousel"/>
-                </div>
-                <div className="movie-section">
-                    <h2>Movies Title</h2>
-                    <MovieCarousel movies={movies} className="carousel"/>
-                </div>
-                <div className="movie-section">
-                    <h2>Movies Title</h2>
-                    <MovieCarousel movies={movies} className="carousel"/>
-                </div>
-                <div className="movie-section">
-                    <h2>Movies Title</h2>
-                    <MovieCarousel movies={movies} className="carousel"/>
-                </div>
-                <div className="movie-section">
-                    <h2>Movies Title</h2>
-                    <MovieCarousel movies={movies} className="carousel"/>
-                </div>
+            <div className="movie-section">
+                <h2>Movies Title</h2>
+                <MovieCarousel movies={movies} className="carousel"/>
+            </div>
+            <div className="movie-section">
+                <h2>Top 10 Movies in the U.S. Today</h2>
+                <TopMovieCarousel movies={movies} className="carousel"/>
+            </div>
+            <div className="movie-section">
+                <h2>Movies Title</h2>
+                <MovieCarousel movies={movies} className="carousel"/>
+            </div>
+            <div className="movie-section">
+                <h2>Movies Title</h2>
+                <MovieCarousel movies={movies} className="carousel"/>
+            </div>
+            <div className="movie-section">
+                <h2>Movies Title</h2>
+                <MovieCarousel movies={movies} className="carousel"/>
+            </div>
+            <div className="movie-section">
+                <h2>Movies Title</h2>
+                <MovieCarousel movies={movies} className="carousel"/>
+            </div>
             {/*</div>*/}
             <Footer/>
         </div>

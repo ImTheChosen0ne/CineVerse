@@ -336,7 +336,6 @@
 }
 
 .account {
-  height: auto;
   z-index: 10;
   background-color: rgba(0,0,0,.97);
   position: relative;
@@ -344,4 +343,9 @@
 
 .splash {
   position: relative;
+}
+
+.logo a {
+  text-decoration: none;
+  color: #e50914;
 }

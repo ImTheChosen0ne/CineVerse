@@ -1,0 +1,432 @@
+.more-movie-detail-modal {
+    box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
+}
+
+.more-movie-detail-modal-video-container {
+    position: relative;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    overflow: hidden;
+}
+
+.detail-video-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.detail-video {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.detail-video video{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.more-detail-poster-container {
+    /*position: absolute;*/
+    overflow: hidden;
+    padding-top: 56.3925%;
+    width: 100%;
+}
+
+.more-detail-poster-container img {
+    opacity: 1;
+    min-width: 100%;
+    display: block;
+    left: 0;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    transition: height .2s ease-in-out;
+}
+
+.more-movie-detail-modal-buttons-title {
+    opacity: 1;
+}
+
+.more-movie-detail-modal-buttons-title-wrapper {
+    opacity: 1;
+    background: linear-gradient(0deg,#181818,transparent 50%);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.more-movie-detail-modal-buttons-title-container {
+    bottom: 5%;
+    left: 3em;
+    position: absolute;
+    width: 40%;
+}
+
+.more-movie-detail-modal-buttons-title-container h1 {
+    width: 100%;
+    opacity: 1;
+    margin-bottom: 1.5em;
+    font-size: 62px;
+}
+
+.more-detail-video-buttons {
+    align-items: center;
+    display: flex;
+    margin-bottom: 1em;
+    min-height: 2em;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.more-detail-play-button {
+    margin: .25em;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.more-detail-play-button button {
+    border: medium;
+    max-height: 42px;
+    min-height: 32px;
+    padding-left: 1.5rem;
+    padding-right: 2rem;
+    padding-top: .8rem;
+    padding-bottom: .8rem;
+    background-color: white;
+    color: black;
+
+    align-items: center;
+    appearance: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+    position: relative;
+    will-change: background-color, color;
+    /*word-break: break-word;*/
+    white-space: nowrap;
+}
+
+.play-button-svg-div {
+    height: 2.4rem;
+    width: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*.play-button-svg-div svg {*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    overflow: hidden;*/
+/*}*/
+
+.play-button-div span {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 2.4rem;
+}
+
+.play-button-div {
+    display: flex;
+    line-height: 0;
+    color: black;
+    cursor: pointer;
+    word-break: break-word;
+    white-space: nowrap;
+}
+
+.more-detail-buttons {
+    position: relative;
+    margin: .25em;
+}
+
+.more-detail-button-container:hover {
+    border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.more-detail-button-container-mute {
+    max-height: 42px;
+    max-width: 42px;
+    min-height: 32px;
+    min-width: 32px;
+    background-color: rgba(42,42,42,.6);
+    border-color: hsla(0,0%,100%,.5);
+    border-width: 2px;
+    padding: 0.8rem;
+    align-items: center;
+    appearance: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+    position: relative;
+    will-change: background-color, color;
+    word-break: break-word;
+    white-space: nowrap;
+    border-radius: 50%;
+}
+
+.more-detail-button-container-mute:hover {
+    border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.more-detail-mute-button-container:hover {
+    opacity: 1;
+}
+
+.more-detail-button-container {
+    max-height: 42px;
+    max-width: 42px;
+    min-height: 32px;
+    min-width: 32px;
+    background-color: rgba(42,42,42,.6);
+    border-color: hsla(0,0%,100%,.5);
+    border-width: 2px;
+    padding: 0.8rem;
+    align-items: center;
+    appearance: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+    position: relative;
+    will-change: background-color, color;
+    word-break: break-word;
+    white-space: nowrap;
+    border-radius: 50%;
+}
+
+.button-svg {
+    color: white;
+    height: 1.8rem;
+    width: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-svg svg {
+    width: auto;
+    /*height: 100%;*/
+    overflow: hidden;
+}
+
+.more-detail-mute-button-container {
+    opacity: 0.4;
+    display: block;
+    bottom: 5%;
+    margin-bottom: 1em;
+    right: 3em;
+    position: absolute;
+    z-index: 1;
+}
+
+.more-detail-close-container {
+    display: block;
+    cursor: pointer;
+    margin: 1em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+}
+
+.more-detail-close-container svg {
+    background-color: #181818;
+    border-radius: 50%;
+    height: 36px;
+    padding: 8px;
+    width: 36px;
+    overflow: hidden;
+}
+
+.more-movie-detail-info-container {
+    opacity: 1;
+    transform: none;
+    background-color: #181818;
+    position: relative;
+    color: #fff;
+    font-size: 16px;
+}
+
+.more-movie-detail-info-wrapper {
+    padding: 0 3em;
+}
+
+.detail-movie-info-container {
+
+}
+
+.detail-movie-info {
+    display: grid;
+    column-gap: 2em;
+    grid-template-columns: minmax(0,2fr) minmax(0,1fr);
+}
+
+.detail-movie-info-description {
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: .5em;
+}
+
+.detail-movie-info-more {
+    margin: .8em 0;
+}
+
+.movie-detail {
+    margin-top: .25em;
+    margin-bottom: .5em;
+}
+
+.detail-movie-info-left {
+    /*margin: .8em 0;*/
+}
+
+.detail-movie-info-more-year {
+    margin: .25em .5em .25em 0;
+    max-width: 100%;
+    color: #bcbcbc;
+}
+
+.detail-movie-info-more-runtime {
+    white-space: nowrap;
+    margin-right: .5em;
+    color: #bcbcbc;
+}
+
+.player-feature-badge {
+    margin-right: .715em;
+    border: 1px solid hsla(0,0%,100%,.4);
+    border-radius: 3px;
+    color: hsla(0,0%,100%,.9);
+    font-size: .7em;
+    padding: 0 .5em;
+    white-space: nowrap;
+}
+
+.detail-movie-info-more-maturity {
+    margin-top: 0.1rem;
+    margin-bottom: 8px;
+    font-size: 14px;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.maturity-rating {
+    display: inline-block;
+}
+
+.maturity-number {
+    border: 1px solid hsla(0,0%,100%,.4);
+    font-family: Netflix Sans,Helvetica Neue,Segoe UI,Roboto,Ubuntu,sans-serif;
+    overflow: hidden;
+    padding: 0 .4em;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    unicode-bidi: normal;
+    white-space: nowrap;
+}
+
+.detail-movie-info-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-movie-info-right-cast {
+    font-size: 14px;
+    line-height: 20px;
+    margin: .5em .5em .5em 0;
+    word-break: break-word;
+}
+
+.detail-movie-info-right-cast-header {
+    color: #777;
+}
+
+.detail-movie-info-right-cast-names {
+    color: #ddd;
+    /*cursor: pointer;*/
+    margin-left: 2px;
+    outline-color: #fff;
+}
+
+.detail-movie-info-right-genres {
+    font-size: 14px;
+    line-height: 20px;
+    margin: .5em .5em .5em 0;
+    word-break: break-word;
+}
+
+.detail-modal-more-like h3 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    margin-top: 48px;
+}
+
+.detail-modal-more-like-movies-wrapper {
+    max-height: 65em;
+    overflow: hidden;
+}
+
+.detail-modal-more-like-movies {
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 1em;
+    align-items: stretch;
+    display: grid;
+    justify-items: stretch;
+}
+
+.more-detail-about-wrapper {
+    background-color: #181818;
+    padding-bottom: 2em;
+}
+
+.more-detail-about-wrapper h3 {
+    font-weight: 400;
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-top: 48px;
+}
+
+.section-divider {
+    border-bottom: 2px solid #404040;
+    box-shadow: none;
+    display: flex;
+    height: 6em;
+    justify-content: center;
+    margin: auto;
+    position: relative;
+    width: 100%;
+}
+
+.about-info {
+    font-size: 14px;
+    line-height: 20px;
+    margin: .5em .5em .5em 0;
+    word-break: break-word;
+    display: flex;
+}
+
+.about-title {
+    color: #777;
+}
+
+.about-item {
+    /*color: #ddd;*/
+    /*cursor: pointer;*/
+    margin-left: 2px;
+    outline-color: #fff;
+}

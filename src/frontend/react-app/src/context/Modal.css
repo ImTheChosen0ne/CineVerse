@@ -1,12 +1,13 @@
 #modal {
-  position: fixed;
+  position: absolute;
   top: 0;
-  right: 0;
   left: 0;
-  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  width: 100%;
+  will-change: scroll-position;
 }
 
 #modal-background {
@@ -20,5 +21,20 @@
 
 #modal-content {
   position: absolute;
-  background-color:white;
+  width: 1153.12px;
+  top: 554px;
+  left: auto;
+  transform-origin: center top 0px;
+  transform: translateX(0px) translateY(calc(2em - 554px)) scaleX(1) scaleY(1) translateZ(0px);
+  box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
+  z-index: 2;
+  opacity: 1;
+  margin-bottom: 2em;
+  min-width: 850px;
+  background-color: transparent;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  overflow: hidden;
+  will-change: transform;
 }

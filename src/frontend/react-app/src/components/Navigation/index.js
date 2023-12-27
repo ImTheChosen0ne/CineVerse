@@ -40,7 +40,7 @@ function Navigation({ isLoaded }){
 		'/signup',
 		`/browse/${profile?.name}`,
 		'/browse/new',
-		'/browse/my_list',
+		'/browse/MyList',
 		'/browse/language',
 		'/browse/search',
 		'/account'
@@ -49,6 +49,7 @@ function Navigation({ isLoaded }){
 	let navClassName = "";
 	let navHome = "";
 	let navAccount = "";
+	let navMyList = "";
 
 	if (pageNotFound) {
 		navClassName = 'page-not-found-nav';
@@ -59,10 +60,12 @@ function Navigation({ isLoaded }){
 		navHome = 'splash';
 	} else if (location.pathname === '/account') {
 		navAccount = 'account';
+	} else if (location.pathname === '/browse/MyList') {
+		navMyList = 'my-list';
 	} else if (
 		location.pathname === `/browse/${profile?.name}` ||
 		location.pathname === '/browse/new' ||
-		location.pathname === '/browse/my_list' ||
+		location.pathname === '/browse/MyList' ||
 		location.pathname === '/browse/language' ||
 		location.pathname === '/browse/search'
 	) {
@@ -71,7 +74,7 @@ function Navigation({ isLoaded }){
 	}
 
 	return (
-		<ul className={`navigation browse-nav ${navClassName} ${navAccount} ${navHome}`}>
+		<ul className={`navigation browse-nav ${navClassName} ${navAccount} ${navHome} ${navMyList}`}>
 			<li className="logo">
 				<NavLink class="logo" exact to={`/browse/${profile?.name}`}>CineVerse</NavLink>
 			</li>
@@ -83,7 +86,7 @@ function Navigation({ isLoaded }){
 					<NavLink exact to="/browse/new">New & Popular</NavLink>
 				</li>
 				<li className="nav-links">
-					<NavLink exact to="/browse/my_list">My List</NavLink>
+					<NavLink exact to="/browse/MyList">My List</NavLink>
 				</li>
 				<li className="nav-links">
 					<NavLink exact to="/browse/language">Browse By Languages</NavLink>

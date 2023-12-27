@@ -13,6 +13,7 @@ import ManageProfiles from "./pages/ManageProfilesPage";
 import Account from "./pages/AccountPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import Search from "./pages/SearchPage";
+import MyList from "./pages/MyList";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ function App() {
       <Navigation isLoaded={isLoaded}/>
       {isLoaded && (
         <Switch>
+          <ProtectedRoute exact path="/browse/MyList" >
+            <MyList />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/browse/search" >
             <Search />
           </ProtectedRoute>

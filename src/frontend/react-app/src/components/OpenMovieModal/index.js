@@ -110,7 +110,7 @@ function OpenMovieModal({movie, position}) {
                       </div>
                       }
                       onButtonClick={() => closeMiniModal()}
-                      modalComponent={<MoreMovieInfo />}
+                      modalComponent={<MoreMovieInfo movie={movie}/>}
                   />
                   {/*<button className="button-container">*/}
                   {/*  <div className="button">*/}

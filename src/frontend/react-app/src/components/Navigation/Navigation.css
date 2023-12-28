@@ -345,9 +345,12 @@
   position: relative;
 }
 
-.logo a {
+.logo a img{
   text-decoration: none;
   color: #e50914;
+  height: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .my-list {

@@ -5,6 +5,7 @@ import {NavLink, Redirect, useHistory} from "react-router-dom";
 import './LoginForm.css';
 import splashPhoto from "../../pages/SplashPage/main-photo.jpg";
 import Footer from "../Footer";
+import logo from "../Navigation/logo.png"
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -44,7 +45,9 @@ function LoginFormPage() {
           <img src={splashPhoto} alt="login Photo"/>
         </div>
         <header className="login-header">
-          <NavLink class="logo" exact to="/">CineVerse</NavLink>
+          <NavLink class="logo" exact to="/">
+              <img src={logo} alt="logo"/>
+          </NavLink>
         </header>
           <div className="login-body-container">
               <div className="login-body">

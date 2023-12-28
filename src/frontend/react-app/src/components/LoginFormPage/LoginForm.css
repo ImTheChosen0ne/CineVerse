@@ -38,6 +38,8 @@
     border: 0;
     height: 90px;
     z-index: 2;
+    align-items: center;
+    display: flex;
 }
 
 .login-header a {
@@ -164,6 +166,10 @@
     padding-left: 5px;
 }
 
-.logo {
-    color: #e50914;
+.logo img {
+        text-decoration: none;
+        color: #e50914;
+        height: 30px;
+        display: flex;
+        align-items: center;
 }

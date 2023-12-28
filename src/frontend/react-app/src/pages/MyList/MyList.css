@@ -1,7 +1,7 @@
 .my-list-container {
     display: flex;
     flex-direction: column;
-    min-height: 94vh;
+    min-height: 100vh;
     background-color: #141414;
 }
 
@@ -43,6 +43,6 @@
 .my-list-movies {
     margin-top: 138px;
     padding-top: 5rem;
-    min-height: 1000px;
+    /*min-height: 1000px;*/
     overflow: hidden;
 }

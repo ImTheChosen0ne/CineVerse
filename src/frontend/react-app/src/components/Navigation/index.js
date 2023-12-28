@@ -3,7 +3,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
-import {ProfileContext} from "../../context/Profile";
+import { ProfileContext } from "../../context/Profile";
+import logo from "./logo.png"
 
 function Navigation({ isLoaded }){
 	const location = useLocation();
@@ -76,7 +77,9 @@ function Navigation({ isLoaded }){
 	return (
 		<ul className={`navigation browse-nav ${navClassName} ${navAccount} ${navHome} ${navMyList}`}>
 			<li className="logo">
-				<NavLink class="logo" exact to={`/browse/${profile?.name}`}>CineVerse</NavLink>
+				<NavLink class="logo" exact to={`/browse/${profile?.name}`}>
+					<img src={logo} alt="logo"/>
+				</NavLink>
 			</li>
 			<div className={`browse-links ${navAccount}`}>
 				<li className="nav-links">

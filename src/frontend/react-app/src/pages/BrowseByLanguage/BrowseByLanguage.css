@@ -1,0 +1,48 @@
+.language-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #141414;
+}
+
+.language-container-title {
+    position: fixed;
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+    background-color: #141414 !important;
+    /*width: -webkit-fill-available;*/
+}
+
+.language-wrapper-title {
+    margin-top: 70px;
+    height: 68px;
+    align-items: center;
+    display: flex;
+    left: 0;
+    padding: 0 3rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    white-space: nowrap;
+}
+
+.language-container-title h1 {
+    font-size: 2rem;
+    display: inline-block;
+    line-height: 36px;
+    margin-right: 20px;
+    color: #fff;
+    font-weight: 400;
+}
+
+.language-movies {
+    margin-top: 138px;
+    padding-top: 5rem;
+    /*min-height: 1000px;*/
+    overflow: hidden;
+}

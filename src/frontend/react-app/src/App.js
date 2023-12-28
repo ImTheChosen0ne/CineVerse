@@ -14,6 +14,7 @@ import Account from "./pages/AccountPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import Search from "./pages/SearchPage";
 import MyList from "./pages/MyList";
+import BrowseByLanguage from "./pages/BrowseByLanguage";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
       <Navigation isLoaded={isLoaded}/>
       {isLoaded && (
         <Switch>
+          <ProtectedRoute exact path="/browse/language" >
+            <BrowseByLanguage />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/browse/MyList" >
             <MyList />
           </ProtectedRoute>

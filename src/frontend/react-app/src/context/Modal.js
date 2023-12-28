@@ -18,6 +18,7 @@ export function ModalProvider({ children }) {
       setOnModalClose(null);
       onModalClose();
     }
+    document.body.style.overflow = "auto";
   };
 
   const contextValue = {

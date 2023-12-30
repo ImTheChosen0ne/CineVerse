@@ -5,33 +5,26 @@
     background-color: #141414;
 }
 
-.language-container-title {
+.language-container-header {
     position: fixed;
-    align-items: center;
-    display: flex;
-    flex-grow: 1;
-    flex-wrap: wrap;
-    margin: 0;
-    min-height: 0;
-    padding: 0;
-    background-color: #141414 !important;
-    /*width: -webkit-fill-available;*/
-}
-
-.language-wrapper-title {
-    margin-top: 70px;
     height: 68px;
     align-items: center;
     display: flex;
-    left: 0;
+    margin-top: 70px;
+    color: #fff;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.language-wrapper-title {
+    height: 68px;
+    align-items: center;
+    display: flex;
     padding: 0 3rem;
-    position: absolute;
-    right: 0;
-    top: 0;
     white-space: nowrap;
 }
 
-.language-container-title h1 {
+.language-wrapper-title h1 {
     font-size: 2rem;
     display: inline-block;
     line-height: 36px;
@@ -45,4 +38,91 @@
     padding-top: 5rem;
     /*min-height: 1000px;*/
     overflow: hidden;
+}
+
+.language-dropdown-container {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+    background-color: #141414 !important;
+}
+
+.language-dropdown-container {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 3rem;
+}
+
+.language-dropdown-container span {
+    font-size: 14px;
+    margin-right: 1rem;
+}
+
+.languageDropDown-wrapper {
+    align-items: center;
+    display: flex;
+    margin: 10px 0;
+}
+
+.language-dropdown {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: top;
+    min-width: 240px;
+    text-align: left;
+    background-color: #000;
+    border: 1px solid hsla(0,0%,100%,.9);
+    border-radius: 0;
+    color: #fff;
+    font-size: .9rem;
+    font-weight: 500;
+    height: 1.8rem;
+    letter-spacing: 1px;
+    line-height: 2.5rem;
+    padding-left: 10px;
+    padding-right: 50px;
+    position: relative;
+    overflow-y: auto;
+}
+
+/*select::-webkit-scrollbar {*/
+/*    width: 0;*/
+/*}*/
+
+.language-dropdown option {
+    background-color: rgba(0,0,0,.9);
+    border: 1px solid hsla(0,0%,100%,.15);
+}
+
+
+.languageDropDown-sort {
+    float: right;
+    font-size: 14px;
+    text-align: right;
+    align-items: center;
+    display: flex;
+}
+
+.languageDropDown-sort span {
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+option {
+    opacity: 1;
+    transition-duration: 150ms;
+    min-width: 100%;
+    white-space: nowrap;
+    font-size: 14px;
+    left: 0;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 0;
+    top: 2.5rem;
+    z-index: 2;
 }

@@ -2,6 +2,10 @@ import React, {useEffect, useRef, useState} from "react";
 
 import "./BrowseByLanguage.css";
 import Footer from "../../components/Footer";
+import {useDispatch, useSelector} from "react-redux";
+import {getMovies} from "../../store/movies";
+import OpenMovieModal from "../../components/OpenMovieModal";
+import {useMiniModal} from "../../context/MiniModal";
 
 
 function BrowseByLanguage() {
@@ -9,6 +13,15 @@ function BrowseByLanguage() {
     const [selectedSort, setSelectedSort] = useState("Suggestions For You");
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const dispatch = useDispatch();
+    const { setModalContent, modalRef } = useMiniModal();
+
+    const movies = Object.values(useSelector((state) => state.movies));
+
+    useEffect(() => {
+        dispatch(getMovies());
+    }, [dispatch]);
+
     const handleSelectLanguage = (event) => {
         setSelectedLanguage(event.target.value);
         setIsOpen(false);
@@ -31,6 +44,18 @@ function BrowseByLanguage() {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    const onMouseEnter = (movie, event) => {
+        const rect = event.target.getBoundingClientRect();
+        const positionInfo = {
+            top: rect.top,
+            left: rect.left,
+            width: rect.width,
+            height: rect.height
+        };
+
+        setModalContent(<OpenMovieModal movie={movie} position={positionInfo}/>);
+    };
 
     const languages = [
         { code: 'ar', name: 'Arabic' },
@@ -65,6 +90,11 @@ function BrowseByLanguage() {
         { code: 'vi', name: 'Vietnamese' },
     ];
 
+    const filteredMovies = movies.filter(
+        (movie) =>
+            movie.language?.toLowerCase().includes(selectedLanguage)
+    );
+
     return (
         <div className="language-container">
             <div className="language-container-header">
@@ -94,7 +124,21 @@ function BrowseByLanguage() {
                 </div>
             </div>
             <div className="language-movies">
-
+                <div className="language-movie-container">
+                    <div className="language-movie-wrapper">
+                        {filteredMovies.map((movie, index) => (
+                            <div
+                                key={movie?.movieId}
+                                className="language-movie"
+                                onMouseEnter={(event) => onMouseEnter(movie, event)}
+                            >
+                                <div className="language-movie-img">
+                                    <img className="poster"  src={movie?.poster} alt={movie?.title} />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
             <Footer className="language-footer"/>
         </div>

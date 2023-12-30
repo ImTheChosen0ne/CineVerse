@@ -126,3 +126,34 @@ option {
     top: 2.5rem;
     z-index: 2;
 }
+
+
+.language-movie-container {
+    font-size: calc(1.125vw);
+    display: inline-block;
+    min-height: 65px;
+    width: 100%;
+}
+
+.language-movie-wrapper {
+    margin: 10px 3rem;
+    overflow: hidden;
+    /*line-height: 1.6;*/
+    display: grid;
+    gap: 4vw 0;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.language-movie {
+    padding: 0 0.2vw;
+}
+
+.language-movie-img {
+    width: 100%;
+    height: 100%;
+}
+
+.poster {
+    width: 100%;
+    height: 100%;
+}

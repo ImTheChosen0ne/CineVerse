@@ -1,0 +1,36 @@
+.search-movie {
+    padding: 0 0.2vw;
+}
+
+.search-movie-img {
+    width: 100%;
+    height: 100%;
+}
+
+.poster {
+    width: 100%;
+    height: 100%;
+}
+
+.search-movies {
+    margin-top: 138px;
+    padding-top: 5rem;
+    /*min-height: 1000px;*/
+    /*overflow: hidden;*/
+}
+
+.search-movie-container {
+    font-size: calc(1.125vw);
+    display: inline-block;
+    min-height: 65px;
+    width: 100%;
+}
+
+.search-movie-wrapper {
+    margin: 10px 3rem;
+    overflow: hidden;
+    /*line-height: 1.6;*/
+    display: grid;
+    gap: 4vw 0;
+    grid-template-columns: repeat(6, 1fr);
+}

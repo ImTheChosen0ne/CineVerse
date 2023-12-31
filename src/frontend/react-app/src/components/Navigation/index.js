@@ -1,21 +1,40 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import {NavLink, useHistory, useLocation} from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import { ProfileContext } from "../../context/Profile";
 import logo from "./logo.png"
+import {getMovies} from "../../store/movies";
 
 function Navigation({ isLoaded }){
+	const dispatch = useDispatch();
 	const location = useLocation();
 	const sessionUser = useSelector(state => state.session.user);
+	const movies = Object.values(useSelector((state) => state.movies));
+
 	const { profile } = useContext(ProfileContext);
 	const searchRef = useRef(null);
+
 	const history = useHistory();
 
 	const [scrolled, setScrolled] = useState(false);
 	const [searchInput, setSearchInput] = useState("");
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
+	const [searchResults, setSearchResults] = useState([]);
+
+	useEffect(() => {
+		dispatch(getMovies());
+	}, [dispatch]);
+
+	const handleSearchInputChange = (e) => {
+		const value = e.target.value;
+		setSearchInput(value);
+
+		if (value.trim() !== '') {
+			history.push(`/search?query=${value}`);
+		}
+	};
 
 	// useEffect(() => {
 	// 	if (searchInput.trim() !== '') {
@@ -78,7 +97,7 @@ function Navigation({ isLoaded }){
 		'/browse/new',
 		'/browse/MyList',
 		'/browse/language',
-		'/browse/search',
+		"/search",
 		'/account'
 	].includes(location.pathname);
 
@@ -103,7 +122,7 @@ function Navigation({ isLoaded }){
 		location.pathname === '/browse/new' ||
 		location.pathname === '/browse/MyList' ||
 		location.pathname === '/browse/language' ||
-		location.pathname === '/browse/search'
+		location.pathname === `/search`
 	) {
 		navClassName = 'browse-nav';
 		navClassName = scrolled ? 'browse-nav scrolled' : '';
@@ -160,7 +179,7 @@ function Navigation({ isLoaded }){
 								   placeholder="Title, people, genres"
 								   maxLength="80"
 								   value={searchInput}
-								   onChange={(e) => setSearchInput(e.target.value)}
+								   onChange={(e) => handleSearchInputChange(e)}
 								   className="search-input"
 							/>
 							<span role="button" className="icon-close" onClick={handleClearInput}>

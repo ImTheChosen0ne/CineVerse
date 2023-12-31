@@ -34,7 +34,7 @@ function App() {
           <ProtectedRoute exact path="/browse/MyList" >
             <MyList />
           </ProtectedRoute>
-          <ProtectedRoute exact path="/browse/search" >
+          <ProtectedRoute exact path="/search" >
             <Search />
           </ProtectedRoute>
           <ProtectedRoute exact path="/ManageProfiles" >

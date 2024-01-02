@@ -16,6 +16,7 @@
     padding: 0;
     background-color: #141414 !important;
     width: -webkit-fill-available;
+    z-index: 3;
 }
 
 .my-list-wrapper-title {
@@ -29,6 +30,8 @@
     right: 0;
     top: 0;
     white-space: nowrap;
+    z-index: 3;
+    background-color: #141414 !important;
 }
 
 .my-list-container-title h1 {
@@ -45,6 +48,7 @@
     padding-top: 5rem;
     /*min-height: 1000px;*/
     /*overflow: hidden;*/
+    z-index: 0;
 }
 
 .my-list-movie-container {

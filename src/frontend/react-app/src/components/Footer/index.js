@@ -18,7 +18,7 @@ function Footer() {
         footerClassName = 'signup-footer';
     } else if (location.pathname === '/account') {
         footerClassName = 'account-footer';
-    } else if (location.pathname === '/browse/MyList' || location.pathname === '/browse/language') {
+    } else if (location.pathname === '/browse/MyList' || location.pathname === '/browse/language' || location.pathname === '/browse/latest' || location.pathname === '/search') {
         footerClassName = 'my-list-footer';
     }
 

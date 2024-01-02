@@ -4,8 +4,6 @@ import './BrowsePage.css';
 import {getMovies} from "../../store/movies";
 import MovieCarousel from "../../components/Carousel";
 import Footer from "../../components/Footer";
-import OpenModalButton from "../../components/OpenModalButton";
-import OpenMovieModal from "../../components/OpenMovieModal";
 import TopMovieCarousel from "../../components/Carousel/TopMovieCarousel";
 
 function BrowsePage() {

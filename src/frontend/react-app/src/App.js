@@ -15,6 +15,8 @@ import EditProfilePage from "./pages/EditProfilePage";
 import Search from "./pages/SearchPage";
 import MyList from "./pages/MyList";
 import BrowseByLanguage from "./pages/BrowseByLanguage";
+import DeleteProfilePage from "./pages/DeleteProfilePage";
+import NewAndPopular from "./pages/NewAndPopularPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +30,9 @@ function App() {
       <Navigation isLoaded={isLoaded}/>
       {isLoaded && (
         <Switch>
+          <ProtectedRoute exact path="/browse/latest" >
+            <NewAndPopular />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/browse/language" >
             <BrowseByLanguage />
           </ProtectedRoute>
@@ -42,6 +47,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/ManageProfiles/:profileName" >
             <EditProfilePage />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/ManageProfiles/:profileName/delete" >
+            <DeleteProfilePage />
           </ProtectedRoute>
           <ProtectedRoute exact path="/account" >
             <Account />

@@ -363,9 +363,8 @@
 }
 
 .my-list {
-  /*background-color: #141414;*/
+  background-color: #141414;
   background-image: linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent);
-  /*position: fixed;*/
 }
 
 .searchBox {

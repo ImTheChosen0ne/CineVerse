@@ -5,6 +5,7 @@ import {getMovies} from "../../store/movies";
 import OpenMovieModal from "../../components/OpenMovieModal";
 import {useMiniModal} from "../../context/MiniModal";
 import {useLocation} from "react-router-dom";
+import Footer from "../../components/Footer";
 
 function Search() {
     const dispatch = useDispatch();
@@ -22,8 +23,6 @@ function Search() {
         (movie) =>
             movie.title?.toLowerCase().includes(query?.toLowerCase())
     );
-
-    console.log(filteredMovies)
 
     const onMouseEnter = (movie, event) => {
         const rect = event.target.getBoundingClientRect();
@@ -56,6 +55,7 @@ function Search() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

@@ -9,11 +9,14 @@ function EditProfilePage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
     }
 
     const handleCancel = async () => {
         history.push("/ManageProfiles")
+    }
+
+    const handleDelete = async () => {
+        history.push(`/ManageProfiles/${profile.name}/delete`)
     }
 
 
@@ -84,7 +87,7 @@ function EditProfilePage() {
                         </div>
                         <button type="submit" className="profile-button end save">Save</button>
                         <button className="profile-button end" onClick={handleCancel}>Cancel</button>
-                        <button className="profile-button end">Delete Profile</button>
+                        <button className="profile-button end" onClick={handleDelete}>Delete Profile</button>
                     </form>
                 </div>
             </div>

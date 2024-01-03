@@ -26,6 +26,7 @@ public class Movie {
     @ElementCollection
     @CsvCustomBindByName(column = "genres", converter = GenreSetConverter.class)
     private Set<Genre> genres;
+    @ElementCollection
     @CsvCustomBindByName(column = "company", converter = StringSetConverter.class)
     private Set<String> company;
     @CsvBindByName(column = "releaseDate")
@@ -36,7 +37,7 @@ public class Movie {
     @CsvBindByName(column = "trailer")
     private String trailer;
     @ElementCollection
-    @CsvCustomBindByName(column = "cast", converter = StringSetConverter.class)
+    @CsvCustomBindByName(column = "casts", converter = StringSetConverter.class)
     private Set<String> cast;
     @CsvBindByName(column = "director")
     private String director;

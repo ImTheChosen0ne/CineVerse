@@ -45,7 +45,7 @@ function LoginFormPage() {
           <img src={splashPhoto} alt="login Photo"/>
         </div>
         <header className="login-header">
-          <NavLink class="logo" exact to="/">
+          <NavLink className="logo" exact to="/">
               <img src={logo} alt="logo"/>
           </NavLink>
         </header>

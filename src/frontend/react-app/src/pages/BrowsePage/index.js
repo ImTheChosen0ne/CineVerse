@@ -28,7 +28,7 @@ function BrowsePage() {
                     <div className="main-inner">
                         <video
                             ref={videoRef}
-                            src={movies[1]?.trailer}
+                            src={movies[6]?.trailer}
                             autoPlay
                             playsInline={true}
                             muted
@@ -36,7 +36,7 @@ function BrowsePage() {
                         />
                         {videoEnded && (
                             <img
-                                src={movies[1]?.poster}
+                                src={movies[6]?.media}
                                 alt="Image Overlay"
                                 className="image-overlay"
                             />

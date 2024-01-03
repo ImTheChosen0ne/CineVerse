@@ -43,22 +43,22 @@ public class DatabaseSeeder {
             Set<Role> roles = new HashSet<>();
             roles.add(adminRole);
 
-            Set<Genre> movieGenres = new HashSet<>();
-            movieGenres.add(Genre.ACTION);
-            movieGenres.add(Genre.ADVENTURE);
-            movieGenres.add(Genre.SCI_FI);
+//            Set<Genre> movieGenres = new HashSet<>();
+//            movieGenres.add(Genre.ACTION);
+//            movieGenres.add(Genre.ADVENTURE);
+//            movieGenres.add(Genre.SCIENCE_FICTION);
 
 //			Set<Integer> ratings = new HashSet<>();
 //			ratings.add(5);
 
-            Movie newMovie = new Movie(112, "Avatar", "https://lumiere-a.akamaihd.net/v1/images/avatar_coverart_1600x686_36ea5484.jpeg?region=0,0,1600,686", "en", "test movie", movieGenres, "disney", "12-10-2009", 162, "https://imdb-video.media-imdb.com/vi531039513/1434659607842-pgv4ql-1440787227613.mp4?Expires=1703099369&Signature=aq2qhuTxJSoc4Jo2OFd9Vk51LBA9K7AXT~ROqwF9~WRTCx319kVzeZ~OTsP9rxniaqt4CwF6SuEdms97-3ASq3WX173jvO6Wk-5j7kAEg7VAeNwRqzOtBNErjBRU1h6yt2Wbp0P2NUXP9yVoA9waY5GjdEpMWPBD5~z-9b7XkHYaXMmSAmtFxKHrK0tNsMPROHWJXlY1qAMTMYXlJykEipAKwzS2lwD9rPUujI0ctbS9txOr1boqQJrMId34aAHsXX0~akbLO-oeGAgAh6owC0hav8tlzejR-Vh7dHOC~UeUEu4zi8sZEkxNJBbZfvIzsEByLM2c6ObAH-IM3LmLTg__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA");
-            Movie movie = movieRepository.save(newMovie);
+//            Movie newMovie = new Movie(112, "Avatar", "https://lumiere-a.akamaihd.net/v1/images/avatar_coverart_1600x686_36ea5484.jpeg?region=0,0,1600,686", "en", "test movie", movieGenres, "disney", "12-10-2009", "162", "https://imdb-video.media-imdb.com/vi531039513/1434659607842-pgv4ql-1440787227613.mp4?Expires=1703099369&Signature=aq2qhuTxJSoc4Jo2OFd9Vk51LBA9K7AXT~ROqwF9~WRTCx319kVzeZ~OTsP9rxniaqt4CwF6SuEdms97-3ASq3WX173jvO6Wk-5j7kAEg7VAeNwRqzOtBNErjBRU1h6yt2Wbp0P2NUXP9yVoA9waY5GjdEpMWPBD5~z-9b7XkHYaXMmSAmtFxKHrK0tNsMPROHWJXlY1qAMTMYXlJykEipAKwzS2lwD9rPUujI0ctbS9txOr1boqQJrMId34aAHsXX0~akbLO-oeGAgAh6owC0hav8tlzejR-Vh7dHOC~UeUEu4zi8sZEkxNJBbZfvIzsEByLM2c6ObAH-IM3LmLTg__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA");
+//            Movie movie = movieRepository.save(newMovie);
 
             Set<Movie> likes = new HashSet<>();
-            likes.add(movie);
+//            likes.add(movie);
 
             Set<Movie> watchLater = new HashSet<>();
-            watchLater.add(movie);
+//            watchLater.add(movie);
 
             Profile profile = new Profile(1, "demo", "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbGa4GvjA3sdbhrXZi7RG0-nuSXUxt-IZoVxB_7lHtMKT-wQ-CsDeukenQ6z6x4iUdqx4NJR4Sr3RDraWK1uYyKWRapH8T-tnFtb.png?r=59d");
             Profile profiles = profileRepository.save(profile);

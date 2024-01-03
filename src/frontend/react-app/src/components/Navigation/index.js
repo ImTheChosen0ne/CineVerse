@@ -130,7 +130,7 @@ function Navigation({ isLoaded }){
 	return (
 		<ul className={`navigation browse-nav ${navClassName} ${navAccount} ${navHome} ${navMyList}`}>
 			<li className="logo">
-				<NavLink class="logo" exact to={`/browse/${profile?.name}`}>
+				<NavLink className="logo" exact to={`/browse/${profile?.name}`}>
 					<img src={logo} alt="logo"/>
 				</NavLink>
 			</li>

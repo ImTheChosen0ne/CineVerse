@@ -26,8 +26,10 @@
 .detail-video video{
     position: absolute;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
+    height: 800px;
     object-fit: cover;
+    transform: translateY(-110px);
 }
 
 .more-detail-poster-container {

@@ -30,7 +30,7 @@ function MoreMovieInfo({ movie }) {
 				<div className="more-detail-poster-container">
 					{videoEnded && (
 						<img
-							src={movie.poster}
+							src={movie.media}
 							alt="Image Overlay"
 							className="image-overlay"
 						/>
@@ -146,7 +146,9 @@ function MoreMovieInfo({ movie }) {
 											Cast:
 										</span>
 										<span className="detail-movie-info-right-cast-names">
-											Cast names
+                							{movie?.cast.map((cast, index) => (
+												<span key={index}>{cast},</span>
+											))}
 										</span>
 									</div>
 									<div className="detail-movie-info-right-genres">
@@ -184,7 +186,7 @@ function MoreMovieInfo({ movie }) {
 									Director:
 								</span>
 								<span className="about-item">
-									<p> D.J. Caruso</p>
+									<p>{movie.director}</p>
 								</span>
 							</div>
 							<div className="about-info">
@@ -192,7 +194,9 @@ function MoreMovieInfo({ movie }) {
 									Cast:
 								</span>
 								<span className="about-item">
-									<p> D.J. Caruso</p>
+								{movie?.cast.map((cast, index) => (
+									<p key={index}>{cast},</p>
+								))}
 								</span>
 							</div>
 							<div className="about-info">
@@ -200,7 +204,9 @@ function MoreMovieInfo({ movie }) {
 									Writer:
 								</span>
 								<span className="about-item">
-									<p> D.J. Caruso</p>
+								{movie?.writer.map((writer, index) => (
+									<p key={index}>{writer},</p>
+								))}
 								</span>
 							</div>
 							<div className="about-info">
@@ -218,7 +224,7 @@ function MoreMovieInfo({ movie }) {
 									Maturity Rating:
 								</span>
 								<span className="about-item">
-									<p>D.J. Caruso</p>
+									<p>{movie.maturity}</p>
 								</span>
 							</div>
 						</div>

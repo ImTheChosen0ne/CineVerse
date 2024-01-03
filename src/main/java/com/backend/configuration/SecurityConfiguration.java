@@ -64,6 +64,7 @@ public class SecurityConfiguration {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/api/").permitAll();
                     auth.requestMatchers("/api/auth/**").permitAll();
                     auth.requestMatchers("/api/movies/**").permitAll();
                     auth.requestMatchers("/api/admin/**").hasRole("ADMIN");

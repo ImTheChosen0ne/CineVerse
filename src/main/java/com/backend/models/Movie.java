@@ -27,8 +27,8 @@ public class Movie {
     @CsvCustomBindByName(column = "genres", converter = GenreSetConverter.class)
     private Set<Genre> genres;
     @ElementCollection
-    @CsvCustomBindByName(column = "company", converter = StringSetConverter.class)
-    private Set<String> company;
+    @CsvCustomBindByName(column = "companies", converter = StringSetConverter.class)
+    private Set<String> companies;
     @CsvBindByName(column = "releaseDate")
     private String releaseDate;
     @CsvBindByName(column = "runtime")
@@ -38,12 +38,12 @@ public class Movie {
     private String trailer;
     @ElementCollection
     @CsvCustomBindByName(column = "casts", converter = StringSetConverter.class)
-    private Set<String> cast;
+    private Set<String> casts;
     @CsvBindByName(column = "director")
     private String director;
     @ElementCollection
-    @CsvCustomBindByName(column = "writer", converter = StringSetConverter.class)
-    private Set<String> writer;
+    @CsvCustomBindByName(column = "writers", converter = StringSetConverter.class)
+    private Set<String> writers;
     @CsvBindByName(column = "maturity")
     private String maturity;
     @ElementCollection
@@ -51,9 +51,9 @@ public class Movie {
     private Set<String> keywords;
     @CsvBindByName(column = "popularity")
     private Double popularity;
-    @ElementCollection
-    @CsvCustomBindByName(column = "tagline", converter = StringSetConverter.class)
-    private Set<String> tagline;
+
+    @CsvBindByName(column = "tagline")
+    private String tagline;
     @CsvBindByName(column = "media")
     private String media;
 
@@ -71,20 +71,20 @@ public class Movie {
 //        this.ratings = new HashSet<Integer>();
     }
 
-    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> company, String releaseDate, String runtime, String trailer, Set<String> cast, String director, Set<String> writer, String maturity, Set<String> keywords, Double popularity, Set<String> tagline, String media) {
+    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String media) {
         this.movieId = movieId;
         this.title = title;
         this.poster = poster;
         this.language = language;
         this.description = description;
         this.genres = genres;
-        this.company = company;
+        this.companies = companies;
         this.releaseDate = releaseDate;
         this.runtime = runtime;
         this.trailer = trailer;
-        this.cast = cast;
+        this.casts = casts;
         this.director = director;
-        this.writer = writer;
+        this.writers = writers;
         this.maturity = maturity;
         this.keywords = keywords;
         this.popularity = popularity;
@@ -143,11 +143,11 @@ public class Movie {
     }
 
     public Set<String> getCompany() {
-        return company;
+        return companies;
     }
 
     public void setCompany(Set<String> company) {
-        this.company = company;
+        this.companies = company;
     }
 
     public String getReleaseDate() {
@@ -171,11 +171,11 @@ public class Movie {
     }
 
     public Set<String> getCast() {
-        return cast;
+        return casts;
     }
 
     public void setCast(Set<String> cast) {
-        this.cast = cast;
+        this.casts = cast;
     }
 
     public String getDirector() {
@@ -187,11 +187,11 @@ public class Movie {
     }
 
     public Set<String> getWriter() {
-        return writer;
+        return writers;
     }
 
     public void setWriter(Set<String> writer) {
-        this.writer = writer;
+        this.writers = writer;
     }
 
     public String getMaturity() {
@@ -218,11 +218,11 @@ public class Movie {
         this.popularity = popularity;
     }
 
-    public Set<String> getTagline() {
+    public String getTagline() {
         return tagline;
     }
 
-    public void setTagline(Set<String> tagline) {
+    public void setTagline(String tagline) {
         this.tagline = tagline;
     }
 

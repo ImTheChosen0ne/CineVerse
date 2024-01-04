@@ -34,23 +34,6 @@ public class User implements UserDetails {
 
     private Set<Profile> profiles;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable(
-            name="user_movie_likes",
-            joinColumns = {@JoinColumn(name="user_id")},
-            inverseJoinColumns = {@JoinColumn(name="movie_id")}
-    )
-
-    private Set<Movie> likedMovies;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable(
-            name="user_movie_watch_later",
-            joinColumns = {@JoinColumn(name="user_id")},
-            inverseJoinColumns = {@JoinColumn(name="movie_id")}
-    )
-
-    private Set<Movie> watchLaterMovies;
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name="user_role_junction",
@@ -62,12 +45,10 @@ public class User implements UserDetails {
 
     public User() {
         this.authorities = new HashSet<Role>();
-        this.likedMovies = new HashSet<Movie>();
-        this.watchLaterMovies = new HashSet<Movie>();
         this.profiles = new HashSet<Profile>();
     }
 
-    public User(Integer userId, String password, String firstName, String lastName, String email, Set<Role> authorities, Set<Movie> likedMovies, Set<Movie> watchLaterMovies, Set<Profile> profiles) {
+    public User(Integer userId, String password, String firstName, String lastName, String email, Set<Role> authorities, Set<Profile> profiles) {
         this.userId = userId;
 //        this.username = username;
         this.password = password;
@@ -75,8 +56,6 @@ public class User implements UserDetails {
         this.lastName = lastName;
         this.email = email;
         this.authorities = authorities;
-        this.likedMovies = likedMovies;
-        this.watchLaterMovies = watchLaterMovies;
         this.profiles = profiles;
     }
 
@@ -122,42 +101,12 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
-    public Set<Movie> getLikedMovies() {
-        return likedMovies;
-    }
-
-    public void setLikedMovies(Set<Movie> likedMovies) {
-        this.likedMovies = likedMovies;
-    }
-
-    public Set<Movie> getWatchLaterMovies() {
-        return watchLaterMovies;
-    }
-
-    public void setWatchLaterMovies(Set<Movie> watchLaterMovies) {
-        this.watchLaterMovies = watchLaterMovies;
-    }
-
     public Set<Profile> getProfiles() {
         return profiles;
     }
 
     public void setProfiles(Set<Profile> profiles) {
         this.profiles = profiles;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", likedMovies=" + likedMovies +
-                ", watchLaterMovies=" + watchLaterMovies +
-                ", authorities=" + authorities +
-                '}';
     }
 
     @Override

@@ -43,27 +43,27 @@ public class UserController {
         return userService.updateUser(body);
     }
 
-    @PutMapping("/like")
-    public Set<Movie> likedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody Movie movie) {
-        String loggedInUser = tokenService.getEmailFromToken(token);
-        return userService.likedMovie(loggedInUser, movie);
-    }
-
-    @PutMapping("/watch_later")
-    public Set<Movie> watchMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody Movie movie) {
-        String loggedInUser = tokenService.getEmailFromToken(token);
-        return userService.watchMovie(loggedInUser, movie);
-    }
-
-    @GetMapping("/movies/liked/{username}")
-    public Set<Movie> getLikedMovies(@PathVariable("username") String username) {
-        return userService.getLikedMoviesList(username);
-    }
-
-    @GetMapping("/movies/watch_later/{username}")
-    public Set<Movie> getWatchLaterMovies(@PathVariable("username") String username) {
-        return userService.getWatchMoviesList(username);
-    }
+//    @PutMapping("/like")
+//    public Set<Movie> likedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody Movie movie) {
+//        String loggedInUser = tokenService.getEmailFromToken(token);
+//        return userService.likedMovie(loggedInUser, movie);
+//    }
+//
+//    @PutMapping("/watch_later")
+//    public Set<Movie> watchMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody Movie movie) {
+//        String loggedInUser = tokenService.getEmailFromToken(token);
+//        return userService.watchMovie(loggedInUser, movie);
+//    }
+//
+//    @GetMapping("/movies/liked/{username}")
+//    public Set<Movie> getLikedMovies(@PathVariable("username") String username) {
+//        return userService.getLikedMoviesList(username);
+//    }
+//
+//    @GetMapping("/movies/watch_later/{username}")
+//    public Set<Movie> getWatchLaterMovies(@PathVariable("username") String username) {
+//        return userService.getWatchMoviesList(username);
+//    }
 
 //    @GetMapping("/{id}")
 //    public ResponseEntity<User> getUser(@PathVariable("id") Integer id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {

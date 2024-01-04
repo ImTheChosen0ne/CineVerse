@@ -15,7 +15,7 @@
     min-height: 0;
     padding: 0;
     background-color: #141414 !important;
-    width: -webkit-fill-available;
+    /*width: -webkit-fill-available;*/
     z-index: 3;
 }
 
@@ -26,12 +26,13 @@
     display: flex;
     left: 0;
     padding: 0 3rem;
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
     white-space: nowrap;
-    z-index: 3;
+    z-index: 1;
     background-color: #141414 !important;
+    color: #fff;
 }
 
 .my-list-container-title h1 {

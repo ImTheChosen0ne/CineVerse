@@ -51,18 +51,16 @@ public class Movie {
     private Set<String> keywords;
     @CsvBindByName(column = "popularity")
     private Double popularity;
-
     @CsvBindByName(column = "tagline")
     private String tagline;
     @CsvBindByName(column = "media")
     private String media;
 
-
 //    @ManyToMany(fetch=FetchType.EAGER)
 //    @JoinTable(
 //            name="user_ratings",
 //            joinColumns = {@JoinColumn(name="movie_id")},
-//            inverseJoinColumns = {@JoinColumn(name="user_id")}
+//            inverseJoinColumns = {@JoinColumn(name="profile_id")}
 //    )
 //
 //    private Set<Integer> ratings;
@@ -90,7 +88,6 @@ public class Movie {
         this.popularity = popularity;
         this.tagline = tagline;
         this.media = media;
-
 //        this.ratings = ratings;
     }
 
@@ -238,7 +235,7 @@ public class Movie {
         this.trailer = trailer;
     }
 
-    //    public Set<Integer> getRatings() {
+//    public Set<Integer> getRatings() {
 //        return ratings;
 //    }
 //

@@ -2,6 +2,9 @@ package com.backend.models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name="profiles")
 public class Profile {
@@ -12,21 +15,35 @@ public class Profile {
     private String name;
     private String img;
 
-//    @ManyToMany(fetch=FetchType.EAGER)
-//    @JoinTable(
-//            name="user_ratings",
-//            joinColumns = {@JoinColumn(name="movie_id")},
-//            inverseJoinColumns = {@JoinColumn(name="user_id")}
-//    )
-//
-//    private Set<Integer> ratings;
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name="profile_movie_likes",
+            joinColumns = {@JoinColumn(name="profile_id")},
+            inverseJoinColumns = {@JoinColumn(name="movie_id")}
+    )
 
-    public Profile() {}
+    private Set<Movie> likedMovies;
 
-    public Profile(Integer profileId, String name, String img) {
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name="profile_movie_watch_later",
+            joinColumns = {@JoinColumn(name="profile_id")},
+            inverseJoinColumns = {@JoinColumn(name="movie_id")}
+    )
+
+    private Set<Movie> watchLaterMovies;
+
+    public Profile() {
+        this.likedMovies = new HashSet<Movie>();
+        this.watchLaterMovies = new HashSet<Movie>();
+    }
+
+    public Profile(Integer profileId, String name, String img, Set<Movie> likedMovies, Set<Movie> watchLaterMovies) {
         this.profileId = profileId;
         this.name = name;
         this.img = img;
+        this.likedMovies = likedMovies;
+        this.watchLaterMovies = watchLaterMovies;
 
     }
 
@@ -52,5 +69,21 @@ public class Profile {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public Set<Movie> getLikedMovies() {
+        return likedMovies;
+    }
+
+    public void setLikedMovies(Set<Movie> likedMovies) {
+        this.likedMovies = likedMovies;
+    }
+
+    public Set<Movie> getWatchLaterMovies() {
+        return watchLaterMovies;
+    }
+
+    public void setWatchLaterMovies(Set<Movie> watchLaterMovies) {
+        this.watchLaterMovies = watchLaterMovies;
     }
 }

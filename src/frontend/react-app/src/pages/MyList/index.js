@@ -1,22 +1,15 @@
-import React, {useEffect} from "react";
+import React, { useContext } from "react";
 
 import "./MyList.css";
 import Footer from "../../components/Footer";
-import {useDispatch, useSelector} from "react-redux";
 import OpenMovieModal from "../../components/OpenMovieModal";
 import {useMiniModal} from "../../context/MiniModal";
-import {getMovies} from "../../store/movies";
+import {ProfileContext} from "../../context/Profile";
 
 
 function MyList() {
-    const dispatch = useDispatch();
-
-    const movies = Object.values(useSelector((state) => state.movies));
+    const { profile } = useContext(ProfileContext);
     const { setModalContent, modalRef } = useMiniModal();
-
-    useEffect(() => {
-        dispatch(getMovies());
-    }, [dispatch]);
 
     const onMouseEnter = (movie, event) => {
         const rect = event.target.getBoundingClientRect();
@@ -32,15 +25,15 @@ function MyList() {
 
     return (
         <div className="my-list-container">
-            <div className="my-list-container-title">
+            {/*<div className="my-list-container-title">*/}
                 <div className="my-list-wrapper-title">
                     <h1>My List</h1>
                 </div>
-            </div>
+            {/*</div>*/}
             <div className="my-list-movies">
                 <div className="my-list-movie-container">
                     <div className="my-list-movie-wrapper">
-                        {movies.map((movie, index) => (
+                        {profile?.watchLaterMovies.map((movie, index) => (
                             <div
                                 key={movie?.movieId}
                                 className="my-list-movie"

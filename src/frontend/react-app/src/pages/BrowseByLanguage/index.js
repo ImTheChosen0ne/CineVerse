@@ -133,7 +133,7 @@ function BrowseByLanguage() {
                                 onMouseEnter={(event) => onMouseEnter(movie, event)}
                             >
                                 <div className="language-movie-img">
-                                    <img className="poster"  src={movie?.poster} alt={movie?.title} />
+                                    <img className="poster"  src={movie?.media} alt={movie?.title} />
                                 </div>
                             </div>
                         ))}

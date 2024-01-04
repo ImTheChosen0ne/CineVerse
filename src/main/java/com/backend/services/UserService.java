@@ -40,37 +40,37 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found: " + userId));
     }
 
-    public Set<Movie> likedMovie(String email, Movie movie) {
-        User loggedInUser = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
-        Set<Movie> likedList = loggedInUser.getLikedMovies();
-
-        likedList.add(movie);
-        loggedInUser.setLikedMovies(likedList);
-
-        userRepository.save(loggedInUser);
-        return loggedInUser.getLikedMovies();
-    }
-
-    public Set<Movie> watchMovie(String email, Movie movie) {
-        User loggedInUser = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
-        Set<Movie> watchList = loggedInUser.getWatchLaterMovies();
-
-        watchList.add(movie);
-        loggedInUser.setLikedMovies(watchList);
-
-        userRepository.save(loggedInUser);
-        return loggedInUser.getWatchLaterMovies();
-    }
-
-    public Set<Movie> getLikedMoviesList(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
-        return user.getLikedMovies();
-    }
-
-    public Set<Movie> getWatchMoviesList(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
-        return user.getWatchLaterMovies();
-    }
+//    public Set<Movie> likedMovie(String email, Movie movie) {
+//        User loggedInUser = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
+//        Set<Movie> likedList = loggedInUser.getProfiles().;
+//
+//        likedList.add(movie);
+//        loggedInUser.setLikedMovies(likedList);
+//
+//        userRepository.save(loggedInUser);
+//        return loggedInUser.getLikedMovies();
+//    }
+//
+//    public Set<Movie> watchMovie(String email, Movie movie) {
+//        User loggedInUser = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
+//        Set<Movie> watchList = loggedInUser.getWatchLaterMovies();
+//
+//        watchList.add(movie);
+//        loggedInUser.setLikedMovies(watchList);
+//
+//        userRepository.save(loggedInUser);
+//        return loggedInUser.getWatchLaterMovies();
+//    }
+//
+//    public Set<Movie> getLikedMoviesList(String email) {
+//        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
+//        return user.getLikedMovies();
+//    }
+//
+//    public Set<Movie> getWatchMoviesList(String email) {
+//        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
+//        return user.getWatchLaterMovies();
+//    }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));

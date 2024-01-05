@@ -64,11 +64,11 @@ public class SecurityConfiguration {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/api/").permitAll();
                     auth.requestMatchers("/api/auth/**").permitAll();
                     auth.requestMatchers("/api/movies/**").permitAll();
                     auth.requestMatchers("/api/admin/**").hasRole("ADMIN");
                     auth.requestMatchers("/api/user/**").hasAnyRole("ADMIN", "USER");
+                    auth.requestMatchers("/api/").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .oauth2ResourceServer(oauth2 -> oauth2

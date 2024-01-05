@@ -144,3 +144,28 @@
     color: #e5e5e5;
 }
 
+.profile-icon.add {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-wrapper:hover .add {
+    background-color: #fff;
+}
+
+.addIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    fill: grey;
+    border-radius: 50%;
+}
+
+.addIcon svg {
+    width: 60%;
+    height: 60%;
+}

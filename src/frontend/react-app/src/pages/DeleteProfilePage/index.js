@@ -2,13 +2,19 @@ import React, {useContext, useState} from "react";
 import {ProfileContext} from "../../context/Profile";
 import "./DeleteProfilePage.css"
 import {NavLink, useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteProfile} from "../../store/session";
 function DeleteProfilePage() {
     const history = useHistory()
+    const dispatch = useDispatch()
     const { profile } = useContext(ProfileContext);
-    const [name, setName] = useState(profile.name);
+    const sessionUser = useSelector(state => state.session.user);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        dispatch(deleteProfile(sessionUser, profile.profileId))
+        history.push("/profile")
     }
 
     const handleCancel = async () => {

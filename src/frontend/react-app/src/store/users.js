@@ -14,7 +14,7 @@ const getWatchLaterMovie = (movies) => ({
     payload: movies,
 });
 
-const initialState = { movies: null };
+const initialState = { user: {} };
 
 export const getLikedMovies = (username) => async (dispatch) => {
     const response = await fetch(`${config.apiUrl}/api/user/liked/${username}`, {

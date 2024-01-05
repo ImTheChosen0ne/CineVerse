@@ -17,6 +17,7 @@ import MyList from "./pages/MyList";
 import BrowseByLanguage from "./pages/BrowseByLanguage";
 import DeleteProfilePage from "./pages/DeleteProfilePage";
 import NewAndPopular from "./pages/NewAndPopularPage";
+import AddProfilePage from "./pages/AddProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/ManageProfiles" >
             <ManageProfiles />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/ManageProfiles/new" >
+            <AddProfilePage />
           </ProtectedRoute>
           <ProtectedRoute exact path="/ManageProfiles/:profileName" >
             <EditProfilePage />

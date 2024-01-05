@@ -1,0 +1,238 @@
+.profile-add-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.add-profile {
+    width: 100%;
+    background: #141414;
+    height: 100vh;
+}
+
+.add-profile-container {
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    height: auto;
+    min-height: 70px;
+    z-index: 1;
+    background-image: linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent);
+}
+
+.add-profile-center {
+    opacity: 1;
+    transform: scale(1);
+    position: initial;
+    transition-duration: 450ms;
+    transition-delay: 200ms;
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.add-profile-wrapper {
+    position: relative;
+    text-align: left;
+    font-size: .75vw;
+}
+
+.add-profile-wrapper h1 {
+    font-size: 4vw;
+    margin: 0;
+    font-weight: 400;
+    text-align: left;
+    color: #fff;
+    cursor: default;
+}
+
+.add-profile-wrapper h2 {
+    color: #666;
+    font-size: 1.3vw;
+    font-weight: 400;
+    margin: 2.5% 0;
+}
+
+.profile-entry {
+    display: flex;
+    padding: 2em 0;
+    border-bottom: 1px solid #333;
+    border-top: 1px solid #333;
+    text-align: left;
+}
+
+.profile-add-icon-container {
+    margin-right: 1.5vw;
+    max-width: 180px;
+    min-width: 80px;
+    white-space: nowrap;
+    width: 8vw;
+    text-align: left;
+}
+
+.profile-add-icon {
+    position: relative;
+}
+
+.profile-add-icon img {
+    border-radius: 4px;
+    transition-timing-function: cubic-bezier(.68,-.55,.265,1.55);
+    height: 8vw;
+    max-height: 180px;
+    max-width: 180px;
+    min-height: 80px;
+    min-width: 80px;
+    width: 8vw;
+    animation-name: animateScale;
+    animation-duration: 400ms;
+}
+
+.profile-button {
+    font-size: 1vw;
+    margin: 2em 0 1em;
+    display: inline-block;
+    background-color: transparent;
+    border: 1px solid grey;
+    color: grey;
+    cursor: pointer;
+    padding: .5em 1.5em;
+    text-decoration: none;
+}
+
+.profile-button:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+.profile-button.end {
+    margin-right: 20px;
+}
+
+.profile-button.save {
+    background: #fff;
+    border: 1px solid #fff;
+    color: #000;
+    font-weight: 500;
+}
+
+.profile-button.save:hover {
+    background: #c00;
+    border-color: #c00;
+    color: #fff;
+}
+
+
+.profile-add-inputs {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    vertical-align: middle;
+}
+
+.profile-add-inputs input {
+    background: #666;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 1.3vw;
+    height: 2em;
+    margin: 0 .8em 0 0;
+    padding: .2em .6em;
+    text-indent: .1vw;
+    width: 18em;
+}
+
+.profile-add-inputs input::placeholder {
+    border: none;
+    box-sizing: border-box;
+    color: rgba(204, 204, 204, 0.45);
+    font-size: 1.3vw;
+    height: 2em;
+    text-indent: .1vw;
+}
+
+.profile-add-inputs input:focus {
+    outline: none;
+    border: none;
+}
+
+.option-wrapper {
+    text-align: left;
+}
+
+.add-kids-option {
+    align-items: center;
+    display: flex;
+    margin: 5px 0;
+    position: relative;
+}
+
+.add-kids-option input {
+    display: none;
+}
+
+.add-kids-option input[type="checkbox"] + label {
+    border: 1px solid #333;
+    border-radius: 0;
+    display: inline-block;
+    font-size: .8vw;
+    height: 2.5em;
+    margin-right: .5em;
+    position: relative;
+    width: 2.5em;
+    cursor: pointer;
+}
+
+.add-kids-option input[type="checkbox"] + label svg {
+    height: 100%;
+    pointer-events: none;
+    width: 100%;
+    color: #99a1a7;
+    visibility: hidden;
+}
+
+.add-kids-option input[type="checkbox"]:checked + label svg {
+    visibility: visible;
+}
+
+
+.add-kids-option label svg {
+    height: 100%;
+    pointer-events: none;
+    width: 100%;
+    color: #99a1a7;
+}
+
+.profile-entry input[type="checkbox"]:checked + label {
+    color: #99a1a7;
+}
+
+.add-kids-marker {
+    font-size: 1.3vw;
+    font-weight: 400;
+    color: #fff;
+}
+
+.profile-button.end.save.active {
+    background: #c00;
+    border-color: #c00;
+    color: #fff;
+}
+
+.hide {
+    display: none;
+}

@@ -2,13 +2,29 @@ import React, {useContext, useState} from "react";
 import {ProfileContext} from "../../context/Profile";
 import {NavLink, useHistory} from "react-router-dom";
 import "./EditProfilePage.css"
+import {useDispatch, useSelector} from "react-redux";
+import {updateUserProfile} from "../../store/session";
 function EditProfilePage() {
     const history = useHistory();
+    const dispatch = useDispatch();
     const { profile } = useContext(ProfileContext);
     const [name, setName] = useState(profile.name);
+    const [img, setImg] = useState(profile.img);
+    const [gameHandle, setGameHandle] = useState("");
+    const sessionUser = useSelector(state => state.session.user);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const updatedProfile = {
+            ...profile,
+            name,
+            img
+        };
+
+        dispatch(updateUserProfile(updatedProfile, sessionUser.userId))
+
+        history.push("/ManageProfiles")
     }
 
     const handleCancel = async () => {
@@ -31,7 +47,7 @@ function EditProfilePage() {
                             <div className="profile-edit-icon-container">
                                 <div className="profile-edit-icon">
                                     <img
-                                        src={profile.img}
+                                        src={img}
                                         alt="profile image"/>
                                     <button>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -48,14 +64,14 @@ function EditProfilePage() {
                             </div>
                             <div className="profile-edit-info">
                                 <div className="profile-edit-inputs">
-                                    <input
-                                        type="text"
-                                        className=""
-                                        placeholder="Name"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        required
-                                    />
+                                            <input
+                                            type="text"
+                                            className=""
+                                            placeholder="Name"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            required
+                                            />
                                 </div>
                                 <div className="game">
                                     <h2>Game Handle:</h2>
@@ -65,9 +81,9 @@ function EditProfilePage() {
                                             type="text"
                                             className=""
                                             placeholder="Create Hame Handle"
-                                            value={name}
+                                            value={gameHandle}
                                             onChange={(e) => setName(e.target.value)}
-                                            required
+                                            // required
                                         />
                                     </div>
                                 </div>

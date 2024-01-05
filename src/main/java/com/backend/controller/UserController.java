@@ -2,6 +2,7 @@ package com.backend.controller;
 
 import com.backend.exceptions.DataException;
 import com.backend.models.Movie;
+import com.backend.models.Profile;
 import com.backend.models.User;
 import com.backend.services.TokenService;
 import com.backend.services.UserService;
@@ -42,6 +43,27 @@ public class UserController {
     public User updateUser(@RequestBody User body) {
         return userService.updateUser(body);
     }
+
+    @PostMapping("/{userId}/profiles/new")
+    public Profile addProfileToUser(@PathVariable Integer userId, @RequestBody Profile profile) {
+        try {
+            return userService.addProfileToUser(userId, profile);
+        } catch (DataException e) {
+            throw new DataException("");
+        }
+    }
+
+    @PutMapping("/{userId}/profiles/{profileId}")
+    public Profile updateProfile(@PathVariable Integer userId, @PathVariable Integer profileId, @RequestBody Profile updatedProfile) {
+        return userService.updateProfile(userId, profileId, updatedProfile);
+    }
+
+    @DeleteMapping("/{userId}/profiles/{profileId}")
+    public Profile removeProfileFromUser(@PathVariable Integer userId, @PathVariable Integer profileId) {
+        return userService.removeProfileFromUser(userId, profileId);
+    }
+
+
 
 //    @PutMapping("/like")
 //    public Set<Movie> likedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody Movie movie) {

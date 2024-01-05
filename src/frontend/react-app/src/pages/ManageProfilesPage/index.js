@@ -24,7 +24,7 @@ function ManageProfiles() {
                                     <div className="manage-profile-wrapper">
                                         <div className="profile-icon manage">
                                             <img
-                                                src="https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbGa4GvjA3sdbhrXZi7RG0-nuSXUxt-IZoVxB_7lHtMKT-wQ-CsDeukenQ6z6x4iUdqx4NJR4Sr3RDraWK1uYyKWRapH8T-tnFtb.png?r=59d"
+                                                src={profile.img}
                                                 alt="profile icon"/>
                                         </div>
                                         <div className="profile-svg">

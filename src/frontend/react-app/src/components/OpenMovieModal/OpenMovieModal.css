@@ -64,7 +64,7 @@
     display: flex;
     min-height: 2em;
     position: relative;
-    z-index: 2;
+    z-index: 5;
 }
 
 .movie-info-button-container a {
@@ -150,4 +150,69 @@
 .movie-info-button-container .more-info-button {
     margin-left: auto;
     position: relative;
+}
+
+.liked-overlay-mini {
+    opacity: 1;
+    transform: translateX(-65%) translateY(-50%) scale(1) translateZ(0);
+    margin-left: .1rem;
+    margin-top: -.1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.liked-overlay-mini {
+    display: none;
+}
+
+.liked-overlay-mini.visible {
+    display: block;
+}
+
+.selection-mini {
+    width: 9rem;
+    background-color: rgb(35,35,35) !important;
+    border-radius: 3rem;
+    box-shadow: rgba(0,0,0,0.6) 0 0 2px 0, rgba(0,0,0,0.5) 0px 8px 16px 0px;
+    display: flex;
+    padding: .8rem;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+}
+
+.disliked-liked-selection-mini {
+    margin: 0 .2rem;
+    position: relative;
+}
+
+.selection-button-mini {
+    border: 2px solid rgba(255,255,255,.07);
+    border-radius: 50%;
+    color: white;
+    padding: 0;
+    height: 3.2rem;
+    width: 3.2rem;
+    background-color: transparent;
+}
+
+.like {
+    border: none;
+}
+
+.selection-button-mini:hover {
+    border-color: #fff;
+    background-color: rgba(128,128,128,.2);
+}
+
+.selection-button-mini path{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.disliked {
+    margin-top: .1rem;
+    transform: rotate(180deg);
 }

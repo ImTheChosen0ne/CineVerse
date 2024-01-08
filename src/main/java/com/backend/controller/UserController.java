@@ -78,6 +78,18 @@ public class UserController {
         return userService.removeLikedMovie(loggedInUser, profileId, movieId);
     }
 
+    @PutMapping("/profiles/{profileId}/dislike/add")
+    public Set<Movie> dislikedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Movie movie) {
+        String loggedInUser = tokenService.getEmailFromToken(token);
+        return userService.dislikedMovie(loggedInUser, profileId, movie);
+    }
+
+    @DeleteMapping("/profiles/{profileId}/dislike/{movieId}/delete")
+    public Set<Movie> removeDislikedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer movieId) {
+        String loggedInUser = tokenService.getEmailFromToken(token);
+        return userService.removedislikedMovie(loggedInUser, profileId, movieId);
+    }
+
     @PutMapping("/profiles/{profileId}/watchlater/add")
     public Set<Movie> watchMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Movie movie) {
         String loggedInUser = tokenService.getEmailFromToken(token);

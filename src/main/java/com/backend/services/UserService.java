@@ -44,6 +44,7 @@ public class UserService implements UserDetailsService {
                 throw new DataException("Maximum number of profiles reached for this user.");
             }
             profile.setLikedMovies(new HashSet<>());
+            profile.setDislikedMovies(new HashSet<>());
             profile.setWatchLaterMovies(new HashSet<>());
 
             user.getProfiles().add(profile);
@@ -106,6 +107,39 @@ public class UserService implements UserDetailsService {
 
             optionalProfile.ifPresent(profile -> {
                 profile.getLikedMovies().removeIf(movie -> movie.getMovieId().equals(movieId));
+                userRepository.save(user);
+            });
+        });
+        return null;
+    }
+
+    public Set<Movie> dislikedMovie(String email, Integer profileId, Movie movie) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Optional<Profile> optionalProfile = user.getProfiles().stream()
+                    .filter(profile -> profile.getProfileId().equals(profileId))
+                    .findFirst();
+
+            if (optionalProfile.isPresent()) {
+                Profile existingProfile = optionalProfile.get();
+                existingProfile.getDislikedMovies().add(movie);
+                userRepository.save(user);
+                return existingProfile.getDislikedMovies();
+            }
+        }
+        return null;
+    }
+
+    public Set<Movie> removedislikedMovie(String email, Integer profileId, Integer movieId) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        optionalUser.ifPresent(user -> {
+            Optional<Profile> optionalProfile = user.getProfiles().stream()
+                    .filter(profile -> profile.getProfileId().equals(profileId))
+                    .findFirst();
+
+            optionalProfile.ifPresent(profile -> {
+                profile.getDislikedMovies().removeIf(movie -> movie.getMovieId().equals(movieId));
                 userRepository.save(user);
             });
         });

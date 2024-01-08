@@ -40,7 +40,6 @@ public class AuthenticationService {
     }
 
     public ResponseDTO registerUser(RegistrationDTO body) {
-
         User user = new User();
         user.setEmail(body.getEmail());
         user.setPassword(passwordEncoder.encode(body.getPassword()));
@@ -48,9 +47,10 @@ public class AuthenticationService {
         user.setLastName(body.getLastName());
 
         Set<Movie> likedMovies = new HashSet<>();
+        Set<Movie> dislikedMovies = new HashSet<>();
         Set<Movie> watchLaterMovies = new HashSet<>();
 
-        Profile profile = new Profile(0, user.getFirstName(), "img", likedMovies, watchLaterMovies);
+        Profile profile = new Profile(0, user.getFirstName(), "img", likedMovies, dislikedMovies, watchLaterMovies);
         Profile profiles = profileRepository.save(profile);
 
         Set<Profile> userProfile = new HashSet<>();

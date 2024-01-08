@@ -7,6 +7,8 @@ const UPDATE_PROFILE = "session/UPDATE_PROFILE";
 const REMOVE_PROFILE = "session/REMOVE_PROFILE";
 const ADD_LIKE_MOVIE = "session/ADD_LIKE_MOVIE";
 const REMOVE_LIKE_MOVIE = "session/REMOVE_LIKE_MOVIE";
+const ADD_DISLIKE_MOVIE = "session/ADD_DISLIKE_MOVIE";
+const REMOVE_DISLIKE_MOVIE = "session/REMOVE_DISLIKE_MOVIE";
 const ADD_WATCH_LATER_MOVIE = "session/ADD_WATCH_LATER_MOVIE";
 const REMOVE_WATCH_LATER_MOVIE = "session/REMOVE_WATCH_LATER_MOVIE";
 
@@ -41,6 +43,16 @@ const addLikeMovie = (movie, profile) => ({
 
 const removeLikeMovie = (movie, profileId) => ({
 	type: REMOVE_LIKE_MOVIE,
+	payload: { profileId, movie }
+});
+
+const addDislikeMovie = (movie, profile) => ({
+	type: ADD_DISLIKE_MOVIE,
+	payload: { movie, profile }
+});
+
+const removeDislikeMovie = (movie, profileId) => ({
+	type: REMOVE_DISLIKE_MOVIE,
 	payload: { profileId, movie }
 });
 
@@ -271,6 +283,45 @@ export const deleteLike = (movie, profileId) => async (dispatch) => {
 	}
 };
 
+export const createDislike = (profile, movie) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+
+	if (!token) {
+		return;
+	}
+
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/dislike/add`, {
+		method: 'PUT',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(movie),
+	});
+
+	if (response.ok) {
+		dispatch(addDislikeMovie(movie, profile));
+	}
+};
+
+export const deleteDislike = (movie, profileId) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+
+	if (!token) {
+		return;
+	}
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/dislike/${movie.movieId}/delete`, {
+		method: 'DELETE',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+		},
+	});
+
+	if (response.ok) {
+		dispatch(removeDislikeMovie(movie, profileId));
+	}
+};
+
 export const createWatchLaterMovie = (profile, movie) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 
@@ -342,12 +393,28 @@ export default function reducer(state = initialState, action) {
 			let { profileId: removeProfileMovieLike, movie: removeLike } = action.payload;
 			const updatedLikeProfiles = state.user.profiles.map(profile => {
 				if (profile.profileId === removeProfileMovieLike) {
-					const updatedLike = profile.likedMovies.filter(wlMovie => wlMovie.movieId !== removeLike.movieId);
+					const updatedLike = profile.likedMovies.filter(movie => movie.movieId !== removeLike.movieId);
 					return { ...profile, likedMovies: updatedLike};
 				}
 				return profile;
 			});
 			return { user: { ...state.user, profiles: updatedLikeProfiles } };
+		case ADD_DISLIKE_MOVIE:
+			const { movie: dislikedMovie, profile: dislikedProfile } = action.payload;
+			const userDisliked = { ...state.user };
+			const profileIndexDisLiked = userDisliked.profiles.findIndex(profile => profile.profileId === dislikedProfile.profileId);
+			userDisliked.profiles[profileIndexDisLiked].dislikedMovies.push(dislikedMovie);
+			return { ...state, user: userDisliked };
+		case REMOVE_DISLIKE_MOVIE:
+			let { profileId: removeProfileMovieDislike, movie: removeDislike } = action.payload;
+			const updatedDislikeProfiles = state.user.profiles.map(profile => {
+				if (profile.profileId === removeProfileMovieDislike) {
+					const updatedDislike = profile.dislikedMovies.filter(movie => movie.movieId !== removeDislike.movieId);
+					return { ...profile, dislikedMovies: updatedDislike};
+				}
+				return profile;
+			});
+			return { user: { ...state.user, profiles: updatedDislikeProfiles } };
 		case ADD_WATCH_LATER_MOVIE:
 			const { movie: watchLaterMovie, profile: watchLaterProfile } = action.payload;
 			const userWithWatchLater = { ...state.user };
@@ -358,7 +425,7 @@ export default function reducer(state = initialState, action) {
 			let { profileId: removeProfileMovieWatchLater, movie: removeWatchLater } = action.payload;
 			const updatedProfiles = state.user.profiles.map(profile => {
 				if (profile.profileId === removeProfileMovieWatchLater) {
-					const updatedWatchLater = profile.watchLaterMovies.filter(wlMovie => wlMovie.movieId !== removeWatchLater.movieId);
+					const updatedWatchLater = profile.watchLaterMovies.filter(movie => movie.movieId !== removeWatchLater.movieId);
 					return { ...profile, watchLaterMovies: updatedWatchLater};
 				}
 				return profile;

@@ -26,6 +26,15 @@ public class Profile {
 
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
+            name="profile_movie_dislikes",
+            joinColumns = {@JoinColumn(name="profile_id")},
+            inverseJoinColumns = {@JoinColumn(name="movie_id")}
+    )
+
+    private Set<Movie> dislikedMovies;
+
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
             name="profile_movie_watch_later",
             joinColumns = {@JoinColumn(name="profile_id")},
             inverseJoinColumns = {@JoinColumn(name="movie_id")}
@@ -35,14 +44,16 @@ public class Profile {
 
     public Profile() {
         this.likedMovies = new HashSet<Movie>();
+        this.dislikedMovies = new HashSet<Movie>();
         this.watchLaterMovies = new HashSet<Movie>();
     }
 
-    public Profile(Integer profileId, String name, String img, Set<Movie> likedMovies, Set<Movie> watchLaterMovies) {
+    public Profile(Integer profileId, String name, String img, Set<Movie> likedMovies, Set<Movie> dislikedMovies, Set<Movie> watchLaterMovies) {
         this.profileId = profileId;
         this.name = name;
         this.img = img;
         this.likedMovies = likedMovies;
+        this.dislikedMovies = dislikedMovies;
         this.watchLaterMovies = watchLaterMovies;
 
     }
@@ -74,6 +85,10 @@ public class Profile {
     public Set<Movie> getLikedMovies() {
         return likedMovies;
     }
+
+    public Set<Movie> getDislikedMovies() { return dislikedMovies; }
+
+    public void setDislikedMovies(Set<Movie> dislikedMovies) { this.dislikedMovies = dislikedMovies; }
 
     public void setLikedMovies(Set<Movie> likedMovies) {
         this.likedMovies = likedMovies;

@@ -97,21 +97,18 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
-    public Set<Movie> removeLikedMovie(String email, Integer profileId, Movie movie) {
+    public Set<Movie> removeLikedMovie(String email, Integer profileId, Integer movieId) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
+        optionalUser.ifPresent(user -> {
             Optional<Profile> optionalProfile = user.getProfiles().stream()
                     .filter(profile -> profile.getProfileId().equals(profileId))
                     .findFirst();
 
-            if (optionalProfile.isPresent()) {
-                Profile existingProfile = optionalProfile.get();
-                existingProfile.getLikedMovies().remove(movie);
+            optionalProfile.ifPresent(profile -> {
+                profile.getLikedMovies().removeIf(movie -> movie.getMovieId().equals(movieId));
                 userRepository.save(user);
-                return existingProfile.getLikedMovies();
-            }
-        }
+            });
+        });
         return null;
     }
 
@@ -133,21 +130,19 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
-    public Set<Movie> removeWatchLaterMovie(String email, Integer profileId, Movie movie) {
+    public Set<Movie> removeWatchLaterMovie(String email, Integer profileId, Integer movieId) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
+        optionalUser.ifPresent(user -> {
             Optional<Profile> optionalProfile = user.getProfiles().stream()
                     .filter(profile -> profile.getProfileId().equals(profileId))
                     .findFirst();
 
-            if (optionalProfile.isPresent()) {
-                Profile existingProfile = optionalProfile.get();
-                existingProfile.getWatchLaterMovies().remove(movie);
+            optionalProfile.ifPresent(profile -> {
+                profile.getWatchLaterMovies().removeIf(movie -> movie.getMovieId().equals(movieId));
                 userRepository.save(user);
-                return existingProfile.getLikedMovies();
-            }
-        }
+            });
+        });
+
         return null;
     }
 

@@ -16,8 +16,8 @@ function OpenMovieModal({movie, position}) {
   const { profile, updateProfile } = useContext(ProfileContext);
   const sessionUser = useSelector(state => state.session.user);
   const updatedProfile = sessionUser.profiles.find(profiles => profiles.profileId === profile.profileId)
-  const [liked, setLiked] = useState(false);
-  const [watchLater, setWatchLater] = useState(false);
+  let [liked, setLiked] = useState(false);
+  let [watchLater, setWatchLater] = useState(false);
 
 
   const onMouseLeave = () => {
@@ -49,9 +49,15 @@ function OpenMovieModal({movie, position}) {
     height: position.height + 220 + "px"
   };
 
+  if (updatedProfile.likedMovies) {
+    for (let likedMovie of updatedProfile.likedMovies) {
+      if (likedMovie.movieId === movie.movieId) liked = true;
+    }
+  }
+
   const handleLikeMovie = async (movie) => {
     if (liked) {
-      // await dispatch(deleteLike(movie, profile.profileId))
+      await dispatch(deleteLike(movie, profile.profileId))
       updateProfile(updatedProfile)
       setLiked(false);
     } else if (!liked) {
@@ -61,9 +67,15 @@ function OpenMovieModal({movie, position}) {
     }
   }
 
+  if (updatedProfile.watchLaterMovies) {
+    for (let watchMovie of updatedProfile.watchLaterMovies) {
+      if (watchMovie.movieId === movie.movieId) watchLater = true;
+    }
+  }
+
   const handleWatchLaterMovie = async (movie) => {
     if (watchLater) {
-      // await dispatch(deleteWatchLaterMovie(movie, profile.profileId))
+      await dispatch(deleteWatchLaterMovie(movie, profile.profileId))
       updateProfile(updatedProfile)
       setWatchLater(false);
     } else if (!watchLater) {

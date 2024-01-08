@@ -72,10 +72,10 @@ public class UserController {
         return userService.likedMovie(loggedInUser, profileId, movie);
     }
 
-    @DeleteMapping("/profiles/{profileId}/like/delete")
-    public Set<Movie> removeLikedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Movie movie) {
+    @DeleteMapping("/profiles/{profileId}/like/{movieId}/delete")
+    public Set<Movie> removeLikedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer movieId) {
         String loggedInUser = tokenService.getEmailFromToken(token);
-        return userService.removeLikedMovie(loggedInUser, profileId, movie);
+        return userService.removeLikedMovie(loggedInUser, profileId, movieId);
     }
 
     @PutMapping("/profiles/{profileId}/watchlater/add")
@@ -84,10 +84,10 @@ public class UserController {
         return userService.watchMovie(loggedInUser, profileId, movie);
     }
 
-    @DeleteMapping("/profiles/{profileId}/watchlater/delete")
-    public Set<Movie> removeWatchLaterMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Movie movie) {
+    @DeleteMapping("/profiles/{profileId}/watchlater/{movieId}/delete")
+    public Set<Movie> removeWatchLaterMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer movieId) {
         String loggedInUser = tokenService.getEmailFromToken(token);
-        return userService.removeWatchLaterMovie(loggedInUser, profileId, movie);
+        return userService.removeWatchLaterMovie(loggedInUser, profileId, movieId);
     }
 
 

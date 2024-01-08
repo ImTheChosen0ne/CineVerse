@@ -39,7 +39,7 @@ const addLikeMovie = (movie, profile) => ({
 	payload: { movie, profile }
 });
 
-const removeLikeMovie = (profileId, movie) => ({
+const removeLikeMovie = (movie, profileId) => ({
 	type: REMOVE_LIKE_MOVIE,
 	payload: { profileId, movie }
 });
@@ -49,7 +49,7 @@ const addWatchLaterMovie = (movie, profile) => ({
 	payload: { movie, profile }
 });
 
-const removeWatchLaterMovie = (profileId, movie) => ({
+const removeWatchLaterMovie = (movie, profileId) => ({
 	type: REMOVE_WATCH_LATER_MOVIE,
 	payload: { profileId, movie }
 });
@@ -74,7 +74,6 @@ export const authenticate = () => async (dispatch) => {
 		if (data.errors) {
 			return;
 		}
-
 		dispatch(setUser(data));
 	}
 
@@ -260,7 +259,7 @@ export const deleteLike = (movie, profileId) => async (dispatch) => {
 	if (!token) {
 		return;
 	}
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/like/delete`, {
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/like/${movie.movieId}/delete`, {
 		method: 'DELETE',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -299,7 +298,7 @@ export const deleteWatchLaterMovie = (movie, profileId) => async (dispatch) => {
 	if (!token) {
 		return;
 	}
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/watchlater/delete`, {
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/watchlater/${movie.movieId}/delete`, {
 		method: 'DELETE',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -307,7 +306,7 @@ export const deleteWatchLaterMovie = (movie, profileId) => async (dispatch) => {
 	});
 
 	if (response.ok) {
-		dispatch(removeWatchLaterMovie(movie));
+		dispatch(removeWatchLaterMovie(movie, profileId));
 	}
 };
 
@@ -337,13 +336,18 @@ export default function reducer(state = initialState, action) {
 			const { movie: likedMovie, profile: likedProfile } = action.payload;
 			const userLiked = { ...state.user };
 			const profileIndexLiked = userLiked.profiles.findIndex(profile => profile.profileId === likedProfile.profileId);
-			userLiked.profiles[profileIndexLiked].watchLaterMovies.push(likedMovie);
+			userLiked.profiles[profileIndexLiked].likedMovies.push(likedMovie);
 			return { ...state, user: userLiked };
 		case REMOVE_LIKE_MOVIE:
 			let { profileId: removeProfileMovieLike, movie: removeLike } = action.payload;
-			const removedLikeMovieProfile = state.user.profiles.filter(profile => profile.profileId !== removeProfileMovieLike);
-			const removeLikeMovie = removedLikeMovieProfile.filter(movie => movie.movieId !== removeLike.movieId)
-			return { user: { ...state.user, profiles: state.user.profiles, watchLaterMovies: removeLikeMovie} };
+			const updatedLikeProfiles = state.user.profiles.map(profile => {
+				if (profile.profileId === removeProfileMovieLike) {
+					const updatedLike = profile.likedMovies.filter(wlMovie => wlMovie.movieId !== removeLike.movieId);
+					return { ...profile, likedMovies: updatedLike};
+				}
+				return profile;
+			});
+			return { user: { ...state.user, profiles: updatedLikeProfiles } };
 		case ADD_WATCH_LATER_MOVIE:
 			const { movie: watchLaterMovie, profile: watchLaterProfile } = action.payload;
 			const userWithWatchLater = { ...state.user };
@@ -352,9 +356,14 @@ export default function reducer(state = initialState, action) {
 			return { ...state, user: userWithWatchLater };
 		case REMOVE_WATCH_LATER_MOVIE:
 			let { profileId: removeProfileMovieWatchLater, movie: removeWatchLater } = action.payload;
-			const removedWatchLaterProfile = state.user.profiles.filter(profile => profile.profileId === removeProfileMovieWatchLater);
-			const removeWatchLaterMovie = removedWatchLaterProfile.filter(movie => movie.movieId !== removeWatchLater.movieId)
-			return { user: { ...state.user, profiles: state.user.profiles, watchLaterMovies: removeWatchLaterMovie} };
+			const updatedProfiles = state.user.profiles.map(profile => {
+				if (profile.profileId === removeProfileMovieWatchLater) {
+					const updatedWatchLater = profile.watchLaterMovies.filter(wlMovie => wlMovie.movieId !== removeWatchLater.movieId);
+					return { ...profile, watchLaterMovies: updatedWatchLater};
+				}
+				return profile;
+			});
+			return { user: { ...state.user, profiles: updatedProfiles } };
 		default:
 			return state;
 	}

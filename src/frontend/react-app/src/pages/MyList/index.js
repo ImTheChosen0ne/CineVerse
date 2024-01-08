@@ -11,7 +11,8 @@ import {useSelector} from "react-redux";
 function MyList() {
     const { profile } = useContext(ProfileContext);
     const { setModalContent, modalRef } = useMiniModal();
-
+    const sessionUser = useSelector(state => state.session.user);
+    const sessionProfile = sessionUser.profiles.find(profiles => profiles.profileId === profile.profileId)
     const onMouseEnter = (movie, event) => {
         const rect = event.target.getBoundingClientRect();
         const positionInfo = {
@@ -34,7 +35,7 @@ function MyList() {
             <div className="my-list-movies">
                 <div className="my-list-movie-container">
                     <div className="my-list-movie-wrapper">
-                        {profile?.watchLaterMovies?.map((movie, index) => (
+                        {sessionProfile?.watchLaterMovies?.map((movie, index) => (
                             <div
                                 key={movie?.movieId}
                                 className="my-list-movie"

@@ -20,7 +20,7 @@ function AddProfilePage() {
             img: img,
         }
 
-        dispatch(createProfile(profile, sessionUser.userId))
+        dispatch(createProfile(profile))
 
         history.push("/profile")
     }

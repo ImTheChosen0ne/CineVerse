@@ -1,6 +1,7 @@
 package com.backend.services;
 
 import com.backend.exceptions.DataException;
+import com.backend.models.Movie;
 import com.backend.models.Profile;
 import com.backend.models.User;
 import com.backend.repository.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -33,8 +35,8 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public Profile addProfileToUser(Integer userId, Profile profile) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+    public Profile addProfileToUser(String email, Profile profile) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
 
@@ -52,8 +54,8 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public Profile updateProfile(Integer userId, Integer profileId, Profile updatedProfile) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+    public Profile updateProfile(String email, Integer profileId, Profile updatedProfile) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
         optionalUser.ifPresent(user -> {
             user.getProfiles().stream()
                     .filter(profile -> profile.getProfileId().equals(profileId))
@@ -68,8 +70,8 @@ public class UserService implements UserDetailsService {
         return updatedProfile;
     }
 
-    public Profile removeProfileFromUser(Integer userId, Integer profileId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+    public Profile removeProfileFromUser(String email, Integer profileId) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
         optionalUser.ifPresent(user -> {
             user.getProfiles().removeIf(profile -> profile.getProfileId().equals(profileId));
             userRepository.save(user);
@@ -77,43 +79,83 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
+    public Set<Movie> likedMovie(String email, Integer profileId, Movie movie) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Optional<Profile> optionalProfile = user.getProfiles().stream()
+                    .filter(profile -> profile.getProfileId().equals(profileId))
+                    .findFirst();
+
+            if (optionalProfile.isPresent()) {
+                Profile existingProfile = optionalProfile.get();
+                existingProfile.getLikedMovies().add(movie);
+                userRepository.save(user);
+                return existingProfile.getLikedMovies();
+            }
+        }
+        return null;
+    }
+
+    public Set<Movie> removeLikedMovie(String email, Integer profileId, Movie movie) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Optional<Profile> optionalProfile = user.getProfiles().stream()
+                    .filter(profile -> profile.getProfileId().equals(profileId))
+                    .findFirst();
+
+            if (optionalProfile.isPresent()) {
+                Profile existingProfile = optionalProfile.get();
+                existingProfile.getLikedMovies().remove(movie);
+                userRepository.save(user);
+                return existingProfile.getLikedMovies();
+            }
+        }
+        return null;
+    }
+
+    public Set<Movie> watchMovie(String email, Integer profileId, Movie movie) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Optional<Profile> optionalProfile = user.getProfiles().stream()
+                    .filter(profile -> profile.getProfileId().equals(profileId))
+                    .findFirst();
+
+            if (optionalProfile.isPresent()) {
+                Profile existingProfile = optionalProfile.get();
+                existingProfile.getWatchLaterMovies().add(movie);
+                userRepository.save(user);
+                return existingProfile.getWatchLaterMovies();
+            }
+        }
+        return null;
+    }
+
+    public Set<Movie> removeWatchLaterMovie(String email, Integer profileId, Movie movie) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Optional<Profile> optionalProfile = user.getProfiles().stream()
+                    .filter(profile -> profile.getProfileId().equals(profileId))
+                    .findFirst();
+
+            if (optionalProfile.isPresent()) {
+                Profile existingProfile = optionalProfile.get();
+                existingProfile.getWatchLaterMovies().remove(movie);
+                userRepository.save(user);
+                return existingProfile.getLikedMovies();
+            }
+        }
+        return null;
+    }
 
     public User getUserById(Integer userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found: " + userId));
     }
 
-//    public Set<Movie> likedMovie(String email, Movie movie) {
-//        User loggedInUser = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
-//        Set<Movie> likedList = loggedInUser.getProfiles().;
-//
-//        likedList.add(movie);
-//        loggedInUser.setLikedMovies(likedList);
-//
-//        userRepository.save(loggedInUser);
-//        return loggedInUser.getLikedMovies();
-//    }
-//
-//    public Set<Movie> watchMovie(String email, Movie movie) {
-//        User loggedInUser = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
-//        Set<Movie> watchList = loggedInUser.getWatchLaterMovies();
-//
-//        watchList.add(movie);
-//        loggedInUser.setLikedMovies(watchList);
-//
-//        userRepository.save(loggedInUser);
-//        return loggedInUser.getWatchLaterMovies();
-//    }
-//
-//    public Set<Movie> getLikedMoviesList(String email) {
-//        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
-//        return user.getLikedMovies();
-//    }
-//
-//    public Set<Movie> getWatchMoviesList(String email) {
-//        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));
-//        return user.getWatchLaterMovies();
-//    }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Username not found: " + email));

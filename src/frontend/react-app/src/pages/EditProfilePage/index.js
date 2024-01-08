@@ -22,7 +22,7 @@ function EditProfilePage() {
             img
         };
 
-        dispatch(updateUserProfile(updatedProfile, sessionUser.userId))
+        dispatch(updateUserProfile(updatedProfile))
 
         history.push("/ManageProfiles")
     }

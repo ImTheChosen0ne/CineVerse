@@ -5,6 +5,10 @@ const REMOVE_USER = "session/REMOVE_USER";
 const ADD_PROFILE = "session/ADD_PROFILE";
 const UPDATE_PROFILE = "session/UPDATE_PROFILE";
 const REMOVE_PROFILE = "session/REMOVE_PROFILE";
+const ADD_LIKE_MOVIE = "session/ADD_LIKE_MOVIE";
+const REMOVE_LIKE_MOVIE = "session/REMOVE_LIKE_MOVIE";
+const ADD_WATCH_LATER_MOVIE = "session/ADD_WATCH_LATER_MOVIE";
+const REMOVE_WATCH_LATER_MOVIE = "session/REMOVE_WATCH_LATER_MOVIE";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -25,9 +29,29 @@ const updateProfile = (updatedProfile) => ({
 	payload: { updatedProfile }
 });
 
-const removeProfile = (user, profileId) => ({
+const removeProfile = (profileId) => ({
 	type: REMOVE_PROFILE,
-	payload: { user, profileId }
+	payload: { profileId }
+});
+
+const addLikeMovie = (movie, profile) => ({
+	type: ADD_LIKE_MOVIE,
+	payload: { movie, profile }
+});
+
+const removeLikeMovie = (profileId, movie) => ({
+	type: REMOVE_LIKE_MOVIE,
+	payload: { profileId, movie }
+});
+
+const addWatchLaterMovie = (movie, profile) => ({
+	type: ADD_WATCH_LATER_MOVIE,
+	payload: { movie, profile }
+});
+
+const removeWatchLaterMovie = (profileId, movie) => ({
+	type: REMOVE_WATCH_LATER_MOVIE,
+	payload: { profileId, movie }
 });
 
 const initialState = { user: null };
@@ -148,14 +172,14 @@ export const verifyEmail = (email) => async (dispatch) => {
 	}
 };
 
-export const createProfile = (profile, userId) => async (dispatch) => {
+export const createProfile = (profile) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 
 	if (!token) {
 		return;
 	}
 
-	const response = await fetch(`${config.apiUrl}/api/user/${userId}/profiles/new`, {
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/new`, {
 		method: "POST",
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -170,14 +194,14 @@ export const createProfile = (profile, userId) => async (dispatch) => {
 	}
 };
 
-export const updateUserProfile = (updatedProfile, userId) => async (dispatch) => {
+export const updateUserProfile = (updatedProfile) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 
 	if (!token) {
 		return;
 	}
 
-	const response = await fetch(`${config.apiUrl}/api/user/${userId}/profiles/${updatedProfile.profileId}`, {
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${updatedProfile.profileId}`, {
 		method: 'PUT',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -197,7 +221,7 @@ export const deleteProfile = (user, profileId) => async (dispatch) => {
 	if (!token) {
 		return;
 	}
-	const response = await fetch(`${config.apiUrl}/api/user/${user.userId}/profiles/${profileId}`, {
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}`, {
 		method: 'DELETE',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -205,7 +229,85 @@ export const deleteProfile = (user, profileId) => async (dispatch) => {
 	});
 
 	if (response.ok) {
-		dispatch(removeProfile(user, profileId));
+		dispatch(removeProfile(profileId));
+	}
+};
+
+export const createLike = (profile, movie) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+
+	if (!token) {
+		return;
+	}
+
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/like/add`, {
+		method: 'PUT',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(movie),
+	});
+
+	if (response.ok) {
+		dispatch(addLikeMovie(movie, profile));
+	}
+};
+
+export const deleteLike = (movie, profileId) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+
+	if (!token) {
+		return;
+	}
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/like/delete`, {
+		method: 'DELETE',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+		},
+	});
+
+	if (response.ok) {
+		dispatch(removeLikeMovie(movie, profileId));
+	}
+};
+
+export const createWatchLaterMovie = (profile, movie) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+
+	if (!token) {
+		return;
+	}
+
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/watchlater/add`, {
+		method: 'PUT',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(movie),
+	});
+
+	if (response.ok) {
+		dispatch(addWatchLaterMovie(movie, profile));
+	}
+};
+
+export const deleteWatchLaterMovie = (movie, profileId) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+
+	if (!token) {
+		return;
+	}
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/watchlater/delete`, {
+		method: 'DELETE',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+		},
+	});
+
+	if (response.ok) {
+		dispatch(removeWatchLaterMovie(movie));
 	}
 };
 
@@ -228,9 +330,31 @@ export default function reducer(state = initialState, action) {
 			return { ...state, user: { ...state.user, profiles: [...userUpdate.profiles] }
 			};
 		case REMOVE_PROFILE:
-			let { user, profileId } = action.payload;
-			const removedProfile = user.profiles.filter(profile => profile.profileId !== profileId);
+			let { profileId } = action.payload;
+			const removedProfile = state.user.profiles.filter(profile => profile.profileId !== profileId);
 			return { user: { ...state.user, profiles: removedProfile } };
+		case ADD_LIKE_MOVIE:
+			const { movie: likedMovie, profile: likedProfile } = action.payload;
+			const userLiked = { ...state.user };
+			const profileIndexLiked = userLiked.profiles.findIndex(profile => profile.profileId === likedProfile.profileId);
+			userLiked.profiles[profileIndexLiked].watchLaterMovies.push(likedMovie);
+			return { ...state, user: userLiked };
+		case REMOVE_LIKE_MOVIE:
+			let { profileId: removeProfileMovieLike, movie: removeLike } = action.payload;
+			const removedLikeMovieProfile = state.user.profiles.filter(profile => profile.profileId !== removeProfileMovieLike);
+			const removeLikeMovie = removedLikeMovieProfile.filter(movie => movie.movieId !== removeLike.movieId)
+			return { user: { ...state.user, profiles: state.user.profiles, watchLaterMovies: removeLikeMovie} };
+		case ADD_WATCH_LATER_MOVIE:
+			const { movie: watchLaterMovie, profile: watchLaterProfile } = action.payload;
+			const userWithWatchLater = { ...state.user };
+			const profileIndexWatchLater = userWithWatchLater.profiles.findIndex(profile => profile.profileId === watchLaterProfile.profileId);
+			userWithWatchLater.profiles[profileIndexWatchLater].watchLaterMovies.push(watchLaterMovie);
+			return { ...state, user: userWithWatchLater };
+		case REMOVE_WATCH_LATER_MOVIE:
+			let { profileId: removeProfileMovieWatchLater, movie: removeWatchLater } = action.payload;
+			const removedWatchLaterProfile = state.user.profiles.filter(profile => profile.profileId === removeProfileMovieWatchLater);
+			const removeWatchLaterMovie = removedWatchLaterProfile.filter(movie => movie.movieId !== removeWatchLater.movieId)
+			return { user: { ...state.user, profiles: state.user.profiles, watchLaterMovies: removeWatchLaterMovie} };
 		default:
 			return state;
 	}

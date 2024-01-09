@@ -78,9 +78,14 @@
 }
 
 .signup-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     border-top: 1px solid #e6e6e6;
     color: #737373;
     background-color: #f3f3f3;
+    padding: 15px;
 }
 
 .account-footer {

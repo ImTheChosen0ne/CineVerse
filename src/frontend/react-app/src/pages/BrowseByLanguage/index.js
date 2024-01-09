@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getMovies} from "../../store/movies";
 import OpenMovieModal from "../../components/OpenMovieModal";
 import {useMiniModal} from "../../context/MiniModal";
+import Spinner from "../../components/Spinner";
 
 
 function BrowseByLanguage() {
@@ -15,6 +16,7 @@ function BrowseByLanguage() {
     const dropdownRef = useRef(null);
     const dispatch = useDispatch();
     const { setModalContent, modalRef } = useMiniModal();
+    const [loading, setLoading] = useState(true);
 
     const movies = Object.values(useSelector((state) => state.movies));
 
@@ -37,6 +39,16 @@ function BrowseByLanguage() {
             setIsOpen(false);
         }
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setTimeout(() => {
+                setLoading(false);
+            }, 2000);
+        };
+
+        fetchData();
+    }, []);
 
    useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
@@ -106,7 +118,7 @@ function BrowseByLanguage() {
                     <div className="languageDropDown-wrapper">
                         <select className="language-dropdown" value={selectedLanguage} onChange={handleSelectLanguage}>
                             {languages.map((language) => (
-                                <option key={language.code} value={language.code} >
+                                <option key={language.code} value={language.code}>
                                     {language.name}
                                 </option>
                             ))}
@@ -123,6 +135,10 @@ function BrowseByLanguage() {
                     </div>
                 </div>
             </div>
+            <div className="list-profiles browse-spinner">
+                <Spinner loading={loading}/>
+            </div>
+            {!loading && (
             <div className="language-movies">
                 <div className="language-movie-container">
                     <div className="language-movie-wrapper">
@@ -133,13 +149,14 @@ function BrowseByLanguage() {
                                 onMouseEnter={(event) => onMouseEnter(movie, event)}
                             >
                                 <div className="language-movie-img">
-                                    <img className="poster"  src={movie?.media} alt={movie?.title} />
+                                    <img className="poster" src={movie?.media} alt={movie?.title}/>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
+            )}
             <Footer className="language-footer"/>
         </div>
     );

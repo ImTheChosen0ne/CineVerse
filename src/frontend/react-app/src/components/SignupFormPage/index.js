@@ -22,9 +22,6 @@ function SignupFormPage() {
   const [step, setStep] = useState(1);
   const [selectedPlan, setSelectedPlan] = useState("plan3");
 
-
-
-
   if (sessionUser) return <Redirect to="/profile" />;
 
   const handlePlanChange = (planId) => {
@@ -81,7 +78,7 @@ function SignupFormPage() {
   };
 
   return (
-    <>
+    <div className="signup-background">
       <div className="signup-container">
       {step === 1 && (
           <div className="signup-form">
@@ -377,7 +374,7 @@ function SignupFormPage() {
           )}
       </div>
         <Footer/>
-    </>
+    </div>
   );
 }
 

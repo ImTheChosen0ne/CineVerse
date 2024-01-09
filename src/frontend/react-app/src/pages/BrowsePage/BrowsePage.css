@@ -83,3 +83,7 @@
     cursor: default;
     margin: 0 4% 0.5rem 60px;
 }
+
+.browse-spinner {
+    z-index: 0;
+}

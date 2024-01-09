@@ -12,8 +12,6 @@ function Account() {
         setSelectedProfile(profileId === selectedProfile ? null : profileId);
     };
 
-
-
     return (
         <div className="account-page">
             <div className="account-container">
@@ -127,7 +125,7 @@ function Account() {
                                                             </NavLink>
                                                         </li>
                                                         <li>
-                                                            <NavLink to="" className="profile-link">
+                                                            <NavLink to={`/account/${profile.name}/viewed`} className="profile-link">
                                                                 <div className="profile-main">
                                                                     <h4><b>Viewing activity</b></h4>
                                                                 </div>
@@ -135,7 +133,7 @@ function Account() {
                                                             </NavLink>
                                                         </li>
                                                         <li>
-                                                            <NavLink to="" className="profile-link-final">
+                                                            <NavLink to={`/account/${profile.name}/ratings`} className="profile-link-final">
                                                                 <div className="profile-main">
                                                                     <h4><b>Ratings</b></h4>
                                                                 </div>

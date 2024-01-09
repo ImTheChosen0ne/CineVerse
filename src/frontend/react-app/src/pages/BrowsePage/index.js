@@ -5,10 +5,12 @@ import {getMovies} from "../../store/movies";
 import MovieCarousel from "../../components/Carousel";
 import Footer from "../../components/Footer";
 import TopMovieCarousel from "../../components/Carousel/TopMovieCarousel";
+import Spinner from "../../components/Spinner";
 
 function BrowsePage() {
     const dispatch = useDispatch();
     const movies = Object.values(useSelector((state) => state.movies));
+    const [loading, setLoading] = useState(true);
 
     const [videoEnded, setVideoEnded] = useState(false);
     const videoRef = useRef(null);
@@ -21,56 +23,73 @@ function BrowsePage() {
         setVideoEnded(true);
     };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            setTimeout(() => {
+                setLoading(false);
+            }, 2000);
+        };
+
+        fetchData();
+    }, []);
+
     return (
-        <div className="browse">
-            <div className="main-browse-container">
-                <div className="main">
-                    <div className="main-inner">
-                        <video
-                            ref={videoRef}
-                            src={movies[6]?.trailer}
-                            autoPlay
-                            playsInline={true}
-                            muted
-                            onEnded={handleVideoEnd}
-                        />
-                        {videoEnded && (
-                            <img
-                                src={movies[6]?.media}
-                                alt="Image Overlay"
-                                className="image-overlay"
-                            />
-                        )}
+        <div>
+            <div className="list-profiles browse-spinner">
+                <Spinner loading={loading}/>
+            </div>
+            {!loading && (
+                <div className="browse">
+                    <div className="main-browse-container">
+                        <div className="main">
+                            <div className="main-inner">
+                                <video
+                                    ref={videoRef}
+                                    src={movies[6]?.trailer}
+                                    autoPlay
+                                    playsInline={true}
+                                    muted
+                                    onEnded={handleVideoEnd}
+                                />
+                                {videoEnded && (
+                                    <img
+                                        src={movies[6]?.media}
+                                        alt="Image Overlay"
+                                        className="image-overlay"
+                                    />
+                                )}
+                            </div>
+                        </div>
                     </div>
+                    {/*<div className="movies">*/}
+                    <div className="movie-section">
+                        <h2>Movies Title</h2>
+                        <MovieCarousel movies={movies} className="carousel"/>
+                    </div>
+                    <div className="movie-section">
+                        <h2>Top 10 Movies in the U.S. Today</h2>
+                        <TopMovieCarousel movies={movies} className="carousel"/>
+                    </div>
+                    <div className="movie-section">
+                        <h2>Movies Title</h2>
+                        <MovieCarousel movies={movies} className="carousel"/>
+                    </div>
+                    <div className="movie-section">
+                        <h2>Movies Title</h2>
+                        <MovieCarousel movies={movies} className="carousel"/>
+                    </div>
+                    <div className="movie-section">
+                        <h2>Movies Title</h2>
+                        <MovieCarousel movies={movies} className="carousel"/>
+                    </div>
+                    <div className="movie-section">
+                        <h2>Movies Title</h2>
+                        <MovieCarousel movies={movies} className="carousel"/>
+                    </div>
+                    {/*</div>*/}
+                    <Footer/>
                 </div>
-            </div>
-            {/*<div className="movies">*/}
-            <div className="movie-section">
-                <h2>Movies Title</h2>
-                <MovieCarousel movies={movies} className="carousel"/>
-            </div>
-            <div className="movie-section">
-                <h2>Top 10 Movies in the U.S. Today</h2>
-                <TopMovieCarousel movies={movies} className="carousel"/>
-            </div>
-            <div className="movie-section">
-                <h2>Movies Title</h2>
-                <MovieCarousel movies={movies} className="carousel"/>
-            </div>
-            <div className="movie-section">
-                <h2>Movies Title</h2>
-                <MovieCarousel movies={movies} className="carousel"/>
-            </div>
-            <div className="movie-section">
-                <h2>Movies Title</h2>
-                <MovieCarousel movies={movies} className="carousel"/>
-            </div>
-            <div className="movie-section">
-                <h2>Movies Title</h2>
-                <MovieCarousel movies={movies} className="carousel"/>
-            </div>
-            {/*</div>*/}
-            <Footer/>
+            )}
         </div>
     );
 }

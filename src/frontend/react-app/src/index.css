@@ -16,4 +16,6 @@ p.formErrors {
     flex-direction: column;
     min-height: 100vh;
     overflow: hidden;
+    background-color: #000;
+    background-image: linear-gradient(180deg,hsla(0,0%,8%,0) 0,hsla(0,0%,8%,.15) 15%,hsla(0,0%,8%,.35) 29%,hsla(0,0%,8%,.58) 44%,#141414 68%,#141414);
 }

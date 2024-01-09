@@ -1,20 +1,35 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import './SelectProfilePage.css';
 import { useSelector } from "react-redux";
-import {NavLink, useHistory} from "react-router-dom";
-import {ProfileContext} from "../../context/Profile";
+import { NavLink } from "react-router-dom";
+import { ProfileContext } from "../../context/Profile";
+import Spinner from "../../components/Spinner";
 
 function SelectProfilePage() {
-    const history = useHistory()
     const sessionUser = useSelector(state => state.session.user);
+    const [loading, setLoading] = useState(true);
 
     const { updateProfile } = useContext(ProfileContext);
     const handleProfileSelect = (profile) => {
         updateProfile(profile);
     };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            setTimeout(() => {
+                setLoading(false);
+            }, 2000);
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <div className="profiles-container">
+            <div  className="list-profiles">
+                <Spinner loading={loading}/>
+            </div>
+            {!loading && (
             <div className="list-profiles">
             <div className="profiles">
             <h1>Who's watching?</h1>
@@ -63,6 +78,7 @@ function SelectProfilePage() {
                 </NavLink>
             </span>
             </div>
+            )}
         </div>
     );
 }

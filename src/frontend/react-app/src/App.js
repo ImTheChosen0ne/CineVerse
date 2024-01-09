@@ -13,11 +13,13 @@ import ManageProfiles from "./pages/ManageProfilesPage";
 import Account from "./pages/AccountPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import Search from "./pages/SearchPage";
-import MyList from "./pages/MyList";
+import MyList from "./pages/MyListPage";
 import BrowseByLanguage from "./pages/BrowseByLanguage";
 import DeleteProfilePage from "./pages/DeleteProfilePage";
 import NewAndPopular from "./pages/NewAndPopularPage";
 import AddProfilePage from "./pages/AddProfilePage";
+import Ratings from "./pages/RatingsPage";
+import Viewed from "./pages/ViewedPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +30,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <Navigation isLoaded={isLoaded}/>
+        <Navigation isLoaded={isLoaded}/>
       {isLoaded && (
         <Switch>
           <ProtectedRoute exact path="/browse/latest" >
@@ -54,6 +56,12 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/ManageProfiles/:profileName/delete" >
             <DeleteProfilePage />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/account/:profileName/viewed" >
+            <Viewed />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/account/:profileName/ratings" >
+            <Ratings />
           </ProtectedRoute>
           <ProtectedRoute exact path="/account" >
             <Account />

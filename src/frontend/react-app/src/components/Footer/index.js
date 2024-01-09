@@ -1,12 +1,12 @@
 import React from "react";
 
 import './Footer.css';
-import {useLocation} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 
 
 function Footer() {
     const location = useLocation();
-
+    const { profileName } = useParams();
     let footerClassName = "";
     // const footerCss = location.pathname === '/signup' || location.pathname === '/account'
     //
@@ -16,7 +16,7 @@ function Footer() {
 
     if (location.pathname === '/signup') {
         footerClassName = 'signup-footer';
-    } else if (location.pathname === '/account') {
+    } else if (location.pathname === '/account' || location.pathname === `/account/${profileName}/ratings` || location.pathname === `/account/${profileName}/viewed`) {
         footerClassName = 'account-footer';
     } else if (location.pathname === '/browse/MyList' || location.pathname === '/browse/language' || location.pathname === '/browse/latest' || location.pathname === '/search') {
         footerClassName = 'my-list-footer';

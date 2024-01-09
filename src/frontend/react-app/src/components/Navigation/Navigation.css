@@ -138,6 +138,7 @@
   height: 90px;
   margin: 0;
   position: unset !important;
+  background-color: #fff !important;
 }
 
 .signup-nav .browse-nav-profile {

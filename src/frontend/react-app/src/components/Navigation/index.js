@@ -82,6 +82,8 @@ function Navigation({ isLoaded }){
 		};
 	}, []);
 
+	const profileUrlName = location.pathname.split('/')
+
 	const hideNavigationRoutes = ['/login'];
 	const hideNavigation = hideNavigationRoutes.includes(location.pathname);
 
@@ -97,7 +99,9 @@ function Navigation({ isLoaded }){
 		'/browse/MyList',
 		'/browse/language',
 		"/search",
-		'/account'
+		'/account',
+		`/account/${profileUrlName[2]}/ratings`,
+		`/account/${profileUrlName[2]}/viewed`,
 	].includes(location.pathname);
 
 	let navClassName = "";
@@ -112,7 +116,7 @@ function Navigation({ isLoaded }){
 	} else if (location.pathname === '/') {
 		navClassName = 'splash-nav';
 		navHome = 'splash';
-	} else if (location.pathname === '/account') {
+	} else if (location.pathname === '/account' || location.pathname === `/account/${profileUrlName[2]}/ratings` || location.pathname === `/account/${profileUrlName[2]}/viewed`) {
 		navAccount = 'account';
 	} else if (location.pathname === '/browse/MyList' || location.pathname === '/browse/latest' || location.pathname === '/browse/language' || location.pathname === '/search') {
 		navMyList = 'my-list';

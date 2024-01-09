@@ -81,3 +81,10 @@
     width: 100%;
     height: 100%;
 }
+
+.galleryMessage {
+    color: #666;
+    font-size: 18px;
+    padding-top: 100px;
+    text-align: center;
+}

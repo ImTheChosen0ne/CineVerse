@@ -1,0 +1,132 @@
+.viewed-page {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 70px);
+    background-color: #f2f2f2;
+}
+
+.viewed-container {
+    margin: 20px 30px 0;
+}
+
+.viewed-center {
+    font-size: 1em;
+    max-width: 1024px;
+    width: 100%;
+    color: #333;
+    display: block;
+    margin: 0 auto;
+    min-height: 400px;
+    min-width: 300px;
+    overflow-wrap: anywhere;
+    position: relative;
+}
+
+.activity-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.activity-header-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-header h1 {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 2.15em;
+    color: #333;
+    font-weight: 400;
+}
+
+.activity-toggle {
+    display: inline-block;
+    margin-right: 30px;
+    margin-top: 10px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.activity-toggle .first {
+    border-right: 1px solid #ccc;
+    margin-right: 10px;
+    padding-right: 10px;
+}
+
+.activity-toggle a {
+    color: #0080ff;
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 1em;
+}
+
+.activity-toggle a:hover {
+    text-decoration: underline;
+}
+
+.activity-toggle span {
+    color: #333;
+    font-size: 1em;
+}
+
+.activity-header img {
+    align-self: center;
+    border-radius: 4px;
+    height: 50px;
+    width: 50px;
+}
+
+.profile-activity-ratings {
+    margin: 0;
+    padding: 0;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.profile-activity-row {
+    display: table-row;
+    border-top: 1px solid #ccc;
+    list-style: none;
+    position: relative;
+}
+
+.profile-activity-row-date-view {
+    height: 50px;
+    white-space: nowrap;
+    width: 13%;
+    border-top: 1px solid #ccc;
+    display: table-cell;
+    padding: 0 1em 0 0;
+    vertical-align: middle;
+    color: #333;
+    overflow-wrap: anywhere;
+}
+
+.profile-activity-row-title {
+    height: 50px;
+    min-width: 30ex;
+    width: 100%;
+    color: #333;
+    margin-right: 30px;
+    padding: 10px 10px 10px 0;
+    display: table-cell;
+    border-top: 1px solid #ccc;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+}
+
+.profile-activity-row-title a {
+    outline: 0;
+    color: #0080ff;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.profile-activity-row-title a:hover {
+    text-decoration: underline;
+}

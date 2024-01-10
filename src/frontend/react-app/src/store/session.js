@@ -5,6 +5,8 @@ const REMOVE_USER = "session/REMOVE_USER";
 const ADD_PROFILE = "session/ADD_PROFILE";
 const UPDATE_PROFILE = "session/UPDATE_PROFILE";
 const REMOVE_PROFILE = "session/REMOVE_PROFILE";
+const ADD_MOVIE_RATING = "session/ADD_MOVIE_RATING";
+const REMOVE_MOVIE_RATING = "session/REMOVE_MOVIE_RATING";
 const ADD_LIKE_MOVIE = "session/ADD_LIKE_MOVIE";
 const REMOVE_LIKE_MOVIE = "session/REMOVE_LIKE_MOVIE";
 const ADD_DISLIKE_MOVIE = "session/ADD_DISLIKE_MOVIE";
@@ -34,6 +36,16 @@ const updateProfile = (updatedProfile) => ({
 const removeProfile = (profileId) => ({
 	type: REMOVE_PROFILE,
 	payload: { profileId }
+});
+
+const addMovieRating = (rating, profile) => ({
+	type: ADD_LIKE_MOVIE,
+	payload: { rating, profile }
+});
+
+const removeMovieRating = (rating, profileId) => ({
+	type: REMOVE_LIKE_MOVIE,
+	payload: { profileId, rating }
 });
 
 const addLikeMovie = (movie, profile) => ({
@@ -244,6 +256,45 @@ export const deleteProfile = (user, profileId) => async (dispatch) => {
 	}
 };
 
+export const createMovieRating = (profile, rating) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+
+	if (!token) {
+		return;
+	}
+
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/rating/add`, {
+		method: 'PUT',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(rating),
+	});
+
+	if (response.ok) {
+		dispatch(addMovieRating(rating, profile));
+	}
+};
+
+export const deleteMovieRating = (rating, profileId) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+
+	if (!token) {
+		return;
+	}
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/rating/${rating.ratingId}/delete`, {
+		method: 'DELETE',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+		},
+	});
+
+	if (response.ok) {
+		dispatch(removeMovieRating(rating, profileId));
+	}
+};
+
 export const createLike = (profile, movie) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 
@@ -383,6 +434,22 @@ export default function reducer(state = initialState, action) {
 			let { profileId } = action.payload;
 			const removedProfile = state.user.profiles.filter(profile => profile.profileId !== profileId);
 			return { user: { ...state.user, profiles: removedProfile } };
+		case ADD_MOVIE_RATING:
+			const { rating: addRating, profile: ratingProfile } = action.payload;
+			const userRating = { ...state.user };
+			const profileIndexRating = userRating.profiles.findIndex(profile => profile.profileId === ratingProfile.profileId);
+			userRating.profiles[profileIndexRating].ratings.push(addRating);
+			return { ...state, user: userRating };
+		case REMOVE_MOVIE_RATING:
+			const { profileId: removeProfileRating, rating: removeRating } = action.payload;
+			const updatedRatingProfiles = state.user.profiles.map(profile => {
+				if (profile.profileId === removeProfileRating) {
+					const updatedRating = profile.ratings.filter(movie => movie.movieId !== removeRating.movieId);
+					return { ...profile, likedMovies: updatedRating};
+				}
+				return profile;
+			});
+			return { user: { ...state.user, profiles: updatedRatingProfiles } };
 		case ADD_LIKE_MOVIE:
 			const { movie: likedMovie, profile: likedProfile } = action.payload;
 			const userLiked = { ...state.user };

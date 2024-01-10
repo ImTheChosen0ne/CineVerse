@@ -4,6 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -56,20 +57,20 @@ public class Movie {
     @CsvBindByName(column = "media")
     private String media;
 
-//    @ManyToMany(fetch=FetchType.EAGER)
-//    @JoinTable(
-//            name="user_ratings",
-//            joinColumns = {@JoinColumn(name="movie_id")},
-//            inverseJoinColumns = {@JoinColumn(name="profile_id")}
-//    )
-//
-//    private Set<Integer> ratings;
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(
+            name="movie_ratings",
+            joinColumns = {@JoinColumn(name="movie_id")},
+            inverseJoinColumns = {@JoinColumn(name="rating_id")}
+    )
+    @CsvCustomBindByName(column = "ratings", converter = StringSetConverter.class)
+    private Set<Rating> ratings;
 
     public Movie() {
-//        this.ratings = new HashSet<Integer>();
+        this.ratings = new HashSet<Rating>();
     }
 
-    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String media) {
+    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String media, Set<Rating> ratings) {
         this.movieId = movieId;
         this.title = title;
         this.poster = poster;
@@ -88,7 +89,7 @@ public class Movie {
         this.popularity = popularity;
         this.tagline = tagline;
         this.media = media;
-//        this.ratings = ratings;
+        this.ratings = ratings;
     }
 
     public Integer getMovieId() {
@@ -235,11 +236,11 @@ public class Movie {
         this.trailer = trailer;
     }
 
-//    public Set<Integer> getRatings() {
-//        return ratings;
-//    }
-//
-//    public void setRatings(Set<Integer> ratings) {
-//        this.ratings = ratings;
-//    }
+    public Set<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Set<Rating> ratings) {
+        this.ratings = ratings;
+    }
 }

@@ -49,8 +49,9 @@ public class AuthenticationService {
         Set<Movie> likedMovies = new HashSet<>();
         Set<Movie> dislikedMovies = new HashSet<>();
         Set<Movie> watchLaterMovies = new HashSet<>();
+        Set<Rating> ratings = new HashSet<>();
 
-        Profile profile = new Profile(0, user.getFirstName(), "img", likedMovies, dislikedMovies, watchLaterMovies);
+        Profile profile = new Profile(0, user.getFirstName(), "img", likedMovies, dislikedMovies, watchLaterMovies, ratings);
         Profile profiles = profileRepository.save(profile);
 
         Set<Profile> userProfile = new HashSet<>();

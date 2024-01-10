@@ -3,6 +3,7 @@ package com.backend.services;
 import com.backend.exceptions.DataException;
 import com.backend.models.Movie;
 import com.backend.models.Profile;
+import com.backend.models.Rating;
 import com.backend.models.User;
 import com.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,8 @@ public class UserService implements UserDetailsService {
             profile.setLikedMovies(new HashSet<>());
             profile.setDislikedMovies(new HashSet<>());
             profile.setWatchLaterMovies(new HashSet<>());
+            profile.setRatings(new HashSet<>());
+
 
             user.getProfiles().add(profile);
             userRepository.save(user);
@@ -76,6 +79,39 @@ public class UserService implements UserDetailsService {
         optionalUser.ifPresent(user -> {
             user.getProfiles().removeIf(profile -> profile.getProfileId().equals(profileId));
             userRepository.save(user);
+        });
+        return null;
+    }
+
+    public Set<Rating> movieRating(String email, Integer profileId, Rating rating) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Optional<Profile> optionalProfile = user.getProfiles().stream()
+                    .filter(profile -> profile.getProfileId().equals(profileId))
+                    .findFirst();
+
+            if (optionalProfile.isPresent()) {
+                Profile existingProfile = optionalProfile.get();
+                existingProfile.getRatings().add(rating);
+                userRepository.save(user);
+                return existingProfile.getRatings();
+            }
+        }
+        return null;
+    }
+
+    public Set<Rating> removeMovieRating(String email, Integer profileId, Integer ratingId) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        optionalUser.ifPresent(user -> {
+            Optional<Profile> optionalProfile = user.getProfiles().stream()
+                    .filter(profile -> profile.getProfileId().equals(profileId))
+                    .findFirst();
+
+            optionalProfile.ifPresent(profile -> {
+                profile.getRatings().removeIf(rating -> rating.getRatingId().equals(ratingId));
+                userRepository.save(user);
+            });
         });
         return null;
     }

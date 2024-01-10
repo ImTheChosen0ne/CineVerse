@@ -3,6 +3,7 @@ package com.backend.controller;
 import com.backend.exceptions.DataException;
 import com.backend.models.Movie;
 import com.backend.models.Profile;
+import com.backend.models.Rating;
 import com.backend.models.User;
 import com.backend.services.TokenService;
 import com.backend.services.UserService;
@@ -64,6 +65,18 @@ public class UserController {
     public Profile removeProfileFromUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId) {
         String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.removeProfileFromUser(loggedInUser, profileId);
+    }
+
+    @PutMapping("/profiles/{profileId}/rating/add")
+    public Set<Rating> movieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Rating rating) {
+        String loggedInUser = tokenService.getEmailFromToken(token);
+        return userService.movieRating(loggedInUser, profileId, rating);
+    }
+
+    @DeleteMapping("/profiles/{profileId}/rating/{ratingId}/delete")
+    public Set<Rating> removeMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer ratingId) {
+        String loggedInUser = tokenService.getEmailFromToken(token);
+        return userService.removeMovieRating(loggedInUser, profileId, ratingId);
     }
 
     @PutMapping("/profiles/{profileId}/like/add")

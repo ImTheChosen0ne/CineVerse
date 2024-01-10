@@ -5,15 +5,12 @@ import OpenModalButton from "../OpenModalButton";
 import MoreMovieInfo from "../MoreMovieInfoModal";
 import {useDispatch, useSelector} from "react-redux";
 import {
-  createDislike,
-  createLike,
+  createMovieRating,
   createWatchLaterMovie,
-  deleteDislike,
-  deleteLike,
-  deleteWatchLaterMovie
+  deleteMovieRating,
+  deleteWatchLaterMovie, updateMovieRating
 } from "../../store/session";
 import {ProfileContext} from "../../context/Profile";
-
 
 function OpenMovieModal({movie, position}) {
   const ulRef = useRef();
@@ -28,7 +25,6 @@ function OpenMovieModal({movie, position}) {
   let [watchLater, setWatchLater] = useState(false);
   const [showLikeMenu, setShowLikeMenu] = useState(false);
   const likedRef = useRef();
-
   const onMouseLeave = () => {
     closeMiniModal();
   };
@@ -65,9 +61,16 @@ function OpenMovieModal({movie, position}) {
     height: position.height + 220 + "px"
   };
 
-  if (updatedProfile.likedMovies) {
-    for (let likedMovie of updatedProfile.likedMovies) {
-      if (likedMovie.movieId === movie.movieId) liked = true;
+  if (updatedProfile.ratings) {
+    for (let ratingObj of updatedProfile.ratings) {
+      const { rating, movie: movieObj } = ratingObj;
+      if (movieObj.movieId === movie.movieId) {
+        if (rating === "like") {
+          liked = true;
+        } else if (rating === "dislike") {
+          disliked = true;
+        }
+      }
     }
   }
 
@@ -77,47 +80,47 @@ function OpenMovieModal({movie, position}) {
     }
   }
 
-  if (updatedProfile.dislikedMovies) {
-    for (let dislikedMovie of updatedProfile.dislikedMovies) {
-      if (dislikedMovie.movieId === movie.movieId) disliked = true;
+  const formatDate = (date) => {
+    const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+    return new Date(date).toLocaleDateString(undefined, options);
+  };
+
+
+  const handleRating = async (rating, movie) => {
+    const newRating = {
+      date: formatDate(new Date()),
+      rating: rating,
+      movie: movie,
     }
-  }
+
+    const existingRating = updatedProfile.ratings.find(existingMovieRating =>
+        existingMovieRating.movie.movieId === movie.movieId
+    );
 
 
-  const handleLikeMovie = async (movie) => {
-    if (liked) {
-      await dispatch(deleteLike(movie, profile.profileId));
+    const updatedRating ={
+      ...existingRating,
+      date: formatDate(new Date()),
+      rating: rating,
+    }
+
+    if (existingRating && rating === existingRating.rating) {
+      await dispatch(deleteMovieRating(existingRating, profile.profileId));
       updateProfile(updatedProfile);
       setLiked(false);
-    } else if (disliked) {
-      await dispatch(deleteDislike(movie, profile.profileId));
-      await dispatch(createLike(profile, movie));
-      updateProfile(updatedProfile);
-      setLiked(true);
       setDisliked(false);
-    } else {
-      await dispatch(createLike(profile, movie));
+    } else if (existingRating) {
+      await dispatch(updateMovieRating(profile, updatedRating));
       updateProfile(updatedProfile);
-      setLiked(true);
+      setLiked(rating === "like");
+      setDisliked(rating === "dislike");
+    } else {
+      await dispatch(createMovieRating(profile, newRating));
+      updateProfile(updatedProfile);
+      setLiked(rating === "like");
+      setDisliked(rating === "dislike");
     }
-  }
 
-  const handleDislikeMovie = async (movie) => {
-    if (disliked) {
-      await dispatch(deleteDislike(movie, profile.profileId));
-      updateProfile(updatedProfile);
-      setDisliked(false);
-    } else if (liked) {
-      await dispatch(deleteLike(movie, profile.profileId));
-      await dispatch(createDislike(profile, movie));
-      updateProfile(updatedProfile);
-      setDisliked(true);
-      setLiked(false);
-    } else {
-      await dispatch(createDislike(profile, movie));
-      updateProfile(updatedProfile);
-      setDisliked(true);
-    }
   }
 
   const handleWatchLaterMovie = async (movie) => {
@@ -219,7 +222,7 @@ function OpenMovieModal({movie, position}) {
                   </button>
                 </div>
                 <div>
-                  <button className="button-container" onMouseEnter={openMenu} onClick={() => handleLikeMovie(movie)}>
+                  <button className="button-container" onMouseEnter={openMenu}>
                     <div className="button">
                       {renderLikedStatus()}
                     </div>
@@ -229,7 +232,7 @@ function OpenMovieModal({movie, position}) {
                       <div>
                         <div className="selection-mini">
                           <div className="disliked-liked-selection-mini">
-                            <button className="selection-button-mini" onClick={() => handleDislikeMovie(movie)}>
+                            <button className="selection-button-mini" onClick={() => handleRating("dislike", movie)}>
                               {disliked ?
                                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                        xmlns="http://www.w3.org/2000/svg"
@@ -252,7 +255,7 @@ function OpenMovieModal({movie, position}) {
                             </button>
                           </div>
                           <div className="disliked-liked-selection-mini">
-                            <button className="selection-button-mini like" onClick={() => handleLikeMovie(movie)}>
+                            <button className="selection-button-mini like" onClick={() => handleRating("like", movie)}>
                               {liked ?
                                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                        xmlns="http://www.w3.org/2000/svg"

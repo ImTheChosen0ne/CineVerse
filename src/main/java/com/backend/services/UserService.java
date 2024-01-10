@@ -5,7 +5,12 @@ import com.backend.models.Movie;
 import com.backend.models.Profile;
 import com.backend.models.Rating;
 import com.backend.models.User;
+import com.backend.repository.MovieRepository;
+import com.backend.repository.ProfileRepository;
+import com.backend.repository.RatingRepository;
 import com.backend.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,13 +24,21 @@ import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
     @Autowired
     private PasswordEncoder encoder;
-
     private final UserRepository userRepository;
+    private final ProfileRepository profileRepository;
+    private final MovieRepository movieRepository;
+    private final RatingRepository ratingRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, ProfileRepository profileRepository, MovieRepository movieRepository, RatingRepository ratingRepository) {
         this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
+        this.movieRepository = movieRepository;
+        this.ratingRepository = ratingRepository;
     }
 
     public User updateUser(User user) {
@@ -44,8 +57,8 @@ public class UserService implements UserDetailsService {
             if (user.getProfiles().size() >= 5) {
                 throw new DataException("Maximum number of profiles reached for this user.");
             }
-            profile.setLikedMovies(new HashSet<>());
-            profile.setDislikedMovies(new HashSet<>());
+//            profile.setLikedMovies(new HashSet<>());
+//            profile.setDislikedMovies(new HashSet<>());
             profile.setWatchLaterMovies(new HashSet<>());
             profile.setRatings(new HashSet<>());
 
@@ -83,7 +96,7 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
-    public Set<Rating> movieRating(String email, Integer profileId, Rating rating) {
+    public Rating movieRating(String email, Integer profileId, Rating rating) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -93,30 +106,53 @@ public class UserService implements UserDetailsService {
 
             if (optionalProfile.isPresent()) {
                 Profile existingProfile = optionalProfile.get();
-                existingProfile.getRatings().add(rating);
-                userRepository.save(user);
+                Movie movie = movieRepository.findById(rating.getMovie().getMovieId()).orElse(null);
+
+                if (movie != null) {
+                    rating.setMovie(movie);
+                    existingProfile.getRatings().add(rating);
+                    Rating savedRating = ratingRepository.save(rating);
+                    profileRepository.save(existingProfile);
+                    return savedRating;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Set<Rating> updateMovieRating(String email, Integer profileId, Integer ratingId, Rating updatedRating) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Optional<Profile> optionalProfile = user.getProfiles().stream()
+                    .filter(profile -> profile.getProfileId().equals(profileId))
+                    .findFirst();
+
+            if (optionalProfile.isPresent()) {
+                Profile existingProfile = optionalProfile.get();
+                Optional<Rating> optionalExistingRating = existingProfile.getRatings().stream()
+                        .filter(rating -> rating.getRatingId().equals(ratingId))
+                        .findFirst();
+
+                if (optionalExistingRating.isPresent()) {
+
+                    Rating existingRating = optionalExistingRating.get();
+
+                    existingRating.setRating(updatedRating.getRating());
+                    existingRating.setDate(updatedRating.getDate());
+
+                    ratingRepository.save(existingRating);
+                }
+
+                profileRepository.save(existingProfile);
                 return existingProfile.getRatings();
             }
         }
         return null;
     }
 
-    public Set<Rating> removeMovieRating(String email, Integer profileId, Integer ratingId) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        optionalUser.ifPresent(user -> {
-            Optional<Profile> optionalProfile = user.getProfiles().stream()
-                    .filter(profile -> profile.getProfileId().equals(profileId))
-                    .findFirst();
-
-            optionalProfile.ifPresent(profile -> {
-                profile.getRatings().removeIf(rating -> rating.getRatingId().equals(ratingId));
-                userRepository.save(user);
-            });
-        });
-        return null;
-    }
-
-    public Set<Movie> likedMovie(String email, Integer profileId, Movie movie) {
+    public Rating removeMovieRating(String email, Integer profileId, Integer ratingId) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -125,60 +161,20 @@ public class UserService implements UserDetailsService {
                     .findFirst();
 
             if (optionalProfile.isPresent()) {
-                Profile existingProfile = optionalProfile.get();
-                existingProfile.getLikedMovies().add(movie);
-                userRepository.save(user);
-                return existingProfile.getLikedMovies();
+                Profile profile = optionalProfile.get();
+
+                Optional<Rating> optionalRatingToRemove = profile.getRatings().stream()
+                        .filter(rating -> rating.getRatingId().equals(ratingId))
+                        .findFirst();
+
+                if (optionalRatingToRemove.isPresent()) {
+                    Rating removedRating = optionalRatingToRemove.get();
+                    profile.getRatings().remove(removedRating);
+                    profileRepository.save(profile);
+                    ratingRepository.deleteById(ratingId);
+                }
             }
         }
-        return null;
-    }
-
-    public Set<Movie> removeLikedMovie(String email, Integer profileId, Integer movieId) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        optionalUser.ifPresent(user -> {
-            Optional<Profile> optionalProfile = user.getProfiles().stream()
-                    .filter(profile -> profile.getProfileId().equals(profileId))
-                    .findFirst();
-
-            optionalProfile.ifPresent(profile -> {
-                profile.getLikedMovies().removeIf(movie -> movie.getMovieId().equals(movieId));
-                userRepository.save(user);
-            });
-        });
-        return null;
-    }
-
-    public Set<Movie> dislikedMovie(String email, Integer profileId, Movie movie) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            Optional<Profile> optionalProfile = user.getProfiles().stream()
-                    .filter(profile -> profile.getProfileId().equals(profileId))
-                    .findFirst();
-
-            if (optionalProfile.isPresent()) {
-                Profile existingProfile = optionalProfile.get();
-                existingProfile.getDislikedMovies().add(movie);
-                userRepository.save(user);
-                return existingProfile.getDislikedMovies();
-            }
-        }
-        return null;
-    }
-
-    public Set<Movie> removedislikedMovie(String email, Integer profileId, Integer movieId) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        optionalUser.ifPresent(user -> {
-            Optional<Profile> optionalProfile = user.getProfiles().stream()
-                    .filter(profile -> profile.getProfileId().equals(profileId))
-                    .findFirst();
-
-            optionalProfile.ifPresent(profile -> {
-                profile.getDislikedMovies().removeIf(movie -> movie.getMovieId().equals(movieId));
-                userRepository.save(user);
-            });
-        });
         return null;
     }
 

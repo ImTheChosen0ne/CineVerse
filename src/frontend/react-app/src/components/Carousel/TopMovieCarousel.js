@@ -134,7 +134,7 @@ function TopMovieCarousel({ movies }) {
                 renderArrowsWhenDisabled={false}
                 renderButtonGroupOutside={false}
                 renderDotsOutside={false}
-                partialVisbile
+                // partialVisbile
                 responsive={{
                     desktop: {
                         breakpoint: {

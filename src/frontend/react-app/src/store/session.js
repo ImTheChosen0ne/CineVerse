@@ -3,14 +3,14 @@ import config from "../config/config";
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const ADD_PROFILE = "session/ADD_PROFILE";
+
 const UPDATE_PROFILE = "session/UPDATE_PROFILE";
 const REMOVE_PROFILE = "session/REMOVE_PROFILE";
+
 const ADD_MOVIE_RATING = "session/ADD_MOVIE_RATING";
+const UPDATE_MOVIE_RATING = "session/UPDATE_MOVIE_RATING";
 const REMOVE_MOVIE_RATING = "session/REMOVE_MOVIE_RATING";
-const ADD_LIKE_MOVIE = "session/ADD_LIKE_MOVIE";
-const REMOVE_LIKE_MOVIE = "session/REMOVE_LIKE_MOVIE";
-const ADD_DISLIKE_MOVIE = "session/ADD_DISLIKE_MOVIE";
-const REMOVE_DISLIKE_MOVIE = "session/REMOVE_DISLIKE_MOVIE";
+
 const ADD_WATCH_LATER_MOVIE = "session/ADD_WATCH_LATER_MOVIE";
 const REMOVE_WATCH_LATER_MOVIE = "session/REMOVE_WATCH_LATER_MOVIE";
 
@@ -39,33 +39,18 @@ const removeProfile = (profileId) => ({
 });
 
 const addMovieRating = (rating, profile) => ({
-	type: ADD_LIKE_MOVIE,
+	type: ADD_MOVIE_RATING,
 	payload: { rating, profile }
 });
 
+const updateRating = (updatedRating, profile) => ({
+	type: UPDATE_MOVIE_RATING,
+	payload: { updatedRating, profile }
+});
+
 const removeMovieRating = (rating, profileId) => ({
-	type: REMOVE_LIKE_MOVIE,
+	type: REMOVE_MOVIE_RATING,
 	payload: { profileId, rating }
-});
-
-const addLikeMovie = (movie, profile) => ({
-	type: ADD_LIKE_MOVIE,
-	payload: { movie, profile }
-});
-
-const removeLikeMovie = (movie, profileId) => ({
-	type: REMOVE_LIKE_MOVIE,
-	payload: { profileId, movie }
-});
-
-const addDislikeMovie = (movie, profile) => ({
-	type: ADD_DISLIKE_MOVIE,
-	payload: { movie, profile }
-});
-
-const removeDislikeMovie = (movie, profileId) => ({
-	type: REMOVE_DISLIKE_MOVIE,
-	payload: { profileId, movie }
 });
 
 const addWatchLaterMovie = (movie, profile) => ({
@@ -264,7 +249,7 @@ export const createMovieRating = (profile, rating) => async (dispatch) => {
 	}
 
 	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/rating/add`, {
-		method: 'PUT',
+		method: 'POST',
 		headers: {
 			"Authorization": `Bearer ${token}`,
 			'Content-Type': 'application/json',
@@ -273,7 +258,29 @@ export const createMovieRating = (profile, rating) => async (dispatch) => {
 	});
 
 	if (response.ok) {
-		dispatch(addMovieRating(rating, profile));
+		const newRating = await response.json();
+		dispatch(addMovieRating(newRating, profile));
+	}
+};
+
+export const updateMovieRating = (profile, updatedMovieRating) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+	console.log(updatedMovieRating)
+	if (!token) {
+		return;
+	}
+
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/rating/${updatedMovieRating.ratingId}/update`, {
+		method: 'PUT',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(updatedMovieRating),
+	});
+
+	if (response.ok) {
+		dispatch(updateRating(updatedMovieRating, profile));
 	}
 };
 
@@ -292,84 +299,6 @@ export const deleteMovieRating = (rating, profileId) => async (dispatch) => {
 
 	if (response.ok) {
 		dispatch(removeMovieRating(rating, profileId));
-	}
-};
-
-export const createLike = (profile, movie) => async (dispatch) => {
-	const token = localStorage.getItem("token");
-
-	if (!token) {
-		return;
-	}
-
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/like/add`, {
-		method: 'PUT',
-		headers: {
-			"Authorization": `Bearer ${token}`,
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(movie),
-	});
-
-	if (response.ok) {
-		dispatch(addLikeMovie(movie, profile));
-	}
-};
-
-export const deleteLike = (movie, profileId) => async (dispatch) => {
-	const token = localStorage.getItem("token");
-
-	if (!token) {
-		return;
-	}
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/like/${movie.movieId}/delete`, {
-		method: 'DELETE',
-		headers: {
-			"Authorization": `Bearer ${token}`,
-		},
-	});
-
-	if (response.ok) {
-		dispatch(removeLikeMovie(movie, profileId));
-	}
-};
-
-export const createDislike = (profile, movie) => async (dispatch) => {
-	const token = localStorage.getItem("token");
-
-	if (!token) {
-		return;
-	}
-
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/dislike/add`, {
-		method: 'PUT',
-		headers: {
-			"Authorization": `Bearer ${token}`,
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(movie),
-	});
-
-	if (response.ok) {
-		dispatch(addDislikeMovie(movie, profile));
-	}
-};
-
-export const deleteDislike = (movie, profileId) => async (dispatch) => {
-	const token = localStorage.getItem("token");
-
-	if (!token) {
-		return;
-	}
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/dislike/${movie.movieId}/delete`, {
-		method: 'DELETE',
-		headers: {
-			"Authorization": `Bearer ${token}`,
-		},
-	});
-
-	if (response.ok) {
-		dispatch(removeDislikeMovie(movie, profileId));
 	}
 };
 
@@ -428,8 +357,7 @@ export default function reducer(state = initialState, action) {
 			const userUpdate = state.user
 			const index = userUpdate.profiles.findIndex(profile => profile.profileId === updatedProfile.profileId);
 			userUpdate.profiles[index] = updatedProfile;
-			return { ...state, user: { ...state.user, profiles: [...userUpdate.profiles] }
-			};
+			return { ...state, user: { ...state.user, profiles: [...userUpdate.profiles] }};
 		case REMOVE_PROFILE:
 			let { profileId } = action.payload;
 			const removedProfile = state.user.profiles.filter(profile => profile.profileId !== profileId);
@@ -438,50 +366,31 @@ export default function reducer(state = initialState, action) {
 			const { rating: addRating, profile: ratingProfile } = action.payload;
 			const userRating = { ...state.user };
 			const profileIndexRating = userRating.profiles.findIndex(profile => profile.profileId === ratingProfile.profileId);
+
 			userRating.profiles[profileIndexRating].ratings.push(addRating);
 			return { ...state, user: userRating };
-		case REMOVE_MOVIE_RATING:
-			const { profileId: removeProfileRating, rating: removeRating } = action.payload;
+		case UPDATE_MOVIE_RATING:
+			const { updatedRating, profile: updateRatingProfile } = action.payload;
 			const updatedRatingProfiles = state.user.profiles.map(profile => {
-				if (profile.profileId === removeProfileRating) {
-					const updatedRating = profile.ratings.filter(movie => movie.movieId !== removeRating.movieId);
-					return { ...profile, likedMovies: updatedRating};
+				if (profile.profileId === updateRatingProfile.profileId) {
+					const updatedRatings = profile.ratings.map(rating => {
+						return rating.ratingId === updatedRating.ratingId ? updatedRating : rating;
+					});
+					return { ...profile, ratings: updatedRatings };
 				}
 				return profile;
 			});
 			return { user: { ...state.user, profiles: updatedRatingProfiles } };
-		case ADD_LIKE_MOVIE:
-			const { movie: likedMovie, profile: likedProfile } = action.payload;
-			const userLiked = { ...state.user };
-			const profileIndexLiked = userLiked.profiles.findIndex(profile => profile.profileId === likedProfile.profileId);
-			userLiked.profiles[profileIndexLiked].likedMovies.push(likedMovie);
-			return { ...state, user: userLiked };
-		case REMOVE_LIKE_MOVIE:
-			let { profileId: removeProfileMovieLike, movie: removeLike } = action.payload;
-			const updatedLikeProfiles = state.user.profiles.map(profile => {
-				if (profile.profileId === removeProfileMovieLike) {
-					const updatedLike = profile.likedMovies.filter(movie => movie.movieId !== removeLike.movieId);
-					return { ...profile, likedMovies: updatedLike};
+		case REMOVE_MOVIE_RATING:
+			const { profileId: removeProfileRating, rating: removeRating } = action.payload;
+			const removeRatingProfiles = state.user.profiles.map(profile => {
+				if (profile.profileId === removeProfileRating) {
+					const updatedRating = profile.ratings.filter(rating => rating.ratingId !== removeRating.ratingId);
+					return { ...profile, ratings: updatedRating};
 				}
 				return profile;
 			});
-			return { user: { ...state.user, profiles: updatedLikeProfiles } };
-		case ADD_DISLIKE_MOVIE:
-			const { movie: dislikedMovie, profile: dislikedProfile } = action.payload;
-			const userDisliked = { ...state.user };
-			const profileIndexDisLiked = userDisliked.profiles.findIndex(profile => profile.profileId === dislikedProfile.profileId);
-			userDisliked.profiles[profileIndexDisLiked].dislikedMovies.push(dislikedMovie);
-			return { ...state, user: userDisliked };
-		case REMOVE_DISLIKE_MOVIE:
-			let { profileId: removeProfileMovieDislike, movie: removeDislike } = action.payload;
-			const updatedDislikeProfiles = state.user.profiles.map(profile => {
-				if (profile.profileId === removeProfileMovieDislike) {
-					const updatedDislike = profile.dislikedMovies.filter(movie => movie.movieId !== removeDislike.movieId);
-					return { ...profile, dislikedMovies: updatedDislike};
-				}
-				return profile;
-			});
-			return { user: { ...state.user, profiles: updatedDislikeProfiles } };
+			return { user: { ...state.user, profiles: removeRatingProfiles } };
 		case ADD_WATCH_LATER_MOVIE:
 			const { movie: watchLaterMovie, profile: watchLaterProfile } = action.payload;
 			const userWithWatchLater = { ...state.user };

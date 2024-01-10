@@ -11,19 +11,16 @@ public class Rating {
     private Integer ratingId;
     private String rating;
     private String date;
-
-    @ManyToOne
-    @JoinColumn(name="movie_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "movie_id")
     private Movie movie;
-
+    public Rating() {}
     public Rating(Integer ratingId, String rating, String date, Movie movie) {
         this.ratingId = ratingId;
         this.rating = rating;
         this.date = date;
         this.movie = movie;
     }
-
-    public Rating() {}
 
     public Integer getRatingId() {
         return ratingId;

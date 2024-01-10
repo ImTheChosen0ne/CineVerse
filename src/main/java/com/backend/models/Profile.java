@@ -17,24 +17,6 @@ public class Profile {
 
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
-            name="profile_movie_likes",
-            joinColumns = {@JoinColumn(name="profile_id")},
-            inverseJoinColumns = {@JoinColumn(name="movie_id")}
-    )
-
-    private Set<Movie> likedMovies;
-
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(
-            name="profile_movie_dislikes",
-            joinColumns = {@JoinColumn(name="profile_id")},
-            inverseJoinColumns = {@JoinColumn(name="movie_id")}
-    )
-
-    private Set<Movie> dislikedMovies;
-
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(
             name="profile_movie_watch_later",
             joinColumns = {@JoinColumn(name="profile_id")},
             inverseJoinColumns = {@JoinColumn(name="movie_id")}
@@ -53,18 +35,14 @@ public class Profile {
 
 
     public Profile() {
-        this.likedMovies = new HashSet<Movie>();
-        this.dislikedMovies = new HashSet<Movie>();
         this.watchLaterMovies = new HashSet<Movie>();
         this.ratings = new HashSet<>();
     }
 
-    public Profile(Integer profileId, String name, String img, Set<Movie> likedMovies, Set<Movie> dislikedMovies, Set<Movie> watchLaterMovies, Set<Rating> ratings) {
+    public Profile(Integer profileId, String name, String img, Set<Movie> watchLaterMovies, Set<Rating> ratings) {
         this.profileId = profileId;
         this.name = name;
         this.img = img;
-        this.likedMovies = likedMovies;
-        this.dislikedMovies = dislikedMovies;
         this.watchLaterMovies = watchLaterMovies;
         this.ratings = ratings;
     }
@@ -91,18 +69,6 @@ public class Profile {
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    public Set<Movie> getLikedMovies() {
-        return likedMovies;
-    }
-
-    public Set<Movie> getDislikedMovies() { return dislikedMovies; }
-
-    public void setDislikedMovies(Set<Movie> dislikedMovies) { this.dislikedMovies = dislikedMovies; }
-
-    public void setLikedMovies(Set<Movie> likedMovies) {
-        this.likedMovies = likedMovies;
     }
 
     public Set<Rating> getRatings() {

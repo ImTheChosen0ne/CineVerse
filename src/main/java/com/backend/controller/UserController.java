@@ -67,40 +67,23 @@ public class UserController {
         return userService.removeProfileFromUser(loggedInUser, profileId);
     }
 
-    @PutMapping("/profiles/{profileId}/rating/add")
-    public Set<Rating> movieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Rating rating) {
+    @PostMapping("/profiles/{profileId}/rating/add")
+    public Rating movieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Rating rating) {
         String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.movieRating(loggedInUser, profileId, rating);
     }
 
+    @PutMapping("/profiles/{profileId}/rating/{ratingId}/update")
+    public Set<Rating> updateMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer ratingId, @RequestBody Rating rating) {
+        String loggedInUser = tokenService.getEmailFromToken(token);
+        return userService.updateMovieRating(loggedInUser, profileId, ratingId, rating);
+    }
+
+
     @DeleteMapping("/profiles/{profileId}/rating/{ratingId}/delete")
-    public Set<Rating> removeMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer ratingId) {
+    public Rating removeMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer ratingId) {
         String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.removeMovieRating(loggedInUser, profileId, ratingId);
-    }
-
-    @PutMapping("/profiles/{profileId}/like/add")
-    public Set<Movie> likedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Movie movie) {
-        String loggedInUser = tokenService.getEmailFromToken(token);
-        return userService.likedMovie(loggedInUser, profileId, movie);
-    }
-
-    @DeleteMapping("/profiles/{profileId}/like/{movieId}/delete")
-    public Set<Movie> removeLikedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer movieId) {
-        String loggedInUser = tokenService.getEmailFromToken(token);
-        return userService.removeLikedMovie(loggedInUser, profileId, movieId);
-    }
-
-    @PutMapping("/profiles/{profileId}/dislike/add")
-    public Set<Movie> dislikedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Movie movie) {
-        String loggedInUser = tokenService.getEmailFromToken(token);
-        return userService.dislikedMovie(loggedInUser, profileId, movie);
-    }
-
-    @DeleteMapping("/profiles/{profileId}/dislike/{movieId}/delete")
-    public Set<Movie> removeDislikedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer movieId) {
-        String loggedInUser = tokenService.getEmailFromToken(token);
-        return userService.removedislikedMovie(loggedInUser, profileId, movieId);
     }
 
     @PutMapping("/profiles/{profileId}/watch_later/add")

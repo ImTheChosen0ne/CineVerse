@@ -29,12 +29,12 @@ function Viewed() {
                             </div>
                             <img src={selectedProfile.img} alt="profile image"/>
                         </header>
-                        {selectedProfile.likedMovies.map((movie) => (
-                            <ul key={movie.movieId} className="profile-activity-ratings">
+                        {selectedProfile.ratings.map((rating) => (
+                            <ul key={rating.ratingId} className="profile-activity-ratings">
                                 <li className="profile-activity-row">
-                                    <div className="profile-activity-row-date-view">date</div>
+                                    <div className="profile-activity-row-date-view">{rating.date}</div>
                                     <div className="profile-activity-row-title">
-                                        <a href="">{movie.title}</a>
+                                        <a href="">{rating.movie.title}</a>
                                     </div>
                                 </li>
                             </ul>

@@ -57,17 +57,16 @@ public class Movie {
     @CsvBindByName(column = "media")
     private String media;
 
-    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     @JoinTable(
-            name="movie_ratings",
-            joinColumns = {@JoinColumn(name="movie_id")},
-            inverseJoinColumns = {@JoinColumn(name="rating_id")}
+            name = "movie_ratings",
+            joinColumns = {@JoinColumn(name = "movie_id")},
+            inverseJoinColumns = {@JoinColumn(name = "rating_id")}
     )
     @CsvCustomBindByName(column = "ratings", converter = StringSetConverter.class)
     private Set<Rating> ratings;
 
     public Movie() {
-        this.ratings = new HashSet<Rating>();
     }
 
     public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String media, Set<Rating> ratings) {

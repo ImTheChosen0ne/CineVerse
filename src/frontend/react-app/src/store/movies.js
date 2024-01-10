@@ -9,7 +9,17 @@ const getMovie = (movies) => ({
 });
 
 export const getMovies = () => async (dispatch) => {
-    const response = await fetch(`${config.apiUrl}/api/movies/`);
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        return;
+    }
+
+    const response = await fetch(`${config.apiUrl}/api/movies/` , {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+        },
+    });
 
     if (response.ok) {
         const data = await response.json();

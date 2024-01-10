@@ -380,7 +380,7 @@ export const createWatchLaterMovie = (profile, movie) => async (dispatch) => {
 		return;
 	}
 
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/watchlater/add`, {
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/watch_later/add`, {
 		method: 'PUT',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -400,7 +400,7 @@ export const deleteWatchLaterMovie = (movie, profileId) => async (dispatch) => {
 	if (!token) {
 		return;
 	}
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/watchlater/${movie.movieId}/delete`, {
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/watch_later/${movie.movieId}/delete`, {
 		method: 'DELETE',
 		headers: {
 			"Authorization": `Bearer ${token}`,

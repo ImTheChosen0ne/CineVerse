@@ -31,7 +31,7 @@ public class UserController {
 
     @ExceptionHandler({DataException.class})
     public ResponseEntity<String> handleException(DataException dataException) {
-        return new ResponseEntity<String>(dataException.getMessage(), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(dataException.getMessage(), HttpStatus.CONFLICT);
     }
 
     @GetMapping("/")
@@ -103,13 +103,13 @@ public class UserController {
         return userService.removedislikedMovie(loggedInUser, profileId, movieId);
     }
 
-    @PutMapping("/profiles/{profileId}/watchlater/add")
+    @PutMapping("/profiles/{profileId}/watch_later/add")
     public Set<Movie> watchMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Movie movie) {
         String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.watchMovie(loggedInUser, profileId, movie);
     }
 
-    @DeleteMapping("/profiles/{profileId}/watchlater/{movieId}/delete")
+    @DeleteMapping("/profiles/{profileId}/watch_later/{movieId}/delete")
     public Set<Movie> removeWatchLaterMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer movieId) {
         String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.removeWatchLaterMovie(loggedInUser, profileId, movieId);

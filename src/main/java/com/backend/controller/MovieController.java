@@ -2,9 +2,12 @@ package com.backend.controller;
 
 import com.backend.models.Movie;
 import com.backend.services.MovieService;
+import com.backend.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +25,8 @@ public class MovieController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Movie>> getAllMovies() {
-        List<Movie> movies = movieService.findAllMovies();
-        return new ResponseEntity<>(movies, HttpStatus.OK);
+    public List<Movie> getAllMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        return movieService.findAllMovies();
     }
 
     @GetMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 import jakarta.persistence.*;
@@ -57,16 +58,18 @@ public class Movie {
     @CsvBindByName(column = "media")
     private String media;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-    @JoinTable(
-            name = "movie_ratings",
-            joinColumns = {@JoinColumn(name = "movie_id")},
-            inverseJoinColumns = {@JoinColumn(name = "rating_id")}
-    )
-    @CsvCustomBindByName(column = "ratings", converter = StringSetConverter.class)
-    private Set<Rating> ratings;
+//    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+//    @JoinTable(
+//            name = "movie_ratings",
+//            joinColumns = {@JoinColumn(name = "movie_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "rating_id")}
+//    )
+//    @CsvCustomBindByName(column = "ratings", converter = StringSetConverter.class)
+//
+//    private Set<Rating> ratings;
 
     public Movie() {
+//        this.ratings = new HashSet<Rating>();
     }
 
     public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String media, Set<Rating> ratings) {
@@ -88,7 +91,7 @@ public class Movie {
         this.popularity = popularity;
         this.tagline = tagline;
         this.media = media;
-        this.ratings = ratings;
+//        this.ratings = ratings;
     }
 
     public Integer getMovieId() {
@@ -235,11 +238,11 @@ public class Movie {
         this.trailer = trailer;
     }
 
-    public Set<Rating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(Set<Rating> ratings) {
-        this.ratings = ratings;
-    }
+//    public Set<Rating> getRatings() {
+//        return ratings;
+//    }
+//
+//    public void setRatings(Set<Rating> ratings) {
+//        this.ratings = ratings;
+//    }
 }

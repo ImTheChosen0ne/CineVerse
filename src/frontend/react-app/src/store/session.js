@@ -265,7 +265,6 @@ export const createMovieRating = (profile, rating) => async (dispatch) => {
 
 export const updateMovieRating = (profile, updatedMovieRating) => async (dispatch) => {
 	const token = localStorage.getItem("token");
-	console.log(updatedMovieRating)
 	if (!token) {
 		return;
 	}

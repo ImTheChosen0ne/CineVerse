@@ -17,15 +17,11 @@ function Ratings() {
     };
 
     const handleRating = async (rating, movie) => {
-        const newRating = {
-            date: formatDate(new Date()),
-            rating: rating,
-            movie: movie,
-        }
 
         const existingRating = selectedProfile.ratings.find(existingMovieRating =>
             existingMovieRating.movie.movieId === movie.movieId
         );
+
 
         const updatedRating ={
             ...existingRating,
@@ -37,8 +33,6 @@ function Ratings() {
             await dispatch(deleteMovieRating(existingRating, selectedProfile.profileId));
         } else if (existingRating) {
             await dispatch(updateMovieRating(selectedProfile, updatedRating));
-        } else {
-            await dispatch(createMovieRating(selectedProfile, newRating));
         }
 
     }
@@ -90,7 +84,7 @@ function Ratings() {
                                                 </svg>
                                                 }
                                             </button>
-                                            <button className="rating-button" onClick={() => handleRating("dislike", rating.movie)}>
+                                            <button className="rating-button" onClick={() => handleRating("like", rating.movie)}>
                                                 {rating.rating !== "like" ?
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                          xmlns="http://www.w3.org/2000/svg"

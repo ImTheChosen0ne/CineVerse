@@ -112,6 +112,7 @@ public class UserService implements UserDetailsService {
                     rating.setMovie(movie);
                     existingProfile.getRatings().add(rating);
                     Rating savedRating = ratingRepository.save(rating);
+
                     profileRepository.save(existingProfile);
                     return savedRating;
                 }
@@ -169,6 +170,7 @@ public class UserService implements UserDetailsService {
 
                 if (optionalRatingToRemove.isPresent()) {
                     Rating removedRating = optionalRatingToRemove.get();
+
                     profile.getRatings().remove(removedRating);
                     profileRepository.save(profile);
                     ratingRepository.deleteById(ratingId);

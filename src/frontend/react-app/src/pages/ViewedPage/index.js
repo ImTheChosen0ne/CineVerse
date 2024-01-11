@@ -6,7 +6,6 @@ import { NavLink, useParams } from "react-router-dom";
 
 function Viewed() {
     const { profileName } = useParams();
-    let [liked, setLiked] = useState(true);
 
     const sessionUser = useSelector(state => state.session.user);
 

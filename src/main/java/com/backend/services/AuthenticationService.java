@@ -9,7 +9,6 @@ import com.backend.repository.ProfileRepository;
 import com.backend.repository.RoleRepository;
 import com.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -49,9 +48,9 @@ public class AuthenticationService {
         Set<Movie> likedMovies = new HashSet<>();
         Set<Movie> dislikedMovies = new HashSet<>();
         Set<Movie> watchLaterMovies = new HashSet<>();
-        Set<Rating> ratings = new HashSet<>();
+        Set<ProfileRating> profileRatings = new HashSet<>();
 
-        Profile profile = new Profile(0, user.getFirstName(), "img", watchLaterMovies, ratings);
+        Profile profile = new Profile(0, user.getFirstName(), "img", watchLaterMovies, profileRatings);
         Profile profiles = profileRepository.save(profile);
 
         Set<Profile> userProfile = new HashSet<>();

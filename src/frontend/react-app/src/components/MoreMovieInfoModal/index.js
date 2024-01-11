@@ -45,11 +45,11 @@ function MoreMovieInfo({ movie }) {
 
 	if (updatedProfile.ratings) {
 		for (let ratingObj of updatedProfile.ratings) {
-			const { rating, movie: movieObj } = ratingObj;
+			const { profileRating, movie: movieObj } = ratingObj;
 			if (movieObj.movieId === movie.movieId) {
-				if (rating === "like") {
+				if (profileRating === "like") {
 					liked = true;
-				} else if (rating === "dislike") {
+				} else if (profileRating === "dislike") {
 					disliked = true;
 				}
 			}
@@ -67,10 +67,10 @@ function MoreMovieInfo({ movie }) {
 		return new Date(date).toLocaleDateString(undefined, options);
 	};
 
-	const handleRating = async (rating, movie) => {
+	const handleRating = async (profileRating, movie) => {
 		const newRating = {
 			date: formatDate(new Date()),
-			rating: rating,
+			profileRating: profileRating,
 			movie: movie,
 		}
 
@@ -82,10 +82,10 @@ function MoreMovieInfo({ movie }) {
 		const updatedRating ={
 			...existingRating,
 			date: formatDate(new Date()),
-			rating: rating,
+			profileRating: profileRating,
 		}
 
-		if (existingRating && rating === existingRating.rating) {
+		if (existingRating && profileRating === existingRating.profileRating) {
 			await dispatch(deleteMovieRating(existingRating, profile.profileId));
 			updateProfile(updatedProfile);
 			setLiked(false);
@@ -93,13 +93,13 @@ function MoreMovieInfo({ movie }) {
 		} else if (existingRating) {
 			await dispatch(updateMovieRating(profile, updatedRating));
 			updateProfile(updatedProfile);
-			setLiked(rating === "like");
-			setDisliked(rating === "dislike");
+			setLiked(profileRating === "like");
+			setDisliked(profileRating === "dislike");
 		} else {
 			await dispatch(createMovieRating(profile, newRating));
 			updateProfile(updatedProfile);
-			setLiked(rating === "like");
-			setDisliked(rating === "dislike");
+			setLiked(profileRating === "like");
+			setDisliked(profileRating === "dislike");
 		}
 
 	}
@@ -340,7 +340,7 @@ function MoreMovieInfo({ movie }) {
 											<span className="player-feature-badge">HD</span>
 										</div>
 										<div>
-										<span className="maturity-rating">
+										<span className="maturity-profileRating">
 											<span className="maturity-number">PG-13</span>
 										</span>
 										</div>

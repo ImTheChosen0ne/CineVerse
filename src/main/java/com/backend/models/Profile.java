@@ -26,25 +26,25 @@ public class Profile {
 
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
-            name="profile_ratings",
+            name="profile_ratings_join",
             joinColumns = {@JoinColumn(name="profile_id")},
             inverseJoinColumns = {@JoinColumn(name="rating_id")}
     )
 
-    private Set<Rating> ratings;
+    private Set<ProfileRating> profileRatings;
 
 
     public Profile() {
         this.watchLaterMovies = new HashSet<Movie>();
-        this.ratings = new HashSet<>();
+        this.profileRatings = new HashSet<>();
     }
 
-    public Profile(Integer profileId, String name, String img, Set<Movie> watchLaterMovies, Set<Rating> ratings) {
+    public Profile(Integer profileId, String name, String img, Set<Movie> watchLaterMovies, Set<ProfileRating> profileRatings) {
         this.profileId = profileId;
         this.name = name;
         this.img = img;
         this.watchLaterMovies = watchLaterMovies;
-        this.ratings = ratings;
+        this.profileRatings = profileRatings;
     }
 
     public Integer getProfileId() {
@@ -71,12 +71,12 @@ public class Profile {
         this.img = img;
     }
 
-    public Set<Rating> getRatings() {
-        return ratings;
+    public Set<ProfileRating> getRatings() {
+        return profileRatings;
     }
 
-    public void setRatings(Set<Rating> ratings) {
-        this.ratings = ratings;
+    public void setRatings(Set<ProfileRating> profileRatings) {
+        this.profileRatings = profileRatings;
     }
 
     public Set<Movie> getWatchLaterMovies() {

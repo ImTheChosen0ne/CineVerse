@@ -3,7 +3,7 @@ package com.backend.controller;
 import com.backend.exceptions.DataException;
 import com.backend.models.Movie;
 import com.backend.models.Profile;
-import com.backend.models.Rating;
+import com.backend.models.ProfileRating;
 import com.backend.models.User;
 import com.backend.services.TokenService;
 import com.backend.services.UserService;
@@ -68,20 +68,20 @@ public class UserController {
     }
 
     @PostMapping("/profiles/{profileId}/rating/add")
-    public Rating movieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Rating rating) {
+    public ProfileRating movieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody ProfileRating profileRating) {
         String loggedInUser = tokenService.getEmailFromToken(token);
-        return userService.movieRating(loggedInUser, profileId, rating);
+        return userService.movieRating(loggedInUser, profileId, profileRating);
     }
 
     @PutMapping("/profiles/{profileId}/rating/{ratingId}/update")
-    public Set<Rating> updateMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer ratingId, @RequestBody Rating rating) {
+    public Set<ProfileRating> updateMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer ratingId, @RequestBody ProfileRating profileRating) {
         String loggedInUser = tokenService.getEmailFromToken(token);
-        return userService.updateMovieRating(loggedInUser, profileId, ratingId, rating);
+        return userService.updateMovieRating(loggedInUser, profileId, ratingId, profileRating);
     }
 
 
     @DeleteMapping("/profiles/{profileId}/rating/{ratingId}/delete")
-    public Rating removeMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer ratingId) {
+    public ProfileRating removeMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer ratingId) {
         String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.removeMovieRating(loggedInUser, profileId, ratingId);
     }

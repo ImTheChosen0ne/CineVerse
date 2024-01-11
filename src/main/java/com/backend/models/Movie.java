@@ -58,21 +58,20 @@ public class Movie {
     @CsvBindByName(column = "media")
     private String media;
 
-//    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-//    @JoinTable(
-//            name = "movie_ratings",
-//            joinColumns = {@JoinColumn(name = "movie_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "rating_id")}
-//    )
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "movie_ratings_join",
+            joinColumns = {@JoinColumn(name = "movie_id")},
+            inverseJoinColumns = {@JoinColumn(name = "movie_rating_id")}
+    )
 //    @CsvCustomBindByName(column = "ratings", converter = StringSetConverter.class)
-//
-//    private Set<Rating> ratings;
+    private Set<MovieRating> ratings;
 
     public Movie() {
-//        this.ratings = new HashSet<Rating>();
+        this.ratings = new HashSet<MovieRating>();
     }
 
-    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String media, Set<Rating> ratings) {
+    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String media, Set<MovieRating> ratings) {
         this.movieId = movieId;
         this.title = title;
         this.poster = poster;
@@ -91,7 +90,7 @@ public class Movie {
         this.popularity = popularity;
         this.tagline = tagline;
         this.media = media;
-//        this.ratings = ratings;
+        this.ratings = ratings;
     }
 
     public Integer getMovieId() {
@@ -238,11 +237,11 @@ public class Movie {
         this.trailer = trailer;
     }
 
-//    public Set<Rating> getRatings() {
-//        return ratings;
-//    }
-//
-//    public void setRatings(Set<Rating> ratings) {
-//        this.ratings = ratings;
-//    }
+    public Set<MovieRating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Set<MovieRating> ratings) {
+        this.ratings = ratings;
+    }
 }

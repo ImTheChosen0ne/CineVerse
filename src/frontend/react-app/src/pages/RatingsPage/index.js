@@ -16,9 +16,9 @@ function Ratings() {
         return new Date(date).toLocaleDateString(undefined, options);
     };
 
-    const handleRating = async (rating, movie) => {
+    const handleRating = async (profileRating, movie) => {
 
-        const existingRating = selectedProfile.ratings.find(existingMovieRating =>
+        const existingRating = selectedProfile.profileRatings.find(existingMovieRating =>
             existingMovieRating.movie.movieId === movie.movieId
         );
 
@@ -26,10 +26,10 @@ function Ratings() {
         const updatedRating ={
             ...existingRating,
             date: formatDate(new Date()),
-            rating: rating,
+            profileRating: profileRating,
         }
 
-        if (existingRating && rating === existingRating.rating) {
+        if (existingRating && profileRating === existingRating.profileRating) {
             await dispatch(deleteMovieRating(existingRating, selectedProfile.profileId));
         } else if (existingRating) {
             await dispatch(updateMovieRating(selectedProfile, updatedRating));
@@ -38,10 +38,10 @@ function Ratings() {
     }
 
     return (
-        <div className="rating-page">
-            <div className="rating-container">
-                <div className="rating-center">
-                    <div className="rating-center">
+        <div className="profileRating-page">
+            <div className="profileRating-container">
+                <div className="profileRating-center">
+                    <div className="profileRating-center">
                         <header className="activity-header">
                             <div className="activity-header-info">
                                 <h1>Activity for {selectedProfile.name}</h1>
@@ -49,22 +49,22 @@ function Ratings() {
                                     <NavLink to={`/account/${selectedProfile.name}/viewed`} className="first choice icon viewing">
                                         Watching
                                     </NavLink>
-                                    <span className="choice icon rating">Rating</span>
+                                    <span className="choice icon profileRating">Rating</span>
                                 </nav>
                             </div>
                             <img src={selectedProfile.img} alt="profile image"/>
                         </header>
-                        {selectedProfile.ratings.map((rating) => (
-                            <ul key={rating.ratingId} className="profile-activity-ratings">
+                        {selectedProfile.profileRatings.map((profileRating) => (
+                            <ul key={profileRating.ratingId} className="profile-activity-profileRatings">
                                 <li className="profile-activity-row">
-                                    <div className="profile-activity-row-date">{rating.date}</div>
+                                    <div className="profile-activity-row-date">{profileRating.date}</div>
                                     <div className="profile-activity-row-title">
-                                        <a href="">{rating.movie.title}</a>
+                                        <a href="">{profileRating.movie.title}</a>
                                     </div>
-                                    <div className="profile-activity-row-rating">
+                                    <div className="profile-activity-row-profileRating">
                                         <div>
-                                            <button className="rating-button" onClick={() => handleRating("dislike", rating.movie)}>
-                                                {rating.rating !== "dislike" ?
+                                            <button className="profileRating-button" onClick={() => handleRating("dislike", profileRating.movie)}>
+                                                {profileRating.profileRating !== "dislike" ?
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                      xmlns="http://www.w3.org/2000/svg"
                                                      className="default-ltr-cache-4z3qvp e1svuwfo1"
@@ -84,8 +84,8 @@ function Ratings() {
                                                 </svg>
                                                 }
                                             </button>
-                                            <button className="rating-button" onClick={() => handleRating("like", rating.movie)}>
-                                                {rating.rating !== "like" ?
+                                            <button className="profileRating-button" onClick={() => handleRating("like", profileRating.movie)}>
+                                                {profileRating.profileRating !== "like" ?
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                          xmlns="http://www.w3.org/2000/svg"
                                                          className="default-ltr-cache-4z3qvp e1svuwfo1"

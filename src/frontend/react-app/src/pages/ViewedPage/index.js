@@ -21,19 +21,19 @@ function Viewed() {
                                 <h1>Activity for {selectedProfile.name}</h1>
                                 <nav className="activity-toggle">
                                     <span className="first choice icon viewing">Watching</span>
-                                    <NavLink to={`/account/${selectedProfile.name}/ratings`} className="choice icon rating">
+                                    <NavLink to={`/account/${selectedProfile.name}/profileRatings`} className="choice icon profileRating">
                                         Rating
                                     </NavLink>
                                 </nav>
                             </div>
                             <img src={selectedProfile.img} alt="profile image"/>
                         </header>
-                        {selectedProfile.ratings.map((rating) => (
-                            <ul key={rating.ratingId} className="profile-activity-ratings">
+                        {selectedProfile.profileRatings.map((profileRating) => (
+                            <ul key={profileRating.ratingId} className="profile-activity-profileRatings">
                                 <li className="profile-activity-row">
-                                    <div className="profile-activity-row-date-view">{rating.date}</div>
+                                    <div className="profile-activity-row-date-view">{profileRating.date}</div>
                                     <div className="profile-activity-row-title">
-                                        <a href="">{rating.movie.title}</a>
+                                        <a href="">{profileRating.movie.title}</a>
                                     </div>
                                 </li>
                             </ul>

@@ -1,26 +1,23 @@
 package com.backend.models;
 
 import jakarta.persistence.*;
-
 @Entity
-@Table(name="ratings")
-public class Rating {
+@Table(name="movie_ratings")
+public class MovieRating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="rating_id")
+    @Column(name = "movie_rating_id")
     private Integer ratingId;
     private String rating;
     private String date;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
-    public Rating() {}
-    public Rating(Integer ratingId, String rating, String date, Movie movie) {
+
+    public MovieRating(Integer ratingId, String rating, String date) {
         this.ratingId = ratingId;
         this.rating = rating;
         this.date = date;
-        this.movie = movie;
     }
+
+    public MovieRating() {}
 
     public Integer getRatingId() {
         return ratingId;
@@ -44,13 +41,5 @@ public class Rating {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
     }
 }

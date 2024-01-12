@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Ratings.css"
 import Footer from "../../components/Footer";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import {createMovieRating, deleteMovieRating, updateMovieRating} from "../../store/session";
+import { deleteMovieRating, updateMovieRating } from "../../store/session";
 
 function Ratings() {
     const { profileName } = useParams();
@@ -52,7 +52,7 @@ function Ratings() {
                                     <span className="choice icon rating">Rating</span>
                                 </nav>
                             </div>
-                            <img src={selectedProfile.img} alt="profile image"/>
+                            <img src={selectedProfile.img} alt="profile"/>
                         </header>
                         {selectedProfile.profileRatings.map((rating) => (
                             <ul key={rating.ratingId} className="profile-activity-rating">

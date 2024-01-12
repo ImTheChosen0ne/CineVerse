@@ -1,18 +1,16 @@
-import React, {useContext, useRef, useState} from "react";
+import React, { useContext, useRef, useState } from "react";
 
 import "./MoreMovieInfo.css";
 import {useModal} from "../../context/Modal";
 import {NavLink} from "react-router-dom";
 import {
-	createDislike,
-	createLike, createMovieRating, createViewedMovie,
+	createMovieRating, createViewedMovie,
 	createWatchLaterMovie,
-	deleteDislike,
-	deleteLike, deleteMovieRating,
+	deleteMovieRating,
 	deleteWatchLaterMovie, updateMovieRating, updateViewedMovie
 } from "../../store/session";
-import {useDispatch, useSelector} from "react-redux";
-import {ProfileContext} from "../../context/Profile";
+import { useDispatch, useSelector } from "react-redux";
+import { ProfileContext } from "../../context/Profile";
 
 
 function MoreMovieInfo({ movie }) {
@@ -77,7 +75,6 @@ function MoreMovieInfo({ movie }) {
 		const existingRating = updatedProfile.profileRatings.find(existingMovieRating =>
 			existingMovieRating.movie.movieId === movie.movieId
 		);
-
 
 		const updatedRating ={
 			...existingRating,
@@ -194,7 +191,7 @@ function MoreMovieInfo({ movie }) {
 					{videoEnded && (
 						<img
 							src={movie.media}
-							alt="Image Overlay"
+							alt="Overlay"
 							className="image-overlay"
 						/>
 					)}

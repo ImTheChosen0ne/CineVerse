@@ -80,10 +80,7 @@ const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
 	const token = localStorage.getItem("token");
-
-	if (!token) {
-		return;
-	}
+	if (!token) return;
 
 	const response = await fetch(`${config.apiUrl}/api/auth/`, {
 		headers: {
@@ -138,6 +135,7 @@ export const logout = () => async (dispatch) => {
 	if (response.ok) {
 		localStorage.removeItem("token");
 		dispatch(removeUser());
+		return null;
 	}
 };
 
@@ -195,10 +193,7 @@ export const verifyEmail = (email) => async (dispatch) => {
 
 export const createProfile = (profile) => async (dispatch) => {
 	const token = localStorage.getItem("token");
-
-	if (!token) {
-		return;
-	}
+	if (!token) return;
 
 	const response = await fetch(`${config.apiUrl}/api/user/profiles/new`, {
 		method: "POST",
@@ -209,18 +204,15 @@ export const createProfile = (profile) => async (dispatch) => {
 	});
 
 	if (response.ok) {
-		const newProfile = await response.json();
-		await dispatch(addProfile(newProfile));
-		return newProfile;
+		const newUserProfile = await response.json();
+		await dispatch(addProfile(newUserProfile));
+		return newUserProfile;
 	}
 };
 
 export const updateUserProfile = (updatedProfile) => async (dispatch) => {
 	const token = localStorage.getItem("token");
-
-	if (!token) {
-		return;
-	}
+	if (!token) return;
 
 	const response = await fetch(`${config.apiUrl}/api/user/profiles/${updatedProfile.profileId}`, {
 		method: 'PUT',
@@ -232,16 +224,16 @@ export const updateUserProfile = (updatedProfile) => async (dispatch) => {
 	});
 
 	if (response.ok) {
-		dispatch(updateProfile(updatedProfile));
+		const updateUserProfile = await response.json();
+		dispatch(updateProfile(updateUserProfile));
+		return updateUserProfile;
 	}
 };
 
 export const deleteProfile = (user, profileId) => async (dispatch) => {
 	const token = localStorage.getItem("token");
+	if (!token) return;
 
-	if (!token) {
-		return;
-	}
 	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}`, {
 		method: 'DELETE',
 		headers: {
@@ -256,10 +248,7 @@ export const deleteProfile = (user, profileId) => async (dispatch) => {
 
 export const createMovieRating = (profile, rating) => async (dispatch) => {
 	const token = localStorage.getItem("token");
-
-	if (!token) {
-		return;
-	}
+	if (!token) return;
 
 	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/rating/add`, {
 		method: 'POST',
@@ -273,14 +262,13 @@ export const createMovieRating = (profile, rating) => async (dispatch) => {
 	if (response.ok) {
 		const newRating = await response.json();
 		dispatch(addMovieRating(newRating, profile));
+		return newRating;
 	}
 };
 
 export const updateMovieRating = (profile, updatedMovieRating) => async (dispatch) => {
 	const token = localStorage.getItem("token");
-	if (!token) {
-		return;
-	}
+	if (!token) return;
 
 	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/rating/${updatedMovieRating.ratingId}/update`, {
 		method: 'PUT',
@@ -292,16 +280,16 @@ export const updateMovieRating = (profile, updatedMovieRating) => async (dispatc
 	});
 
 	if (response.ok) {
-		dispatch(updateRating(updatedMovieRating, profile));
+		const updatedRatingMovie = await response.json();
+		dispatch(updateRating(updatedRatingMovie, profile));
+		return updatedRatingMovie;
 	}
 };
 
 export const deleteMovieRating = (rating, profileId) => async (dispatch) => {
 	const token = localStorage.getItem("token");
+	if (!token) return;
 
-	if (!token) {
-		return;
-	}
 	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/rating/${rating.ratingId}/delete`, {
 		method: 'DELETE',
 		headers: {
@@ -316,10 +304,7 @@ export const deleteMovieRating = (rating, profileId) => async (dispatch) => {
 
 export const createWatchLaterMovie = (profile, movie) => async (dispatch) => {
 	const token = localStorage.getItem("token");
-
-	if (!token) {
-		return;
-	}
+	if (!token) return;
 
 	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/watch_later/add`, {
 		method: 'PUT',
@@ -331,16 +316,16 @@ export const createWatchLaterMovie = (profile, movie) => async (dispatch) => {
 	});
 
 	if (response.ok) {
-		dispatch(addWatchLaterMovie(movie, profile));
+		const watchLaterMovie = await response.json();
+		dispatch(addWatchLaterMovie(watchLaterMovie, profile));
+		return watchLaterMovie;
 	}
 };
 
 export const deleteWatchLaterMovie = (movie, profileId) => async (dispatch) => {
 	const token = localStorage.getItem("token");
+	if (!token) return;
 
-	if (!token) {
-		return;
-	}
 	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/watch_later/${movie.movieId}/delete`, {
 		method: 'DELETE',
 		headers: {
@@ -355,10 +340,7 @@ export const deleteWatchLaterMovie = (movie, profileId) => async (dispatch) => {
 
 export const createViewedMovie = (profile, viewed) => async (dispatch) => {
 	const token = localStorage.getItem("token");
-
-	if (!token) {
-		return;
-	}
+	if (!token) return;
 
 	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/viewed/add`, {
 		method: 'POST',
@@ -372,14 +354,13 @@ export const createViewedMovie = (profile, viewed) => async (dispatch) => {
 	if (response.ok) {
 		const newView = await response.json();
 		dispatch(addViewed(newView, profile));
+		return newView;
 	}
 };
 
 export const updateViewedMovie = (profile, updatedView) => async (dispatch) => {
 	const token = localStorage.getItem("token");
-	if (!token) {
-		return;
-	}
+	if (!token) return;
 
 	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/viewed/${updatedView.viewedId}/update`, {
 		method: 'PUT',
@@ -391,7 +372,9 @@ export const updateViewedMovie = (profile, updatedView) => async (dispatch) => {
 	});
 
 	if (response.ok) {
-		dispatch(updateViewed(updatedView, profile));
+		const updateView = await response.json();
+		dispatch(updateViewed(updateView, profile));
+		return updateView;
 	}
 };
 

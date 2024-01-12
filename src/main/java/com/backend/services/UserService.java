@@ -122,7 +122,7 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
-    public Set<ProfileRating> updateMovieRating(String email, Integer profileId, Integer ratingId, ProfileRating updatedProfileRating) {
+    public ProfileRating updateMovieRating(String email, Integer profileId, Integer ratingId, ProfileRating updatedProfileRating) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
 
         if (optionalUser.isPresent()) {
@@ -159,11 +159,10 @@ public class UserService implements UserDetailsService {
                     existingProfileRating.setRating(updatedProfileRating.getRating());
                     existingProfileRating.setDate(updatedProfileRating.getDate());
 
-                    profileRatingRepository.save(existingProfileRating);
+                    ProfileRating updateRating = profileRatingRepository.save(existingProfileRating);
+                    profileRepository.save(existingProfile);
+                    return updateRating;
                 }
-
-                profileRepository.save(existingProfile);
-                return existingProfile.getProfileRatings();
             }
         }
         return null;
@@ -183,7 +182,6 @@ public class UserService implements UserDetailsService {
                 Optional<ProfileRating> optionalRatingToRemove = profile.getProfileRatings().stream()
                         .filter(rating -> rating.getRatingId().equals(ratingId))
                         .findFirst();
-
 
                 if (optionalRatingToRemove.isPresent()) {
                     ProfileRating removedProfileRating = optionalRatingToRemove.get();
@@ -206,14 +204,12 @@ public class UserService implements UserDetailsService {
                     profileRepository.save(profile);
                     profileRatingRepository.deleteById(ratingId);
                 }
-
-
             }
         }
         return null;
     }
 
-    public Set<Movie> watchMovie(String email, Integer profileId, Movie movie) {
+    public Movie watchMovie(String email, Integer profileId, Movie movie) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -225,7 +221,7 @@ public class UserService implements UserDetailsService {
                 Profile existingProfile = optionalProfile.get();
                 existingProfile.getWatchLaterMovies().add(movie);
                 userRepository.save(user);
-                return existingProfile.getWatchLaterMovies();
+                return movie;
             }
         }
         return null;
@@ -243,7 +239,6 @@ public class UserService implements UserDetailsService {
                 userRepository.save(user);
             });
         });
-
         return null;
     }
 
@@ -272,7 +267,7 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
-    public Set<Viewed> updateViewedMovie(String email, Integer profileId, Integer viewedId, Viewed updatedViewedMovie) {
+    public Viewed updateViewedMovie(String email, Integer profileId, Integer viewedId, Viewed updatedViewedMovie) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
 
         if (optionalUser.isPresent()) {
@@ -298,11 +293,11 @@ public class UserService implements UserDetailsService {
                     }
 
                     existingProfileView.setDate(updatedViewedMovie.getDate());
-                    viewedRepository.save(updatedViewedMovie);
-                }
 
-                profileRepository.save(existingProfile);
-                return existingProfile.getViewedMovies();
+                    Viewed updateView = viewedRepository.save(updatedViewedMovie);
+                    profileRepository.save(existingProfile);
+                    return updateView;
+                }
             }
         }
         return null;

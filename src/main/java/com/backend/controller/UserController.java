@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @PutMapping("/profiles/{profileId}/rating/{ratingId}/update")
-    public Set<ProfileRating> updateMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer ratingId, @RequestBody ProfileRating profileRating) {
+    public ProfileRating updateMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer ratingId, @RequestBody ProfileRating profileRating) {
         String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.updateMovieRating(loggedInUser, profileId, ratingId, profileRating);
     }
@@ -84,7 +84,7 @@ public class UserController {
     }
 
     @PutMapping("/profiles/{profileId}/watch_later/add")
-    public Set<Movie> watchMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Movie movie) {
+    public Movie watchMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Movie movie) {
         String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.watchMovie(loggedInUser, profileId, movie);
     }
@@ -102,7 +102,7 @@ public class UserController {
     }
 
     @PutMapping("/profiles/{profileId}/viewed/{viewedId}/update")
-    public Set<Viewed> updateMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer viewedId, @RequestBody Viewed viewed) {
+    public Viewed updateMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer viewedId, @RequestBody Viewed viewed) {
         String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.updateViewedMovie(loggedInUser, profileId, viewedId, viewed);
     }

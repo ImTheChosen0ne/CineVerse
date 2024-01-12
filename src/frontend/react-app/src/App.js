@@ -60,7 +60,7 @@ function App() {
           <ProtectedRoute exact path="/account/:profileName/viewed" >
             <Viewed />
           </ProtectedRoute>
-          <ProtectedRoute exact path="/account/:profileName/profileRatings" >
+          <ProtectedRoute exact path="/account/:profileName/ratings" >
             <Ratings />
           </ProtectedRoute>
           <ProtectedRoute exact path="/account" >

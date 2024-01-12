@@ -5,10 +5,10 @@ import OpenModalButton from "../OpenModalButton";
 import MoreMovieInfo from "../MoreMovieInfoModal";
 import {useDispatch, useSelector} from "react-redux";
 import {
-  createMovieRating,
+  createMovieRating, createViewedMovie,
   createWatchLaterMovie,
   deleteMovieRating,
-  deleteWatchLaterMovie, updateMovieRating
+  deleteWatchLaterMovie, updateMovieRating, updateViewedMovie
 } from "../../store/session";
 import {ProfileContext} from "../../context/Profile";
 
@@ -61,8 +61,8 @@ function OpenMovieModal({movie, position}) {
     height: position.height + 220 + "px"
   };
 
-  if (updatedProfile.ratings) {
-    for (let ratingObj of updatedProfile.ratings) {
+  if (updatedProfile.profileRatings) {
+    for (let ratingObj of updatedProfile.profileRatings) {
       const { rating, movie: movieObj } = ratingObj;
       if (movieObj.movieId === movie.movieId) {
         if (rating === "like") {
@@ -93,7 +93,7 @@ function OpenMovieModal({movie, position}) {
       movie: movie,
     }
 
-    const existingRating = updatedProfile.ratings.find(existingMovieRating =>
+    const existingRating = updatedProfile.profileRatings.find(existingMovieRating =>
         existingMovieRating.movie.movieId === movie.movieId
     );
 
@@ -123,6 +123,32 @@ function OpenMovieModal({movie, position}) {
 
   }
 
+  const handleViewed = async (movie) => {
+    const newView = {
+      date: formatDate(new Date()),
+      watched: true,
+      movie: movie,
+    }
+
+    const existingView = updatedProfile.viewedMovies.find(existingViewedMovie =>
+        existingViewedMovie.movie.movieId === movie.movieId
+    );
+
+    const updatedViewed ={
+      ...existingView,
+      date: formatDate(new Date()),
+    }
+
+    if (existingView) {
+      await dispatch(updateViewedMovie(profile, updatedViewed));
+      updateProfile(updatedProfile);
+    } else {
+      await dispatch(createViewedMovie(profile, newView));
+      updateProfile(updatedProfile);
+    }
+
+  }
+
   const handleWatchLaterMovie = async (movie) => {
     if (watchLater) {
       await dispatch(deleteWatchLaterMovie(movie, profile.profileId))
@@ -134,6 +160,8 @@ function OpenMovieModal({movie, position}) {
       setWatchLater(true);
     }
   }
+
+
 
   const renderLikedStatus = () => {
     if (liked) {
@@ -190,7 +218,7 @@ function OpenMovieModal({movie, position}) {
           <div className="movie-info">
             <div className="movie-info-button-container">
               <a>
-                <button className="button-container play">
+                <button className="button-container play" onClick={() => handleViewed(movie)}>
                   <div className="button">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                          className="ltr-4z3qvp e1svuwfo1" data-name="Play" aria-hidden="true">

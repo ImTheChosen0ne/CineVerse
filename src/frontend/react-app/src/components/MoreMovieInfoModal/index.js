@@ -5,11 +5,11 @@ import {useModal} from "../../context/Modal";
 import {NavLink} from "react-router-dom";
 import {
 	createDislike,
-	createLike, createMovieRating,
+	createLike, createMovieRating, createViewedMovie,
 	createWatchLaterMovie,
 	deleteDislike,
 	deleteLike, deleteMovieRating,
-	deleteWatchLaterMovie, updateMovieRating
+	deleteWatchLaterMovie, updateMovieRating, updateViewedMovie
 } from "../../store/session";
 import {useDispatch, useSelector} from "react-redux";
 import {ProfileContext} from "../../context/Profile";
@@ -43,13 +43,13 @@ function MoreMovieInfo({ movie }) {
 		setVideoEnded(true);
 	};
 
-	if (updatedProfile.ratings) {
-		for (let ratingObj of updatedProfile.ratings) {
-			const { profileRating, movie: movieObj } = ratingObj;
+	if (updatedProfile.profileRatings) {
+		for (let ratingObj of updatedProfile.profileRatings) {
+			const { rating, movie: movieObj } = ratingObj;
 			if (movieObj.movieId === movie.movieId) {
-				if (profileRating === "like") {
+				if (rating === "like") {
 					liked = true;
-				} else if (profileRating === "dislike") {
+				} else if (rating === "dislike") {
 					disliked = true;
 				}
 			}
@@ -67,14 +67,14 @@ function MoreMovieInfo({ movie }) {
 		return new Date(date).toLocaleDateString(undefined, options);
 	};
 
-	const handleRating = async (profileRating, movie) => {
+	const handleRating = async (rating, movie) => {
 		const newRating = {
 			date: formatDate(new Date()),
-			profileRating: profileRating,
+			rating: rating,
 			movie: movie,
 		}
 
-		const existingRating = updatedProfile.ratings.find(existingMovieRating =>
+		const existingRating = updatedProfile.profileRatings.find(existingMovieRating =>
 			existingMovieRating.movie.movieId === movie.movieId
 		);
 
@@ -82,10 +82,10 @@ function MoreMovieInfo({ movie }) {
 		const updatedRating ={
 			...existingRating,
 			date: formatDate(new Date()),
-			profileRating: profileRating,
+			rating: rating,
 		}
 
-		if (existingRating && profileRating === existingRating.profileRating) {
+		if (existingRating && rating === existingRating.rating) {
 			await dispatch(deleteMovieRating(existingRating, profile.profileId));
 			updateProfile(updatedProfile);
 			setLiked(false);
@@ -93,13 +93,39 @@ function MoreMovieInfo({ movie }) {
 		} else if (existingRating) {
 			await dispatch(updateMovieRating(profile, updatedRating));
 			updateProfile(updatedProfile);
-			setLiked(profileRating === "like");
-			setDisliked(profileRating === "dislike");
+			setLiked(rating === "like");
+			setDisliked(rating === "dislike");
 		} else {
 			await dispatch(createMovieRating(profile, newRating));
 			updateProfile(updatedProfile);
-			setLiked(profileRating === "like");
-			setDisliked(profileRating === "dislike");
+			setLiked(rating === "like");
+			setDisliked(rating === "dislike");
+		}
+
+	}
+
+	const handleViewed = async (movie) => {
+		const newView = {
+			date: formatDate(new Date()),
+			watched: true,
+			movie: movie,
+		}
+
+		const existingView = updatedProfile.viewedMovies.find(existingViewedMovie =>
+			existingViewedMovie.movie.movieId === movie.movieId
+		);
+
+		const updatedViewed ={
+			...existingView,
+			date: formatDate(new Date()),
+		}
+
+		if (existingView) {
+			await dispatch(updateViewedMovie(profile, updatedViewed));
+			updateProfile(updatedProfile);
+		} else {
+			await dispatch(createViewedMovie(profile, newView));
+			updateProfile(updatedProfile);
 		}
 
 	}
@@ -179,7 +205,7 @@ function MoreMovieInfo({ movie }) {
 							<h1>{movie.title}</h1>
 							<div className="more-detail-video-buttons">
 								<NavLink to="" className="more-detail-play-button">
-									<button>
+									<button onClick={() => handleViewed(movie)}>
 										<div className="play-button-div">
 											<div className="play-button-svg-div">
 												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -340,7 +366,7 @@ function MoreMovieInfo({ movie }) {
 											<span className="player-feature-badge">HD</span>
 										</div>
 										<div>
-										<span className="maturity-profileRating">
+										<span className="maturity-rating">
 											<span className="maturity-number">PG-13</span>
 										</span>
 										</div>
@@ -355,7 +381,7 @@ function MoreMovieInfo({ movie }) {
 											Cast:
 										</span>
 										<span className="detail-movie-info-right-cast-names">
-                							{movie?.cast.map((cast, index) => (
+                							{movie?.casts.map((cast, index) => (
 												<span key={index}>{cast},</span>
 											))}
 										</span>
@@ -403,7 +429,7 @@ function MoreMovieInfo({ movie }) {
 									Cast:
 								</span>
 								<span className="about-item">
-								{movie?.cast.map((cast, index) => (
+								{movie?.casts.map((cast, index) => (
 									<p key={index}>{cast},</p>
 								))}
 								</span>
@@ -413,7 +439,7 @@ function MoreMovieInfo({ movie }) {
 									Writer:
 								</span>
 								<span className="about-item">
-								{movie?.writer.map((writer, index) => (
+								{movie?.writers.map((writer, index) => (
 									<p key={index}>{writer},</p>
 								))}
 								</span>

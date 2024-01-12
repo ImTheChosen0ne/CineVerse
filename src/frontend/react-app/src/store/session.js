@@ -14,6 +14,9 @@ const REMOVE_MOVIE_RATING = "session/REMOVE_MOVIE_RATING";
 const ADD_WATCH_LATER_MOVIE = "session/ADD_WATCH_LATER_MOVIE";
 const REMOVE_WATCH_LATER_MOVIE = "session/REMOVE_WATCH_LATER_MOVIE";
 
+const ADD_VIEWED_MOVIE = "session/ADD_VIEWED_MOVIE";
+const UPDATE_VIEWED_MOVIE = "session/UPDATE_VIEWED_MOVIE";
+
 const setUser = (user) => ({
 	type: SET_USER,
 	payload: user,
@@ -61,6 +64,16 @@ const addWatchLaterMovie = (movie, profile) => ({
 const removeWatchLaterMovie = (movie, profileId) => ({
 	type: REMOVE_WATCH_LATER_MOVIE,
 	payload: { profileId, movie }
+});
+
+const addViewed = (viewed, profile) => ({
+	type: ADD_VIEWED_MOVIE,
+	payload: { viewed, profile }
+});
+
+const updateViewed = (updatedViewed, profile) => ({
+	type: UPDATE_VIEWED_MOVIE,
+	payload: { updatedViewed, profile }
 });
 
 const initialState = { user: null };
@@ -340,6 +353,48 @@ export const deleteWatchLaterMovie = (movie, profileId) => async (dispatch) => {
 	}
 };
 
+export const createViewedMovie = (profile, viewed) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+
+	if (!token) {
+		return;
+	}
+
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/viewed/add`, {
+		method: 'POST',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(viewed),
+	});
+
+	if (response.ok) {
+		const newView = await response.json();
+		dispatch(addViewed(newView, profile));
+	}
+};
+
+export const updateViewedMovie = (profile, updatedView) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+	if (!token) {
+		return;
+	}
+
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/viewed/${updatedView.viewedId}/update`, {
+		method: 'PUT',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(updatedView),
+	});
+
+	if (response.ok) {
+		dispatch(updateViewed(updatedView, profile));
+	}
+};
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
@@ -365,17 +420,16 @@ export default function reducer(state = initialState, action) {
 			const { rating: addRating, profile: ratingProfile } = action.payload;
 			const userRating = { ...state.user };
 			const profileIndexRating = userRating.profiles.findIndex(profile => profile.profileId === ratingProfile.profileId);
-
-			userRating.profiles[profileIndexRating].ratings.push(addRating);
+			userRating.profiles[profileIndexRating].profileRatings.push(addRating);
 			return { ...state, user: userRating };
 		case UPDATE_MOVIE_RATING:
 			const { updatedRating, profile: updateRatingProfile } = action.payload;
 			const updatedRatingProfiles = state.user.profiles.map(profile => {
 				if (profile.profileId === updateRatingProfile.profileId) {
-					const updatedRatings = profile.ratings.map(rating => {
+					const updatedRatings = profile.profileRatings.map(rating => {
 						return rating.ratingId === updatedRating.ratingId ? updatedRating : rating;
 					});
-					return { ...profile, ratings: updatedRatings };
+					return { ...profile, profileRatings: updatedRatings };
 				}
 				return profile;
 			});
@@ -384,8 +438,8 @@ export default function reducer(state = initialState, action) {
 			const { profileId: removeProfileRating, rating: removeRating } = action.payload;
 			const removeRatingProfiles = state.user.profiles.map(profile => {
 				if (profile.profileId === removeProfileRating) {
-					const updatedRating = profile.ratings.filter(rating => rating.ratingId !== removeRating.ratingId);
-					return { ...profile, ratings: updatedRating};
+					const updatedRating = profile.profileRatings.filter(rating => rating.ratingId !== removeRating.ratingId);
+					return { ...profile, profileRatings: updatedRating};
 				}
 				return profile;
 			});
@@ -406,6 +460,24 @@ export default function reducer(state = initialState, action) {
 				return profile;
 			});
 			return { user: { ...state.user, profiles: updatedProfiles } };
+		case ADD_VIEWED_MOVIE:
+			const { viewed: addView, profile: viewedProfile } = action.payload;
+			const userView = { ...state.user };
+			const profileIndexView = userView.profiles.findIndex(profile => profile.profileId === viewedProfile.profileId);
+			userView.profiles[profileIndexView].viewedMovies.push(addView);
+			return { ...state, user: userView };
+		case UPDATE_VIEWED_MOVIE:
+			const { updatedViewed, profile: updateViewedProfile } = action.payload;
+			const updatedViewProfiles = state.user.profiles.map(profile => {
+				if (profile.profileId === updateViewedProfile.profileId) {
+					const updatedViews = profile.viewedMovies.map(viewedMovie => {
+						return viewedMovie.viewedId === updatedViewed.viewedId ? updatedViewed : viewedMovie;
+					});
+					return { ...profile, viewedMovies: updatedViews };
+				}
+				return profile;
+			});
+			return { user: { ...state.user, profiles: updatedViewProfiles } };
 		default:
 			return state;
 	}

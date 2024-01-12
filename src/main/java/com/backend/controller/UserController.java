@@ -1,10 +1,7 @@
 package com.backend.controller;
 
 import com.backend.exceptions.DataException;
-import com.backend.models.Movie;
-import com.backend.models.Profile;
-import com.backend.models.ProfileRating;
-import com.backend.models.User;
+import com.backend.models.*;
 import com.backend.services.TokenService;
 import com.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +94,19 @@ public class UserController {
         String loggedInUser = tokenService.getEmailFromToken(token);
         return userService.removeWatchLaterMovie(loggedInUser, profileId, movieId);
     }
+
+    @PostMapping("/profiles/{profileId}/viewed/add")
+    public Viewed viewedMovie(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @RequestBody Viewed viewed) {
+        String loggedInUser = tokenService.getEmailFromToken(token);
+        return userService.viewedMovie(loggedInUser, profileId, viewed);
+    }
+
+    @PutMapping("/profiles/{profileId}/viewed/{viewedId}/update")
+    public Set<Viewed> updateMovieRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable Integer profileId, @PathVariable Integer viewedId, @RequestBody Viewed viewed) {
+        String loggedInUser = tokenService.getEmailFromToken(token);
+        return userService.updateViewedMovie(loggedInUser, profileId, viewedId, viewed);
+    }
+
 
 
 //    @GetMapping("/{id}")

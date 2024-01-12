@@ -33,18 +33,29 @@ public class Profile {
 
     private Set<ProfileRating> profileRatings;
 
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name="profile_viewed",
+            joinColumns = {@JoinColumn(name="profile_id")},
+            inverseJoinColumns = {@JoinColumn(name="viewed_id")}
+    )
+
+    private Set<Viewed> viewedMovies;
+
 
     public Profile() {
         this.watchLaterMovies = new HashSet<Movie>();
         this.profileRatings = new HashSet<>();
     }
 
-    public Profile(Integer profileId, String name, String img, Set<Movie> watchLaterMovies, Set<ProfileRating> profileRatings) {
+    public Profile(Integer profileId, String name, String img, Set<Movie> watchLaterMovies, Set<ProfileRating> profileRatings,Set<Viewed> viewedMovies) {
         this.profileId = profileId;
         this.name = name;
         this.img = img;
         this.watchLaterMovies = watchLaterMovies;
         this.profileRatings = profileRatings;
+        this.viewedMovies = viewedMovies;
+
     }
 
     public Integer getProfileId() {
@@ -71,11 +82,12 @@ public class Profile {
         this.img = img;
     }
 
-    public Set<ProfileRating> getRatings() {
+
+    public Set<ProfileRating> getProfileRatings() {
         return profileRatings;
     }
 
-    public void setRatings(Set<ProfileRating> profileRatings) {
+    public void setProfileRatings(Set<ProfileRating> profileRatings) {
         this.profileRatings = profileRatings;
     }
 
@@ -85,5 +97,13 @@ public class Profile {
 
     public void setWatchLaterMovies(Set<Movie> watchLaterMovies) {
         this.watchLaterMovies = watchLaterMovies;
+    }
+
+    public Set<Viewed> getViewedMovies() {
+        return viewedMovies;
+    }
+
+    public void setViewedMovies(Set<Viewed> viewedMovies) {
+        this.viewedMovies = viewedMovies;
     }
 }

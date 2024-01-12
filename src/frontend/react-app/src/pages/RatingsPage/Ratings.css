@@ -97,7 +97,7 @@
 .profile-activity-row-date {
     height: 50px;
     white-space: nowrap;
-    width: 15.5%;
+    /*width: 15.5%;*/
     border-top: 1px solid #ccc;
     display: table-cell;
     padding: 0 1em 0 0;
@@ -154,4 +154,15 @@
 
 .rating-button svg.active {
     color: #000;
+}
+
+.profile-activity-row-title a {
+    outline: 0;
+    color: #0080ff;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.profile-activity-row-title a:hover {
+    text-decoration: underline;
 }

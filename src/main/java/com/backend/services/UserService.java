@@ -28,13 +28,15 @@ public class UserService implements UserDetailsService {
     private final MovieRepository movieRepository;
     private final ProfileRatingRepository profileRatingRepository;
     private final MovieRatingRepository movieRatingRepository;
+    private final ViewedRepository viewedRepository;
 
-    public UserService(UserRepository userRepository, ProfileRepository profileRepository, MovieRepository movieRepository, ProfileRatingRepository profileRatingRepository, MovieRatingRepository movieRatingRepository) {
+    public UserService(UserRepository userRepository, ProfileRepository profileRepository, MovieRepository movieRepository, ProfileRatingRepository profileRatingRepository, MovieRatingRepository movieRatingRepository, ViewedRepository viewedRepository) {
         this.userRepository = userRepository;
         this.profileRepository = profileRepository;
         this.movieRepository = movieRepository;
         this.profileRatingRepository = profileRatingRepository;
         this.movieRatingRepository = movieRatingRepository;
+        this.viewedRepository = viewedRepository;
     }
 
     public User updateUser(User user) {
@@ -54,7 +56,7 @@ public class UserService implements UserDetailsService {
                 throw new DataException("Maximum number of profiles reached for this user.");
             }
             profile.setWatchLaterMovies(new HashSet<>());
-            profile.setRatings(new HashSet<>());
+            profile.setProfileRatings(new HashSet<>());
 
             user.getProfiles().add(profile);
             userRepository.save(user);
@@ -103,7 +105,7 @@ public class UserService implements UserDetailsService {
 
                 if (movie != null) {
                     profileRating.setMovie(movie);
-                    existingProfile.getRatings().add(profileRating);
+                    existingProfile.getProfileRatings().add(profileRating);
                     ProfileRating savedProfileRating = profileRatingRepository.save(profileRating);
 
                     MovieRating movieRating = new MovieRating(profileRating.getRatingId(), profileRating.getRating(), profileRating.getDate());
@@ -131,7 +133,7 @@ public class UserService implements UserDetailsService {
 
             if (optionalProfile.isPresent()) {
                 Profile existingProfile = optionalProfile.get();
-                Optional<ProfileRating> optionalExistingRating = existingProfile.getRatings().stream()
+                Optional<ProfileRating> optionalExistingRating = existingProfile.getProfileRatings().stream()
                         .filter(rating -> rating.getRatingId().equals(ratingId))
                         .findFirst();
 
@@ -161,7 +163,7 @@ public class UserService implements UserDetailsService {
                 }
 
                 profileRepository.save(existingProfile);
-                return existingProfile.getRatings();
+                return existingProfile.getProfileRatings();
             }
         }
         return null;
@@ -178,7 +180,7 @@ public class UserService implements UserDetailsService {
             if (optionalProfile.isPresent()) {
                 Profile profile = optionalProfile.get();
 
-                Optional<ProfileRating> optionalRatingToRemove = profile.getRatings().stream()
+                Optional<ProfileRating> optionalRatingToRemove = profile.getProfileRatings().stream()
                         .filter(rating -> rating.getRatingId().equals(ratingId))
                         .findFirst();
 
@@ -200,7 +202,7 @@ public class UserService implements UserDetailsService {
                         movieRatingRepository.deleteById(ratingId);
                     }
 
-                    profile.getRatings().remove(removedProfileRating);
+                    profile.getProfileRatings().remove(removedProfileRating);
                     profileRepository.save(profile);
                     profileRatingRepository.deleteById(ratingId);
                 }
@@ -244,6 +246,68 @@ public class UserService implements UserDetailsService {
 
         return null;
     }
+
+    public Viewed viewedMovie(String email, Integer profileId, Viewed viewed) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Optional<Profile> optionalProfile = user.getProfiles().stream()
+                    .filter(profile -> profile.getProfileId().equals(profileId))
+                    .findFirst();
+
+            if (optionalProfile.isPresent()) {
+                Profile existingProfile = optionalProfile.get();
+                Movie movie = movieRepository.findById(viewed.getMovie().getMovieId()).orElse(null);
+
+                if (movie != null) {
+                    viewed.setMovie(movie);
+                    existingProfile.getViewedMovies().add(viewed);
+                    Viewed savedViewed = viewedRepository.save(viewed);
+
+                    profileRepository.save(existingProfile);
+                    return savedViewed;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Set<Viewed> updateViewedMovie(String email, Integer profileId, Integer viewedId, Viewed updatedViewedMovie) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Optional<Profile> optionalProfile = user.getProfiles().stream()
+                    .filter(profile -> profile.getProfileId().equals(profileId))
+                    .findFirst();
+
+            if (optionalProfile.isPresent()) {
+                Profile existingProfile = optionalProfile.get();
+                Optional<Viewed> optionalExistingView = existingProfile.getViewedMovies().stream()
+                        .filter(rating -> rating.getViewedId().equals(viewedId))
+                        .findFirst();
+
+                if (optionalExistingView.isPresent()) {
+                    Viewed existingProfileView = optionalExistingView.get();
+
+                    Movie movie = movieRepository.findById(existingProfileView.getMovie().getMovieId()).orElse(null);
+
+                    if (movie != null) {
+                        movie.setViews(movie.getViews() + 1);
+                        movieRepository.save(movie);
+                    }
+
+                    existingProfileView.setDate(updatedViewedMovie.getDate());
+                    viewedRepository.save(updatedViewedMovie);
+                }
+
+                profileRepository.save(existingProfile);
+                return existingProfile.getViewedMovies();
+            }
+        }
+        return null;
+    }
+
 
     public User getUserById(Integer userId) {
         return userRepository.findById(userId)

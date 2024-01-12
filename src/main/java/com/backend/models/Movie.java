@@ -57,7 +57,8 @@ public class Movie {
     private String tagline;
     @CsvBindByName(column = "media")
     private String media;
-
+    @Column(name = "views")
+    private Integer views = 0;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "movie_ratings_join",
@@ -71,7 +72,7 @@ public class Movie {
         this.ratings = new HashSet<MovieRating>();
     }
 
-    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String media, Set<MovieRating> ratings) {
+    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String media, Set<MovieRating> ratings, Integer views) {
         this.movieId = movieId;
         this.title = title;
         this.poster = poster;
@@ -91,6 +92,7 @@ public class Movie {
         this.tagline = tagline;
         this.media = media;
         this.ratings = ratings;
+        this.views = views;
     }
 
     public Integer getMovieId() {
@@ -141,12 +143,12 @@ public class Movie {
         this.genres = genres;
     }
 
-    public Set<String> getCompany() {
+    public Set<String> getCompanies() {
         return companies;
     }
 
-    public void setCompany(Set<String> company) {
-        this.companies = company;
+    public void setCompanies(Set<String> companies) {
+        this.companies = companies;
     }
 
     public String getReleaseDate() {
@@ -169,12 +171,12 @@ public class Movie {
         return trailer;
     }
 
-    public Set<String> getCast() {
+    public Set<String> getCasts() {
         return casts;
     }
 
-    public void setCast(Set<String> cast) {
-        this.casts = cast;
+    public void setCasts(Set<String> casts) {
+        this.casts = casts;
     }
 
     public String getDirector() {
@@ -185,12 +187,12 @@ public class Movie {
         this.director = director;
     }
 
-    public Set<String> getWriter() {
+    public Set<String> getWriters() {
         return writers;
     }
 
-    public void setWriter(Set<String> writer) {
-        this.writers = writer;
+    public void setWriters(Set<String> writers) {
+        this.writers = writers;
     }
 
     public String getMaturity() {
@@ -243,5 +245,13 @@ public class Movie {
 
     public void setRatings(Set<MovieRating> ratings) {
         this.ratings = ratings;
+    }
+
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
     }
 }

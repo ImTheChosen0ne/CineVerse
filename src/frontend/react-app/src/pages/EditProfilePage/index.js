@@ -10,6 +10,7 @@ function EditProfilePage() {
     const { profile } = useContext(ProfileContext);
     const [name, setName] = useState(profile.name);
     const [img, setImg] = useState(profile.img);
+    const [iconImg, setIconImg] = useState("")
     const [gameHandle, setGameHandle] = useState("");
     const [chooseIcon, setChooseIcon] = useState(false)
     const [confirmIcon, setConfirmIcon] = useState(false)
@@ -43,21 +44,21 @@ function EditProfilePage() {
 
     const handleGoBack = async () => {
         setChooseIcon(false);
-        setImg(profile.img)
     }
 
-    const handleSetImg = async (icon) => {
-        setImg(icon)
+    const handleSetImg = async (iconSelected) => {
+        setIconImg(iconSelected)
         setConfirmIcon(true);
     }
 
-    const handleCancelSetIcon = async (icon) => {
+    const handleCancelSetIcon = async () => {
         setConfirmIcon(false);
     }
 
-    const handleConfirmIcon = async (icon) => {
+    const handleConfirmIcon = async () => {
         setChooseIcon(false);
         setConfirmIcon(false);
+        setImg(iconImg)
     }
 
     const icons = [
@@ -223,7 +224,7 @@ function EditProfilePage() {
                             <h1>Change profile icon?</h1>
                             <div className="lolopi-confirm-icons">
                                 <div>
-                                    <span className="lolopi-icon" style={{backgroundImage: `url(${profile.img})`}}></span>
+                                    <span className="lolopi-icon" style={{backgroundImage: `url(${img})`}}></span>
                                     <span>Current</span>
                                 </div>
                                 <span className="indicator-icon icon-rightCaret">
@@ -232,7 +233,7 @@ function EditProfilePage() {
                                     </svg>
                                 </span>
                                 <div>
-                                    <span className="lolopi-icon" style={{backgroundImage: `url(${img})`}}></span>
+                                    <span className="lolopi-icon" style={{backgroundImage: `url(${iconImg})`}}></span>
                                     <span>New</span>
                                 </div>
                             </div>

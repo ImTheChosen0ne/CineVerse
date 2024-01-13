@@ -11,6 +11,8 @@ function EditProfilePage() {
     const [name, setName] = useState(profile.name);
     const [img, setImg] = useState(profile.img);
     const [gameHandle, setGameHandle] = useState("");
+    const [chooseIcon, setChooseIcon] = useState(false)
+    const [confirmIcon, setConfirmIcon] = useState(false)
     const sessionUser = useSelector(state => state.session.user);
 
     const handleSubmit = async (e) => {
@@ -35,11 +37,58 @@ function EditProfilePage() {
         history.push(`/ManageProfiles/${profile.name}/delete`)
     }
 
+    const handleChooseIcon = async () => {
+        setChooseIcon(true);
+    }
+
+    const handleGoBack = async () => {
+        setChooseIcon(false);
+        setImg(profile.img)
+    }
+
+    const handleSetImg = async (icon) => {
+        setImg(icon)
+        setConfirmIcon(true);
+    }
+
+    const handleCancelSetIcon = async (icon) => {
+        setConfirmIcon(false);
+    }
+
+    const handleConfirmIcon = async (icon) => {
+        setChooseIcon(false);
+        setConfirmIcon(false);
+    }
+
+    const icons = [
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABV7uLegi1BOvEneuUG7DavpEkdlHLuUEXmby2jgEA7n8V5LgcFu1o-NlMgJFznEX3Qt8-q7_t8ejt22-fz9LP_lJM6OKNQRpOA.png?r=201",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABYbCADmiYK_fcQ8ZA9koqz7qU6-LsrphCt83p9_Qu5Y2iH0mAs3dj-UISutqdiOmlqnuU4WoDc5YChHKMrWFnnUDKLPelBu_8Q.png?r=7c7",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABRrMp7EDrB-WGtUqXuFkO-n8C5-0-FJ2c6fMRVhCBdLx3uBcSdPdMtDiQTIOfyZN_AyLu4TIcx7CQRqrcBC4c7gv3QPgy0s7OQ.png?r=b39",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABTXCZ23WsNEfx8Ejws4QnFaCqp6z25CIqgSj_VpJartMiJVUCbVYFuIPHQEf3YXEIv2nfhoLgnxSO8ZfypewVPTlEZv0VKO9PQ.png?r=6a6",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABaHEC9COHdhkvZykfXTgaKHhHQB4QRBxhFq6gESzkuFkj_BDD66p3S6HmixAZcdUHH701KWdhSZkjoTX2LilozKq48Ha69Wl2A.png?r=558",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABdae964dclPwTTegelmrB-z9zCF8OPW3IqL_hB4XjpcJoe4nAh3xyM7z27s9OmtugwTsi0m2oqOWavIYJ56-4LQhM-NVKv9xow.png?r=cad",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABVYgkqyPjGbrdFabAaScAkffugf9Iv6Wt2GaL94XCesz1oGp6vgM0SoAnDD7tJASSvSy0IKpmeo7QzVrInepDafQEMXMpgA2Ng.png?r=a16",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABZ757RLEgtR5scrShGcYIXMVJ4u-Nq9MMR5DBTdY0h_2xbLluQhfqAnN_X-nNW30Db0v_jKUwBzUNLR_0Lq2XkXAPJMnvTY0UQ.png?r=eea",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABdNTuxr4l3VXLHQmtWy2CEZTzP3_6144JcItq-RwM85N_BICgJdPHsiHJnmIK7jSVdHg0N0n7lORcEeXInxQjfbjY8R6ogNirQ.png?r=d47",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbCqgMj2UKOpVwUQMVZLHbLWId0nLwKkeSII1eP_hW2Q_JwNiNltV9koaKAsvL-MCdMH7msR6BLZJ5xLBoImW3fgyvU0rUok_A.png?r=ce4",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABRyh6-ChXj7xmOwS8dL_EGrHOpBSi0L8-HFD-tmjZIjy5vWCrfgm4w4ewLLE34I1C-X4yy2PxYSm30qXu0MqGeOyMY-gnyvZIw.png?r=181",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbwrnniEWfnKrlposjqsHrnJvCsA_ieU_3kNrzDyXASBZVzGsD4o436zVOwV30EpLskC4Zf_nDBPHlKorkr_t9bksx69ZlBR0Q.png?r=ae9",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABRyxPiBupU2njbiy5xZ3ISc8TLqfcEj-pt3bmvmbFLjDodrLCNy-36WrF8HnOTASWlDT-mWr4mhaTeiulxnyjqPTRdlxSuQ_Og.png?r=ab6",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABRlwcqs_TQ8Hb6U3SsAyAS8LA6xrjIJHfVKhvHsa0GrXrF5qdORcpzwDWsX4MDJVl6YxXxTmvK6GoEWnEAabUFdFPTw9xXjgcw.png?r=bb0",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABcDJF06pNvD4q4MOPiIBQkVtrBcEJMwDwnOEsO63dmGMgot7BDaAC8CT6Z96eLfaFsmCja8BYf9-FtYrwd7Mq2QRAMEOvZVzsQ.png?r=15e",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABdFu41cMXRWNK1EkDj_yH1bxeh9a0udswBpkyBNBYFsgcCEANkojvc63RsB56mXTPWhSqhDnWfJQOH9V7BymHd5Jj8XGwUJ-eQ.png?r=e6e",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABeM78olwut6-E9a31v0mK2aOySAqJ_Jejdvpxxq6I7hyJBZBKRy6RG--GTrl0q6iCHOT50vB9TCX4G2GUbN0e6r9GNJzjAvpnQ.png?r=bd7",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABZFf8nyPJvLrgkkrv_qMWr1ZsA3L3D3f5fvCxG-7Ey4NpzMS-lx6XiEie4CAdOItt7DAqg0y6x1_pbV5KvtzUrHkgKA9eNgmrQ.png?r=1d4",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABQC_iTsdN1Oh4QbrsrOYYpf6el1T8CbDaVtV-VtYukuYyxgenT8b35wAIXA1lBw0Cob6FItS5AWqx5YsamDT69ks9b-2DojaEg.png?r=a4b",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbu8g5jt-joveM5fZa6gp0b7aQeRBcxgDN60aMh4KQIw3aWLR0OwUGu0v_mYA4x6Ia_3MYx0h37QLpXqL3ExPkS0tNrFWz1uzg.png?r=229",
+        "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABZEwZmUZB6H1tKp8gauZK6AhrM6mWfatr-y4LSGl1nWaD0hYc2NMRp6vknlM5jqt_Zds3X7aRfv69hxR_B0ipuG9kGY5ENFo3w.png?r=98e",
+    ]
 
     return (
         <div className="edit-profile">
             <div className="header"/>
             <div className="edit-profile-container">
+                {!chooseIcon ? (
                 <div className="edit-profile-center">
                     <form onSubmit={handleSubmit} className="edit-profile-wrapper">
                         <h1>Edit Profile</h1>
@@ -49,7 +98,7 @@ function EditProfilePage() {
                                     <img
                                         src={img}
                                         alt="profile image"/>
-                                    <button>
+                                    <button onClick={handleChooseIcon} className="profile-edit-icon-button">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                              xmlns="http://www.w3.org/2000/svg" data-mirrorinrtl="true"
                                              className="svg-icon svg-icon-edit ltr-4z3qvp e1svuwfo1"
@@ -106,6 +155,101 @@ function EditProfilePage() {
                         <button className="profile-button end" onClick={handleDelete}>Delete Profile</button>
                     </form>
                 </div>
+                ) : (
+                    <div>
+                    {!confirmIcon ? (
+                    <div>
+                        <div className="profileIcon-header">
+                            <div className="left-header">
+                                <button className="profileIcon-back-button" onClick={handleGoBack}>
+                                    <span className="button-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512">
+                                            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z"/></svg>
+                                    </span>
+                                </button>
+                                <div className="left-header-text">
+                                    <h1>Edit Profile</h1>
+                                    <h2>Choose a profile icon.</h2>
+                                </div>
+                            </div>
+                            <div className="right-header">
+                                <span className="profileIcon-header-name">{profile.name}</span>
+                                <img src={profile.img} className="profileIcon-header-img" alt="profile"/>
+                            </div>
+                        </div>
+                        <div className="profileIcon-container">
+                            <ul className="profileIcon-container-carousels">
+                                <li className="profileIcon-row lolopi-row-medium">
+                                    <div className="ptrack-container">
+                                        <h2 className="row-header">
+                                            <div className="lolopi-row-text">The Classics</div>
+                                        </h2>
+                                        <div className="slider">
+                                            <span className="handle handlePrev" tabIndex="-1" role="presentation"
+                                                  aria-label=""></span>
+                                            <div className="sliderMask showPeek">
+                                                <div className="sliderContent row-with-x-columns">
+                                                    {icons.map((icon, index) => (
+                                                        <div className={`slider-item slider-item-${index}`}>
+                                                            <div className="ptrack-content">
+                                                                <button className="lolopi-icon" tabIndex="0"
+                                                                        style={{backgroundImage: `url(${icon})`}}
+                                                                        onClick={() => handleSetImg(icon)}
+                                                                >
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <span className="handle handleNext active" tabIndex="0" role="button" aria-label="See more icons">
+                                                <b className="indicator-icon icon-rightCaret">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="30" width="24"
+                                                         viewBox="0 0 320 512">
+                                                        <path
+                                                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+                                                    </svg>
+                                                </b>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    ) : (
+                        <div className="edit-icon-center">
+                        <div className="profile-lolopi-confirm">
+                            <h1>Change profile icon?</h1>
+                            <div className="lolopi-confirm-icons">
+                                <div>
+                                    <span className="lolopi-icon" style={{backgroundImage: `url(${profile.img})`}}></span>
+                                    <span>Current</span>
+                                </div>
+                                <span className="indicator-icon icon-rightCaret">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30" width="24" viewBox="0 0 320 512">
+                                        <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <span className="lolopi-icon" style={{backgroundImage: `url(${img})`}}></span>
+                                    <span>New</span>
+                                </div>
+                            </div>
+                            <div className="lolopi-confirm-buttons">
+                                <span className="profile-button preferred-action" onClick={handleConfirmIcon}>
+                                    <span>Let's Do It</span>
+                                </span>
+                                <span className="profile-button">
+                                    <span onClick={handleCancelSetIcon}>Not Yet</span>
+                                </span>
+                            </div>
+                        </div>
+                        </div>
+
+                    )}
+                    </div>
+                )}
             </div>
         </div>
     );

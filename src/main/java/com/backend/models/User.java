@@ -24,6 +24,7 @@ public class User implements UserDetails {
     private String email;
     private String firstName;
     private String lastName;
+    private String plan;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
@@ -48,13 +49,13 @@ public class User implements UserDetails {
         this.profiles = new HashSet<Profile>();
     }
 
-    public User(Integer userId, String password, String firstName, String lastName, String email, Set<Role> authorities, Set<Profile> profiles) {
+    public User(Integer userId, String password, String firstName, String lastName, String email, Set<Role> authorities, Set<Profile> profiles, String plan) {
         this.userId = userId;
-//        this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.plan = plan;
         this.authorities = authorities;
         this.profiles = profiles;
     }
@@ -78,9 +79,9 @@ public class User implements UserDetails {
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) {
-        this.email = email;
-    }
+
+    public void setEmail(String email) { this.email = email; }
+
     public Integer getUserId() {
         return userId;
     }
@@ -88,10 +89,6 @@ public class User implements UserDetails {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -107,6 +104,14 @@ public class User implements UserDetails {
 
     public void setProfiles(Set<Profile> profiles) {
         this.profiles = profiles;
+    }
+
+    public String getPlan() {
+        return plan;
+    }
+
+    public void setPlan(String plan) {
+        this.plan = plan;
     }
 
     @Override

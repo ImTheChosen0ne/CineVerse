@@ -14,6 +14,8 @@ public class Profile {
     private Integer profileId;
     private String name;
     private String img;
+    private boolean maturity;
+    private String gameName;
 
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
@@ -42,20 +44,20 @@ public class Profile {
 
     private Set<Viewed> viewedMovies;
 
-
     public Profile() {
         this.watchLaterMovies = new HashSet<Movie>();
-        this.profileRatings = new HashSet<>();
+        this.profileRatings = new HashSet<ProfileRating>();
     }
 
-    public Profile(Integer profileId, String name, String img, Set<Movie> watchLaterMovies, Set<ProfileRating> profileRatings,Set<Viewed> viewedMovies) {
+    public Profile(Integer profileId, String name, String img, Set<Movie> watchLaterMovies, Set<ProfileRating> profileRatings, Set<Viewed> viewedMovies, boolean maturity, String gameName) {
         this.profileId = profileId;
         this.name = name;
         this.img = img;
+        this.maturity = maturity;
+        this.gameName = gameName;
         this.watchLaterMovies = watchLaterMovies;
         this.profileRatings = profileRatings;
         this.viewedMovies = viewedMovies;
-
     }
 
     public Integer getProfileId() {
@@ -82,6 +84,21 @@ public class Profile {
         this.img = img;
     }
 
+    public boolean getMaturity() {
+        return maturity;
+    }
+
+    public void setMaturity(boolean maturity) {
+        this.maturity = maturity;
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
 
     public Set<ProfileRating> getProfileRatings() {
         return profileRatings;

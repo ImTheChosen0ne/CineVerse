@@ -73,17 +73,17 @@ public class DatabaseSeeder {
 
             Set<Viewed> viewedMovies = new HashSet<>();
 
-            Profile profile = new Profile(1, "demo", "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbGa4GvjA3sdbhrXZi7RG0-nuSXUxt-IZoVxB_7lHtMKT-wQ-CsDeukenQ6z6x4iUdqx4NJR4Sr3RDraWK1uYyKWRapH8T-tnFtb.png?r=59d", watchLater, movieProfileProfileRatings, viewedMovies);
+            Profile profile = new Profile(1, "demo", "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABfjwXqIYd3kCEU6KWsiHSHvkft8VhZg0yyD50a_pHXku4dz9VgxWwfA2ontwogStpj1NE9NJMt7sCpSKFEY2zmgqqQfcw1FMWwB9.png?r=229", watchLater, movieProfileProfileRatings, viewedMovies , true, "demo game");
             Profile profiles = profileRepository.save(profile);
 
-            Profile profile2 = new Profile(2, "demo2", "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABbGa4GvjA3sdbhrXZi7RG0-nuSXUxt-IZoVxB_7lHtMKT-wQ-CsDeukenQ6z6x4iUdqx4NJR4Sr3RDraWK1uYyKWRapH8T-tnFtb.png?r=59d", watchLater, movieProfileProfileRatings, viewedMovies);
+            Profile profile2 = new Profile(2, "demo2", "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABfjwXqIYd3kCEU6KWsiHSHvkft8VhZg0yyD50a_pHXku4dz9VgxWwfA2ontwogStpj1NE9NJMt7sCpSKFEY2zmgqqQfcw1FMWwB9.png?r=229", watchLater, movieProfileProfileRatings, viewedMovies, true, "demo game2");
             Profile profiles2 = profileRepository.save(profile2);
 
             Set<Profile> userProfile = new HashSet<>();
             userProfile.add(profiles);
             userProfile.add(profiles2);
 
-            User admin = new User(1, passwordEncoder.encode("password"), "demo", "demo", "demo@demo.com", roles, userProfile);
+            User admin = new User(1, passwordEncoder.encode("password"), "demo", "demo", "demo@demo.com", roles, userProfile, "premium");
 
             userRepository.save(admin);
 

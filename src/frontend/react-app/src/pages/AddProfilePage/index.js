@@ -8,9 +8,8 @@ function AddProfilePage() {
     const dispatch = useDispatch()
     const [name, setName] = useState("");
     const [img, setImg] = useState("https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABfjwXqIYd3kCEU6KWsiHSHvkft8VhZg0yyD50a_pHXku4dz9VgxWwfA2ontwogStpj1NE9NJMt7sCpSKFEY2zmgqqQfcw1FMWwB9.png?r=229");
-
+    const [maturity, setMaturity] = useState(true)
     const sessionUser = useSelector(state => state.session.user);
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,6 +17,7 @@ function AddProfilePage() {
         const profile = {
             name: name,
             img: img,
+            maturity: maturity
         }
 
         dispatch(createProfile(profile))
@@ -57,13 +57,17 @@ function AddProfilePage() {
                                     />
                                     <div className="option-wrapper">
                                         <div className="add-kids-option">
-                                            <input type="checkbox" id="add-kids-profile" className="add-kids-profile"/>
+                                            <input
+                                                type="checkbox"
+                                                id="add-kids-profile"
+                                                className="add-kids-profile"
+                                                checked={!maturity}
+                                                onChange={(e) => setMaturity(!e.target.checked)}
+                                            />
                                             <label htmlFor="add-kids-profile">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                      xmlns="http://www.w3.org/2000/svg"
-                                                     className="svg-icon svg-icon-check-mark ltr-4z3qvp e1svuwfo1"
-                                                     data-name="Checkmark"
-                                                     aria-hidden="true">
+                                                     className="svg-icon svg-icon-check-mark ltr-4z3qvp e1svuwfo1">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                                           d="M21.2928 4.29285L22.7071 5.70706L8.70706 19.7071C8.51952 19.8946 8.26517 20 7.99995 20C7.73474 20 7.48038 19.8946 7.29285 19.7071L0.292847 12.7071L1.70706 11.2928L7.99995 17.5857L21.2928 4.29285Z"
                                                           fill="currentColor"></path>

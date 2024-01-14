@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.Set;
 
 public class RegistrationDTO {
-//    @NotBlank(message = "Username is required.")
-//    private String username;
+    @NotBlank(message = "Profile name is required.")
+    private String profileName;
     @NotBlank(message = "Password is required.")
     private String password;
     @NotBlank(message = "Email is required.")
@@ -15,23 +15,26 @@ public class RegistrationDTO {
     private String firstName;
     @NotBlank(message = "Last Name is required.")
     private String lastName;
+    @NotBlank(message = "plan is required.")
+    private String plan;
 
     public RegistrationDTO() {}
-    public RegistrationDTO(String email, String password, String firstName, String lastName) {
-//        this.username = username;
+    public RegistrationDTO(String profileName, String email, String password, String firstName, String lastName, String plan) {
+        this.profileName = profileName;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.plan = plan;
     }
 
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
+    public String getProfileName() {
+        return profileName;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
 
     public String getPassword() {
         return password;
@@ -63,6 +66,14 @@ public class RegistrationDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPlan() {
+        return plan;
+    }
+
+    public void setPlan(String plan) {
+        this.plan = plan;
     }
 
     public String toString() {

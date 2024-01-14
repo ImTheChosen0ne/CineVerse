@@ -18,9 +18,6 @@ import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
-
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
-
     @Autowired
     private PasswordEncoder encoder;
     private final UserRepository userRepository;
@@ -57,6 +54,7 @@ public class UserService implements UserDetailsService {
             }
             profile.setWatchLaterMovies(new HashSet<>());
             profile.setProfileRatings(new HashSet<>());
+            profile.setGameName("");
 
             user.getProfiles().add(profile);
             userRepository.save(user);
@@ -75,6 +73,8 @@ public class UserService implements UserDetailsService {
                     .ifPresent(existingProfile -> {
                         existingProfile.setName(updatedProfile.getName());
                         existingProfile.setImg(updatedProfile.getImg());
+                        existingProfile.setGameName(updatedProfile.getGameName());
+                        existingProfile.setMaturity(updatedProfile.getMaturity());
 
                         userRepository.save(user);
                     });

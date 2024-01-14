@@ -8,6 +8,8 @@ import com.backend.models.*;
 import com.backend.repository.ProfileRepository;
 import com.backend.repository.RoleRepository;
 import com.backend.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -44,15 +46,14 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(body.getPassword()));
         user.setFirstName(body.getFirstName());
         user.setLastName(body.getLastName());
+        user.setPlan(body.getPlan());
 
-        Set<Movie> likedMovies = new HashSet<>();
-        Set<Movie> dislikedMovies = new HashSet<>();
         Set<Movie> watchLaterMovies = new HashSet<>();
         Set<ProfileRating> profileRatings = new HashSet<>();
         Set<Viewed> viewedMovies = new HashSet<>();
 
+        Profile profile = new Profile(0, body.getProfileName(), "https://occ-0-616-621.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABfjwXqIYd3kCEU6KWsiHSHvkft8VhZg0yyD50a_pHXku4dz9VgxWwfA2ontwogStpj1NE9NJMt7sCpSKFEY2zmgqqQfcw1FMWwB9.png?r=229", watchLaterMovies, profileRatings, viewedMovies, true, "");
 
-        Profile profile = new Profile(0, user.getFirstName(), "img", watchLaterMovies, profileRatings, viewedMovies);
         Profile profiles = profileRepository.save(profile);
 
         Set<Profile> userProfile = new HashSet<>();
@@ -68,7 +69,7 @@ public class AuthenticationService {
         try {
             User newUser = userRepository.save(user);
 
-            Authentication auth = new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword());
+            Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword()));
             String token = tokenService.generateJwt(auth);
 
             return new ResponseDTO(newUser, token);
@@ -79,14 +80,10 @@ public class AuthenticationService {
 
     public ResponseDTO loginUser(LoginDTO body) {
         try {
-            Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword())
-            );
-
+            Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword()));
             String token = tokenService.generateJwt(auth);
 
             return new ResponseDTO(userRepository.findByEmail(body.getEmail()).get(), token);
-
         } catch (BadCredentialsException e) {
             throw new DataException("Email and password combination is invalid.");
         }

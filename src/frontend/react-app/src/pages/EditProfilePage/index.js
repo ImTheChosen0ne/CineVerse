@@ -11,9 +11,11 @@ function EditProfilePage() {
     const [name, setName] = useState(profile.name);
     const [img, setImg] = useState(profile.img);
     const [iconImg, setIconImg] = useState("")
-    const [gameHandle, setGameHandle] = useState("");
+    const [gameName, setGameName] = useState("");
+    const [maturity, setMaturity] = useState(profile.maturity)
     const [chooseIcon, setChooseIcon] = useState(false)
     const [confirmIcon, setConfirmIcon] = useState(false)
+
     const sessionUser = useSelector(state => state.session.user);
 
     const handleSubmit = async (e) => {
@@ -22,7 +24,9 @@ function EditProfilePage() {
         const updatedProfile = {
             ...profile,
             name,
-            img
+            img,
+            gameName,
+            maturity
         };
 
         dispatch(updateUserProfile(updatedProfile))
@@ -131,20 +135,29 @@ function EditProfilePage() {
                                             type="text"
                                             className=""
                                             placeholder="Create Hame Handle"
-                                            value={gameHandle}
-                                            onChange={(e) => setName(e.target.value)}
-                                            // required
+                                            value={gameName}
+                                            onChange={(e) => setGameName(e.target.value)}
                                         />
                                     </div>
                                 </div>
                                 <div className="profile-entry-restrictions">
                                     <h2 className="profile-entry-header">Maturity Settings:</h2>
-                                    <div>
-                                        <ul>
-                                            <li className="profile-maturity-label">All Maturity Ratings</li>
-                                        </ul>
-                                        <p>Show titles of all maturity ratings for this profile.</p>
-                                    </div>
+                                    {maturity ? (
+                                        <div>
+                                            <ul>
+                                                <li className="profile-maturity-label">All Maturity Ratings</li>
+                                            </ul>
+                                            <p>Show titles of all maturity ratings for this profile.</p>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <ul>
+                                                <li className="profile-maturity-label">Kids</li>
+                                                <li className="profile-maturity-label">TV-PG, PG</li>
+                                            </ul>
+                                            <p>Only show titles rated <b>TV-PG, PG and below</b> for this profile.</p>
+                                        </div>
+                                    )}
                                     <div>
                                         <NavLink className="profile-button" to="">Edit</NavLink>
                                     </div>

@@ -17,16 +17,17 @@ function SignupFormPage() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [profileName, setProfileName] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
+
+
   const [errors, setErrors] = useState([]);
 
   const [step, setStep] = useState(1);
-  const [selectedPlan, setSelectedPlan] = useState("plan3");
+  const [selectedPlan, setSelectedPlan] = useState("premium");
 
   if (sessionUser) return <Redirect to="/profile" />;
 
-  const handlePlanChange = (planId) => {
-        setSelectedPlan(planId);
-  };
   const handleNextStepEmail = async (e) => {
     e.preventDefault();
 
@@ -69,8 +70,13 @@ function SignupFormPage() {
       setErrors(errors)
     }
 
+    if (profileName === "") {
+      errors.proileName = "Please enter a profile name.";
+      setErrors(errors)
+    }
+
     if (password === confirmPassword) {
-        const data = await dispatch(signUp(email, password, firstName, lastName));
+        const data = await dispatch(signUp(email, password, firstName, lastName, profileName, selectedPlan));
         if (data) {
           setErrors(data)
         }
@@ -254,22 +260,22 @@ function SignupFormPage() {
                           <div className="plan-grid-header">
                               <div className="plan-grid-selector">
                                   <label>
-                                      <input type="radio" name="plan" onChange={() => handlePlanChange('plan1')}
-                                             checked={selectedPlan === 'plan1'}/>
+                                      <input type="radio" name="plan" onChange={() => setSelectedPlan('standard with ads')}
+                                             checked={selectedPlan === 'standard with ads'}/>
                                       <span>
                                             Standard with ads
                                       </span>
                                   </label>
                                   <label>
-                                      <input type="radio" name="plan" onChange={() => handlePlanChange('plan2')}
-                                             checked={selectedPlan === 'plan2'}/>
+                                      <input type="radio" name="plan" onChange={() => setSelectedPlan('standard')}
+                                             checked={selectedPlan === 'standard'}/>
                                       <span>
                                           Standard
                                       </span>
                                   </label>
                                   <label>
-                                      <input type="radio" name="plan" onChange={() => handlePlanChange('plan3')}
-                                             checked={selectedPlan === 'plan3'}/>
+                                      <input type="radio" name="plan" onChange={() => setSelectedPlan('premium')}
+                                             checked={selectedPlan === 'premium'}/>
                                       <span>
                                             Premium
                                       </span>
@@ -366,6 +372,15 @@ function SignupFormPage() {
                           />
                           <p className="formErrors">{errors.lastName}</p>
 
+                          <input
+                              placeholder="Profile Name"
+                              type="text"
+                              value={profileName}
+                              onChange={(e) => setProfileName(e.target.value)}
+                              required
+                          />
+                          <p className="formErrors">{errors.profileName}</p>
+
                         </div>
                       </div>
                     <button type="submit">Complete Sign Up</button>
@@ -373,7 +388,7 @@ function SignupFormPage() {
               </div>
           )}
       </div>
-        <Footer/>
+      <Footer/>
     </div>
   );
 }

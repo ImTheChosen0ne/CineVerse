@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import './NewAndPopular.css';
 import { getMovies } from "../../store/movies";
-import MovieCarousel from "../../components/Carousel";
+import Carousel from "../../components/Carousel";
 import Footer from "../../components/Footer";
-import TopMovieCarousel from "../../components/Carousel/TopMovieCarousel";
+import TopCarousel from "../../components/Carousel/TopCarousel";
 import Spinner from "../../components/Spinner";
 
 function NewAndPopular() {
@@ -32,32 +32,26 @@ function NewAndPopular() {
                 <Spinner loading={loading}/>
             </div>
             {!loading && (
-            <div className="new-movies">
-                <div className="movie-section">
-                    <h2>Top 10 Movies in the U.S. Today</h2>
-                    <TopMovieCarousel movies={movies} className="carousel"/>
+                <div className="new-movies">
+                    <div className="movie-section">
+                        <TopCarousel movies={movies}/>
+                    </div>
+                    <div className="movie-section">
+                        <Carousel movies={movies} title={"Movie Title"}/>
+                    </div>
+                    <div className="movie-section">
+                        <Carousel movies={movies} title={"Movie Title"}/>
+                    </div>
+                    <div className="movie-section">
+                        <Carousel movies={movies} title={"Movie Title"}/>
+                    </div>
+                    <div className="movie-section">
+                        <Carousel movies={movies} title={"Movie Title"}/>
+                    </div>
+                    <div className="movie-section">
+                        <Carousel movies={movies} title={"Movie Title"}/>
+                    </div>
                 </div>
-                <div className="movie-section">
-                    <h2>Movies Title</h2>
-                    <MovieCarousel movies={movies} className="carousel"/>
-                </div>
-                <div className="movie-section">
-                    <h2>Movies Title</h2>
-                    <MovieCarousel movies={movies} className="carousel"/>
-                </div>
-                <div className="movie-section">
-                    <h2>Movies Title</h2>
-                    <MovieCarousel movies={movies} className="carousel"/>
-                </div>
-                <div className="movie-section">
-                    <h2>Movies Title</h2>
-                    <MovieCarousel movies={movies} className="carousel"/>
-                </div>
-                <div className="movie-section">
-                    <h2>Movies Title</h2>
-                    <MovieCarousel movies={movies} className="carousel"/>
-                </div>
-            </div>
             )}
             <Footer/>
         </div>

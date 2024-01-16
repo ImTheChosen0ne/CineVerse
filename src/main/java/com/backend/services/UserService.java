@@ -108,10 +108,9 @@ public class UserService implements UserDetailsService {
                     existingProfile.getProfileRatings().add(profileRating);
                     ProfileRating savedProfileRating = profileRatingRepository.save(profileRating);
 
-                    MovieRating movieRating = new MovieRating(profileRating.getRatingId(), profileRating.getRating(), profileRating.getDate());
+                    MovieRating movieRating = new MovieRating(profileRating.getRatingId(), profileRating.getRating(), profileRating.getDate(), profileId);
                     movie.getRatings().add(movieRating);
-                    MovieRating savedMovieRating = movieRatingRepository.save(movieRating);
-
+                    movieRatingRepository.save(movieRating);
 
                     movieRepository.save(movie);
                     profileRepository.save(existingProfile);

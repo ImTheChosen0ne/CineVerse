@@ -10,11 +10,13 @@ public class MovieRating {
     private Integer ratingId;
     private String rating;
     private String date;
+    private Integer profileId;
 
-    public MovieRating(Integer ratingId, String rating, String date) {
+    public MovieRating(Integer ratingId, String rating, String date, Integer profileId) {
         this.ratingId = ratingId;
         this.rating = rating;
         this.date = date;
+        this.profileId = profileId;
     }
 
     public MovieRating() {}
@@ -41,5 +43,13 @@ public class MovieRating {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public Integer getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Integer profileId) {
+        this.profileId = profileId;
     }
 }

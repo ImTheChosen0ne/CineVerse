@@ -215,7 +215,7 @@ function OpenMovieModal({movie, position}) {
                 />
               </div>
             </div>
-            <div className="videoMerchPlayer--boxart-wrapper" style="position: static;">
+            <div className="videoMerchPlayer--boxart-wrapper" style={{position: "static", display: "none"}}>
               <img className="previewModal--boxart" src={movie.media} alt={movie.title} style={{opacity: 0}}/>
               <img alt={movie.title} src={movie.media} style={{display: "none"}}/>
               <img className="previewModal--boxart" src={movie.media} alt={movie.title} style={{opacity: 0}}/>

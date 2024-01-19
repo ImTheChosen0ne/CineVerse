@@ -91,7 +91,11 @@ function Account() {
                                                     </div>
                                                     <div className="profile-summary">
                                                         <h3><b>{profile.name}</b></h3>
-                                                        <div>All Maturity Ratings</div>
+                                                        {profile.maturity ? (
+                                                            <div>All Maturity Ratings</div>
+                                                        ) : (
+                                                            <div>TV-PG PG and below</div>
+                                                        )}
                                                     </div>
                                                     <button className="profile-account-button">
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

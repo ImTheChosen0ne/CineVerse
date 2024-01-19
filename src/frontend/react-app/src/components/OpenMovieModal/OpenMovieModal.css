@@ -1,218 +1,420 @@
-.modal-wrapper {
-    position: absolute;
-    background-color: white;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.75);
+.previewModal--container {
+    background-color: transparent;
     border-radius: 6px;
-    background-color: #181818;
     color: #fff;
     font-size: 16px;
     overflow: hidden;
+    position: absolute;
     will-change: transform;
-    /*width: 356px;*/
-    /*top: 497px;*/
-    /*left: 726px;*/
-    transform-origin: center center 0;
-    transform: none;
-    z-index: 3;
-    opacity: 1;
-    width: 100%;
-    /*height: 100%;*/
+    z-index: 2;
+    width: 385px;
 }
 
-.modal-content {
-
+.previewModal--wrapper * {
+    box-sizing: inherit;
 }
 
-.video-wrapper {
+.previewModal--player_container {
     background-color: #000;
-    /*cursor: pointer;*/
+    cursor: pointer;
     position: relative;
-    letter-spacing: 0 !important;
 }
 
-.video-container {
-    /*position: absolute;*/
-    width: 100%;
+.previewModal--player_container .videoMerchPlayer--boxart-wrapper {
     height: 100%;
-    overflow: hidden;
+    padding-top: 56.3925%;
+    width: 100%;
 }
 
-.video {
-    /*position: relative;*/
-    width: 100%;
+.previewModal--player_container .previewModal--boxart {
+    background-size: cover;
+    left: 0;
+    position: absolute;
+    top: 0;
     height: 100%;
-    overflow: hidden;
-}
-
-.video video {
-    /*position: absolute;*/
     width: 100%;
-    object-fit: cover;
 }
 
-.movie-info {
+video {
+    display: inline-block;
+}
+
+.previewModal--container .previewModal--info {
     background-color: #181818;
+    position: relative;
+}
+
+.ltr-xqhbvx {
     padding: 1em;
     cursor: pointer;
-    height: fit-content;
-    overflow: hidden;
 }
 
-.movie-info-button-container {
+.previewModal--metadatAndControls.mini-modal {
+    grid-template-columns: 100%;
+}
+
+.previewModal--metadatAndControls {
+    background-color: #181818;
+    display: grid;
+    position: relative;
+    width: 100%;
+}
+
+.previewModal--metadatAndControls .previewModal--metadatAndControls-container > :not(.new-badge) {
     margin-bottom: .5em;
+}
+
+.buttonControls--container {
     align-items: center;
     display: flex;
+    margin-bottom: 1em;
     min-height: 2em;
     position: relative;
-    z-index: 5;
+    z-index: 2;
 }
 
-.movie-info-button-container a {
-    margin: .25em;
-    cursor: pointer;
-    text-decoration: none;
-    background-color: transparent;
+.ltr-jewi6s::-moz-focus-inner {
+    border: medium;
 }
 
-.movie-info-button-container div {
-    margin: .25em;
-    cursor: pointer;
-    text-decoration: none;
-    background-color: transparent;
+button::-moz-focus-inner, input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
 }
 
-.movie-info-button-container .button-container.play{
-    /*max-height: 42px;*/
-    /*max-width: 42px;*/
-    min-height: 42px;
-    min-width: 42px;
-    border-width: 2px;
-    padding-left: .8rem;
-    padding-right: .8rem;
-    background-color: transparent;
+.previewModal--wrapper.has-smaller-buttons button:not(.hasLabel):not(.dropdown-toggle) {
+    max-height: 3.5vw; /* Convert 42px to 4vw */
+    max-width: 3.5vw;  /* Convert 42px to 4vw */
+    min-height: 3vw; /* Convert 32px to 3vw */
+    min-width: 3vw;
 }
 
-.movie-info-button-container .button-container {
-    /*max-height: 42px;*/
-    /*max-width: 42px;*/
-    min-height: 42px;
-    min-width: 42px;
-    padding-left: .8rem;
-    padding-right: .8rem;
-    background-color: rgba(42,42,42,.6);
-}
-
-.movie-info-button-container .button-container.play{
+.previewModal--wrapper button.color-primary:not(.hasLabel) {
     background-color: #fff;
+    border-width: 2px;
+}
+
+.ltr-jewi6s.hasIcon {
+    padding-left: .8vw;
+    padding-right: .8vw;
+}
+
+.ltr-jewi6s.hasIcon {
+    padding-left: 1.4vw;
+    padding-right: 1.4vw;
+}
+
+.ltr-jewi6s.color-primary {
+    background-color: white;
     color: black;
 }
 
-.button-container.play {
-    height: 1.8rem;
-    width: 1.8rem;
-    display: flex;
+.ltr-jewi6s {
+    -moz-box-align: center;
     align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    border: none;
+    appearance: none;
+    border: 0;
     cursor: pointer;
-}
-
-.button-container {
-    height: 1.8rem;
-    width: 1.8rem;
     display: flex;
-    align-items: center;
     justify-content: center;
-    border-radius: 100%;
-    /*border-color: hsla(0,0%,100%,.5);*/
-    /*border-width: 2px;*/
-    cursor: pointer;
-    color: #fff;
-    border: 1px solid rgba(255,255,255,.7);
+    -moz-box-pack: center;
+    opacity: 1;
+    padding: 0.8rem;
+    position: relative;
+    user-select: none;
+    will-change: background-color, color;
+    word-break: break-word;
+    white-space: nowrap;
+    border-radius: 50%;
 }
 
-.button {
-    display: flex;
+/*button {*/
+/*    text-transform: none;*/
+/*}*/
+
+/*button {*/
+/*    overflow: visible;*/
+/*}*/
+
+.ltr-1st24vv {
+    line-height: 0;
+}
+
+.ltr-iyulz3.small {
+    height: 1.8vw;
+    width: 1.8vw;
+}
+
+.ltr-iyulz3 {
+    -moz-box-align: center;
     align-items: center;
+    display: flex;
+    justify-content: center;
+    -moz-box-pack: center;
 }
 
-.play:hover {
-    background-color: rgba(255, 255, 255, 0.78);
-}
-
-.button svg {
+.previewModal--wrapper.has-smaller-buttons button.color-primary:not(.hasLabel) svg, .previewModal--wrapper.has-smaller-buttons button.color-supplementary:not(.hasLabel) svg {
     width: auto;
+}
+
+.previewModal--wrapper button.color-primary:not(.hasLabel) svg {
+    width: 2rem;
+}
+
+.ltr-iyulz3 svg {
     height: 100%;
+    width: 100%;
+}
+
+svg:not(:root) {
     overflow: hidden;
 }
 
-.movie-info-button-container .more-info-button {
-    margin-left: auto;
-    position: relative;
+.ltr-11vo9g5::-moz-focus-inner {
+    border: medium;
 }
 
-.liked-overlay-mini {
-    opacity: 1;
-    transform: translateX(-65%) translateY(-50%) scale(1) translateZ(0);
-    margin-left: .1rem;
-    margin-top: -.1rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+.previewModal--wrapper button.color-supplementary:not(.hasLabel) {
+    background-color: rgba(42,42,42,.6);
+    border-color: hsla(0,0%,100%,.5);
+    border-width: 2px;
 }
 
-.liked-overlay-mini {
-    display: none;
-}
-
-.liked-overlay-mini.visible {
-    display: block;
-}
-
-.selection-mini {
-    width: 9rem;
-    background-color: rgb(35,35,35) !important;
-    border-radius: 3rem;
-    box-shadow: rgba(0,0,0,0.6) 0 0 2px 0, rgba(0,0,0,0.5) 0px 8px 16px 0px;
-    display: flex;
-    padding: .8rem;
-    justify-content: space-between;
-    align-items: center;
-    height: auto;
-}
-
-.disliked-liked-selection-mini {
-    margin: 0 .2rem;
-    position: relative;
-}
-
-.selection-button-mini {
-    border: 2px solid rgba(255,255,255,.07);
-    border-radius: 50%;
+.ltr-11vo9g5.round.color-supplementary {
+    border: 1px solid rgba(255,255,255, 0.7);
     color: white;
-    padding: 0;
-    height: 3.2rem;
-    width: 3.2rem;
-    background-color: transparent;
 }
 
-.like {
-    border: none;
+.ltr-11vo9g5.hasIcon {
+    padding-left: .8vw;
+    padding-right: .8vw;
 }
 
-.selection-button-mini:hover {
-    border-color: #fff;
-    background-color: rgba(128,128,128,.2);
+.ltr-11vo9g5.hasIcon {
+    padding-left: 1.4vw;
+    padding-right: 1.4vw;
 }
 
-.selection-button-mini path{
+.ltr-11vo9g5 {
+    -moz-box-align: center;
+    align-items: center;
+    appearance: none;
+    border: 0;
+    cursor: pointer;
     display: flex;
     justify-content: center;
-    align-items: center;
+    -moz-box-pack: center;
+    opacity: 1;
+    padding: 0.8rem;
+    position: relative;
+    user-select: none;
+    will-change: background-color, color;
+    word-break: break-word;
+    white-space: nowrap;
+    border-radius: 50%;
 }
 
-.disliked {
-    margin-top: .1rem;
-    transform: rotate(180deg);
+.ltr-179t5g5 {
+    position: relative;
+    z-index: 1;
+}
+
+.buttonControls--container > * {
+    margin: .25rem;
+}
+
+.ltr-126oqy.round.color-supplementary {
+    border: 1px solid rgba(255,255,255, 0.7);
+    color: white;
+}
+
+.ltr-126oqy.hasIcon {
+    padding-left: .8vw;
+    padding-right: .8vw;
+}
+
+.ltr-126oqy.hasIcon {
+    padding-left: 1.4vw;
+    padding-right: 1.4vw;
+}
+
+.ltr-126oqy {
+    -moz-box-align: center;
+    align-items: center;
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    -moz-box-pack: center;
+    opacity: 1;
+    padding: 0.8rem;
+    position: relative;
+    user-select: none;
+    will-change: background-color, color;
+    word-break: break-word;
+    white-space: nowrap;
+    border-radius: 50%;
+}
+
+.ltr-bjn8wh {
+    position: relative;
+}
+
+.buttonControls--expand-button {
+    margin-left: auto;
+}
+
+.previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-info {
+    margin: .8em 0;
+}
+
+.previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-custom-text, .previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-sims, .previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-synopsis, .previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-tags .evidence-list {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+}
+
+.evidence-list {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+}
+
+.previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-custom-text .evidence-item, .previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-sims .evidence-item, .previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-synopsis .evidence-item, .previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-tags .evidence-list .evidence-item {
+    display: flex;
+    padding-right: .5vw;
+}
+
+.evidence-list .evidence-item {
+    align-items: center;
+    display: flex;
+    padding-right: .5vw;
+}
+
+.previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-custom-text .evidence-separator::before, .previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-sims .evidence-separator::before, .previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-synopsis .evidence-separator::before, .previewModal--metadatAndControls .previewModal--metadatAndControls-container .previewModal--metadatAndControls-tags-container .evidence-tags .evidence-list .evidence-separator::before {
+    color: #646464;
+    content: "\2022";
+    display: inline-block;
+    padding-right: .5vw;
+}
+
+.evidence-list .evidence-separator::before {
+    color: #646464;
+    content: "\2022";
+    display: inline-block;
+    padding-right: .5vw;
+}
+
+.videoMetadata--container {
+    align-items: center;
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.videoMetadata--container .videoMetadata--first-line {
+    margin: .25em .5em .25em 0;
+    max-width: 100%;
+}
+
+.videoMetadata--container .videoMetadata--second-line {
+    align-items: center;
+    color: #bcbcbc;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.match-score-wrapper .rating-inner {
+    display: flex;
+    transition: margin-right .55s cubic-bezier(.86,0,.07,1) 165s;
+}
+
+.match-score-wrapper .show-match-score .match-score {
+    max-width: 300px;
+    opacity: 1;
+    transition: margin-right .55s cubic-bezier(.86,0,.07,1) 165s, opacity .15s linear 2.2s;
+}
+
+.videoMetadata--container .match-score {
+    color: #46d369;
+    white-space: unset;
+}
+
+.videoMetadata--container .videoMetadata--second-line > * {
+    margin-right: .5em;
+}
+
+.maturity-rating {
+    display: inline-block;
+}
+
+.maturity-rating .maturity-number {
+    border: 1px solid hsla(0,0%,100%,.4);
+    overflow: hidden;
+    padding: 0 .4em;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    unicode-bidi: normal;
+    white-space: nowrap;
+}
+
+.videoMetadata--container .videoMetadata--second-line .duration {
+    white-space: nowrap;
+}
+
+.videoMetadata--container .videoMetadata--second-line > .player-feature-badge {
+    margin-right: .715em;
+}
+
+.player-feature-badge {
+    border: 1px solid hsla(0,0%,100%,.4);
+    border-radius: 3px;
+    color: hsla(0,0%,100%,.9);
+    font-size: .7em;
+    padding: 0 .5em;
+    white-space: nowrap;
+}
+
+@media screen and (min-width: 1601px) and (max-width: 1920px) and (orientation: landscape) {
+    .previewModal--metadatAndControls-info, .previewModal--metadatAndControls-tags-container {
+        font-size: .1vw;
+    }
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1600px) and (max-aspect-ratio: 4 / 3) {
+    .previewModal--metadatAndControls-info, .previewModal--metadatAndControls-tags-container {
+        font-size: 1.2vw;
+    }
+}
+
+@media screen and (min-width: 841px) and (max-width: 1280px) and (max-aspect-ratio: 4 / 3) {
+    .previewModal--metadatAndControls-info, .previewModal--metadatAndControls-tags-container {
+        font-size: 1.5vw;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 840px) and (max-aspect-ratio: 4 / 3) {
+    .previewModal--metadatAndControls-info, .previewModal--metadatAndControls-tags-container {
+        font-size: 1.8vw;
+    }
+}
+
+
+@media screen and (min-width: 1400px) {
+    .previewModal--metadatAndControls-info, .previewModal--metadatAndControls-tags-container {
+        font-size: 1vw;
+    }
 }

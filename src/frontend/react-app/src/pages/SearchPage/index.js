@@ -19,10 +19,7 @@ function Search() {
         dispatch(getMovies());
     }, [dispatch]);
 
-    const filteredMovies = movies.filter(
-        (movie) =>
-            movie.title?.toLowerCase().includes(query?.toLowerCase())
-    );
+    const filteredMovies = movies.filter((movie) => movie.title?.toLowerCase().includes(query?.toLowerCase()));
 
     const onMouseEnter = (movie, event) => {
         const rect = event.target.getBoundingClientRect();
@@ -32,7 +29,6 @@ function Search() {
             width: rect.width,
             height: rect.height
         };
-
         setModalContent(<OpenMovieModal movie={movie} position={positionInfo}/>);
     };
 
@@ -41,21 +37,29 @@ function Search() {
             <div className="search-movies">
                 <div className="search-movie-container">
                     <div className="search-movie-wrapper">
-            {filteredMovies.map((movie) => (
-                    <div
-                        key={movie?.movieId}
-                        className="search-movie"
-                        onMouseEnter={(event) => onMouseEnter(movie, event)}
-                    >
-                        <div className="search-movie-img">
-                            <img className="poster" src={movie?.poster} alt={movie?.title}/>
+                    {filteredMovies.map((movie) => (
+                        <div className="ltr-1cjyscz" onMouseEnter={(event) => onMouseEnter(movie, event)}>
+                            <div className="title-card-container">
+                                <div id="title-card-0-0" className="title-card">
+                                    <div className="ptrack-content">
+                                        <a className="slider-refocus">
+                                            <div className="boxart-size-16x9 boxart-container boxart-rounded">
+                                                <img className="boxart-image boxart-image-in-padded-container" src={movie?.media} alt={movie?.title}/>
+                                                <div className="fallback-text-container">
+                                                    <p className="fallback-text">A Little Help with Carol Burnett</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div className="bob-container"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-            ))}
+                    ))}
                     </div>
                 </div>
             </div>
-            <Footer/>
+        <Footer/>
         </div>
     );
 }

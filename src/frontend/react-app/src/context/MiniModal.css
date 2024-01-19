@@ -1,12 +1,21 @@
-#mini-modal {
+.previewModal--wrapper {
+    display: flex;
+    justify-content: center;
+    left: 0;
     position: absolute;
     top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+    will-change: scroll-position;
 }
+
+/*#mini-modal {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    z-index: 1000;*/
+/*}*/
 
 #mini-modal-content {
     display: flex;

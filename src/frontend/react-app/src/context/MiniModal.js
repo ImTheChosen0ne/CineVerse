@@ -1,10 +1,10 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, {useRef, useState, useContext} from 'react';
 import ReactDOM from 'react-dom';
 import './MiniModal.css';
 
 const MiniModalContext = React.createContext();
 
-export function MiniModalProvider({ children }) {
+export function MiniModalProvider({children}) {
     const modalRef = useRef();
     const [modalContent, setModalContent] = useState(null);
     // callback function that will be called when modal is closing
@@ -33,24 +33,24 @@ export function MiniModalProvider({ children }) {
             <MiniModalContext.Provider value={contextValue}>
                 {children}
             </MiniModalContext.Provider>
-            <div ref={modalRef} />
+            <div ref={modalRef}/>
         </>
     );
 }
 
 export function MiniModal() {
-    const { modalRef, modalContent, closeMiniModal } = useContext(MiniModalContext);
+    const {modalRef, modalContent, closeMiniModal} = useContext(MiniModalContext);
     // If there is no div referenced by the modalRef or modalContent is not a
     // truthy value, render nothing:
     if (!modalRef || !modalRef.current || !modalContent) return null;
 
     // Render the following component to the div referenced by the modalRef
     return ReactDOM.createPortal(
-        <div id="mini-modal">
+        <div className="focus-trap-wrapper previewModal--wrapper mini-modal has-smaller-buttons">
             {/*<div id="mini-modal-background" onClick={closeModal} />*/}
-            <div id="mini-modal-content">
+            {/*<div id="mini-modal-content">*/}
                 {modalContent}
-            </div>
+            {/*</div>*/}
         </div>,
         modalRef.current
     );

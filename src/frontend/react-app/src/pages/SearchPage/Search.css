@@ -31,13 +31,135 @@
     display: inline-block;
     min-height: 65px;
     width: 100%;
+    margin-top: 76px;
 }
 
 .search-movie-wrapper {
     margin: 10px 3rem;
     overflow: hidden;
-    /*line-height: 1.6;*/
+    line-height: 1.6;
     display: grid;
     gap: 4vw 0;
     grid-template-columns: repeat(6, 1fr);
+}
+
+.ltr-1cjyscz:first-child {
+    padding-left: 0;
+}
+
+.ltr-1cjyscz {
+    padding: 0 0.2vw;
+}
+
+.title-card:not(.loadingTitle) {
+    display: block;
+}
+
+.title-card {
+    position: relative;
+    z-index: 1;
+}
+
+.title-card .slider-refocus {
+    display: block;
+}
+
+.boxart-size-16x9, .boxart-size-32x9 {
+    height: 0;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.boxart-size-16x9 {
+    padding: 28.125% 0;
+}
+
+.boxart-rounded {
+    border-radius: .2vw;
+}
+
+.title-card .boxart-container img {
+    cursor: pointer;
+}
+
+.boxart-image-in-padded-container {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+img {
+    border: 0;
+}
+
+.boxart-rounded .fallback-text-container {
+    border-radius: 4px;
+}
+
+.fallback-text-container {
+    background-color: #222;
+    background-image: linear-gradient(transparent,#000);
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: -1;
+}
+
+.fallback-text {
+    bottom: 0;
+    box-sizing: border-box;
+    font-size: 1.5em;
+    font-weight: 500;
+    left: 8%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0 0 10%;
+    position: absolute;
+    right: 8%;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (min-width: 1500px) {
+    .search-movie-wrapper {
+        margin: 10px 60px;
+    }
+}
+
+@media screen and (min-width: 1101px) and (max-width: 1400px) {
+    .search-movie-wrapper {
+        grid-template-columns: repeat(5, 1fr);
+        row-gap: 4.5vw;
+    }
+}
+
+@media screen and (min-width: 801px) and (max-width: 1100px) {
+    .search-movie-wrapper {
+        grid-template-columns: repeat(4, 1fr);
+        /*margin-left: 0;*/
+        row-gap: 5.5vw;
+    }
+}
+
+@media screen and (min-width: 501px) and (max-width: 800px) {
+    .search-movie-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+        /*margin-left: 0;*/
+        row-gap: 7.5vw;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .search-movie-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        /*margin-left: 0;*/
+        row-gap: 7.5vw;
+    }
 }

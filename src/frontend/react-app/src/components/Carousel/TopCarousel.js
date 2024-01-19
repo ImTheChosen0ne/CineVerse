@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './Carousel.css';
@@ -6,21 +6,22 @@ import OpenMovieModal from "../OpenMovieModal";
 import { useMiniModal } from "../../context/MiniModal";
 
 function TopCarousel({ movies }) {
-    const { setModalContent, modalRef } = useMiniModal();
+    const { setModalContent } = useMiniModal();
 
     const [showCaret, setShowCaret] = useState("")
 
     const [animation, setAnimation] = useState("")
 
     const onMouseEnter = (movie, event) => {
-        const rect = event.target.getBoundingClientRect();
+        const container = event.currentTarget.querySelector('.title-card-container');
+        const rect = container.getBoundingClientRect();
+
         const positionInfo = {
             top: rect.top,
             left: rect.left,
             width: rect.width,
             height: rect.height
         };
-
         setModalContent(<OpenMovieModal movie={movie} position={positionInfo}/>);
     };
 
@@ -113,66 +114,53 @@ function TopCarousel({ movies }) {
         setCurrentSlide((prevSlide) => (prevSlide - 1 + totalSlides) % totalSlides);
     };
 
-    const sliderStyle = {
-        transform: `translate3d(-${currentSlide * slideWidth}%, 0px, 0px)`,
-    };
+    const sliderStyle = {transform: `translate3d(-${currentSlide * slideWidth}%, 0px, 0px)`};
 
     return (
-            <div className="lolomoRow lolomoRow_title_card ltr-0" data-list-context="mostWatched">
-                <h2 className="rowHeader ltr-0">
-                    <span className="rowTitle ltr-0">
-                        <div className="row-header-title">Top 10 Movies in the U.S. Today</div>
-                    </span>
-                </h2>
-                <div className="rowContainer rowContainer_title_card" id="row-2">
-                    <div className="ptrack-container">
-                        <div className="rowContent slider-hover-trigger-layer">
-                            <div className="slider">
-                                <span className={`handle handlePrev ${showCaret}`}
-                                      tabIndex="0" role="button"
-                                      aria-label="See previous titles"
-                                      onClick={handlePrevSlide}>
-                                    <b className="indicator-icon icon-leftCaret"></b>
-                                </span>
-                                <div className="sliderMask showPeek">
-                                    <div className={`sliderContent row-with-x-columns ${animation}`} style={sliderStyle}>
-                                        {movies.slice(0, 10).map((movie, index) => (
-                                            <div
-                                                key={movie?.movieId}
-                                                className={`slider-item slider-item-${index}`}
-                                                onMouseEnter={(event) => onMouseEnter(movie, event)}>
-                                                <div className="title-card-container ltr-0">
-                                                    <div id="title-card-2-0" className="title-card title-card-top-10">
-                                                        <div className="ptrack-content"
-                                                             data-ui-tracking-context="%7B%22list_id%22:%22NES_562C5DC97BCE57F203C1259964BE6E-F4694D00993BC3-EDAB1D4519_p_1705424482247%22,%22location%22:%22homeScreen%22,%22rank%22:0,%22request_id%22:%22ce850c92-4eb4-466c-9c2d-3a1bae3d1a12-201478617%22,%22row%22:2,%22track_id%22:262617323,%22unifiedEntityId%22:%22Video:81446739%22,%22video_id%22:81446739,%22image_key%22:%22boxshot%7C1ee9eb00-9856-11ee-a156-0a91074845f1%7Cen%7C3IQ,BADGE%7Crecently.added%7Cen%22,%22supp_video_id%22:1,%22lolomo_id%22:%22NES_562C5DC97BCE57F203C1259964BE6E_p_1705420569111%22,%22maturityMisMatchEdgy%22:false,%22maturityMisMatchNonEdgy%22:false,%22appView%22:%22boxArt%22,%22usePresentedEvent%22:true%7D"
-                                                             data-tracking-uuid="19b818e6-cabb-4d43-8c03-f8784ae1c46e">
-                                                            <div
-                                                                className="boxart-size-7x10 boxart-container boxart-rounded">
-                                                                {top10RankSVGs[index]}
-                                                                <img className="boxart-image-in-padded-container"
-                                                                     src={movie?.poster} alt={movie?.title}/>
-                                                                <div className="fallback-text-container"
-                                                                     aria-hidden="true">
-                                                                    <p className="fallback-text">Lift</p>
-                                                                </div>
+        <div className="lolomoRow lolomoRow_title_card ltr-0">
+            <h2 className="rowHeader ltr-0">
+                <span className="rowTitle ltr-0">
+                    <div className="row-header-title">Top 10 Movies in the U.S. Today</div>
+                </span>
+            </h2>
+            <div className="rowContainer rowContainer_title_card">
+                <div className="ptrack-container">
+                    <div className="rowContent slider-hover-trigger-layer">
+                        <div className="slider">
+                            <span className={`handle handlePrev ${showCaret}`}
+                                  tabIndex="0" role="button"
+                                  onClick={handlePrevSlide}>
+                                <b className="indicator-icon icon-leftCaret"></b>
+                            </span>
+                            <div className="sliderMask showPeek">
+                                <div className={`sliderContent row-with-x-columns ${animation}`} style={sliderStyle}>
+                                    {movies.slice(0, 10).map((movie, index) => (
+                                        <div key={movie?.movieId} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>
+                                            <div className="title-card-container ltr-0" >
+                                                <div id="title-card-2-0" className="title-card title-card-top-10">
+                                                    <div className="ptrack-content">
+                                                        <div className="boxart-size-7x10 boxart-container boxart-rounded">
+                                                            {top10RankSVGs[index]}
+                                                            <img className="boxart-image-in-padded-container" src={movie?.poster} alt={movie?.title}/>
+                                                            <div className="fallback-text-container" aria-hidden="true">
+                                                                <p className="fallback-text">Lift</p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        ))}
-                                    </div>
+                                        </div>
+                                    ))}
                                 </div>
-                                <span className="handle handleNext active" tabIndex="0" role="button"
-                                      aria-label="See more titles"
-                                      onClick={handleNextSlide}>
-                                    <b className="indicator-icon icon-rightCaret"></b>
-                                </span>
                             </div>
+                            <span className="handle handleNext active" role="button" onClick={handleNextSlide}>
+                                <b className="indicator-icon icon-rightCaret"></b>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     );
 }
 

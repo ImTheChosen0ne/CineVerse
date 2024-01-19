@@ -24,7 +24,6 @@ function MyList() {
             width: rect.width,
             height: rect.height
         };
-
         setModalContent(<OpenMovieModal movie={movie} position={positionInfo}/>);
     };
 
@@ -34,17 +33,14 @@ function MyList() {
                 setLoading(false);
             }, 2000);
         };
-
         fetchData();
     }, []);
 
     return (
         <div className="my-list-container">
-            {/*<div className="my-list-container-title">*/}
                 <div className="my-list-wrapper-title">
                     <h1>My List</h1>
                 </div>
-            {/*</div>*/}
             <div className="list-profiles browse-spinner">
                 <Spinner loading={loading}/>
             </div>
@@ -56,13 +52,22 @@ function MyList() {
                             :
                             <div className="my-list-movie-wrapper">
                                 {sessionProfile?.watchLaterMovies?.map((movie, index) => (
-                                    <div
-                                        key={movie?.movieId}
-                                        className="my-list-movie"
-                                        onMouseEnter={(event) => onMouseEnter(movie, event)}
-                                    >
-                                        <div className="my-list-movie-img">
-                                            <img className="poster" src={movie?.media} alt={movie?.title}/>
+                                    <div className="ltr-1cjyscz" onMouseEnter={(event) => onMouseEnter(movie, event)}>
+                                        <div className="title-card-container">
+                                            <div id="title-card-0-0" className="title-card">
+                                                <div className="ptrack-content">
+                                                    <a className="slider-refocus">
+                                                        <div
+                                                            className="boxart-size-16x9 boxart-container boxart-rounded">
+                                                            <img className="boxart-image boxart-image-in-padded-container" src={movie?.media} alt={movie?.title}/>
+                                                            <div className="fallback-text-container">
+                                                                <p className="fallback-text"></p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div className="bob-container"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
@@ -70,7 +75,7 @@ function MyList() {
                         }
                     </div>
                 </div>
-            )}
+                )}
             <Footer className="my-list-footer"/>
         </div>
     );

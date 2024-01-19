@@ -8,7 +8,7 @@ import Spinner from "../../components/Spinner";
 function SelectProfilePage() {
     const sessionUser = useSelector(state => state.session.user);
     const [loading, setLoading] = useState(true);
-
+    const sortedProfiles = sessionUser.profiles.sort((a, b) => a.profileId - b.profileId);
     const { updateProfile } = useContext(ProfileContext);
     const handleProfileSelect = (profile) => {
         updateProfile(profile);
@@ -18,9 +18,8 @@ function SelectProfilePage() {
         const fetchData = async () => {
             setTimeout(() => {
                 setLoading(false);
-            }, 2000);
+            }, 1000);
         };
-
         fetchData();
     }, []);
 
@@ -34,7 +33,7 @@ function SelectProfilePage() {
             <div className="profiles">
             <h1>Who's watching?</h1>
                 <ul className="choose-profile">
-                    {sessionUser.profiles.map((profile) => (
+                    {sortedProfiles.map((profile) => (
                         <li key={profile.profileId} className="profile-wrapper">
                             <div>
                                 <NavLink to={`/browse/${profile.name}`} onClick={() => handleProfileSelect(profile)}>
@@ -56,10 +55,8 @@ function SelectProfilePage() {
                                 <div className="profile-icon add">
                                     <div className="addIconSvg">
                                         <div className="addIcon">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 viewBox="0 0 24 24">
-                                                <path
-                                                    d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/>
                                             </svg>
                                         </div>
                                     </div>

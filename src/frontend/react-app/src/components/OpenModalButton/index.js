@@ -17,7 +17,9 @@ function OpenModalButton({
   };
 
   return (
-      <button className="button-container" onClick={onClick}>{buttonText}</button>
+      <button className="color-supplementary hasIcon round ltr-11vo9g5" onClick={onClick}>
+          {buttonText}
+    </button>
   );
 }
 

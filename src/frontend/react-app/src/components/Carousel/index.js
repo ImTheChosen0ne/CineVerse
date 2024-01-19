@@ -58,7 +58,7 @@ function Carousel({ movies, title }) {
                             </span>
                             <div className="sliderMask showPeek">
                                 <div className={`sliderContent row-with-x-columns ${animation}`} style={sliderStyle}>
-                                    {movies.map((movie, index) => (
+                                    {movies?.map((movie, index) => (
                                         <div key={movie?.movieId} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>
                                             <div className="title-card-container ltr-0">
                                                 <div className="ptrack-content">
@@ -75,7 +75,7 @@ function Carousel({ movies, title }) {
                                     ))}
                                 </div>
                             </div>
-                            <span className="handle handleNext active" role="button" onClick={handleNextSlide} style={movies.length < 6 ? { display: "none" } : { display: "" }}>
+                            <span className="handle handleNext active" role="button" onClick={handleNextSlide} style={movies?.length < 6 ? { display: "none" } : { display: "" }}>
                                 <b className="indicator-icon icon-rightCaret"></b>
                             </span>
                         </div>

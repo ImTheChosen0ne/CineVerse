@@ -42,7 +42,7 @@ function BrowsePage() {
     const comedyMovies = movies?.filter((movie) => movie.genres?.includes("COMEDY"));
     const scifiFantasyMovies = movies?.filter((movie) => movie.genres?.includes("SCIENCE_FICTION") || movie.genres?.includes("FANTASY"));
     const dramaMovies = movies?.filter((movie) => movie.genres?.includes("DRAMA"));
-    const trendignMovies = movies.sort((a, b) => b.views - a.views);
+    const trendignMovies = movies?.sort((a, b) => b.views - a.views);
 
     return (
         <div>
@@ -85,13 +85,13 @@ function BrowsePage() {
                         <Carousel movies={movies} title={"We Think You'll Love These"}/>
                     </div>
                     <div className="movie-section">
-                        <Carousel movies={movies} title={`Because you watched ${randomViewedMovie.movie.title}`}/>
+                        <Carousel movies={movies} title={`Because you watched ${randomViewedMovie?.movie.title}`}/>
                     </div>
                     <div className="movie-section">
                         <Carousel movies={trendignMovies} title={"Trending Now"}/>
                     </div>
                     <div className="movie-section">
-                        <Carousel movies={movies} title={`Top Picks for ${profile.name}`}/>
+                        <Carousel movies={movies} title={`Top Picks for ${profile?.name}`}/>
                     </div>
                     <div className="movie-section">
                         <Carousel movies={actionAndAdventureMovies} title={"Blockbuster Action & Adventure Movies"}/>

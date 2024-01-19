@@ -134,7 +134,7 @@ function TopCarousel({ movies }) {
                             </span>
                             <div className="sliderMask showPeek">
                                 <div className={`sliderContent row-with-x-columns ${animation}`} style={sliderStyle}>
-                                    {movies.slice(0, 10).map((movie, index) => (
+                                    {movies?.slice(0, 10).map((movie, index) => (
                                         <div key={movie?.movieId} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>
                                             <div className="title-card-container ltr-0" >
                                                 <div id="title-card-2-0" className="title-card title-card-top-10">

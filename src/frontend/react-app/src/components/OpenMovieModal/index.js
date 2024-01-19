@@ -206,7 +206,7 @@ function OpenMovieModal({movie, position}) {
             <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
               <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
                 <video
-                    src={movie.trailer}
+                    src={movie?.trailer}
                     autoPlay
                     playsInline={true}
                     controls
@@ -216,9 +216,9 @@ function OpenMovieModal({movie, position}) {
               </div>
             </div>
             <div className="videoMerchPlayer--boxart-wrapper" style={{position: "static", display: "none"}}>
-              <img className="previewModal--boxart" src={movie.media} alt={movie.title} style={{opacity: 0}}/>
-              <img alt={movie.title} src={movie.media} style={{display: "none"}}/>
-              <img className="previewModal--boxart" src={movie.media} alt={movie.title} style={{opacity: 0}}/>
+              <img className="previewModal--boxart" src={movie?.media} alt={movie?.title} style={{opacity: 0}}/>
+              <img alt={movie?.title} src={movie?.media} style={{display: "none"}}/>
+              <img className="previewModal--boxart" src={movie?.media} alt={movie?.title} style={{opacity: 0}}/>
             </div>
           </div>
         <div className="previewModal--info" style={{opacity: 1, transform: "none"}}>
@@ -302,7 +302,7 @@ function OpenMovieModal({movie, position}) {
                               <span className="maturity-rating ">
                                 <span className="maturity-number">{movie.maturity}</span>
                               </span>
-                              <span className="duration">{movie.runtime}</span>
+                              <span className="duration">{movie?.runtime}</span>
                               <span className="player-feature-badge">HD</span>
                             </div>
                           </div>

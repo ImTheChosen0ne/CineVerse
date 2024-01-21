@@ -72,9 +72,11 @@ function BrowsePage() {
                             </div>
                         </div>
                     </div>
+                    {myListMovies.length>= 3 && (
                     <div className="movie-section">
                         <Carousel movies={myListMovies} title={"My List"}/>
                     </div>
+                    )}
                     <div className="movie-section">
                         <TopCarousel movies={movies} className="carousel"/>
                     </div>
@@ -84,9 +86,11 @@ function BrowsePage() {
                     <div className="movie-section">
                         <Carousel movies={movies} title={"We Think You'll Love These"}/>
                     </div>
+                    {profile?.viewedMovies.length >= 1  && (
                     <div className="movie-section">
                         <Carousel movies={movies} title={`Because you watched ${randomViewedMovie?.movie.title}`}/>
                     </div>
+                    )}
                     <div className="movie-section">
                         <Carousel movies={trendignMovies} title={"Trending Now"}/>
                     </div>

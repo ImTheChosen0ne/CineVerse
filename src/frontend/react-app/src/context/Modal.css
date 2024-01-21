@@ -8,8 +8,23 @@
   height: 100%;
   width: 100%;
   will-change: scroll-position;
-  z-index: 2;
+  z-index: 3;
   overflow: auto;
+}
+
+.previewModal--wrapper.detail-modal {
+  height: 100%;
+  width: 100%;
+}
+
+.previewModal--wrapper {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  will-change: scroll-position;
 }
 
 #modal-background {
@@ -23,20 +38,20 @@
 
 #modal-content {
   position: absolute;
-  width: 1153.12px;
-  top: 554px;
+  /*width: 1107.06px;*/
+  top: 522px;
   left: auto;
-  transform-origin: center top 0px;
+  /*transform-origin: center top 0px;*/
   transform: translateX(0px) translateY(calc(2em - 554px)) scaleX(1) scaleY(1) translateZ(0px);
-  box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
-  z-index: 2;
-  opacity: 1;
-  margin-bottom: 2em;
-  min-width: 850px;
-  background-color: transparent;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 16px;
-  overflow: visible;
-  will-change: transform;
+  /*box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;*/
+  /*z-index: 2;*/
+  /*opacity: 1;*/
+  /*margin-bottom: 2em;*/
+  /*min-width: 850px;*/
+  /*background-color: transparent;*/
+  /*border-radius: 6px;*/
+  /*color: #fff;*/
+  /*font-size: 16px;*/
+  /*overflow: visible;*/
+  /*will-change: transform;*/
 }

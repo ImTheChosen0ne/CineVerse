@@ -83,7 +83,7 @@ function Account() {
                                     <div className="account-subsection">
                                         <div className="account-subsection-group-profile">
                                             <ul>
-                                            {sessionUser.profiles.map((profile) => (
+                                            {sessionUser.profiles.sort((a, b) => a.profileId - b.profileId).map((profile) => (
                                                 <li className="account-profile" key={profile.profileId} onClick={() => selectProfile(profile.profileId)}>
                                                     <div className="profile-div">
                                                     <div>

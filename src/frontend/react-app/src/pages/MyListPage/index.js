@@ -51,7 +51,7 @@ function MyList() {
                             <div className="galleryMessage">You haven't added any titles to your list yet.</div>
                             :
                             <div className="my-list-movie-wrapper">
-                                {sessionProfile?.watchLaterMovies?.map((movie, index) => (
+                                {sessionProfile?.watchLaterMovies?.sort((a, b) => a.movieId - b.movieId).map((movie, index) => (
                                     <div className="ltr-1cjyscz" onMouseEnter={(event) => onMouseEnter(movie, event)}>
                                         <div className="title-card-container">
                                             <div id="title-card-0-0" className="title-card">

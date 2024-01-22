@@ -13,6 +13,9 @@ function BrowsePage() {
     const movies = Object.values(useSelector((state) => state.movies));
     const [loading, setLoading] = useState(true);
     const { profile } = useContext(ProfileContext);
+    const sessionUser = useSelector(state => state.session.user);
+    const updatedProfile = sessionUser.profiles.find(profiles => profiles.profileId === profile.profileId)
+
 
     const [videoEnded, setVideoEnded] = useState(false);
     const videoRef = useRef(null);
@@ -36,7 +39,7 @@ function BrowsePage() {
     }, []);
 
     const randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile.viewedMovies.length)];
-    const myListMovies = profile?.watchLaterMovies
+    const myListMovies = updatedProfile?.watchLaterMovies
     const actionAndAdventureMovies = movies?.filter((movie) => movie.genres?.includes("ACTION") || movie.genres?.includes("ADVENTURE"));
     const familyMovies = movies?.filter((movie) => movie.genres?.includes("FAMILY"));
     const comedyMovies = movies?.filter((movie) => movie.genres?.includes("COMEDY"));

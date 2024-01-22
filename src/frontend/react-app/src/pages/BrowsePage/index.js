@@ -59,7 +59,7 @@ function BrowsePage() {
                             <div className="main-inner">
                                 <video
                                     ref={videoRef}
-                                    src={movies[6]?.trailer}
+                                    src={movies[0]?.trailer}
                                     autoPlay
                                     playsInline={true}
                                     muted

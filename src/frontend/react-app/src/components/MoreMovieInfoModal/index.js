@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 
 import "./MoreMovieInfo.css";
 import {useModal} from "../../context/Modal";
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import {
 	createMovieRating, createViewedMovie,
 	createWatchLaterMovie,
@@ -16,6 +16,7 @@ import {getMovies} from "../../store/movies";
 
 function MoreMovieInfo({movie}) {
 	const dispatch = useDispatch();
+	const history = useHistory()
 	const movies = Object.values(useSelector((state) => state.movies));
 	const [videoEnded, setVideoEnded] = useState(false);
 	let [superLiked, setSuperLiked] = useState(false);
@@ -142,6 +143,7 @@ function MoreMovieInfo({movie}) {
 			updateProfile(updatedProfile);
 		}
 
+		closeModal()
 	}
 
 	const handleWatchLaterMovie = async (movie) => {
@@ -238,7 +240,7 @@ function MoreMovieInfo({movie}) {
 								<h1 className="previewModal--player-titleTreatment-logo" style={{width: "100%", opacity: 1, fontSize: "3rem", fontWeight:400, whiteSpace: "nowrap"}} >{movie.title}</h1>
 								{/*<img className="previewModal--player-titleTreatment-logo" alt="" src={} style={{width: "100%", opacity: 1}}/>*/}
 								<div className="buttonControls--container" data-uia="mini-modal-controls">
-									<a href="" className="primary-button playLink isToolkit">
+									<NavLink exact to={`/watch/${movie.movieId}`} className="primary-button playLink isToolkit">
 										<button className="color-primary hasLabel hasIcon ltr-podnco" onClick={() => handleViewed(movie)}>
 											<div className="ltr-1st24vv">
 												<div className="medium ltr-iyulz3">
@@ -252,7 +254,7 @@ function MoreMovieInfo({movie}) {
 											<div className="ltr-1npqywr" style={{width: "1rem"}}></div>
 											<span className="ltr-1vh9doa">Play</span>
 										</button>
-									</a>
+									</NavLink>
 									<div className="ltr-bjn8wh">
 										<div className="ptrack-content">
 											<button className="color-supplementary hasIcon round ltr-11vo9g5" onClick={() => handleWatchLaterMovie(movie)}>
@@ -584,8 +586,7 @@ function MoreMovieInfo({movie}) {
 								</div>
 								<div className="buttonControls--messaging"></div>
 							</div>
-							<div className="detail-modal has-smaller-buttons previewModal-audioToggle"
-								 style={{opacity: "0.4", display: "block"}}>
+							<div className="detail-modal has-smaller-buttons previewModal-audioToggle" style={{opacity: "0.4", display: "block"}}>
 								<div className="global-supplemental-audio-toggle">
 									<button className="color-supplementary hasIcon round ltr-11vo9g5" onClick={handleToggleMute}>
 										<div className="ltr-1st24vv">
@@ -638,8 +639,7 @@ function MoreMovieInfo({movie}) {
 										<div className="previewModal--detailsMetadata-info">
 											<div>
 												<div className="">
-													<div data-uia="videoMetadata--container"
-														 className="videoMetadata--container">
+													<div className="videoMetadata--container">
 														<div className="videoMetadata--first-line">
 															<span className="match-score-wrapper">
 																<div className="show-match-score rating-inner">
@@ -747,45 +747,40 @@ function MoreMovieInfo({movie}) {
 							<div className="ptrack-content">
 								<div className="ptrack-container">
 									<div className="moreLikeThis--wrapper">
-										<h3 className="previewModal--section-header moreLikeThis--header">
-											More Like This
-										</h3>
+										<h3 className="previewModal--section-header moreLikeThis--header">More Like This</h3>
 										<div className={`section-container ${collapsed}`}>
 											<div className="moreLikeThis--container">
 												{movies.map((movie) => (
-													<div className="titleCard--container more-like-this-item"
-														 role="button">
+													<div className="titleCard--container more-like-this-item" role="button">
 														<div className="titleCard-imageWrapper has-duration">
 															<div className="ptrack-content">
 																<img src={movie.media} alt={movie.title}/>
 															</div>
-															<div className="titleCard-playIcon">
+															<div className="titleCard-playIcon" onClick={() => {
+																history.push(`/watch/${movie.movieId}`)
+																closeModal()}}>
 																<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="titleCard-playSVG ltr-4z3qvp e1svuwfo1" data-name="Play" aria-hidden="true">
 																	<path d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z" fill="currentColor">
 																	</path>
 																</svg>
 															</div>
-															<span className="duration ellipsized">1h 45m</span>
+															<span className="duration ellipsized">{movie.runtime}</span>
 														</div>
 														<div className="titleCard--metadataWrapper">
 															<div>
 																<div className="videoMetadata--container-container">
-																	<div
-																		className="videoMetadata--container titlecard-videoMetadata videoMetadata--two-lines">
+																	<div className="videoMetadata--container titlecard-videoMetadata videoMetadata--two-lines">
 																		<div className="videoMetadata--first-line">
 																		<span className="match-score-wrapper no-rating">
-																			<div
-																				className="show-match-score rating-inner">
-																				<div
-																					className="meta-thumb-container thumb-down">
+																			<div className="show-match-score rating-inner">
+																				<div className="meta-thumb-container thumb-down">
 																					<svg width="24" height="24"
 																						 viewBox="0 0 24 24" fill="none"
 																						 xmlns="http://www.w3.org/2000/svg"
 																						 className="thumb thumb-down-filled svg-icon svg-icon-thumb-thumb-down-filled ltr-4z3qvp e1svuwfo1"
 																						 data-name="ThumbsDownFill"
 																						 aria-hidden="true">
-																						<path fill-rule="evenodd"
-																							  clip-rule="evenodd"
+																						<path fill-rule="evenodd" clip-rule="evenodd"
 																							  d="M10.593 17.7442L10.687 18.4959C10.8658 19.9265 12.0819 21 13.5236 21C13.7867 21 14 20.7867 14 20.5236V17.2868C14 17.0994 14.0527 16.9157 14.152 16.7568L16.0926 13.6519C16.3548 13.2323 16.7633 12.9248 17.2391 12.7888L19.2747 12.2072C19.704 12.0846 20 11.6922 20 11.2457V5.68387C20 5.30618 19.6938 5 19.3161 5C18.126 5 16.9565 4.68942 15.9232 4.09895L15.75 4C14.6032 3.34469 13.3053 3 11.9844 3H11H8H7.5C6.67157 3 6 3.67157 6 4.5C6 4.88418 6.14443 5.23462 6.38195 5.5H6C5.17157 5.5 4.5 6.17157 4.5 7C4.5 7.53991 4.78525 8.0132 5.21328 8.27737C4.522 8.41118 4 9.01963 4 9.75C4 10.5784 4.67157 11.25 5.5 11.25H5.67055C5.26638 11.5187 5 11.9783 5 12.5C5 13.3284 5.67157 14 6.5 14H10.875L10.593 16.2558C10.5312 16.75 10.5312 17.25 10.593 17.7442Z"
 																							  fill="currentColor">
 																						</path>
@@ -826,13 +821,7 @@ function MoreMovieInfo({movie}) {
 																					<div className="ltr-1st24vv">
 																						<div
 																							className="small ltr-iyulz3">
-																							<svg width="24" height="24"
-																								 viewBox="0 0 24 24"
-																								 fill="none"
-																								 xmlns="http://www.w3.org/2000/svg"
-																								 className="ltr-4z3qvp e1svuwfo1"
-																								 data-name="Plus"
-																								 aria-hidden="true">
+																							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ltr-4z3qvp e1svuwfo1" data-name="Plus" aria-hidden="true">
 																								<path
 																									fill-rule="evenodd"
 																									clip-rule="evenodd"
@@ -950,7 +939,6 @@ function MoreMovieInfo({movie}) {
 				</div>
 			</div>
 		</div>
-
 	);
 }
 

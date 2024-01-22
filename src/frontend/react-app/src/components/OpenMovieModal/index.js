@@ -11,6 +11,7 @@ import {
   deleteWatchLaterMovie, updateMovieRating, updateViewedMovie
 } from "../../store/session";
 import {ProfileContext} from "../../context/Profile";
+import {NavLink} from "react-router-dom";
 
 function OpenMovieModal({movie, position}) {
   const ulRef = useRef();
@@ -289,24 +290,23 @@ function OpenMovieModal({movie, position}) {
                 <div className="previewModal--metadatAndControls mini-modal has-smaller-buttons">
                   <div className="previewModal--metadatAndControls-container">
                     <div className="buttonControls--container mini-modal has-smaller-buttons">
-                      <a className="primary-button playLink isToolkit isRound">
+                      <NavLink exact to={`/watch/${movie.movieId}`} className="primary-button playLink isToolkit isRound">
                         <button className="color-primary hasIcon round ltr-jewi6s" onClick={() => handleViewed(movie)}>
                           <div className="ltr-1st24vv">
                             <div className="small ltr-iyulz3">
                               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                    xmlns="http://www.w3.org/2000/svg" className="ltr-4z3qvp e1svuwfo1" data-name="Play">
-                                <path
-                                    d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z"
-                                    fill="currentColor"></path>
+                                <path d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z"
+                                    fill="currentColor">
+                                </path>
                               </svg>
                             </div>
                           </div>
                         </button>
-                      </a>
+                      </NavLink>
                       <div className="ltr-bjn8wh">
                         <div className="ptrack-content">
-                          <button className="color-supplementary hasIcon round ltr-11vo9g5"
-                                  onClick={() => handleWatchLaterMovie(movie)}>
+                          <button className="color-supplementary hasIcon round ltr-11vo9g5" onClick={() => handleWatchLaterMovie(movie)}>
                             <div className="ltr-1st24vv">
                               <div className="small ltr-iyulz3">
                                 {watchLater ?

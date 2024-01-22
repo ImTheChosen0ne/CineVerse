@@ -9,7 +9,6 @@ function TopCarousel({ movies }) {
     const { setModalContent } = useMiniModal();
 
     const [showCaret, setShowCaret] = useState("")
-
     const [animation, setAnimation] = useState("")
 
     const onMouseEnter = (movie, event) => {
@@ -117,32 +116,30 @@ function TopCarousel({ movies }) {
     const sliderStyle = {transform: `translate3d(-${currentSlide * slideWidth}%, 0px, 0px)`};
 
     return (
-        <div className="lolomoRow lolomoRow_title_card ltr-0">
-            <h2 className="rowHeader ltr-0">
-                <span className="rowTitle ltr-0">
+        <div className="carouselRow carouselRow-title-card">
+            <h2 className="rowHeader">
+                <span className="rowTitle">
                     <div className="row-header-title">Top 10 Movies in the U.S. Today</div>
                 </span>
             </h2>
-            <div className="rowContainer rowContainer_title_card">
+            <div className="rowContainer">
                 <div className="ptrack-container">
-                    <div className="rowContent slider-hover-trigger-layer">
+                    <div className="rowContent slider-hover">
                         <div className="slider">
-                            <span className={`handle handlePrev ${showCaret}`}
-                                  tabIndex="0" role="button"
-                                  onClick={handlePrevSlide}>
+                            <span className={`handle handlePrev ${showCaret}`} role="button" onClick={handlePrevSlide}>
                                 <b className="indicator-icon icon-leftCaret"></b>
                             </span>
                             <div className="sliderMask showPeek">
                                 <div className={`sliderContent row-with-x-columns ${animation}`} style={sliderStyle}>
                                     {movies?.slice(0, 10).map((movie, index) => (
                                         <div key={movie?.movieId} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>
-                                            <div className="title-card-container ltr-0" >
-                                                <div id="title-card-2-0" className="title-card title-card-top-10">
+                                            <div className="title-card-container" >
+                                                <div className="title-card">
                                                     <div className="ptrack-content">
                                                         <div className="boxart-size-7x10 boxart-container boxart-rounded">
                                                             {top10RankSVGs[index]}
                                                             <img className="boxart-image-in-padded-container" src={movie?.poster} alt={movie?.title}/>
-                                                            <div className="fallback-text-container" aria-hidden="true">
+                                                            <div className="fallback-text-container">
                                                                 <p className="fallback-text">Lift</p>
                                                             </div>
                                                         </div>

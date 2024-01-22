@@ -20,6 +20,7 @@ import NewAndPopular from "./pages/NewAndPopularPage";
 import AddProfilePage from "./pages/AddProfilePage";
 import Ratings from "./pages/RatingsPage";
 import Viewed from "./pages/ViewedPage";
+import Watch from "./pages/WatchPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/account" >
             <Account />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/watch/:movieId" >
+            <Watch />
           </ProtectedRoute>
           <ProtectedRoute exact path="/profile" >
             <SelectProfilePage />

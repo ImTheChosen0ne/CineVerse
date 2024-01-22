@@ -142,7 +142,6 @@ function MoreMovieInfo({movie}) {
 			await dispatch(createViewedMovie(profile, newView));
 			updateProfile(updatedProfile);
 		}
-
 		closeModal()
 	}
 
@@ -240,7 +239,7 @@ function MoreMovieInfo({movie}) {
 								<h1 className="previewModal--player-titleTreatment-logo" style={{width: "100%", opacity: 1, fontSize: "3rem", fontWeight:400, whiteSpace: "nowrap"}} >{movie.title}</h1>
 								{/*<img className="previewModal--player-titleTreatment-logo" alt="" src={} style={{width: "100%", opacity: 1}}/>*/}
 								<div className="buttonControls--container" data-uia="mini-modal-controls">
-									<NavLink exact to={`/watch/${movie.movieId}`} className="primary-button playLink isToolkit">
+									<NavLink exact to={`/watch/${movie.movieId}`} className="primary-button playLink isToolkit" onClick={() => closeModal()}>
 										<button className="color-primary hasLabel hasIcon ltr-podnco" onClick={() => handleViewed(movie)}>
 											<div className="ltr-1st24vv">
 												<div className="medium ltr-iyulz3">

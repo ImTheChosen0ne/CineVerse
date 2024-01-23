@@ -521,7 +521,7 @@ a {
 .titleCard--container .titleCard-imageWrapper img {
     display: block;
     width: 100%;
-    height: 200px;
+    /*height: 200px;*/
 }
 
 .titleCard--container .titleCard-imageWrapper .titleCard-playIcon {

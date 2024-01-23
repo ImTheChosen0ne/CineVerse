@@ -227,8 +227,7 @@ function OpenMovieModal({movie, position}) {
   };
 
   return (
-      <div style={modalStyle} onMouseLeave={onMouseLeave}
-           className="previewModal--container mini-modal has-smaller-buttons">
+      <div style={modalStyle} onMouseLeave={onMouseLeave} className="previewModal--container mini-modal has-smaller-buttons">
         <div className="previewModal--player_container mini-modal has-smaller-buttons">
           <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
             <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
@@ -250,9 +249,8 @@ function OpenMovieModal({movie, position}) {
           <div style={{opacity: 1}}>
             <div className="previewModal--player-titleTreatmentWrapper" style={{opacity: 1}}>
               <div className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment mini-modal has-smaller-buttons mini-modal has-smaller-buttons" style={{left: "1.5em", width: "55%"}}>
-                {/*<img alt="" src="https://occ-0-616-621.1.nflxso.net/dnm/api/v6/tx1O544a9T7n8Z_G12qaboulQQE/AAAABXxiMwv8QIaa3J-F61x-hEYEwXUtT7qnYCxIqX66GAu1sGrq_1wq9DDMnVLs6-63nVOk0XrVcgyVdztqP3N56oKzPnglOUpg3xM7oG4eUbnqciDOX_BwzO4vkda27JLujDAqggUw0yqV1Gr4EjKtEWmlRYP1mg-j0dtQ_LawrqvT7g8ucxFN.png?r=cef" style={{display: "none"}}/>*/}
-                <h1 className="previewModal--player-titleTreatment-logo" style={{width: "100%", opacity: 1, fontSize: "1em", fontWeight: 400, alignItems: "center", display: "flex"}}>{movie.title}</h1>
-                {/*<img className="previewModal--player-titleTreatment-logo" alt="" src="" style={{width: "100%", opacity: 1}}/>*/}
+                {/*<h1 className="previewModal--player-titleTreatment-logo" style={{width: "100%", opacity: 1, fontSize: "1em", fontWeight: 400, alignItems: "center", display: "flex"}}>{movie.title}</h1>*/}
+                <img className="previewModal--player-titleTreatment-logo" alt="" src={movie.titleImage} style={{width: "100%", opacity: 1}}/>
               </div>
               <div className="mini-modal has-smaller-buttons previewModal-audioToggle" style={{opacity: 0.4, display: "block"}}>
                 <div className="global-supplemental-audio-toggle">

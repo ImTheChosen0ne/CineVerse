@@ -445,3 +445,13 @@
 .nav-links-search.search-visible .search-link {
   display: none;
 }
+
+.top-bar-input input {
+  width:250px;
+  padding:10px 10px 10px 40px;
+  color:#fff;
+  background-color:#000;
+  border:1px solid #fff;
+  outline:none;
+  animation:input-width .1s ease-out forwards
+}

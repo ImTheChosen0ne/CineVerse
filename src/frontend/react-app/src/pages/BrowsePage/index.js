@@ -38,14 +38,22 @@ function BrowsePage() {
         fetchData();
     }, []);
 
+    const moviesCopy = [...movies];
+
     const randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile.viewedMovies.length)];
     const myListMovies = updatedProfile?.watchLaterMovies
-    const actionAndAdventureMovies = movies?.filter((movie) => movie.genres?.includes("ACTION") || movie.genres?.includes("ADVENTURE"));
-    const familyMovies = movies?.filter((movie) => movie.genres?.includes("FAMILY"));
-    const comedyMovies = movies?.filter((movie) => movie.genres?.includes("COMEDY"));
-    const scifiFantasyMovies = movies?.filter((movie) => movie.genres?.includes("SCIENCE_FICTION") || movie.genres?.includes("FANTASY"));
-    const dramaMovies = movies?.filter((movie) => movie.genres?.includes("DRAMA"));
-    const trendignMovies = movies?.sort((a, b) => b.views - a.views);
+    const actionAndAdventureMovies = movies?.filter((movie) => movie.genres?.includes("ACTION") || movie.genres?.includes("ADVENTURE")).sort((a, b) => b.views - a.views);
+    const familyMovies = movies?.filter((movie) => movie.genres?.includes("FAMILY")).sort((a, b) => b.views - a.views);
+    const comedyMovies = movies?.filter((movie) => movie.genres?.includes("COMEDY")).sort((a, b) => b.views - a.views);
+    const scifiFantasyMovies = movies?.filter((movie) => movie.genres?.includes("SCIENCE_FICTION") || movie.genres?.includes("FANTASY")).sort((a, b) => b.views - a.views);
+    const dramaMovies = movies?.filter((movie) => movie.genres?.includes("DRAMA")).sort((a, b) => b.views - a.views);
+    const trendingMovies = moviesCopy?.slice().sort((a, b) => b.views - a.views);
+    const newReleases = moviesCopy?.slice().sort((a, b) => {
+        const dateA = new Date(a.dateAdded);
+        const dateB = new Date(b.dateAdded);
+        return dateB - dateA;
+    });
+
 
     return (
         <div>
@@ -57,21 +65,21 @@ function BrowsePage() {
                     <div className="main-browse-container">
                         <div className="main">
                             <div className="main-inner">
-                                <video
-                                    ref={videoRef}
-                                    src={movies[0]?.trailer}
-                                    autoPlay
-                                    playsInline={true}
-                                    muted
-                                    onEnded={handleVideoEnd}
-                                />
-                                {videoEnded && (
+                                {/*<video*/}
+                                {/*    ref={videoRef}*/}
+                                {/*    src={movies[0]?.trailer}*/}
+                                {/*    autoPlay*/}
+                                {/*    playsInline={true}*/}
+                                {/*    muted*/}
+                                {/*    onEnded={handleVideoEnd}*/}
+                                {/*/>*/}
+                                {/*{videoEnded && (*/}
                                     <img
-                                        src={movies[6]?.media}
+                                        src={movies[6]?.backdrop}
                                         alt="Image Overlay"
                                         className="image-overlay"
                                     />
-                                )}
+                                {/*)}*/}
                             </div>
                         </div>
                     </div>
@@ -84,7 +92,7 @@ function BrowsePage() {
                         <TopCarousel movies={movies} className="carousel"/>
                     </div>
                     <div className="movie-section">
-                        <Carousel movies={movies} title={"New Releases"}/>
+                        <Carousel movies={newReleases} title={"New Releases"}/>
                     </div>
                     <div className="movie-section">
                         <Carousel movies={movies} title={"We Think You'll Love These"}/>
@@ -95,7 +103,7 @@ function BrowsePage() {
                     </div>
                     )}
                     <div className="movie-section">
-                        <Carousel movies={trendignMovies} title={"Trending Now"}/>
+                        <Carousel movies={trendingMovies} title={"Trending Now"}/>
                     </div>
                     <div className="movie-section">
                         <Carousel movies={movies} title={`Top Picks for ${profile?.name}`}/>

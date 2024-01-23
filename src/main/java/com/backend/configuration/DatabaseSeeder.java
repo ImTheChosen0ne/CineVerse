@@ -44,7 +44,7 @@ public class DatabaseSeeder {
             movieGenres.add(Genre.ACTION);
             movieGenres.add(Genre.ADVENTURE);
             movieGenres.add(Genre.SCIENCE_FICTION);
-
+//
             Set<String> movieCompanies = new HashSet<>();
             Set<String> movieCasts = new HashSet<>();
             Set<String> movieWriters = new HashSet<>();
@@ -59,7 +59,7 @@ public class DatabaseSeeder {
 //            MovieRating savedMovieRating2 = movieRatingRepository.save(movieRating2);
 //            movieRatings.add(savedMovieRating2);
 
-            Movie newMovie = new Movie(200, "Testing", "https://lumiere-a.akamaihd.net/v1/images/avatar_coverart_1600x686_36ea5484.jpeg?region=0,0,1600,686", "en", "test movie", movieGenres, movieCompanies, "12-10-2009", "162", "https://imdb-video.media-imdb.com/vi531039513/1434659607842-pgv4ql-1440787227613.mp4?Expires=1703099369&Signature=aq2qhuTxJSoc4Jo2OFd9Vk51LBA9K7AXT~ROqwF9~WRTCx319kVzeZ~OTsP9rxniaqt4CwF6SuEdms97-3ASq3WX173jvO6Wk-5j7kAEg7VAeNwRqzOtBNErjBRU1h6yt2Wbp0P2NUXP9yVoA9waY5GjdEpMWPBD5~z-9b7XkHYaXMmSAmtFxKHrK0tNsMPROHWJXlY1qAMTMYXlJykEipAKwzS2lwD9rPUujI0ctbS9txOr1boqQJrMId34aAHsXX0~akbLO-oeGAgAh6owC0hav8tlzejR-Vh7dHOC~UeUEu4zi8sZEkxNJBbZfvIzsEByLM2c6ObAH-IM3LmLTg__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA",movieCasts,"director",movieWriters,"PG-13",movieKeywords,110.11, "Testing tagline", "media pic", movieRatings, 0);
+            Movie newMovie = new Movie(200, "The Marvels", "https://image.tmdb.org/t/p/w300/9GBhzXMFjgcZ3FdR9w3bUMMTps5.jpg", "en", "test movie", movieGenres, movieCompanies, "12-10-2009", "2h 24m", "https://imdb-video.media-imdb.com/vi531039513/1434659607842-pgv4ql-1440787227613.mp4?Expires=1703099369&Signature=aq2qhuTxJSoc4Jo2OFd9Vk51LBA9K7AXT~ROqwF9~WRTCx319kVzeZ~OTsP9rxniaqt4CwF6SuEdms97-3ASq3WX173jvO6Wk-5j7kAEg7VAeNwRqzOtBNErjBRU1h6yt2Wbp0P2NUXP9yVoA9waY5GjdEpMWPBD5~z-9b7XkHYaXMmSAmtFxKHrK0tNsMPROHWJXlY1qAMTMYXlJykEipAKwzS2lwD9rPUujI0ctbS9txOr1boqQJrMId34aAHsXX0~akbLO-oeGAgAh6owC0hav8tlzejR-Vh7dHOC~UeUEu4zi8sZEkxNJBbZfvIzsEByLM2c6ObAH-IM3LmLTg__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA",movieCasts,"director",movieWriters,"PG-13",movieKeywords,110.11, "Testing tagline", "https://image.tmdb.org/t/p/original/criPrxkTggCra1jch49jsiSeXo1.jpg", movieRatings, "https://image.tmdb.org/t/p/w500/3GMGervg3O3s1KNOj7zKczTKfL8.png", "1-16-2024", 10);
             Movie movie = movieRepository.save(newMovie);
 
             Set<Movie> watchLater = new HashSet<>();

@@ -17,7 +17,8 @@ function MyList() {
     const [loading, setLoading] = useState(true);
 
     const onMouseEnter = (movie, event) => {
-        const rect = event.target.getBoundingClientRect();
+        const container = event.currentTarget.querySelector('.title-card-container');
+        const rect = container.getBoundingClientRect();
         const positionInfo = {
             top: rect.top,
             left: rect.left,
@@ -59,9 +60,30 @@ function MyList() {
                                                     <a className="slider-refocus">
                                                         <div
                                                             className="boxart-size-16x9 boxart-container boxart-rounded">
-                                                            <img className="boxart-image boxart-image-in-padded-container" src={movie?.media} alt={movie?.title}/>
+                                                            <img
+                                                                className="boxart-image boxart-image-in-padded-container"
+                                                                src={movie?.backdrop} alt={movie?.title}/>
                                                             <div className="fallback-text-container">
                                                                 <p className="fallback-text"></p>
+                                                            </div>
+                                                            <div style={{
+                                                                opacity: 1,
+                                                                position: "absolute",
+                                                                bottom: 0,
+                                                                marginLeft: "5px"
+                                                            }}>
+                                                                <div
+                                                                    className="previewModal--player-titleTreatmentWrapper"
+                                                                    style={{opacity: 1}}>
+                                                                    <div
+                                                                        className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment mini-modal has-smaller-buttons mini-modal has-smaller-buttons"
+                                                                        style={{width: "40%"}}>
+                                                                        <img
+                                                                            className="previewModal--player-titleTreatment-logo"
+                                                                            alt="" src={movie.titleImage}
+                                                                            style={{width: "100%", opacity: 1}}/>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </a>
@@ -75,7 +97,7 @@ function MyList() {
                         }
                     </div>
                 </div>
-                )}
+            )}
             <Footer className="my-list-footer"/>
         </div>
     );

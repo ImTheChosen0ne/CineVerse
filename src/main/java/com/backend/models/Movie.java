@@ -55,9 +55,13 @@ public class Movie {
     private Double popularity;
     @CsvBindByName(column = "tagline")
     private String tagline;
-    @CsvBindByName(column = "media")
-    private String media;
-    @Column(name = "views")
+    @CsvBindByName(column = "backdrop")
+    private String backdrop;
+    @CsvBindByName(column = "titleImage")
+    private String titleImage;
+    @CsvBindByName(column = "dateAdded")
+    private String dateAdded;
+    @CsvBindByName(column = "views")
     private Integer views = 0;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -72,7 +76,7 @@ public class Movie {
         this.ratings = new HashSet<MovieRating>();
     }
 
-    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String media, Set<MovieRating> ratings, Integer views) {
+    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String backdrop, Set<MovieRating> ratings, String titleImage, String dateAdded, Integer views) {
         this.movieId = movieId;
         this.title = title;
         this.poster = poster;
@@ -90,8 +94,10 @@ public class Movie {
         this.keywords = keywords;
         this.popularity = popularity;
         this.tagline = tagline;
-        this.media = media;
+        this.backdrop = backdrop;
         this.ratings = ratings;
+        this.titleImage = titleImage;
+        this.dateAdded = dateAdded;
         this.views = views;
     }
 
@@ -227,12 +233,12 @@ public class Movie {
         this.tagline = tagline;
     }
 
-    public String getMedia() {
-        return media;
+    public String getBackdrop() {
+        return backdrop;
     }
 
-    public void setMedia(String media) {
-        this.media = media;
+    public void setBackdrop(String backdrop) {
+        this.backdrop = backdrop;
     }
 
     public void setTrailer(String trailer) {
@@ -246,6 +252,14 @@ public class Movie {
     public void setRatings(Set<MovieRating> ratings) {
         this.ratings = ratings;
     }
+
+    public String getTitleImage() {return titleImage;}
+
+    public void setTitleImage(String titleImage) {this.titleImage = titleImage;}
+
+    public String getDateAdded() {return dateAdded;}
+
+    public void setDateAdded(String dateAdded) {this.dateAdded = dateAdded;}
 
     public Integer getViews() {
         return views;

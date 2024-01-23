@@ -228,7 +228,7 @@ function MoreMovieInfo({movie}) {
 					</div>
 					<div className="storyArt detail-modal has-smaller-buttons">
 						{/*{videoEnded && (*/}
-						{/*<img src={movie.media} alt={movie.title} className="playerModel--player__storyArt detail-modal has-smaller-buttons" style={{opacity: 1}}/>*/}
+						<img src={movie.backdrop} alt={movie.title} className="playerModel--player__storyArt detail-modal has-smaller-buttons" style={{opacity: 1}}/>
 						{/*)}*/}
 						{/*<img alt="" src="" style={{display: "none"}}/>*/}
 					</div>
@@ -236,8 +236,8 @@ function MoreMovieInfo({movie}) {
 						<div className="previewModal--player-titleTreatmentWrapper" style={{opacity: 1}}>
 							<div className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment detail-modal has-smaller-buttons detail-modal has-smaller-buttons">
 								<img alt="" src="https://occ-0-616-621.1.nflxso.net/dnm/api/v6/tx1O544a9T7n8Z_G12qaboulQQE/AAAABYl2xd1rM_KgFFzuWQq0jMp3bO0PTSOds90-7LA4xP74zuqDu-nklU8Cj1izisKKmOzUXIhjCXKY_wgxPahYYP6cphU6LGQERC7PERdnwlI.png?r=317" style={{display: "none"}}/>
-								<h1 className="previewModal--player-titleTreatment-logo" style={{width: "100%", opacity: 1, fontSize: "3rem", fontWeight:400, whiteSpace: "nowrap"}} >{movie.title}</h1>
-								{/*<img className="previewModal--player-titleTreatment-logo" alt="" src={} style={{width: "100%", opacity: 1}}/>*/}
+								{/*<h1 className="previewModal--player-titleTreatment-logo" style={{width: "100%", opacity: 1, fontSize: "3rem", fontWeight:400, whiteSpace: "nowrap"}} >{movie.title}</h1>*/}
+								<img className="previewModal--player-titleTreatment-logo" alt="" src={movie.titleImage} style={{width: "100%", opacity: 1}}/>
 								<div className="buttonControls--container" data-uia="mini-modal-controls">
 									<NavLink exact to={`/watch/${movie.movieId}`} className="primary-button playLink isToolkit" onClick={() => closeModal()}>
 										<button className="color-primary hasLabel hasIcon ltr-podnco" onClick={() => handleViewed(movie)}>
@@ -753,13 +753,38 @@ function MoreMovieInfo({movie}) {
 													<div className="titleCard--container more-like-this-item" role="button">
 														<div className="titleCard-imageWrapper has-duration">
 															<div className="ptrack-content">
-																<img src={movie.media} alt={movie.title}/>
+																<img src={movie.backdrop} alt={movie.title}/>
+																<div style={{
+																	opacity: 1,
+																	position: "absolute",
+																	bottom: 0,
+																	marginLeft: "10px", marginBottom: "10px"
+																}}>
+																	<div
+																		className="previewModal--player-titleTreatmentWrapper"
+																		style={{opacity: 1}}>
+																		<div
+																			className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment mini-modal has-smaller-buttons mini-modal has-smaller-buttons"
+																			style={{width: "40%"}}>
+																			<img
+																				className="previewModal--player-titleTreatment-logo"
+																				alt="" src={movie.titleImage}
+																				style={{width: "100%", opacity: 1}}/>
+																		</div>
+																	</div>
+																</div>
 															</div>
 															<div className="titleCard-playIcon" onClick={() => {
 																history.push(`/watch/${movie.movieId}`)
-																closeModal()}}>
-																<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="titleCard-playSVG ltr-4z3qvp e1svuwfo1" data-name="Play" aria-hidden="true">
-																	<path d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z" fill="currentColor">
+																closeModal()
+															}}>
+																<svg width="24" height="24" viewBox="0 0 24 24"
+																	 fill="none" xmlns="http://www.w3.org/2000/svg"
+																	 className="titleCard-playSVG ltr-4z3qvp e1svuwfo1"
+																	 data-name="Play" aria-hidden="true">
+																	<path
+																		d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z"
+																		fill="currentColor">
 																	</path>
 																</svg>
 															</div>

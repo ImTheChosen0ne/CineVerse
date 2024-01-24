@@ -17,7 +17,7 @@ function BrowsePage() {
     const [loading, setLoading] = useState(true);
     const { profile } = useContext(ProfileContext);
     const sessionUser = useSelector(state => state.session.user);
-    const updatedProfile = sessionUser.profiles.find(profiles => profiles.profileId === profile.profileId)
+    const updatedProfile = sessionUser?.profiles.find(profiles => profiles?.profileId === profile?.profileId)
 
 
     const [videoEnded, setVideoEnded] = useState(false);
@@ -243,7 +243,7 @@ function BrowsePage() {
                         </div>
                     </div>
                 </div>
-                {myListMovies.length >= 3 && (
+                {myListMovies?.length >= 3 && (
                     <div className="movie-section">
                         <Carousel movies={myListMovies} title={"My List"}/>
                     </div>
@@ -284,6 +284,7 @@ function BrowsePage() {
                     <Carousel movies={dramaMovies} title={"Emotional Dramas"}/>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

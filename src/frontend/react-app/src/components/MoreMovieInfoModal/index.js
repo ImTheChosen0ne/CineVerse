@@ -157,6 +157,18 @@ function MoreMovieInfo({movie}) {
 		}
 	}
 
+	const currentMovieGenres = movie.genres
+	const currentMovieId = movie.movieId
+
+	const similarMovies = movies.filter((movie) => {
+		return (
+			movie.movieId !== currentMovieId &&
+			currentMovieGenres.every((genre) => movie.genres.includes(genre))
+		);
+	});
+
+
+	console.log(similarMovies)
 	const renderLikedStatus = () => {
 		if (liked) {
 			return (
@@ -237,7 +249,7 @@ function MoreMovieInfo({movie}) {
 							<div className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment detail-modal has-smaller-buttons detail-modal has-smaller-buttons">
 								<img alt="" src="https://occ-0-616-621.1.nflxso.net/dnm/api/v6/tx1O544a9T7n8Z_G12qaboulQQE/AAAABYl2xd1rM_KgFFzuWQq0jMp3bO0PTSOds90-7LA4xP74zuqDu-nklU8Cj1izisKKmOzUXIhjCXKY_wgxPahYYP6cphU6LGQERC7PERdnwlI.png?r=317" style={{display: "none"}}/>
 								{/*<h1 className="previewModal--player-titleTreatment-logo" style={{width: "100%", opacity: 1, fontSize: "3rem", fontWeight:400, whiteSpace: "nowrap"}} >{movie.title}</h1>*/}
-								<img className="previewModal--player-titleTreatment-logo" alt="" src={movie.titleImage} style={{width: "100%", opacity: 1}}/>
+								<img className="previewModal--player-titleTreatment-logo" alt="" src={movie.titleImage} style={{width: "70%", opacity: 1}}/>
 								<div className="buttonControls--container" data-uia="mini-modal-controls">
 									<NavLink exact to={`/watch/${movie.movieId}`} className="primary-button playLink isToolkit" onClick={() => closeModal()}>
 										<button className="color-primary hasLabel hasIcon ltr-podnco" onClick={() => handleViewed(movie)}>
@@ -749,7 +761,7 @@ function MoreMovieInfo({movie}) {
 										<h3 className="previewModal--section-header moreLikeThis--header">More Like This</h3>
 										<div className={`section-container ${collapsed}`}>
 											<div className="moreLikeThis--container">
-												{movies.map((movie) => (
+												{similarMovies.map((movie) => (
 													<div className="titleCard--container more-like-this-item" role="button">
 														<div className="titleCard-imageWrapper has-duration">
 															<div className="ptrack-content">
@@ -919,14 +931,14 @@ function MoreMovieInfo({movie}) {
 										<div className="previewModal--tags">
 											<span className="previewModal--tags-label">Creators:</span>
 											<span className="tag-item">
-												<a href=""> {movie.director}</a>
+												<a> {movie.director}</a>
 											</span>
 										</div>
 										<div className="previewModal--tags">
 											<span className="previewModal--tags-label">Cast:</span>
 											{movie?.casts.map((cast, index) => (
 												<span className="tag-item" key={index}>
-													<a href=""> {cast}{index !== movie.casts.length - 1 &&
+													<a> {cast}{index !== movie.casts.length - 1 &&
 														<span>,</span>} </a>
 												</span>
 											))}
@@ -935,7 +947,7 @@ function MoreMovieInfo({movie}) {
 											<span className="previewModal--tags-label">Genres:</span>
 											{movie?.genres.map((genre, index) => (
 												<span className="tag-item" key={index}>
-													<a href=""> {genre.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}{index !== movie.genres.length - 1 &&
+													<a> {genre.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}{index !== movie.genres.length - 1 &&
 														<span>,</span>}</a>
 												</span>
 											))}
@@ -944,7 +956,7 @@ function MoreMovieInfo({movie}) {
 											<span className="previewModal--tags-label">This Movie is:</span>
 											{movie?.keywords.map((keyword, index) => (
 												<span className="tag-item" key={index}>
-													<a href="/browse/m/genre/100054"> {keyword}{index !== movie.keywords.length - 1 &&
+													<a> {keyword}{index !== movie.keywords.length - 1 &&
 														<span>,</span>} </a>
 												</span>
 											))}
@@ -952,7 +964,7 @@ function MoreMovieInfo({movie}) {
 										<div className="maturity-rating-wrapper">
 											<span className="title">Maturity rating:</span>
 											<span className="maturity-rating ">
-												<a href="" className="maturity-number">{movie.maturity}</a>
+												<a className="maturity-number">{movie.maturity}</a>
 											</span>
 										</div>
 									</div>

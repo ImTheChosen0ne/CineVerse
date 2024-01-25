@@ -76,6 +76,16 @@ function Watch() {
 
     }, [isPlaying, volume]);
 
+    useEffect(() => {
+        const videoElement = videoRef.current;
+
+        if (videoElement) {
+            videoElement.play();
+            setIsPlaying(true)
+        }
+
+    }, []);
+
     const skipDuration = 10;
 
     const skipForward = () => {
@@ -135,12 +145,16 @@ function Watch() {
 
         if (videoElement) {
             const containerRect = sliderContainer.getBoundingClientRect();
-            const offsetX = event.clientX - containerRect.left;
+            const offsetX = event.clientX - 30;
             const percentage = offsetX / containerRect.width;
             const newTime = Math.floor(percentage * totalDuration);
             videoElement.currentTime = newTime;
             setCurrentTime(newTime);
         }
+    };
+
+    const handleVideoEnd = () => {
+        setIsPlaying(false);
     };
 
     return (
@@ -151,7 +165,7 @@ function Watch() {
                     <div className=" ltr-18tyyic">
                         <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
                             <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}} id="80094721">
-                                <video src={movie?.trailer} style={{height: "1612px", width: "100%"}} ref={videoRef}></video>
+                                <video src={movie?.trailer} style={{height: "1612px", width: "100%"}} ref={videoRef} onEnded={handleVideoEnd}></video>
                                 <div className="player-timedtext" style={{display: "none", direction: "ltr"}}></div>
                             </div>
                         </div>

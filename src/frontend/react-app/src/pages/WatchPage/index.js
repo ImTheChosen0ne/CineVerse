@@ -114,32 +114,34 @@ function Watch() {
         }
     };
 
-    // const handleMouseDown = (event) => {
-    //     setIsDragging(true);
-    //     handleDrag(event);
-    // };
-    //
-    // const handleMouseMove = (event) => {
-    //     if (isDragging) {
-    //         handleDrag(event);
-    //     }
-    // };
-    //
-    // const handleMouseUp = () => {
-    //     setIsDragging(false);
-    // };
-    //
-    // const handleDrag = (event) => {
-    //     const videoElement = videoRef.current;
-    //     if (videoElement) {
-    //         const sliderRect = videoElement.getBoundingClientRect();
-    //         const offsetX = event.clientX + sliderRect.left;
-    //         const percentage = offsetX / sliderRect.width;
-    //         const newTime = Math.floor(percentage * totalDuration);
-    //         videoElement.currentTime = newTime;
-    //         setCurrentTime(newTime);
-    //     }
-    // };
+    const handleMouseDown = (event) => {
+        setIsDragging(true);
+        handleDrag(event);
+    };
+
+    const handleMouseMove = (event) => {
+        if (isDragging) {
+            handleDrag(event);
+        }
+    };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    const handleDrag = (event) => {
+        const videoElement = videoRef.current;
+        const sliderContainer = event.currentTarget;
+
+        if (videoElement) {
+            const containerRect = sliderContainer.getBoundingClientRect();
+            const offsetX = event.clientX - containerRect.left;
+            const percentage = offsetX / containerRect.width;
+            const newTime = Math.floor(percentage * totalDuration);
+            videoElement.currentTime = newTime;
+            setCurrentTime(newTime);
+        }
+    };
 
     return (
         <div className="watch-video" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
@@ -180,12 +182,12 @@ function Watch() {
                                 <div className="ltr-100d0a9">
                                     <div className="ltr-1npqywr" style={{alignItems: "normal", justifyContent: "normal"}}>
                                         <div className="ltr-gpipej" style={{alignItems: "center", flexGrow: 1, justifyContent: "normal"}}>
-                                            <div className="medium ltr-13q34j2">
-                                                <div className="ltr-lbmpgb"
-                                                     // onMouseDown={handleMouseDown}
-                                                     // onMouseMove={handleMouseMove}
-                                                     // onMouseUp={handleMouseUp}
-                                                >
+                                            <div className="medium ltr-13q34j2"
+                                                 onMouseDown={handleMouseDown}
+                                                 onMouseMove={handleMouseMove}
+                                                 onMouseUp={handleMouseUp}
+                                            >
+                                                <div className="ltr-lbmpgb"                                                >
                                                     <div style={{width: `${(currentTime / totalDuration) * 100}%`}} className="ltr-1i0opbk"></div>
                                                     <div style={{width: `${(currentTime / totalDuration) * 100}%`}} className="ltr-lxhdy4"></div>
                                                     <button style={{left: `${(currentTime / totalDuration) * 100}%`}} className="ltr-1df5qmm"></button>

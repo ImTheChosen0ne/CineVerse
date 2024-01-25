@@ -19,7 +19,8 @@ function Watch() {
     const [volume, setVolume] = useState(false);
     const [totalDuration, setTotalDuration] = useState(0);
     const [remainingTime, setRemainingTime] = useState(0);
-    const [sliderValue, setSliderValue] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
 
     useEffect(() => {
         dispatch(getMovies());
@@ -34,13 +35,21 @@ function Watch() {
             }
         };
 
+        const handleTimeUpdate = () => {
+            if (videoElement) {
+                setCurrentTime(Math.floor(videoElement.currentTime));
+            }
+        };
+
         if (videoElement) {
             videoElement.addEventListener('loadedmetadata', handleMetadataLoaded);
+            videoElement.addEventListener('timeupdate', handleTimeUpdate);
             return () => {
                 videoElement.removeEventListener('loadedmetadata', handleMetadataLoaded);
+                videoElement.removeEventListener('timeupdate', handleTimeUpdate);
             };
         }
-    }, [videoRef]);
+    }, [videoRef, isDragging]);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -105,6 +114,33 @@ function Watch() {
         }
     };
 
+    // const handleMouseDown = (event) => {
+    //     setIsDragging(true);
+    //     handleDrag(event);
+    // };
+    //
+    // const handleMouseMove = (event) => {
+    //     if (isDragging) {
+    //         handleDrag(event);
+    //     }
+    // };
+    //
+    // const handleMouseUp = () => {
+    //     setIsDragging(false);
+    // };
+    //
+    // const handleDrag = (event) => {
+    //     const videoElement = videoRef.current;
+    //     if (videoElement) {
+    //         const sliderRect = videoElement.getBoundingClientRect();
+    //         const offsetX = event.clientX + sliderRect.left;
+    //         const percentage = offsetX / sliderRect.width;
+    //         const newTime = Math.floor(percentage * totalDuration);
+    //         videoElement.currentTime = newTime;
+    //         setCurrentTime(newTime);
+    //     }
+    // };
+
     return (
         <div className="watch-video" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             <div className="watch-video--player-view">
@@ -137,21 +173,6 @@ function Watch() {
                                         </button>
                                     </div>
                                 </div>
-                                {/*<div className="watch-video--flag-container ltr-gpipej" style={{alignItems: "normal", flexGrow: 1, justifyContent: "flex-end"}}>*/}
-                                {/*    <div className="medium ltr-1dcjcj4">*/}
-                                {/*        <button className=" ltr-1enhvti">*/}
-                                {/*            <div className="control-medium ltr-iyulz3">*/}
-                                {/*                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"*/}
-                                {/*                     xmlns="http://www.w3.org/2000/svg" className="ltr-4z3qvp e1svuwfo1"*/}
-                                {/*                     data-name="Flag" aria-hidden="true">*/}
-                                {/*                    <path fill-rule="evenodd" clip-rule="evenodd"*/}
-                                {/*                          d="M3 2C2.44772 2 2 2.44772 2 3V4V9.57143V22H4L4 10.5789C5.85067 10.608 7.2411 10.721 9 10.9127V13.5714C9 14.0183 9.2965 14.4109 9.72632 14.5332C13.0256 15.4721 15.8727 16 21 16C21.5523 16 22 15.5523 22 15V8.42857C22 7.87629 21.5523 7.42857 21 7.42857C18.6167 7.42857 17.0614 7.31194 15 7.08734V4.42857C15 3.98169 14.7035 3.58906 14.2737 3.46675C10.9744 2.52795 8.12734 2 3 2ZM4 8.57872C6.2574 8.613 7.85904 8.76736 10.1134 9.02478L11 9.12601V10.0183V12.8111C13.616 13.5166 16.0515 13.9337 20 13.9927V9.42128C17.7426 9.387 16.141 9.23264 13.8866 8.97522L13 8.87399V7.98168V5.18886C10.384 4.48336 7.94853 4.06629 4 4.00726V8.57872Z"*/}
-                                {/*                          fill="currentColor"></path>*/}
-                                {/*                </svg>*/}
-                                {/*            </div>*/}
-                                {/*        </button>*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="watch-video--bottom-controls-container ltr-gpipej" style={{alignItems: "flex-end", justifyContent: "center"}}>
@@ -159,11 +180,15 @@ function Watch() {
                                 <div className="ltr-100d0a9">
                                     <div className="ltr-1npqywr" style={{alignItems: "normal", justifyContent: "normal"}}>
                                         <div className="ltr-gpipej" style={{alignItems: "center", flexGrow: 1, justifyContent: "normal"}}>
-                                            <div className="medium ltr-13q34j2" max="6596881" min="0">
-                                                <div className="ltr-lbmpgb">
-                                                    <div style={{width: "36.9079px"}} className="ltr-1i0opbk"></div>
-                                                    <div style={{width: "0.540961px"}} className="ltr-lxhdy4"></div>
-                                                    <button role="slider" style={{left: "calc(0.540961px - 0.75rem)"}} className="ltr-1df5qmm"></button>
+                                            <div className="medium ltr-13q34j2">
+                                                <div className="ltr-lbmpgb"
+                                                     // onMouseDown={handleMouseDown}
+                                                     // onMouseMove={handleMouseMove}
+                                                     // onMouseUp={handleMouseUp}
+                                                >
+                                                    <div style={{width: `${(currentTime / totalDuration) * 100}%`}} className="ltr-1i0opbk"></div>
+                                                    <div style={{width: `${(currentTime / totalDuration) * 100}%`}} className="ltr-lxhdy4"></div>
+                                                    <button style={{left: `${(currentTime / totalDuration) * 100}%`}} className="ltr-1df5qmm"></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -256,8 +281,7 @@ function Watch() {
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div className="ltr-lapyk4"
-                                                 style={{alignItems: "normal", flexGrow: 1, justifyContent: "normal"}}>
+                                            <div className="ltr-lapyk4" style={{alignItems: "normal", flexGrow: 1, justifyContent: "normal"}}>
                                                 <div className="ltr-1npqywr" style={{minWidth: "3rem", width: "3rem"}}></div>
                                                 <div className="ltr-4utd8f" style={{alignItems: "normal", flexGrow: 1, justifyContent: "normal"}}>
                                                     <div className="medium ltr-m1ta4i">{movie?.title}</div>
@@ -330,19 +354,21 @@ function Watch() {
                             </div>
                         </div>
                     </div>
-                    {/*<div className="watch-video--evidence-overlay-container">*/}
-                    {/*    <div className="medium ltr-1qyrjck">*/}
-                    {/*        <span className="ltr-d2lqiv">You're watching</span>*/}
-                    {/*        <h2 className="ltr-er2d3m">{movie.title}</h2>*/}
-                    {/*        <h3 className="ltr-1i1gvl2">*/}
-                    {/*            <span>2016</span>*/}
-                    {/*            <span>{movie.maturity}</span>*/}
-                    {/*            <span>{movie.runtime}</span>*/}
-                    {/*        </h3>*/}
-                    {/*        <p className="ltr-13kxr7x">{movie.description}</p>*/}
-                    {/*        <span className="ltr-1fk66sm">Paused</span>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                    {!isPlaying && (
+                    <div className="watch-video--evidence-overlay-container">
+                        <div className="medium ltr-1qyrjck">
+                            <span className="ltr-d2lqiv">You're watching</span>
+                            <h2 className="ltr-er2d3m">{movie?.title}</h2>
+                            <h3 className="ltr-1i1gvl2">
+                                <span>2016</span>
+                                <span>{movie?.maturity}</span>
+                                <span>{movie?.runtime}</span>
+                            </h3>
+                            <p className="ltr-13kxr7x">{movie?.description}</p>
+                            <span className="ltr-1fk66sm">Paused</span>
+                        </div>
+                    </div>
+                    )}
                 </div>
             </div>
         </div>

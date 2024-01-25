@@ -32,7 +32,7 @@
 /*}*/
 
 .ltr-fntwn3 {
-    inset: 0px;
+    inset: 0;
     overflow: hidden;
     pointer-events: auto;
     position: absolute;
@@ -42,11 +42,11 @@
     background-color: rgb(0, 0, 0);
     box-sizing: border-box;
     height: 100%;
-    left: 0px;
+    left: 0;
     opacity: 1;
     overflow: hidden;
     position: absolute;
-    top: 0px;
+    top: 0;
     transition: opacity 500ms linear 0s;
     pointer-events: auto;
     width: 100%;
@@ -62,7 +62,7 @@
 
 .ltr-18tyyic video {
     left: 50%;
-    margin: 0px;
+    margin: 0;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -84,7 +84,7 @@
 
 .medium .ltr-d2lqiv {
     font-size: 1.8rem;
-    margin: 0px 0px 0px 0.4rem;
+    margin: 0 0 0 0.4rem;
 }
 
 .ltr-d2lqiv {
@@ -101,25 +101,25 @@
     font-size: 1.6rem;
     color: rgb(255, 255, 255);
     font-weight: 500;
-    margin-bottom: 0px;
-    margin-top: 0px;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 .medium .ltr-1i1gvl2 {
     font-size: 2.4rem;
-    margin: 0.6rem 0px 1.2rem;
+    margin: 0.6rem 0 1.2rem;
 }
 
 .ltr-1i1gvl2 {
     font-size: 1.6rem;
     color: rgb(255, 255, 255);
     font-weight: 500;
-    margin-bottom: 0px;
-    margin-top: 0px;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 .medium .ltr-1i1gvl2 span + span {
-    margin-left: 2.4rem;
+    margin-left: 2rem;
 }
 
 .medium .ltr-13kxr7x {
@@ -131,7 +131,7 @@
     font-weight: 400;
     color: rgb(204, 204, 204);
     width: 60%;
-    margin: 0px;
+    margin: 0;
 }
 
 .medium .ltr-1fk66sm {
@@ -197,13 +197,10 @@
     height: 5.2rem;
     width: 5.2rem;
 }
+
 .ltr-1dcjcj4 {
     position: relative;
     will-change: opacity;
-}
-button::-moz-focus-inner, input::-moz-focus-inner {
-    border: 0;
-    padding: 0;
 }
 
 .ltr-1enhvti {
@@ -262,8 +259,8 @@ svg:not(:root) {
     min-height: 0px;
     min-width: 0px;
     position: relative;
-    padding-left: 1rem;
-    width: 7rem;
+    padding-left: .8rem;
+    width: 9rem;
 }
 
 .ltr-13q34j2.medium {
@@ -326,7 +323,7 @@ svg:not(:root) {
     background-color: red;
     border-radius: 100%;
     border: medium;
-    padding: 0px;
+    padding: 0;
     box-sizing: border-box;
     position: absolute;
     top: 50%;
@@ -345,8 +342,8 @@ svg:not(:root) {
 .ltr-lapyk4 {
     box-sizing: border-box;
     display: flex;
-    min-height: 0px;
-    min-width: 0px;
+    min-height: 0;
+    min-width: 0;
     position: relative;
     flex-basis: 14rem;
     margin-left: 0.5rem;
@@ -357,8 +354,8 @@ svg:not(:root) {
 .ltr-4utd8f {
     box-sizing: border-box;
     display: flex;
-    min-height: 0px;
-    min-width: 0px;
+    min-height: 0;
+    min-width: 0;
     position: relative;
     flex-direction: column;
 }

@@ -86,14 +86,6 @@
     top: 0;
 }
 
-.billboard-row .billboard .full-screen, .billboard-row .billboard .hero-image-wrapper {
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
 .billboard-row .billboard .hero-image-wrapper .static-image {
     background-position: 50%;
     background-size: cover;
@@ -319,10 +311,6 @@
     line-height: 88%;
     margin-top: 1.5vw;
     white-space: nowrap;
-}
-.billboard-row .billboard .button-layer {
-    position: relative;
-    z-index: 10;
 }
 
 .bigRowItem .forward-leaning, .billboard-links.forward-leaning {

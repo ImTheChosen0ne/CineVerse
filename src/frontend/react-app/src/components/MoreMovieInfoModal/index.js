@@ -167,8 +167,6 @@ function MoreMovieInfo({movie}) {
 		);
 	});
 
-
-	console.log(similarMovies)
 	const renderLikedStatus = () => {
 		if (liked) {
 			return (
@@ -221,7 +219,7 @@ function MoreMovieInfo({movie}) {
 					<div style={{position: "absolute", width: "100%", height: "100%",overflow: "hidden"}}>
 						<div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
 							<video style={{position: "absolute", width: "100%", height: "100%", objectFit: "cover"}}
-								   src={movie.trailer}
+								   src={movie?.trailer}
 								   ref={videoRef}
 								   autoPlay
 								   playsInline={true}

@@ -288,7 +288,7 @@ function OpenMovieModal({movie, position}) {
                 <div className="previewModal--metadatAndControls mini-modal has-smaller-buttons">
                   <div className="previewModal--metadatAndControls-container">
                     <div className="buttonControls--container mini-modal has-smaller-buttons">
-                      <NavLink exact to={`/watch/${movie.movieId}`} className="primary-button playLink isToolkit isRound">
+                      <NavLink exact to={`/watch/${movie.movieId}`} onClick={() => closeMiniModal()} className="primary-button playLink isToolkit isRound">
                         <button className="color-primary hasIcon round ltr-jewi6s" onClick={() => handleViewed(movie)}>
                           <div className="ltr-1st24vv">
                             <div className="small ltr-iyulz3">

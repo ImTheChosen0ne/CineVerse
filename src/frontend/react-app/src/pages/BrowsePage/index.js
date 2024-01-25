@@ -108,9 +108,9 @@ function BrowsePage() {
                                 </div>
                                 <div className="motion-background-component bottom-layer full-screen">
                                     <div className="hero-image-wrapper">
-                                        <img className="hero static-image image-layer"
-                                             src={randomMovie?.backdrop}
-                                             alt={randomMovie?.title}/>
+                                        {/*{videoEnded && (*/}
+                                        <img className="hero static-image image-layer" src={randomMovie?.backdrop} alt={randomMovie?.title}/>
+                                        {/*)}*/}
                                         <div className="trailer-vignette vignette-layer"></div>
                                         <div className="hero-vignette vignette-layer"></div>
                                         <div className="embedded-components button-layer"></div>

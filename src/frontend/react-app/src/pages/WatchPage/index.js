@@ -14,12 +14,44 @@ function Watch() {
     const history = useHistory();
     const videoRef = useRef(null);
     const movies = Object.values(useSelector((state) => state.movies));
-    const [isHovered, setIsHovered] = useState(false);
+    const [isHovered, setIsHovered] = useState(true);
     const [isPlaying, setIsPlaying] = useState(false);
     const [volume, setVolume] = useState(false);
-    const [fullscreen, setFullscreen] = useState(false);
-    const [currentTime, setCurrentTime] = useState(0);
+    const [totalDuration, setTotalDuration] = useState(0);
+    const [remainingTime, setRemainingTime] = useState(0);
     const [sliderValue, setSliderValue] = useState(0);
+
+    useEffect(() => {
+        dispatch(getMovies());
+    }, [dispatch]);
+
+    useEffect(() => {
+        const videoElement = videoRef.current;
+
+        const handleMetadataLoaded = () => {
+            if (videoElement) {
+                setTotalDuration(Math.floor(videoElement.duration));
+            }
+        };
+
+        if (videoElement) {
+            videoElement.addEventListener('loadedmetadata', handleMetadataLoaded);
+            return () => {
+                videoElement.removeEventListener('loadedmetadata', handleMetadataLoaded);
+            };
+        }
+    }, [videoRef]);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            const videoElement = videoRef.current;
+            if (videoElement && !isNaN(totalDuration)) {
+                setRemainingTime(Math.max(0, Math.floor(totalDuration - videoElement.currentTime)));
+            }
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [totalDuration, videoRef]);
 
     useEffect(() => {
         const videoElement = videoRef.current;
@@ -51,11 +83,27 @@ function Watch() {
         }
     };
 
-    useEffect(() => {
-        dispatch(getMovies());
-    }, [dispatch]);
-
     const movie = movies?.find((movie) => movie.movieId.toString() === movieId);
+
+    const formatTime = (timeInSeconds) => {
+        const hours = Math.floor(timeInSeconds / 3600);
+        const minutes = Math.floor((timeInSeconds % 3600) / 60);
+        const seconds = Math.floor(timeInSeconds % 60);
+
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    };
+
+    const toggleFullScreen = () => {
+        const videoElement = videoRef.current;
+
+        if (videoElement) {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                videoElement.closest('.watch-video').requestFullscreen()
+            }
+        }
+    };
 
     return (
         <div className="watch-video" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
@@ -120,7 +168,7 @@ function Watch() {
                                             </div>
                                         </div>
                                         <div className="ltr-lb3bic" style={{alignItems: "center", justifyContent: "center"}}>
-                                            <span className="ltr-1qtcbde">1:49:55</span>
+                                            <span className="ltr-1qtcbde">{formatTime(remainingTime)}</span>
                                         </div>
                                     </div>
                                     <div className="ltr-1npqywr" style={{height: "3rem", minHeight: "3rem", minWidth: "100%", width: "100%"}}></div>
@@ -212,7 +260,7 @@ function Watch() {
                                                  style={{alignItems: "normal", flexGrow: 1, justifyContent: "normal"}}>
                                                 <div className="ltr-1npqywr" style={{minWidth: "3rem", width: "3rem"}}></div>
                                                 <div className="ltr-4utd8f" style={{alignItems: "normal", flexGrow: 1, justifyContent: "normal"}}>
-                                                    <div className="medium ltr-m1ta4i">{movie.title}</div>
+                                                    <div className="medium ltr-m1ta4i">{movie?.title}</div>
                                                 </div>
                                             </div>
                                             <div className="ltr-gpipej" style={{alignItems: "normal", justifyContent: "flex-end"}}>
@@ -248,9 +296,9 @@ function Watch() {
                                                 </div>
                                                 <div className="ltr-1npqywr" style={{minWidth: "3rem", width: "3rem"}}></div>
                                                 <div className="medium ltr-1dcjcj4">
-                                                    <button className=" ltr-1enhvti" onClick={() => setFullscreen(!fullscreen)}>
+                                                    <button className=" ltr-1enhvti" onClick={toggleFullScreen}>
                                                         <div className="control-medium ltr-iyulz3">
-                                                            {fullscreen ? (
+                                                            {document.fullscreenElement ? (
                                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                                  xmlns="http://www.w3.org/2000/svg"
                                                                  className="ltr-4z3qvp e1svuwfo1"

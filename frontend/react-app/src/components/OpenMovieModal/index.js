@@ -248,7 +248,7 @@ function OpenMovieModal({movie, position}) {
           </div>
           <div style={{opacity: 1}}>
             <div className="previewModal--player-titleTreatmentWrapper" style={{opacity: 1}}>
-              <div className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment mini-modal has-smaller-buttons mini-modal has-smaller-buttons" style={{left: "1.5em", width: "55%"}}>
+              <div className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment mini-modal has-smaller-buttons mini-modal has-smaller-buttons" style={{left: "1.5em", width: "32%"}}>
                 {/*<h1 className="previewModal--player-titleTreatment-logo" style={{width: "100%", opacity: 1, fontSize: "1em", fontWeight: 400, alignItems: "center", display: "flex"}}>{movie.title}</h1>*/}
                 <img className="previewModal--player-titleTreatment-logo" alt="" src={movie.titleImage} style={{width: "100%", opacity: 1}}/>
               </div>

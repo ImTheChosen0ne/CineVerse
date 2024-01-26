@@ -28,22 +28,23 @@ function Footer() {
                 <div>
                     <div className="about">
                         <h3>
-                            <i className="fa-regular fa-copyright"></i>2023 CineVerse inspired
-                            by Netflix
+                            <i className="fa-regular fa-copyright"></i>2024 CineVerse inspired by Netflix
                         </h3>
                     </div>
                     <div className="footer-links">
-                        <p>Matthew Almeida</p>
-                        <a href="https://github.com/ImTheChosen0ne">
+                        <div>
+                            <p>Created by:</p>
+                            <h3>Matthew Almeida</h3>
+                        </div>
+                        <a href="https://github.com/ImTheChosen0ne" target="_blank">
                             <i className="fa-brands fa-github"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/matthew-almeida-103425183/">
+                        <a href="https://www.linkedin.com/in/matthew-almeida-103425183/" target="_blank">
                             <i className="fa-brands fa-linkedin"></i>
                         </a>
                     </div>
                 </div>
-                <div>
-                    <div>
+                <div className="icons-div">
                         <div>
                             <div className="made-with">Made with:</div>
                             <div className="madeIcons">
@@ -51,10 +52,10 @@ function Footer() {
                                 <i className="fa-brands fa-html5"></i>
                                 <i className="fa-brands fa-css3-alt"></i>
                                 <i className="fa-brands fa-square-js"></i>
-                                {/*<i className="fa-brands fa-python"></i>*/}
+                                <i className="fa-brands fa-java"></i>
+                                <i className="devicon-spring-plain colored"></i>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

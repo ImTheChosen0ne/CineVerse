@@ -42,7 +42,7 @@ function MyList() {
                 <div className="my-list-wrapper-title">
                     <h1>My List</h1>
                 </div>
-            <div className="list-profiles browse-spinner">
+            <div className={`browse-spinner ${loading}`}>
                 <Spinner loading={loading}/>
             </div>
             {!loading && (

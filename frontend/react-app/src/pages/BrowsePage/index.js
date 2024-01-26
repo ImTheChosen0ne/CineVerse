@@ -24,22 +24,19 @@ function BrowsePage() {
     const videoRef = useRef(null);
 
     useEffect(() => {
-        dispatch(getMovies());
+        dispatch(getMovies())
+            .then(() => {
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching movies:", error);
+                setLoading(false);
+            });
     }, [dispatch]);
 
     const handleVideoEnd = () => {
         setVideoEnded(true);
     };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setTimeout(() => {
-                setLoading(false);
-            }, 8000);
-        };
-
-        fetchData();
-    }, []);
 
     const moviesCopy = [...movies];
 

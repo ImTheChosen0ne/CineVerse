@@ -21,7 +21,14 @@ function BrowseByLanguage() {
     const movies = Object.values(useSelector((state) => state.movies));
 
     useEffect(() => {
-        dispatch(getMovies());
+        dispatch(getMovies())
+            .then(() => {
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching movies:", error);
+                setLoading(false);
+            });
     }, [dispatch]);
 
     const handleSelectLanguage = (event) => {
@@ -39,16 +46,6 @@ function BrowseByLanguage() {
             setIsOpen(false);
         }
     };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setTimeout(() => {
-                setLoading(false);
-            }, 2000);
-        };
-
-        fetchData();
-    }, []);
 
    useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
@@ -150,10 +147,10 @@ function BrowseByLanguage() {
                     </div>
                 </div>
             </div>
-            {/*<div className="list-profiles browse-spinner">*/}
-            {/*    <Spinner loading={loading}/>*/}
-            {/*</div>*/}
-            {/*{!loading && (*/}
+            <div className={`browse-spinner ${loading}`}>
+                <Spinner loading={loading}/>
+            </div>
+            {!loading && (
             <div className="language-movies">
                 <div className="language-movie-container">
                     <div className="language-movie-wrapper">
@@ -197,7 +194,7 @@ function BrowseByLanguage() {
                     </div>
                 </div>
             </div>
-            {/*)}*/}
+            )}
             <Footer className="language-footer"/>
         </div>
     );

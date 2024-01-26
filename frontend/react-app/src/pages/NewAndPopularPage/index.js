@@ -13,7 +13,14 @@ function NewAndPopular() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        dispatch(getMovies());
+        dispatch(getMovies())
+            .then(() => {
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching movies:", error);
+                setLoading(false);
+            });
     }, [dispatch]);
 
     useEffect(() => {
@@ -28,7 +35,7 @@ function NewAndPopular() {
 
     return (
         <div className="new-container">
-            <div className="list-profiles browse-spinner">
+            <div className={`browse-spinner ${loading}`}>
                 <Spinner loading={loading}/>
             </div>
             {!loading && (

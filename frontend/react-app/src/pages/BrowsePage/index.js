@@ -35,7 +35,7 @@ function BrowsePage() {
         const fetchData = async () => {
             setTimeout(() => {
                 setLoading(false);
-            }, 2000);
+            }, 8000);
         };
 
         fetchData();
@@ -71,6 +71,10 @@ function BrowsePage() {
 
     return (
         <div className="mainView">
+            <div className={`browse-spinner ${loading}`}>
+                <Spinner loading={loading}/>
+            </div>
+            {!loading && (
             <div className="view full">
                 <div className="billboard-container">
                     <div className="billboard-row">
@@ -78,8 +82,18 @@ function BrowsePage() {
                             <div className="billboard-motion dismiss-mask">
                                 <div className="player-container inactive player">
                                     <div className="VideoContainer VideoContainer-element-dimensions">
-                                        <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
-                                            <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
+                                        <div style={{
+                                            position: "relative",
+                                            width: "100%",
+                                            height: "100%",
+                                            overflow: "hidden"
+                                        }}>
+                                            <div style={{
+                                                position: "relative",
+                                                width: "100%",
+                                                height: "100%",
+                                                overflow: "hidden"
+                                            }}>
                                                 <video
                                                     ref={videoRef}
                                                     src={randomMovie?.trailer}
@@ -109,7 +123,8 @@ function BrowsePage() {
                                 <div className="motion-background-component bottom-layer full-screen">
                                     <div className="hero-image-wrapper">
                                         {/*{videoEnded && (*/}
-                                        <img className="hero static-image image-layer" src={randomMovie?.backdrop} alt={randomMovie?.title}/>
+                                        <img className="hero static-image image-layer" src={randomMovie?.backdrop}
+                                             alt={randomMovie?.title}/>
                                         {/*)}*/}
                                         <div className="trailer-vignette vignette-layer"></div>
                                         <div className="hero-vignette vignette-layer"></div>
@@ -117,7 +132,8 @@ function BrowsePage() {
                                     </div>
                                     <div className="embedded-components button-layer">
                                         <div>
-                                            <button className="color-supplementary ActionButtons hasIcon round ltr-11vo9g5">
+                                            <button
+                                                className="color-supplementary ActionButtons hasIcon round ltr-11vo9g5">
                                                 <div className="ltr-1st24vv">
                                                     <div className="small ltr-iyulz3">
                                                         <svg width="24" height="24" viewBox="0 0 24 24"
@@ -148,7 +164,7 @@ function BrowsePage() {
                                                  transform: "scale(1) translate3d(0px, 0px, 0px)",
                                                  transitionDuration: "1300ms",
                                                  transitionDelay: "0ms"
-                                        }}>
+                                             }}>
                                             <div className="billboard-title">
                                                 <img alt={randomMovie?.title} className="title-logo "
                                                      src={randomMovie?.titleImage}/>
@@ -160,13 +176,13 @@ function BrowsePage() {
                                                  transitionDuration: "1300ms",
                                                  transitionDelay: "0ms",
                                                  opacity: 1
-                                        }}>
+                                             }}>
                                             <div className="info-wrapper-fade"
                                                  style={{
                                                      opacity: 1,
                                                      transitionDuration: "600ms",
                                                      transitionDelay: "200ms"
-                                            }}>
+                                                 }}>
                                                 <div className="episode-title-container"></div>
                                                 <div className="synopsis-fade-container">
                                                     <div className="synopsis no-supplemental">
@@ -178,7 +194,8 @@ function BrowsePage() {
                                             </div>
                                         </div>
                                         <div className="billboard-links button-layer forward-leaning">
-                                            <NavLink exact to={`/watch/${randomMovie?.movieId}`} className=" playLink isToolkit">
+                                            <NavLink exact to={`/watch/${randomMovie?.movieId}`}
+                                                     className=" playLink isToolkit">
                                                 <button className="color-primary hasLabel hasIcon ltr-podncoo">
                                                     <div className="ltr-1st24vv">
                                                         <div className="medium ltr-iyulz33">
@@ -200,23 +217,23 @@ function BrowsePage() {
                                             </NavLink>
                                             <OpenModalButton
                                                 buttonText={
-                                                <div className="color-secondary hasLabel hasIcon ltr-18ezbm2">
-                                                    <div className="ltr-1st24vv">
-                                                        <div className="medium ltr-iyulz33">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                 fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                                 className="ltr-4z3qvp e1svuwfo1"
-                                                                 data-name="CircleI" aria-hidden="true">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12ZM13 10V18H11V10H13ZM12 8.5C12.8284 8.5 13.5 7.82843 13.5 7C13.5 6.17157 12.8284 5.5 12 5.5C11.1716 5.5 10.5 6.17157 10.5 7C10.5 7.82843 11.1716 8.5 12 8.5Z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
+                                                    <div className="color-secondary hasLabel hasIcon ltr-18ezbm2">
+                                                        <div className="ltr-1st24vv">
+                                                            <div className="medium ltr-iyulz33">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                     fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                                     className="ltr-4z3qvp e1svuwfo1"
+                                                                     data-name="CircleI" aria-hidden="true">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                          d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12ZM13 10V18H11V10H13ZM12 8.5C12.8284 8.5 13.5 7.82843 13.5 7C13.5 6.17157 12.8284 5.5 12 5.5C11.1716 5.5 10.5 6.17157 10.5 7C10.5 7.82843 11.1716 8.5 12 8.5Z"
+                                                                          fill="currentColor"></path>
+                                                                </svg>
+                                                            </div>
                                                         </div>
+                                                        <div className="ltr-1npqywr" style={{width: "1rem"}}></div>
+                                                        <span className="ltr-1vh9doaa">More Info</span>
                                                     </div>
-                                                    <div className="ltr-1npqywr" style={{width: "1rem"}}></div>
-                                                    <span className="ltr-1vh9doaa">More Info</span>
-                                                </div>
-                                            }
+                                                }
                                                 // onButtonClick={() => closeMiniModal()}
                                                 modalComponent={<MoreMovieInfo movie={randomMovie}/>}
                                             />
@@ -284,7 +301,8 @@ function BrowsePage() {
                     <Carousel movies={dramaMovies} title={"Emotional Dramas"}/>
                 </div>
             </div>
-            <Footer />
+            )}
+            <Footer/>
         </div>
     );
 }

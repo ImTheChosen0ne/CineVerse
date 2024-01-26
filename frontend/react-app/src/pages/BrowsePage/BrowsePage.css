@@ -1,5 +1,20 @@
 .browse-spinner {
-    z-index: 0;
+    animation: animateProfileGate .45s forwards;
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 0;
+    position: relative;
+    right: 0;
+    top: 0;
+    /*z-index: 100;*/
+    height: 100vh;
+}
+
+.false {
+    display: none;
 }
 
 .billboard-links.button-layer.forward-leaning button {

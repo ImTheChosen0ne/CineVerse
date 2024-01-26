@@ -140,7 +140,7 @@ function TopCarousel({ movies }) {
                                                             {top10RankSVGs[index]}
                                                             <img className="boxart-image-in-padded-container" src={movie?.poster} alt={movie?.title}/>
                                                             <div className="fallback-text-container">
-                                                                <p className="fallback-text">Lift</p>
+                                                                <p className="fallback-text"></p>
                                                             </div>
                                                         </div>
                                                     </div>

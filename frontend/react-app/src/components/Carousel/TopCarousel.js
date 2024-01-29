@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './Carousel.css';
 import OpenMovieModal from "../OpenMovieModal";

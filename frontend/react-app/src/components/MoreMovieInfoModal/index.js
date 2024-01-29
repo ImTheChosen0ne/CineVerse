@@ -1,34 +1,34 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
-
-import "./MoreMovieInfo.css";
-import {useModal} from "../../context/Modal";
-import {NavLink, useHistory} from "react-router-dom";
+ import React, { useContext, useEffect, useRef, useState } from "react";
+import { useModal } from "../../context/Modal";
+import { NavLink, useHistory } from "react-router-dom";
 import {
 	createMovieRating, createViewedMovie,
 	createWatchLaterMovie,
 	deleteMovieRating,
 	deleteWatchLaterMovie, updateMovieRating, updateViewedMovie
 } from "../../store/session";
-import {useDispatch, useSelector} from "react-redux";
-import {ProfileContext} from "../../context/Profile";
-import {getMovies} from "../../store/movies";
+import { useDispatch, useSelector } from "react-redux";
+import { ProfileContext } from "../../context/Profile";
+import { getMovies } from "../../store/movies";
+import "./MoreMovieInfo.css";
 
-
-function MoreMovieInfo({movie}) {
+function MoreMovieInfo({ movie }) {
 	const dispatch = useDispatch();
 	const history = useHistory()
 	const movies = Object.values(useSelector((state) => state.movies));
+
 	const [videoEnded, setVideoEnded] = useState(false);
+
 	let [superLiked, setSuperLiked] = useState(false);
 	let [liked, setLiked] = useState(false);
 	let [disliked, setDisliked] = useState(false);
-
 	let [watchLater, setWatchLater] = useState(false);
+
 	const [showMenu, setShowMenu] = useState(false);
 	const [collapsed, setCollapsed] = useState("collapsed");
 	const [isMuted, setIsMuted] = useState(false);
 
-	const {profile, updateProfile} = useContext(ProfileContext);
+	const { profile, updateProfile } = useContext(ProfileContext);
 	const sessionUser = useSelector(state => state.session.user);
 	const updatedProfile = sessionUser.profiles.find(profiles => profiles.profileId === profile.profileId)
 	const likedRef = useRef();
@@ -74,6 +74,7 @@ function MoreMovieInfo({movie}) {
 			if (watchMovie.movieId === movie.movieId) watchLater = true;
 		}
 	}
+
 
 	const formatDate = (date) => {
 		const options = {day: 'numeric', month: 'numeric', year: 'numeric'};
@@ -146,11 +147,13 @@ function MoreMovieInfo({movie}) {
 	}
 
 	const handleWatchLaterMovie = async (movie) => {
-		if (watchLater) {
+		const isMovieInWatchLater = updatedProfile.watchLaterMovies.some(watchMovie => watchMovie.movieId === movie.movieId);
+
+		if (isMovieInWatchLater) {
 			await dispatch(deleteWatchLaterMovie(movie, profile.profileId))
 			updateProfile(updatedProfile)
 			setWatchLater(false);
-		} else if (!watchLater) {
+		} else if (!isMovieInWatchLater) {
 			await dispatch(createWatchLaterMovie(profile, movie))
 			updateProfile(updatedProfile)
 			setWatchLater(true);
@@ -166,6 +169,7 @@ function MoreMovieInfo({movie}) {
 			currentMovieGenres.every((genre) => movie.genres.includes(genre))
 		);
 	});
+
 
 	const renderLikedStatus = () => {
 		if (liked) {
@@ -676,13 +680,16 @@ function MoreMovieInfo({movie}) {
 												<div className="ltr-7t0zr9">
 													<a href="#about">
 														<span className="maturity-rating ">
-															<span className="maturity-number">TV-14</span>
+															<span className="maturity-number">{movie.maturity}</span>
 														</span>
 													</a>
 													{movie.keywords.map((keyword, index) => (
-														<span
-															className="ltr-1q4vxyr">{keyword}{index !== movie.keywords.length - 1 &&
-															<span>,</span>}</span>
+														<span className="ltr-1q4vxyr">
+															{keyword}
+															{index !== movie.keywords.length - 1 &&
+															<span>,</span>
+															}
+														</span>
 													))}
 												</div>
 											</div>
@@ -726,7 +733,7 @@ function MoreMovieInfo({movie}) {
 											<span className="previewModal--tags-label">Cast:</span>
 											{movie?.casts.map((cast, index) => (
 												<span className="tag-item" key={index}>
-													<a href="/browse/m/person/20048493"> {cast}, </a>
+													<a> {cast}, </a>
 												</span>
 											))}
 											<span className="tag-more">
@@ -737,7 +744,7 @@ function MoreMovieInfo({movie}) {
 											<span className="previewModal--tags-label">Genres:</span>
 											{movie?.genres.map((genre, index) => (
 												<span className="tag-item" key={index}>
-													<a href="/browse/m/genre/11714"> {genre.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}{index !== movie.genres.length - 1 &&
+													<a> {genre.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}{index !== movie.genres.length - 1 &&
 														<span>,</span>}</a>
 												</span>
 											))}
@@ -745,7 +752,7 @@ function MoreMovieInfo({movie}) {
 										<div className="previewModal--tags">
 											<span className="previewModal--tags-label">This show is:</span>
 											<span className="tag-item">
-												<a href="/browse/m/genre/100054"> Sentimental </a>
+												<a> Sentimental </a>
 											</span>
 										</div>
 									</div>
@@ -850,19 +857,25 @@ function MoreMovieInfo({movie}) {
 																	<div>
 																		<div className="ltr-bjn8wh">
 																			<div className="ptrack-content">
-																				<button
-																					className="color-supplementary hasIcon round ltr-11vo9g5">
+																				<button className="color-supplementary hasIcon round ltr-11vo9g5" onClick={() => handleWatchLaterMovie(movie)}>
 																					<div className="ltr-1st24vv">
-																						<div
-																							className="small ltr-iyulz3">
-																							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ltr-4z3qvp e1svuwfo1" data-name="Plus" aria-hidden="true">
-																								<path
-																									fill-rule="evenodd"
-																									clip-rule="evenodd"
-																									d="M11 11V2H13V11H22V13H13V22H11V13H2V11H11Z"
-																									fill="currentColor">
-																								</path>
-																							</svg>
+																						<div className="small ltr-iyulz3">
+																							{updatedProfile.watchLaterMovies && updatedProfile.watchLaterMovies.some(watchMovie => watchMovie.movieId === movie.movieId) ? (
+																								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+																									 className="ltr-4z3qvp e1svuwfo1" data-name="Checkmark" aria-hidden="true">
+																									<path fill-rule="evenodd" clip-rule="evenodd"
+																										  d="M21.2928 4.29285L22.7071 5.70706L8.70706 19.7071C8.51952 19.8946 8.26517 20 7.99995 20C7.73474 20 7.48038 19.8946 7.29285 19.7071L0.292847 12.7071L1.70706 11.2928L7.99995 17.5857L21.2928 4.29285Z"
+																										  fill="currentColor">
+																									</path>
+																								</svg>
+																							) : (
+																								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+																									 className="ltr-4z3qvp e1svuwfo1" data-name="Plus" aria-hidden="true">
+																									<path fill-rule="evenodd" clip-rule="evenodd" d="M11 11V2H13V11H22V13H13V22H11V13H2V11H11Z"
+																										  fill="currentColor">
+																									</path>
+																								</svg>
+																							)}
 																						</div>
 																					</div>
 																				</button>

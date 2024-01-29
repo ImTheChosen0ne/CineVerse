@@ -1,17 +1,17 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import "./MyList.css";
 import Footer from "../../components/Footer";
 import OpenMovieModal from "../../components/OpenMovieModal";
-import {useMiniModal} from "../../context/MiniModal";
-import {ProfileContext} from "../../context/Profile";
-import {useSelector} from "react-redux";
+import { useMiniModal } from "../../context/MiniModal";
+import { ProfileContext } from "../../context/Profile";
+import { useSelector } from "react-redux";
 import Spinner from "../../components/Spinner";
 
 
 function MyList() {
     const { profile } = useContext(ProfileContext);
-    const { setModalContent, modalRef } = useMiniModal();
+    const { setModalContent } = useMiniModal();
     const sessionUser = useSelector(state => state.session.user);
     const sessionProfile = sessionUser.profiles.find(profiles => profiles.profileId === profile.profileId)
     const [loading, setLoading] = useState(true);

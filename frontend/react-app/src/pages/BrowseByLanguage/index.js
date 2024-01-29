@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import "./BrowseByLanguage.css";
 import Footer from "../../components/Footer";
-import {useDispatch, useSelector} from "react-redux";
-import {getMovies} from "../../store/movies";
+import { useDispatch, useSelector } from "react-redux";
+import { getMovies } from "../../store/movies";
 import OpenMovieModal from "../../components/OpenMovieModal";
-import {useMiniModal} from "../../context/MiniModal";
+import { useMiniModal } from "../../context/MiniModal";
 import Spinner from "../../components/Spinner";
 
 
@@ -15,7 +15,7 @@ function BrowseByLanguage() {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
     const dispatch = useDispatch();
-    const { setModalContent, modalRef } = useMiniModal();
+    const { setModalContent } = useMiniModal();
     const [loading, setLoading] = useState(true);
 
     const movies = Object.values(useSelector((state) => state.movies));

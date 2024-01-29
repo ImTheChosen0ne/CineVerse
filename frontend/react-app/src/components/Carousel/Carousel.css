@@ -376,10 +376,6 @@ img {
     padding: 0;
 }
 
-.rowContainer .rowContent .slider {
-    z-index: 2;
-}
-
 .slider .sliderMask.showPeek {
     overflow-x: visible;
 }
@@ -478,19 +474,6 @@ a {
     right: 0;
     top: 0;
     width: 50%;
-}
-
-.boxart-image-in-padded-container {
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
-}
-
-img {
-    border: 0;
 }
 
 .boxart-size-7x10 .fallback-text-container {

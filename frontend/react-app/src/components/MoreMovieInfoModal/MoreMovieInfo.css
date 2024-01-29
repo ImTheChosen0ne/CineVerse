@@ -108,12 +108,12 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .previewModal--wrapper.has-smaller-buttons button.hasLabel {
-    max-height: 42px;
+    max-height: 52px;
     min-height: 32px;
 }
 
 .ltr-podnco.hasLabel.hasIcon {
-    padding-left: 2rem;
+    padding-left: 2.4rem;
     padding-right: 2.4rem;
 }
 
@@ -159,7 +159,7 @@ button, select {
 }
 
 .ltr-iyulz3.medium {
-    height: 2rem;
+    height: 2.2rem;
     width: 2.4rem;
 }
 .ltr-iyulz3 {

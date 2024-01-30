@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "react-multi-carousel/lib/styles.css";
 import './Carousel.css';
 import OpenMovieModal from "../OpenMovieModal";
@@ -100,8 +100,55 @@ function TopCarousel({ movies }) {
     ];
 
     const [currentSlide, setCurrentSlide] = useState(0);
-    const totalSlides = 2; // Replace with the actual number of slides
-    const slideWidth = 66.5;
+    const [itemsPerSlide, setItemsPerSlide] = useState(calculateItemsPerSlide(window.innerWidth));
+    const [slideWidth, setSlideWidth] = useState(calculateSlideWidth(window.innerWidth));
+
+    function calculateItemsPerSlide(windowWidth) {
+        if (windowWidth >= 1400) {
+            return 6;
+        } else if (windowWidth >= 1100 && windowWidth <= 1399) {
+            return 5;
+        } else if (windowWidth >= 800 && windowWidth <= 1099) {
+            return 4;
+        } else {
+            return 3;
+        }
+    }
+
+    function calculateSlideWidth(windowWidth) {
+        if (windowWidth >= 1400) {
+            return 100;
+        } else if (windowWidth >= 1100 && windowWidth <= 1399) {
+            return 100;
+        } else if (windowWidth >= 800 && windowWidth <= 1099) {
+            return 100;
+        } else {
+            return 100;
+        }
+    }
+
+    useEffect(() => {
+        function handleResize() {
+            const newWidth = window.innerWidth;
+
+            const newItemsPerSlide = calculateItemsPerSlide(newWidth);
+            const newSlideWidth = calculateSlideWidth(newWidth);
+
+            setItemsPerSlide(newItemsPerSlide);
+            setSlideWidth(newSlideWidth);
+
+            setCurrentSlide(prevSlide => Math.min(prevSlide, Math.ceil(movies.length / newItemsPerSlide) - 1));
+        }
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [movies.length]);
+
+    const totalSlides = Math.ceil(10 / itemsPerSlide);
+
     const handleNextSlide = () => {
         setAnimation("animating");
         setShowCaret("active");

@@ -460,3 +460,41 @@
 .nav-links-search.search-visible .search-link {
   display: none;
 }
+
+.link-img {
+  align-items: center;
+  display: flex;
+  position: relative;
+  font-size: 12px;
+}
+
+.nav-profile-container .link-img .profile-icon-kid {
+  border-radius: 4px;
+  height: 32px;
+  vertical-align: middle;
+  width: 32px;
+}
+
+.nav-profile-button-kids {
+  background-color: #e50914;
+  color: #fff;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  height: 32px;
+  margin-left: 1em;
+
+  align-items: center;
+  appearance: none;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  opacity: 1;
+  /*padding: 0.8rem;*/
+  position: relative;
+  user-select: none;
+  will-change: background-color,color;
+  word-break: break-word;
+  white-space: nowrap;
+}

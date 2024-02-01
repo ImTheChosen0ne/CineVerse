@@ -40,7 +40,12 @@ function BrowsePage() {
 
     const moviesCopy = [...movies];
 
-    const randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile.viewedMovies.length)];
+    let randomViewedMovie;
+    if (profile && profile.viewedMovies && profile.viewedMovies.length > 0) {
+        randomViewedMovie = profile.viewedMovies[Math.floor(Math.random() * profile.viewedMovies.length)];
+    }
+
+    // const randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile?.viewedMovies.length)];
     // const randomMovie = movies[Math.floor(Math.random() * movies.length)];
 
     const [randomMovie, setRandomMovie] = useState(null);

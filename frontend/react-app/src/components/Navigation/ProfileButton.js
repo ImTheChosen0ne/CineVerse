@@ -7,16 +7,21 @@ import {ProfileContext} from "../../context/Profile";
 function ProfileButton({ user, profile }) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const ulRef = useRef();
   const sessionUser = useSelector(state => state.session.user);
+  const { updateProfile, clearProfileData } = useContext(ProfileContext);
 
   const [showMenu, setShowMenu] = useState(false);
-  const ulRef = useRef();
-  const { updateProfile, clearProfileData } = useContext(ProfileContext);
+  const [kidProfile, setKidProfile] = useState(profile?.maturity)
 
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
   };
+
+  useEffect(() => {
+    setKidProfile(profile?.maturity);
+  }, [profile]);
 
   useEffect(() => {
     if (!showMenu) return;
@@ -52,19 +57,34 @@ function ProfileButton({ user, profile }) {
     <>
         {user ? (
             <>
-              <div className="nav-profile-container">
-                <button onMouseEnter={openMenu} className="nav-profile-button">
-                  <img src={profile?.img} alt="profile image"/>
-                </button>
-                <span className="caret"></span>
-              </div>
+              {kidProfile ? (
+                  <div className="nav-profile-container">
+                    <button onMouseEnter={openMenu} className="nav-profile-button">
+                      <img src={profile?.img} alt="profile image" />
+                    </button>
+                    <span className="caret"></span>
+                  </div>
+              ) : (
+                  <div className="nav-profile-container">
+                    <NavLink exact to={"/profile"}>
+                      <span className="link-img">
+                        <img className="profile-icon-kid"
+                            src={profile?.img}
+                            alt=""/>
+                      </span>
+                    </NavLink>
+                    <button onClick={() => history.push("/profile")} className="nav-profile-button-kids">
+                      <span>Exit Kids</span>
+                    </button>
+                  </div>
+              )}
               <ul className={ulClassName} ref={ulRef} onMouseLeave={closeMenu}>
                 <span className="caret-dropdown"></span>
                 <div className="profile-dropdown-profiles-container">
                   {sessionUser.profiles.map((profile) => (
-                          <li key={profile.profileId}>
-                            <div>
-                              <NavLink to={`/browse/${profile.name}`} onClick={() => handleProfileSelect(profile)}>
+                      <li key={profile.profileId}>
+                        <div>
+                          <NavLink to={`/browse/${profile.name}`} onClick={() => handleProfileSelect(profile)}>
                                 <div className="profile-dropdown-profile-icon">
                                   <img
                                       src={profile.img}

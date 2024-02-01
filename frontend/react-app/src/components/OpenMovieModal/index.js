@@ -17,6 +17,7 @@ function OpenMovieModal({movie, position}) {
   const ulRef = useRef();
   const likedRef = useRef();
   const dispatch = useDispatch();
+  const videoRef = useRef();
 
   const { closeMiniModal } = useMiniModal();
   const { profile, updateProfile } = useContext(ProfileContext);
@@ -60,6 +61,13 @@ function OpenMovieModal({movie, position}) {
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
+
+  // useEffect(() => {
+  //   const videoElement = videoRef.current;
+  //
+  //   videoElement.muted = isMuted;
+  //
+  // }, [isMuted]);
 
   const modalStyle = {
     position: "absolute",
@@ -231,20 +239,20 @@ function OpenMovieModal({movie, position}) {
         <div className="previewModal--player_container mini-modal has-smaller-buttons">
           <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
             <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
-              <video
-                  src={movie?.trailer}
-                  autoPlay
-                  playsInline={true}
-                  // controls
-                  muted
-                  style={{position: "relative", width: "100%", height: "100%", objectFit: "cover"}}
-              />
+              {/*<video*/}
+              {/*    src={movie?.trailer}*/}
+              {/*    autoPlay*/}
+              {/*    playsInline={true}*/}
+              {/*    ref={videoRef}*/}
+              {/*    // muted*/}
+              {/*    style={{position: "relative", width: "100%", height: "100%", objectFit: "cover"}}*/}
+              {/*/>*/}
             </div>
           </div>
-          <div className="videoMerchPlayer--boxart-wrapper" style={{position: "static", display: "none"}}>
-            <img className="previewModal--boxart" src={movie?.media} alt={movie?.title} style={{opacity: 0}}/>
-            <img alt={movie?.title} src={movie?.media} style={{display: "none"}}/>
-            <img className="previewModal--boxart" src={movie?.media} alt={movie?.title} style={{opacity: 0}}/>
+          <div className="videoMerchPlayer--boxart-wrapper" style={{position: "static"}}>
+            <img className="previewModal--boxart" src={movie?.backdrop} alt={movie?.title} style={{opacity: 1}}/>
+            {/*<img alt={movie?.title} src={movie?.backdrop} style={{display: "none"}}/>*/}
+            <img className="previewModal--boxart" src={movie?.backdrop} alt={movie?.title} style={{opacity: 1}}/>
           </div>
           <div style={{opacity: 1}}>
             <div className="previewModal--player-titleTreatmentWrapper" style={{opacity: 1}}>

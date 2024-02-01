@@ -86,15 +86,12 @@
 }
 
 .profile-edit-icon-button {
-    border: 0;
-    padding: 0;
     background-color: transparent;
     border: none;
     bottom: 7%;
     cursor: pointer;
     left: 7%;
     position: absolute;
-    width: 5%;
 }
 
 .profile-edit-icon-button svg {
@@ -108,8 +105,9 @@
     color: #fff;
     border: 1px solid transparent;
     margin: 0 -1px;
-    overflow: visible;
+    overflow: visible !important;
     transform: scale(1);
+    padding: 1px;
 }
 
 .profile-edit-info {

@@ -54,6 +54,14 @@ function MoreMovieInfo({ movie }) {
 		setIsMuted(!isMuted);
 	};
 
+	useEffect(() => {
+		const videoElement = videoRef.current;
+
+		videoElement.muted = isMuted;
+
+	}, [isMuted]);
+
+
 	if (updatedProfile.profileRatings) {
 		for (let ratingObj of updatedProfile.profileRatings) {
 			const {rating, movie: movieObj} = ratingObj;
@@ -227,7 +235,7 @@ function MoreMovieInfo({ movie }) {
 								   ref={videoRef}
 								   autoPlay
 								   playsInline={true}
-								   muted
+								   // muted
 								   onEnded={handleVideoEnd}
 							/>
 						</div>
@@ -241,7 +249,7 @@ function MoreMovieInfo({ movie }) {
 						{/*	 style={{display: "none"}}/>*/}
 					</div>
 					<div className="storyArt detail-modal has-smaller-buttons">
-						{/*{videoEnded && (*/}
+
 						<img src={movie.backdrop} alt={movie.title} className="playerModel--player__storyArt detail-modal has-smaller-buttons" style={{opacity: 1}}/>
 						{/*)}*/}
 						{/*<img alt="" src="" style={{display: "none"}}/>*/}

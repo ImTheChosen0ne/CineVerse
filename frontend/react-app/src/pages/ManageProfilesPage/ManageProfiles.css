@@ -60,3 +60,20 @@
 .profile-icon.manage {
     opacity: .5;
 }
+
+.kid-logo {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translate(0, 0);
+    height: 15%;
+    width: 27%;
+    margin-bottom: 7px;
+    margin-right: 7px;
+}
+
+.profile-nav {
+    background-color: #141414;
+    background-image: linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent);
+    height: 6.5%;
+}

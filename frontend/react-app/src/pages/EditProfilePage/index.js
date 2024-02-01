@@ -289,7 +289,6 @@ function EditProfilePage() {
                                     </div>
                                 </div>
                             </div>
-
                         )}
                     </div>
                 )}

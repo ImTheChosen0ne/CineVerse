@@ -19,7 +19,6 @@ function BrowsePage() {
     const sessionUser = useSelector(state => state.session.user);
     const updatedProfile = sessionUser?.profiles.find(profiles => profiles?.profileId === profile?.profileId)
 
-
     const [videoEnded, setVideoEnded] = useState(false);
     const videoRef = useRef(null);
 
@@ -41,8 +40,8 @@ function BrowsePage() {
     const moviesCopy = [...movies];
 
     let randomViewedMovie;
-    if (profile && profile.viewedMovies && profile.viewedMovies.length > 0) {
-        randomViewedMovie = profile.viewedMovies[Math.floor(Math.random() * profile.viewedMovies.length)];
+    if (profile && profile?.viewedMovies && profile?.viewedMovies?.length > 0) {
+        randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile?.viewedMovies?.length)];
     }
 
     // const randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile?.viewedMovies.length)];
@@ -107,20 +106,6 @@ function BrowsePage() {
                                             </div>
                                         </div>
                                     </div>
-                                    {/*<div*/}
-                                    {/*    className="PlayerControlsNeo__layout PlayerControlsNeo__layout--inactive">*/}
-                                    {/*    <div className="PlayerControlsNeo__all-controls">*/}
-                                    {/*        <div className="PlayerControlsNeo__gradient-top"></div>*/}
-                                    {/*        <div className="PlayerControlsNeo__gradient-bottom"></div>*/}
-                                    {/*        <div className="PlayerControlsNeo__core-controls">*/}
-                                    {/*            <div className="PlayerControlsNeo__bottom-controls PlayerControlsNeo__bottom-controls--faded">*/}
-                                    {/*                <div className="PlayerControlsNeo__progress-control-row PlayerControlsNeo__progress-control-row--row-standard">*/}
-                                    {/*                    <div className="PlayerControlsNeo__progress-container"></div>*/}
-                                    {/*                </div>*/}
-                                    {/*            </div>*/}
-                                    {/*        </div>*/}
-                                    {/*    </div>*/}
-                                    {/*</div>*/}
                                 </div>
                                 <div className="motion-background-component bottom-layer full-screen">
                                     <div className="hero-image-wrapper">
@@ -239,22 +224,6 @@ function BrowsePage() {
                                                 // onButtonClick={() => closeMiniModal()}
                                                 modalComponent={<MoreMovieInfo movie={randomMovie}/>}
                                             />
-                                            {/*<button className="color-secondary hasLabel hasIcon ltr-18ezbm2">*/}
-                                            {/*    <div className="ltr-1st24vv">*/}
-                                            {/*        <div className="medium ltr-iyulz33">*/}
-                                            {/*            <svg width="24" height="24" viewBox="0 0 24 24"*/}
-                                            {/*                 fill="none" xmlns="http://www.w3.org/2000/svg"*/}
-                                            {/*                 className="ltr-4z3qvp e1svuwfo1"*/}
-                                            {/*                 data-name="CircleI" aria-hidden="true">*/}
-                                            {/*                <path fill-rule="evenodd" clip-rule="evenodd"*/}
-                                            {/*                      d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12ZM13 10V18H11V10H13ZM12 8.5C12.8284 8.5 13.5 7.82843 13.5 7C13.5 6.17157 12.8284 5.5 12 5.5C11.1716 5.5 10.5 6.17157 10.5 7C10.5 7.82843 11.1716 8.5 12 8.5Z"*/}
-                                            {/*                      fill="currentColor"></path>*/}
-                                            {/*            </svg>*/}
-                                            {/*        </div>*/}
-                                            {/*    </div>*/}
-                                            {/*    <div className="ltr-1npqywr" style={{width: "1rem"}}></div>*/}
-                                            {/*    <span className="ltr-1vh9doaa">More Info</span>*/}
-                                            {/*</button>*/}
                                         </div>
                                     </div>
                                 </div>
@@ -276,7 +245,7 @@ function BrowsePage() {
                 <div className="movie-section">
                     <Carousel movies={movies} title={"We Think You'll Love These"}/>
                 </div>
-                {profile?.viewedMovies.length >= 1 && (
+                {profile?.viewedMovies?.length >= 1 && (
                     <div className="movie-section">
                         <Carousel movies={movies} title={`Because you watched ${randomViewedMovie?.movie.title}`}/>
                     </div>

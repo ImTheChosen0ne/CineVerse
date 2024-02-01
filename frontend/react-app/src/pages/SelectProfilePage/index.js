@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { ProfileContext } from "../../context/Profile";
 import Spinner from "../../components/Spinner";
+import kidlogo from "./kidslogo.png"
 
 function SelectProfilePage() {
     const sessionUser = useSelector(state => state.session.user);
@@ -25,6 +26,7 @@ function SelectProfilePage() {
 
     return (
         <div className="profiles-container">
+            <div className="profile-nav"></div>
             <div  className="list-profiles">
                 <Spinner loading={loading}/>
             </div>
@@ -38,9 +40,12 @@ function SelectProfilePage() {
                             <div>
                                 <NavLink to={`/browse/${profile.name}`} onClick={() => handleProfileSelect(profile)}>
                                     <div className="profile-icon">
-                                        <img
-                                            src={profile.img}
-                                            alt="profile icon"/>
+                                        <img className="profileImg" src={profile.img} alt="profile icon"/>
+                                        {!profile.maturity &&
+                                        <div className="kid-logo-wrapper">
+                                            <img className="kid-logo" src={kidlogo} alt="profile kids"/>
+                                        </div>
+                                        }
                                     </div>
                                     <span>
                                    {profile.name}

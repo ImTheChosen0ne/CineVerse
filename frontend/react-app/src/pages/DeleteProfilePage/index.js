@@ -43,7 +43,7 @@ function DeleteProfilePage() {
                                     This profile's history - including My List, ratings and activity - will be gone forever, and you won't be able to access it again.
                             </div>
                         </div>
-                        <button className="profile-button end save" onClick={handleCancel}>Keep Profile</button>
+                        <button type="button" className="profile-button end save" onClick={handleCancel}>Keep Profile</button>
                         <button className="profile-button end" onClick={handleSubmit}>Delete Profile</button>
                     </form>
                 </div>

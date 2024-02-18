@@ -11,15 +11,13 @@ public class MovieRating {
     private String rating;
     private String date;
     private Integer profileId;
-
+    public MovieRating() {}
     public MovieRating(Integer ratingId, String rating, String date, Integer profileId) {
         this.ratingId = ratingId;
         this.rating = rating;
         this.date = date;
         this.profileId = profileId;
     }
-
-    public MovieRating() {}
 
     public Integer getRatingId() {
         return ratingId;

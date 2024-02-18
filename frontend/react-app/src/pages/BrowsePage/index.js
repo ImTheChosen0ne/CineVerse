@@ -1,15 +1,16 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import './BrowsePage.css';
-import {getMovies} from "../../store/movies";
+import { getMovies } from "../../store/movies";
 import Footer from "../../components/Footer";
 import Spinner from "../../components/Spinner";
 import Carousel from "../../components/Carousel";
 import TopCarousel from "../../components/Carousel/TopCarousel";
-import {ProfileContext} from "../../context/Profile";
-import {NavLink} from "react-router-dom";
+import { ProfileContext } from "../../context/Profile";
+import { NavLink } from "react-router-dom";
 import OpenModalButton from "../../components/OpenModalButton";
 import MoreMovieInfo from "../../components/MoreMovieInfoModal";
+import { getSimilarMoviesAction } from "../../store/movies";
 
 function BrowsePage() {
     const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function BrowsePage() {
     const { profile } = useContext(ProfileContext);
     const sessionUser = useSelector(state => state.session.user);
     const updatedProfile = sessionUser?.profiles.find(profiles => profiles?.profileId === profile?.profileId)
+    const similarMovies = useSelector(state => state.similarMovies);
 
     const [videoEnded, setVideoEnded] = useState(false);
     const videoRef = useRef(null);
@@ -43,6 +45,10 @@ function BrowsePage() {
     if (profile && profile?.viewedMovies && profile?.viewedMovies?.length > 0) {
         randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile?.viewedMovies?.length)];
     }
+
+    // useEffect(() => {
+    //     dispatch(getSimilarMoviesAction(randomViewedMovie?.movie))
+    // }, [dispatch]);
 
     // const randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile?.viewedMovies.length)];
     // const randomMovie = movies[Math.floor(Math.random() * movies.length)];

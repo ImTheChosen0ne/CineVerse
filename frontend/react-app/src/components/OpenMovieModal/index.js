@@ -23,7 +23,7 @@ function OpenMovieModal({movie, position}) {
   const { profile, updateProfile } = useContext(ProfileContext);
 
   const sessionUser = useSelector(state => state.session.user);
-  const updatedProfile = sessionUser.profiles.find(profiles => profiles.profileId === profile.profileId)
+  const updatedProfile = sessionUser.profiles.find(profiles => profiles?.profileId === profile?.profileId)
 
   const [showMenu, setShowMenu] = useState(false);
   let [superLiked, setSuperLiked] = useState(false);

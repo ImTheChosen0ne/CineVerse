@@ -1,6 +1,5 @@
 package com.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 import jakarta.persistence.*;
@@ -69,13 +68,11 @@ public class Movie {
             joinColumns = {@JoinColumn(name = "movie_id")},
             inverseJoinColumns = {@JoinColumn(name = "movie_rating_id")}
     )
-//    @CsvCustomBindByName(column = "ratings", converter = StringSetConverter.class)
     private Set<MovieRating> ratings;
 
     public Movie() {
         this.ratings = new HashSet<MovieRating>();
     }
-
     public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String backdrop, Set<MovieRating> ratings, String titleImage, String dateAdded, Integer views) {
         this.movieId = movieId;
         this.title = title;

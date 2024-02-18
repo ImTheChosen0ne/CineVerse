@@ -2,10 +2,16 @@ import config from "../config/config";
 
 // constants
 const GET_MOVIES = "movie/GET_MOVIES";
+const GET_SIMILAR_MOVIES = "movie/GET_SIMILAR_MOVIES";
 
 const getMovie = (movies) => ({
     type: GET_MOVIES,
     payload: movies,
+});
+
+const getSimilarMovies = (similarMovies) => ({
+    type: GET_SIMILAR_MOVIES,
+    payload: similarMovies,
 });
 
 export const getMovies = () => async (dispatch) => {
@@ -27,6 +33,28 @@ export const getMovies = () => async (dispatch) => {
     }
 };
 
+// export const getSimilarMoviesAction = (movieName) => async (dispatch) => {
+//     const token = localStorage.getItem("token");
+//
+//     if (!token || !movieName) {
+//         return;
+//     }
+//
+//     const response = await fetch(`http://localhost:5000/api/recommend/similar_movies`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${token}`,
+//         },
+//         body: JSON.stringify({ movie_name: movieName }),
+//     });
+//
+//     if (response.ok) {
+//         const data = await response.json();
+//         dispatch(getSimilarMovies(data.similar_movies));
+//     }
+// };
+
 const initialState = {};
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -36,6 +64,8 @@ export default function reducer(state = initialState, action) {
                 newState[movie.movieId] = movie;
             });
             return newState;
+        case GET_SIMILAR_MOVIES:
+            return { ...state, similarMovies: action.payload };
         default:
             return state;
     }

@@ -35,7 +35,7 @@ public class User implements UserDetails {
 
     private Set<Profile> profiles;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)//cascade = CascadeType.ALL
     @JoinTable(
             name="user_role_junction",
             joinColumns = {@JoinColumn(name="user_id")},

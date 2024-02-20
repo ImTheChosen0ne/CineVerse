@@ -1,0 +1,177 @@
+.radio-panel-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.screen-reader-text {
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
+}
+
+.choose-plan__plan--checked {
+    border-color: #077af5 !important;
+}
+
+.choose-plan__plan {
+    background: #fff;
+    border: 4px solid #ccc;
+    border-radius: 2px;
+    margin-bottom: 13px;
+    padding: 0;
+    position: relative;
+    min-height: 108px;
+    width: 100%;
+}
+
+.choose-plan__plan:hover {
+    border-color: #077af5;
+    cursor: pointer;
+}
+
+.radio-panel__label {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.choose-plan__plan-name, .choose-plan__plan--checked .choose-plan__plan-name {
+    background: #ccc;
+}
+
+.choose-plan__plan-name {
+    height: 104px;
+    padding: .75em 1.6em;
+    justify-content: center;
+    text-align: center;
+}
+
+.choose-plan__plan-name {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    margin: 0;
+    padding: .75em 1.6em;
+    background: #f3f3f3;
+    font-size: 12px;
+    width: 150px;
+}
+
+.plan-name__prefix {
+    font-size: 12px;
+    margin-bottom: .5em;
+    white-space: normal;
+    font-weight: 700;
+}
+
+.plan-name__name {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.choose-plan__description {
+    padding-left: 16px;
+}
+
+.choose-plan__description {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 12px 16px 12px 20px;
+}
+
+.selected-indicator {
+    background-position: -12px -319px;
+    border-radius: 1.3em;
+    height: 2.6em;
+    left: -1.3em;
+    margin-top: -1.3em;
+    width: 2.6em;
+}
+
+.selected-indicator {
+    background: #077af5;
+    background-image: url(https://assets.nflxext.com/en_us/Account/sprite_icons_MyAcct_63x205_v2.png);
+    background-position: -17px -325px;
+    border-radius: 1em;
+    box-sizing: border-box;
+    display: block;
+    font-size: 1em;
+    height: 2em;
+    left: -1em;
+    margin-top: -1em;
+    position: absolute;
+    text-indent: -999em;
+    top: 50%;
+    width: 2em;
+    z-index: 2;
+}
+
+.btn-bar.btn-bar-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.btn-bar {
+    box-sizing: border-box;
+    padding: 1em 0;
+}
+
+.btn-bar-center .btn {
+    margin-left: .5em;
+    margin-right: .5em;
+}
+
+.btn.btn-small {
+    font-size: 13px;
+    line-height: 1em;
+    margin-right: .5em;
+    min-height: 37px;
+    min-width: 98px;
+    padding: 12px 1em;
+    width: auto;
+}
+
+.btn-gray {
+    background-color: #e6e6e6;
+    background-image: linear-gradient(180deg,#e6e6e6,#ddd);
+    box-shadow: 0 1px 0 rgba(0,0,0,.2);
+    color: #000;
+}
+
+.btn {
+    background-color: #e6e6e6;
+    background-image: linear-gradient(180deg,#e6e6e6,#ddd);
+    border: 0;
+    border-radius: 2px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.2);
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    letter-spacing: .1px;
+    line-height: 1em;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    vertical-align: middle;
+}
+
+.btn-bar .btn-blue {
+    color: #fff;
+    background-color: #0080ff;
+    background-image: linear-gradient(180deg,#0080ff,#0272e2);
+    box-shadow: inset 0 1px 0 hsla(0,0%,100%,.3),0 1px 0 rgba(0,0,0,.55);
+    border: none !important;
+    font-size: 13px;
+    line-height: 1em;
+    margin-right: .5em;
+    min-height: 37px;
+    min-width: 98px;
+    padding: 12px 1em;
+    width: auto;
+    border-radius: 0;
+}

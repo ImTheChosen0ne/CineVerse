@@ -36,12 +36,12 @@ function Account() {
                                             </div>
                                         </div>
                                         <div className="account-subsection-group">
-                                            <div className="account-section-item">
-                                                <NavLink to="">Change account email</NavLink>
-                                            </div>
-                                            <div className="account-section-item">
-                                                <NavLink to="">Change password</NavLink>
-                                            </div>
+                                            {/*<div className="account-section-item">*/}
+                                            {/*    <NavLink to="">Change account email</NavLink>*/}
+                                            {/*</div>*/}
+                                            {/*<div className="account-section-item">*/}
+                                            {/*    <NavLink to="">Change password</NavLink>*/}
+                                            {/*</div>*/}
                                         </div>
                                     </div>
                                 </section>
@@ -54,7 +54,7 @@ function Account() {
                                     <div className="account-subsection">
                                         <div className="account-subsection-group">
                                             <div className="account-email">
-                                                <b>Standard</b>
+                                                <b>{sessionUser.plan.charAt(0).toUpperCase() + sessionUser.plan.slice(1)}</b>
                                                 <svg viewBox="0 0 1740 960" className="quality-icon">
                                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                         <path
@@ -69,7 +69,7 @@ function Account() {
                                         </div>
                                         <div className="account-subsection-group">
                                             <div className="account-section-item">
-                                                <NavLink to="">Change plan</NavLink>
+                                                <NavLink to="/account/changeplan">Change plan</NavLink>
                                             </div>
                                         </div>
                                     </div>

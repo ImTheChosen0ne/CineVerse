@@ -100,6 +100,7 @@ function Navigation({ isLoaded }){
 		'/browse/language',
 		"/search",
 		'/account',
+		'/account/changeplan',
 		`/account/${profileUrlName[2]}/ratings`,
 		`/account/${profileUrlName[2]}/viewed`,
 	].includes(location.pathname);
@@ -116,7 +117,7 @@ function Navigation({ isLoaded }){
 	} else if (location.pathname === '/') {
 		navClassName = 'splash-nav';
 		navHome = 'splash';
-	} else if (location.pathname === '/account' || location.pathname === `/account/${profileUrlName[2]}/ratings` || location.pathname === `/account/${profileUrlName[2]}/viewed`) {
+	} else if (location.pathname === '/account' || location.pathname === `/account/${profileUrlName[2]}/ratings` || location.pathname === `/account/${profileUrlName[2]}/viewed`|| location.pathname === `/account/changeplan`) {
 		navAccount = 'account';
 	} else if (location.pathname === '/browse/MyList' || location.pathname === '/browse/latest' || location.pathname === '/browse/language' || location.pathname === '/search') {
 		navMyList = 'my-list';

@@ -17,9 +17,9 @@ function OpenModalButton({
   };
 
   return (
-      <button className="color-supplementary hasIcon round ltr-11vo9g5" onClick={onClick}>
+      <button className="color-supplementary hasIcon round ltr-11vo9g5 btn-blue" onClick={onClick}>
           {buttonText}
-    </button>
+      </button>
   );
 }
 

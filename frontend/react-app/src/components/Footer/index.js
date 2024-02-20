@@ -16,7 +16,7 @@ function Footer() {
 
     if (location.pathname === '/signup') {
         footerClassName = 'signup-footer';
-    } else if (location.pathname === '/account' || location.pathname === `/account/${profileName}/ratings` || location.pathname === `/account/${profileName}/viewed`) {
+    } else if (location.pathname === '/account' || location.pathname === `/account/${profileName}/ratings` || location.pathname === `/account/${profileName}/viewed` || location.pathname === `/account/changeplan`) {
         footerClassName = 'account-footer';
     } else if (location.pathname === '/browse/MyList' || location.pathname === '/browse/language' || location.pathname === '/browse/latest' || location.pathname === '/search') {
         footerClassName = 'my-list-footer';

@@ -21,6 +21,8 @@ import AddProfilePage from "./pages/AddProfilePage";
 import Ratings from "./pages/RatingsPage";
 import Viewed from "./pages/ViewedPage";
 import Watch from "./pages/WatchPage";
+import ChangePlan from "./pages/ChangePlanPage";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +65,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/account/:profileName/ratings" >
             <Ratings />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/account/changeplan" >
+            <ChangePlan />
           </ProtectedRoute>
           <ProtectedRoute exact path="/account" >
             <Account />

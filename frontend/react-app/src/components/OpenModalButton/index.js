@@ -5,7 +5,8 @@ function OpenModalButton({
           modalComponent, // component to render inside the modal
           buttonText, // text of the button that opens the modal
           onButtonClick, // optional: callback function that will be called once the button that opens the modal is clicked
-          onModalClose // optional: callback function that will be called once the modal is closed
+          onModalClose, // optional: callback function that will be called once the modal is closed
+          disabled
 }) {
   const { setModalContent, setOnModalClose } = useModal();
 
@@ -17,7 +18,7 @@ function OpenModalButton({
   };
 
   return (
-      <button className="color-supplementary hasIcon round ltr-11vo9g5 btn-blue" onClick={onClick}>
+      <button className="color-supplementary hasIcon round ltr-11vo9g5 btn-blue" onClick={onClick} disabled={disabled}>
           {buttonText}
       </button>
   );

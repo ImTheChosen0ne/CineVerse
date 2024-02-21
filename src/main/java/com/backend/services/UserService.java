@@ -32,11 +32,21 @@ public class UserService implements UserDetailsService {
         this.viewedRepository = viewedRepository;
     }
 
-    public User updateUser(User user) {
-        try {
-            return userRepository.save(user);
-        } catch (DataException e) {
-            throw new DataException("Email already in use.");
+    public User updateUser(User body) {
+        if (body == null || body.getEmail() == null || body.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("Invalid user object or email is missing");
+        }
+
+        Optional<User> existingUserOptional = userRepository.findByEmail(body.getEmail());
+        if (existingUserOptional.isPresent()) {
+            User existingUser = existingUserOptional.get();
+            existingUser.setFirstName(body.getFirstName());
+            existingUser.setLastName(body.getLastName());
+            existingUser.setPlan(body.getPlan());
+
+            return userRepository.save(existingUser);
+        } else {
+            throw new DataException("User not found");
         }
     }
 

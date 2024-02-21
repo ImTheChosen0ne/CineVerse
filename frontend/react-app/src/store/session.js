@@ -2,8 +2,9 @@ import config from "../config/config";
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-const ADD_PROFILE = "session/ADD_PROFILE";
+const UPDATE_USER = "session/UPDATE_USER";
 
+const ADD_PROFILE = "session/ADD_PROFILE";
 const UPDATE_PROFILE = "session/UPDATE_PROFILE";
 const REMOVE_PROFILE = "session/REMOVE_PROFILE";
 
@@ -24,6 +25,11 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
 	type: REMOVE_USER,
+});
+
+const updateUser = (user) => ({
+	type: UPDATE_USER,
+	payload: { user }
 });
 
 const addProfile = (profile) => ({
@@ -192,6 +198,27 @@ export const verifyEmail = (email) => async (dispatch) => {
 		return ["An error occurred. Please try again."];
 	}
 };
+
+export const updatedUsers = (updatedUser) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+	if (!token) return;
+
+	const response = await fetch(`${config.apiUrl}/api/user/update`, {
+		method: 'PUT',
+		headers: {
+			"Authorization": `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(updatedUser),
+	});
+
+	if (response.ok) {
+		const updatedUser = await response.json();
+		dispatch(updateUser(updatedUser));
+		return updatedUser;
+	}
+};
+
 
 export const createProfile = (profile) => async (dispatch) => {
 	const token = localStorage.getItem("token");
@@ -386,6 +413,9 @@ export default function reducer(state = initialState, action) {
 			return { ...state , user: action.payload };
 		case REMOVE_USER:
 			return { ...state, user: null };
+		case UPDATE_USER:
+			const { user } = action.payload;
+			return { ...state, user: user};
 		case ADD_PROFILE:
 			const { profile } = action.payload;
 			const userProfiles = state.user.profiles

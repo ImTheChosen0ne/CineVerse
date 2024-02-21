@@ -175,3 +175,149 @@
     width: auto;
     border-radius: 0;
 }
+
+.btn-bar .btn-blue:disabled {
+    color: #fff;
+    background-color: rgba(0, 128, 255, 0.51);
+    background-image: none;
+    box-shadow: inset 0 1px 0 hsla(0,0%,100%,.3),0 1px 0 rgba(0, 0, 0, 0.23);
+    border: none !important;
+    font-size: 13px;
+    line-height: 1em;
+    margin-right: .5em;
+    min-height: 37px;
+    min-width: 98px;
+    padding: 12px 1em;
+    width: auto;
+    border-radius: 0;
+}
+
+.terms-of-use {
+    font-size: .75em;
+    margin: 0 2px;
+    padding: 10px 0 20px;
+}
+
+.confirm-modal {
+    background-color: #fff;
+    color: inherit;
+    font-size: .9em;
+    margin: 29% auto 0;
+    max-width: 640px;
+    min-height: 200px;
+    overflow: visible;
+    padding-bottom: 20px;
+    text-align: left;
+}
+
+.confirm-head {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.confirm-content, .confirm-foot, .confirm-head {
+    padding: 6px 20px;
+}
+
+.confirm-head h1 {
+    color: inherit;
+    font-weight: 400;
+    margin: 10px 20px 0 0;
+    padding: 0;
+}
+
+.confirm-close {
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    top: 10px;
+    width: 30px;
+}
+
+.confirm-close::before {
+    color: #666;
+    content: "\00D7";
+    font-size: 40px;
+}
+
+.confirm-foot, .confirm-head {
+    min-height: 18px;
+}
+
+.confirm-content {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/*.confirm-content {*/
+/*    padding: 6px 20px 5px;*/
+/*}*/
+
+ul.structural {
+    margin: 0;
+    padding: 0;
+}
+
+.modal-plan-list {
+    list-style: none;
+}
+
+.modal-plan-item.current {
+    border-bottom: 1px solid #ccc;
+    color: #6e6e6e;
+}
+
+ul.structural > li {
+    list-style: none;
+    margin-left: 0;
+}
+
+.modal-plan-item {
+    background: #f2f2f2;
+    border-bottom: 1px solid transparent;
+    margin: 0;
+    padding: 1em 20px;
+}
+
+.modal-plan-header {
+    font-size: 1em;
+    margin: 0 0 .4em;
+    font-weight: 400;
+}
+
+.modal-plan-header p {
+    margin: 14px 0;
+}
+
+.modal-additional-info {
+    padding: 15px 20px 0;
+}
+
+.modal-additional-info strong {
+    font-weight: 700;
+    padding-left: 4px;
+}
+
+.confirm-foot {
+    margin-top: 0;
+}
+
+.btn-bar {
+    text-align: center;
+}
+
+.btn-bar {
+    box-sizing: border-box;
+    padding: 1em 0;
+    width: 100%;
+}
+
+.btn-bar .modal-action-button {
+    min-height: 37px !important;
+    min-width: 98px !important;
+}

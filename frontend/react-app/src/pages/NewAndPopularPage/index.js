@@ -23,15 +23,42 @@ function NewAndPopular() {
             });
     }, [dispatch]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setTimeout(() => {
-                setLoading(false);
-            }, 2000);
-        };
+    const moviesCopy = [...movies];
+    const trendingMovies = moviesCopy?.slice().sort((a, b) => b.views - a.views);
+    const popular = moviesCopy?.slice().sort((a, b) => b.popularity - a.popularity);
 
-        fetchData();
-    }, []);
+    const newReleases = moviesCopy?.slice().sort((a, b) => {
+        const dateA = new Date(a.dateAdded);
+        const dateB = new Date(b.dateAdded);
+        return dateB - dateA;
+    });
+
+    const worthWait = moviesCopy?.slice().sort((a, b) => {
+        const dateA = new Date(a.dateAdded);
+        const dateB = new Date(b.dateAdded);
+        return dateB - dateA;
+    }).sort(() => Math.random() - 0.5);
+
+    const ratingValues = {
+        "dislike": 1,
+        "like": 3,
+        "superlike": 5
+    };
+
+    const topMovies = moviesCopy.sort((a, b) => {
+        const avgRatingA = calculateAverageRating(a.ratings);
+        const avgRatingB = calculateAverageRating(b.ratings);
+
+        return avgRatingB - avgRatingA;
+    });
+
+    function calculateAverageRating(ratings) {
+        const total = ratings.reduce((sum, rating) => {
+            return sum + ratingValues[rating.rating];
+        }, 0);
+
+        return total / ratings.length;
+    }
 
     return (
         <div className="new-container">
@@ -41,22 +68,19 @@ function NewAndPopular() {
             {!loading && (
                 <div className="new-movies">
                     <div className="movie-section">
-                        <TopCarousel movies={movies}/>
+                        <TopCarousel movies={topMovies}/>
                     </div>
                     <div className="movie-section">
-                        <Carousel movies={movies} title={"Movie Title"}/>
+                        <Carousel movies={newReleases} title={"New on CineVerse"}/>
                     </div>
                     <div className="movie-section">
-                        <Carousel movies={movies} title={"Movie Title"}/>
+                        <Carousel movies={worthWait} title={"Worth the wait"}/>
                     </div>
                     <div className="movie-section">
-                        <Carousel movies={movies} title={"Movie Title"}/>
+                        <Carousel movies={popular} title={"Popular on CineVerse"}/>
                     </div>
                     <div className="movie-section">
-                        <Carousel movies={movies} title={"Movie Title"}/>
-                    </div>
-                    <div className="movie-section">
-                        <Carousel movies={movies} title={"Movie Title"}/>
+                        <Carousel movies={trendingMovies} title={"Trending Now"}/>
                     </div>
                 </div>
             )}

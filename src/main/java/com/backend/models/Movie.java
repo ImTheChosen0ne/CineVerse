@@ -68,6 +68,7 @@ public class Movie {
             joinColumns = {@JoinColumn(name = "movie_id")},
             inverseJoinColumns = {@JoinColumn(name = "movie_rating_id")}
     )
+
     private Set<MovieRating> ratings;
 
     public Movie() {

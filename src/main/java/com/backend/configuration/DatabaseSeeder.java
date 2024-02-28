@@ -34,11 +34,18 @@ public class DatabaseSeeder {
     public void seedDatabase() {
         try {
             ClassPathResource resource = new ClassPathResource("movies.csv");
-            movieService.seedDataFromCsv(resource);
+            List<Movie> existingMovies = movieRepository.findAll();
+
+            if (existingMovies.isEmpty()) {
+                movieService.seedDataFromCsv(resource);
+            } else {
+                System.out.println("Movies already exist in the database. Skipping CSV data seeding.");
+            }
         } catch (Exception e) {
             throw new DataException("Error seeding database: " + e.getMessage());
         }
     }
+
     @Bean
     CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, MovieRepository movieRepository, ProfileRepository profileRepository, ViewedRepository viewedRepository, MovieRatingRepository movieRatingRepository, PasswordEncoder passwordEncoder) {
         return args -> {

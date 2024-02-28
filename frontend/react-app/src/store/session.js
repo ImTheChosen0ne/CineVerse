@@ -529,23 +529,11 @@ export default function reducer(state = initialState, action) {
 			return { user: { ...state.user, profiles: updatedViewProfiles } };
 		case GET_USER_MOVIES:
 			const { movies: recommendedMovies, profile: recommendProfile } = action.payload;
-
-			// Assuming state.user contains the user's data including profiles
 			const updateProfiles = state.user.profiles.map(profile => {
-				if (profile === recommendProfile) {
-					// If it's the target profile, update the recommendedMovies
-					return { ...profile, recommendedMovies };
-				}
-				// If it's not the target profile, keep it unchanged
+				if (profile === recommendProfile) { return { ...profile, recommendedMovies };}
 				return profile;
 			});
-
-			return {
-				...state,
-				user: {
-					...state.user,
-					profiles: updateProfiles,
-				}
+			return { ...state, user: { ...state.user, profiles: updateProfiles}
 			}
 		default:
 			return state;

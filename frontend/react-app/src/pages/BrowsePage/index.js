@@ -20,7 +20,7 @@ function BrowsePage() {
     const { profile } = useContext(ProfileContext);
     const sessionUser = useSelector(state => state.session.user);
     const updatedProfile = sessionUser?.profiles.find(profiles => profiles?.profileId === profile?.profileId)
-    const similarMovies = useSelector(state => state.movies.similarMovies);
+    const similarMovies = useSelector(state => state.movies?.similarMovies);
 
     const [videoEnded, setVideoEnded] = useState(false);
     const videoRef = useRef(null);
@@ -77,6 +77,27 @@ function BrowsePage() {
     const trendingMovies = moviesCopy?.slice().sort((a, b) => b.views - a.views);
     const popular = moviesCopy?.slice().sort((a, b) => b.popularity - a.popularity);
     const recommended = updatedProfile?.recommendedMovies
+
+    const ratingValues = {
+        "dislike": 1,
+        "like": 3,
+        "superlike": 5
+    };
+
+    const topMovies = moviesCopy.sort((a, b) => {
+        const avgRatingA = calculateAverageRating(a.ratings);
+        const avgRatingB = calculateAverageRating(b.ratings);
+
+        return avgRatingB - avgRatingA;
+    });
+
+    function calculateAverageRating(ratings) {
+        const total = ratings.reduce((sum, rating) => {
+            return sum + ratingValues[rating.rating];
+        }, 0);
+
+        return total / ratings.length;
+    }
 
     const newReleases = moviesCopy?.slice().sort((a, b) => {
         const dateA = new Date(a.dateAdded);
@@ -251,7 +272,7 @@ function BrowsePage() {
                     </div>
                 )}
                 <div className="movie-section">
-                    <TopCarousel movies={movies} className="carousel"/>
+                    <TopCarousel movies={topMovies} className="carousel"/>
                 </div>
                 <div className="movie-section">
                     <Carousel movies={newReleases} title={"New Releases"}/>

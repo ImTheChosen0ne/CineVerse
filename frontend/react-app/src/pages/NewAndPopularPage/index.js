@@ -68,7 +68,6 @@ function NewAndPopular() {
             {!loading && (
                 <div className="new-movies">
                     <div className="movie-section">
-
                         <TopCarousel movies={topMovies}/>
                     </div>
                     <div className="movie-section">

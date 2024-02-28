@@ -33,27 +33,30 @@ export const getMovies = () => async (dispatch) => {
     }
 };
 
-// export const getSimilarMoviesAction = (movieName) => async (dispatch) => {
-//     const token = localStorage.getItem("token");
-//
-//     if (!token || !movieName) {
-//         return;
-//     }
-//
-//     const response = await fetch(`http://localhost:5000/api/recommend/similar_movies`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${token}`,
-//         },
-//         body: JSON.stringify({ movie_name: movieName }),
-//     });
-//
-//     if (response.ok) {
-//         const data = await response.json();
-//         dispatch(getSimilarMovies(data.similar_movies));
-//     }
-// };
+export const getSimilarMoviesAction = (movieName, movies) => async (dispatch) => {
+    const token = localStorage.getItem("token");
+
+    if (!token || !movieName) {
+        return;
+    }
+
+    const response = await fetch(`http://localhost:5000/api/recommend/similar_movies`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            movie_name: movieName,
+            movies
+        }),
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(getSimilarMovies(data.similar_movies));
+    }
+};
 
 const initialState = {};
 export default function reducer(state = initialState, action) {

@@ -74,9 +74,9 @@ function Carousel({ movies, title }) {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, [movies.length]);
+    }, [movies?.length]);
 
-    const totalSlides = Math.ceil(movies.length / itemsPerSlide);
+    const totalSlides = Math.ceil(movies?.length / itemsPerSlide);
 
     const handleNextSlide = () => {
         setAnimation("animating");

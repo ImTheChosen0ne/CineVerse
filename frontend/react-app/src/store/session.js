@@ -18,6 +18,9 @@ const REMOVE_WATCH_LATER_MOVIE = "session/REMOVE_WATCH_LATER_MOVIE";
 const ADD_VIEWED_MOVIE = "session/ADD_VIEWED_MOVIE";
 const UPDATE_VIEWED_MOVIE = "session/UPDATE_VIEWED_MOVIE";
 
+const GET_USER_MOVIES = "movie/GET_USER_MOVIES";
+
+
 const setUser = (user) => ({
 	type: SET_USER,
 	payload: user,
@@ -80,6 +83,11 @@ const addViewed = (viewed, profile) => ({
 const updateViewed = (updatedViewed, profile) => ({
 	type: UPDATE_VIEWED_MOVIE,
 	payload: { updatedViewed, profile }
+});
+
+const getUserMovies = (movies, profile) => ({
+	type: GET_USER_MOVIES,
+	payload: { movies, profile }
 });
 
 const initialState = { user: null };
@@ -407,6 +415,32 @@ export const updateViewedMovie = (profile, updatedView) => async (dispatch) => {
 	}
 };
 
+export const recommendedMovies = (profile, movies) => async (dispatch) => {
+	const token = localStorage.getItem("token");
+
+	if (!token || !profile) {
+		return;
+	}
+
+	const response = await fetch(`http://localhost:5000/api/recommend/user_recommendations`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`,
+		},
+		body: JSON.stringify({
+			profile,
+			movies
+		}),
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		console.log(data.recommendations)
+		dispatch(getUserMovies(data.recommendations, profile));
+	}
+};
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
@@ -493,6 +527,26 @@ export default function reducer(state = initialState, action) {
 				return profile;
 			});
 			return { user: { ...state.user, profiles: updatedViewProfiles } };
+		case GET_USER_MOVIES:
+			const { movies: recommendedMovies, profile: recommendProfile } = action.payload;
+
+			// Assuming state.user contains the user's data including profiles
+			const updateProfiles = state.user.profiles.map(profile => {
+				if (profile === recommendProfile) {
+					// If it's the target profile, update the recommendedMovies
+					return { ...profile, recommendedMovies };
+				}
+				// If it's not the target profile, keep it unchanged
+				return profile;
+			});
+
+			return {
+				...state,
+				user: {
+					...state.user,
+					profiles: updateProfiles,
+				}
+			}
 		default:
 			return state;
 	}

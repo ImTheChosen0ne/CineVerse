@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 import OpenModalButton from "../../components/OpenModalButton";
 import MoreMovieInfo from "../../components/MoreMovieInfoModal";
 import { getSimilarMoviesAction } from "../../store/movies";
+import {recommendedMovies} from "../../store/session";
 
 function BrowsePage() {
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ function BrowsePage() {
     const { profile } = useContext(ProfileContext);
     const sessionUser = useSelector(state => state.session.user);
     const updatedProfile = sessionUser?.profiles.find(profiles => profiles?.profileId === profile?.profileId)
-    const similarMovies = useSelector(state => state.similarMovies);
+    const similarMovies = useSelector(state => state.movies.similarMovies);
 
     const [videoEnded, setVideoEnded] = useState(false);
     const videoRef = useRef(null);
@@ -47,7 +48,7 @@ function BrowsePage() {
     }
 
     // useEffect(() => {
-    //     dispatch(getSimilarMoviesAction(randomViewedMovie?.movie))
+    //     dispatch(getSimilarMoviesAction(randomViewedMovie?.movie, movies))
     // }, [dispatch]);
 
     // const randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile?.viewedMovies.length)];
@@ -62,14 +63,21 @@ function BrowsePage() {
         }
     }, [movies, randomMovie]);
 
+    // useEffect(() => {
+    //     dispatch(recommendedMovies(updatedProfile, movies))
+    // }, [dispatch]);
+
 
     const myListMovies = updatedProfile?.watchLaterMovies
-    const actionAndAdventureMovies = movies?.filter((movie) => movie.genres?.includes("ACTION") || movie.genres?.includes("ADVENTURE")).sort((a, b) => b.views - a.views);
-    const familyMovies = movies?.filter((movie) => movie.genres?.includes("FAMILY")).sort((a, b) => b.views - a.views);
-    const comedyMovies = movies?.filter((movie) => movie.genres?.includes("COMEDY")).sort((a, b) => b.views - a.views);
-    const scifiFantasyMovies = movies?.filter((movie) => movie.genres?.includes("SCIENCE_FICTION") || movie.genres?.includes("FANTASY")).sort((a, b) => b.views - a.views);
-    const dramaMovies = movies?.filter((movie) => movie.genres?.includes("DRAMA")).sort((a, b) => b.views - a.views);
+    const actionAndAdventureMovies = moviesCopy?.filter((movie) => movie.genres?.includes("ACTION") || movie.genres?.includes("ADVENTURE")).sort(() => Math.random() - 0.5);
+    const familyMovies = movies?.filter((movie) => movie.genres?.includes("FAMILY")).sort(() => Math.random() - 0.5);
+    const comedyMovies = movies?.filter((movie) => movie.genres?.includes("COMEDY")).sort(() => Math.random() - 0.5);
+    const scifiFantasyMovies = movies?.filter((movie) => movie.genres?.includes("SCIENCE_FICTION") || movie.genres?.includes("FANTASY")).sort(() => Math.random() - 0.5);
+    const dramaMovies = movies?.filter((movie) => movie.genres?.includes("DRAMA")).sort(() => Math.random() - 0.5);
     const trendingMovies = moviesCopy?.slice().sort((a, b) => b.views - a.views);
+    const popular = moviesCopy?.slice().sort((a, b) => b.popularity - a.popularity);
+    const recommended = updatedProfile?.recommendedMovies
+
     const newReleases = moviesCopy?.slice().sort((a, b) => {
         const dateA = new Date(a.dateAdded);
         const dateB = new Date(b.dateAdded);
@@ -249,11 +257,11 @@ function BrowsePage() {
                     <Carousel movies={newReleases} title={"New Releases"}/>
                 </div>
                 <div className="movie-section">
-                    <Carousel movies={movies} title={"We Think You'll Love These"}/>
+                    <Carousel movies={popular} title={"Popular on CineVerse"}/>
                 </div>
                 {profile?.viewedMovies?.length >= 1 && (
                     <div className="movie-section">
-                        <Carousel movies={movies} title={`Because you watched ${randomViewedMovie?.movie.title}`}/>
+                        <Carousel movies={movies} title={`Because you watched ${randomViewedMovie?.movie?.title}`}/>
                     </div>
                 )}
                 <div className="movie-section">

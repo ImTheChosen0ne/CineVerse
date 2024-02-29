@@ -4,6 +4,7 @@ services:
     runtime: docker
     repo: "https://github.com/ImTheChosen0ne/Java-web-app"
     plan: free
+    region: ohio
     branch: dev
     rootDir: Java-web-app
     dockerCommand: ./Java-web-app.sh
@@ -25,6 +26,7 @@ services:
     name: frontend
     runtime: docker
     plan: free
+    region: ohio
     repo: "https://github.com/ImTheChosen0ne/Java-web-app"
     branch: dev
     rootDir: src/main/frontend/react-app

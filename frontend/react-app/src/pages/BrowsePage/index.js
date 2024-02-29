@@ -84,7 +84,7 @@ function BrowsePage() {
         "superlike": 5
     };
 
-    const topMovies = moviesCopy.sort((a, b) => {
+    const topMovies = moviesCopy.slice(0, 10).sort((a, b) => {
         const avgRatingA = calculateAverageRating(a.ratings);
         const avgRatingB = calculateAverageRating(b.ratings);
 

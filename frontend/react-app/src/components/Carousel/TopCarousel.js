@@ -148,15 +148,20 @@ function TopCarousel({ movies }) {
     }, [movies.length]);
 
     const totalSlides = Math.ceil(10 / itemsPerSlide);
+    // const extendedMovies = movies.concat(movies);
 
     const handleNextSlide = () => {
         setAnimation("animating");
         setShowCaret("active");
         setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
+        // setCurrentSlide((prevSlide) => (prevSlide + 1) % extendedMovies.length);
+
     };
 
     const handlePrevSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide - 1 + totalSlides) % totalSlides);
+        // setCurrentSlide((prevSlide) => (prevSlide - 1 + extendedMovies.length) % extendedMovies.length);
+
     };
 
     const sliderStyle = {transform: `translate3d(-${currentSlide * slideWidth}%, 0px, 0px)`};
@@ -177,7 +182,7 @@ function TopCarousel({ movies }) {
                             </span>
                             <div className="sliderMask showPeek">
                                 <div className={`sliderContent row-with-x-columns ${animation}`} style={sliderStyle}>
-                                    {movies?.slice(0, 10).map((movie, index) => (
+                                    {movies?.map((movie, index) => (
                                         <div key={movie?.movieId} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>
                                             <div className="title-card-container" >
                                                 <div className="title-card">
@@ -194,6 +199,26 @@ function TopCarousel({ movies }) {
                                             </div>
                                         </div>
                                     ))}
+                                    {/*{extendedMovies?.map((movie, index) => {*/}
+                                    {/*    const svgIndex = index % top10RankSVGs.length;*/}
+                                    {/*    return (*/}
+                                    {/*        <div key={movie?.movieId} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>*/}
+                                    {/*            <div className="title-card-container" >*/}
+                                    {/*                <div className="title-card">*/}
+                                    {/*                    <div className="ptrack-content">*/}
+                                    {/*                        <div className="boxart-size-7x10 boxart-container boxart-rounded">*/}
+                                    {/*                            {top10RankSVGs[svgIndex ]}*/}
+                                    {/*                            <img className="boxart-image-in-padded-container" src={movie?.poster} alt={movie?.title}/>*/}
+                                    {/*                            <div className="fallback-text-container">*/}
+                                    {/*                                <p className="fallback-text"></p>*/}
+                                    {/*                            </div>*/}
+                                    {/*                        </div>*/}
+                                    {/*                    </div>*/}
+                                    {/*                </div>*/}
+                                    {/*            </div>*/}
+                                    {/*        </div>*/}
+                                    {/*    );*/}
+                                    {/*})}*/}
                                 </div>
                             </div>
                             <span className="handle handleNext active" role="button" onClick={handleNextSlide}>

@@ -422,7 +422,7 @@ export const recommendedMovies = (profile, movies) => async (dispatch) => {
 		return;
 	}
 
-	const response = await fetch(`http://localhost:5000/api/recommend/user_recommendations`, {
+	const response = await fetch(`${config.recUrl}/api/recommend/user_recommendations`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -436,7 +436,6 @@ export const recommendedMovies = (profile, movies) => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data.recommendations)
 		dispatch(getUserMovies(data.recommendations, profile));
 	}
 };

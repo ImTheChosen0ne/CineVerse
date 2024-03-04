@@ -13,7 +13,7 @@ import {
 import {ProfileContext} from "../../context/Profile";
 import {NavLink} from "react-router-dom";
 
-function OpenMovieModal({movie, position}) {
+function OpenMovieModal({ movie, position }) {
   const ulRef = useRef();
   const likedRef = useRef();
   const dispatch = useDispatch();

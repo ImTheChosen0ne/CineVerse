@@ -18,7 +18,7 @@ function BrowseByLanguage() {
     const { setModalContent } = useMiniModal();
     const [loading, setLoading] = useState(true);
 
-    const movies = Object.values(useSelector((state) => state.movies));
+    const movies = Object.values(useSelector((state) => state.movies.movies));
 
     useEffect(() => {
         dispatch(getMovies())

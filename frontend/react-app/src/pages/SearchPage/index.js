@@ -13,7 +13,7 @@ function Search() {
     const searchParams = new URLSearchParams(location.search);
     const query = searchParams.get("query");
     const { setModalContent, modalRef } = useMiniModal();
-    const movies = Object.values(useSelector((state) => state.movies));
+    const movies = Object.values(useSelector((state) => state.movies.movies));
 
     useEffect(() => {
         dispatch(getMovies());

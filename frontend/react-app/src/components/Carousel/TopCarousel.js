@@ -137,7 +137,7 @@ function TopCarousel({ movies }) {
             setItemsPerSlide(newItemsPerSlide);
             setSlideWidth(newSlideWidth);
 
-            setCurrentSlide(prevSlide => Math.min(prevSlide, Math.ceil(movies.length / newItemsPerSlide) - 1));
+            setCurrentSlide(prevSlide => Math.min(prevSlide, Math.ceil(movies?.length / newItemsPerSlide) - 1));
         }
 
         window.addEventListener("resize", handleResize);

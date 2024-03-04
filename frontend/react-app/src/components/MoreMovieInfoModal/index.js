@@ -9,13 +9,13 @@ import {
 } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileContext } from "../../context/Profile";
-import { getMovies } from "../../store/movies";
+import {getMovies, getSimilarModalMoviesAction, getSimilarMoviesAction} from "../../store/movies";
 import "./MoreMovieInfo.css";
 
 function MoreMovieInfo({ movie }) {
 	const dispatch = useDispatch();
 	const history = useHistory()
-	const movies = Object.values(useSelector((state) => state.movies));
+	const movies = Object.values(useSelector((state) => state.movies.movies));
 
 	const [videoEnded, setVideoEnded] = useState(false);
 
@@ -38,6 +38,14 @@ function MoreMovieInfo({ movie }) {
 	useEffect(() => {
 		dispatch(getMovies());
 	}, [dispatch]);
+
+	useEffect(() => {
+		if(movie && movies) {
+			dispatch(getSimilarModalMoviesAction(movie, movies))
+		}
+	}, [dispatch, movie]);
+
+	const similarMovies = Object.values(useSelector(state => state.movies?.modalMovies));
 
 	const openMenu = () => {
 		setShowMenu(true);
@@ -168,16 +176,15 @@ function MoreMovieInfo({ movie }) {
 		}
 	}
 
-	const currentMovieGenres = movie.genres
-	const currentMovieId = movie.movieId
-
-	const similarMovies = movies.filter((movie) => {
-		return (
-			movie.movieId !== currentMovieId &&
-			currentMovieGenres.every((genre) => movie.genres.includes(genre))
-		);
-	});
-
+	// const currentMovieGenres = movie.genres
+	// const currentMovieId = movie.movieId
+	//
+	// const similarMovies = movies.filter((movie) => {
+	// 	return (
+	// 		movie.movieId !== currentMovieId &&
+	// 		currentMovieGenres.every((genre) => movie.genres?.includes(genre))
+	// 	);
+	// });
 
 	const renderLikedStatus = () => {
 		if (liked) {
@@ -774,7 +781,7 @@ function MoreMovieInfo({ movie }) {
 										<h3 className="previewModal--section-header moreLikeThis--header">More Like This</h3>
 										<div className={`section-container ${collapsed}`}>
 											<div className="moreLikeThis--container">
-												{similarMovies.map((movie) => (
+												{similarMovies?.map((movie) => (
 													<div className="titleCard--container more-like-this-item" role="button">
 														<div className="titleCard-imageWrapper has-duration">
 															<div className="ptrack-content">

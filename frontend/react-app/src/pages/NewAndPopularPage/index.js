@@ -9,7 +9,7 @@ import Spinner from "../../components/Spinner";
 
 function NewAndPopular() {
     const dispatch = useDispatch();
-    const movies = Object.values(useSelector((state) => state.movies));
+    const movies = Object.values(useSelector((state) => state.movies.movies));
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

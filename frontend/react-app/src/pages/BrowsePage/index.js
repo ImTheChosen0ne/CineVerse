@@ -15,25 +15,25 @@ import {recommendedMovies} from "../../store/session";
 
 function BrowsePage() {
     const dispatch = useDispatch();
-    const movies = Object.values(useSelector((state) => state.movies));
+    const movies = Object.values(useSelector((state) => state.movies.movies));
     const [loading, setLoading] = useState(true);
     const { profile } = useContext(ProfileContext);
     const sessionUser = useSelector(state => state.session.user);
     const updatedProfile = sessionUser?.profiles.find(profiles => profiles?.profileId === profile?.profileId)
-    const similarMovies = useSelector(state => state.movies?.similarMovies);
+    const similarMovies = Object.values(useSelector(state => state.movies?.similarMovies));
 
     const [videoEnded, setVideoEnded] = useState(false);
     const videoRef = useRef(null);
 
     useEffect(() => {
         dispatch(getMovies())
-            .then(() => {
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error fetching movies:", error);
-                setLoading(false);
-            });
+            // .then(() => {
+            //     setLoading(false);
+            // })
+            // .catch((error) => {
+            //     console.error("Error fetching movies:", error);
+            //     setLoading(false);
+            // });
     }, [dispatch]);
 
     const handleVideoEnd = () => {
@@ -42,14 +42,18 @@ function BrowsePage() {
 
     const moviesCopy = [...movies];
 
-    let randomViewedMovie;
-    if (profile && profile?.viewedMovies && profile?.viewedMovies?.length > 0) {
-        randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile?.viewedMovies?.length)];
-    }
+    const [viewedMovie, setViewedMovie] = useState(null);
 
-    // useEffect(() => {
-    //     dispatch(getSimilarMoviesAction(randomViewedMovie?.movie, movies))
-    // }, [dispatch]);
+    useEffect(() => {
+        if (profile && profile?.viewedMovies && profile?.viewedMovies?.length > 0) {
+            const randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile?.viewedMovies?.length)];
+            setViewedMovie(randomViewedMovie)
+        }
+    }, [profile]);
+
+    useEffect(() => {
+        dispatch(getSimilarMoviesAction(viewedMovie?.movie, movies))
+    }, [dispatch, viewedMovie]);
 
     // const randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile?.viewedMovies.length)];
     // const randomMovie = movies[Math.floor(Math.random() * movies.length)];
@@ -63,9 +67,16 @@ function BrowsePage() {
         }
     }, [movies, randomMovie]);
 
-    // useEffect(() => {
-    //     dispatch(recommendedMovies(updatedProfile, movies))
-    // }, [dispatch]);
+    useEffect(() => {
+        dispatch(recommendedMovies(updatedProfile, movies))
+            .then(() => {
+            setLoading(false);
+        })
+            .catch((error) => {
+                console.error("Error fetching movies:", error);
+                setLoading(false);
+            });
+    }, [dispatch, profile]);
 
 
     const myListMovies = updatedProfile?.watchLaterMovies
@@ -92,11 +103,11 @@ function BrowsePage() {
     });
 
     function calculateAverageRating(ratings) {
-        const total = ratings.reduce((sum, rating) => {
+        const total = ratings?.reduce((sum, rating) => {
             return sum + ratingValues[rating.rating];
         }, 0);
 
-        return total / ratings.length;
+        return total / ratings?.length;
     }
 
     const newReleases = moviesCopy?.slice().sort((a, b) => {
@@ -282,14 +293,14 @@ function BrowsePage() {
                 </div>
                 {profile?.viewedMovies?.length >= 1 && (
                     <div className="movie-section">
-                        <Carousel movies={movies} title={`Because you watched ${randomViewedMovie?.movie?.title}`}/>
+                        <Carousel movies={similarMovies} title={`Because you watched ${viewedMovie?.movie?.title}`}/>
                     </div>
                 )}
                 <div className="movie-section">
                     <Carousel movies={trendingMovies} title={"Trending Now"}/>
                 </div>
                 <div className="movie-section">
-                    <Carousel movies={movies} title={`Top Picks for ${profile?.name}`}/>
+                    <Carousel movies={recommended} title={`Top Picks for ${profile?.name}`}/>
                 </div>
                 <div className="movie-section">
                     <Carousel movies={actionAndAdventureMovies} title={"Blockbuster Action & Adventure Movies"}/>

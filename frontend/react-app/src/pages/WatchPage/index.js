@@ -13,7 +13,7 @@ function Watch() {
     const dispatch = useDispatch();
     const history = useHistory();
     const videoRef = useRef(null);
-    const movies = Object.values(useSelector((state) => state.movies));
+    const movies = Object.values(useSelector((state) => state.movies.movies));
     const [isHovered, setIsHovered] = useState(true);
     const [isPlaying, setIsPlaying] = useState(false);
     const [volume, setVolume] = useState(false);

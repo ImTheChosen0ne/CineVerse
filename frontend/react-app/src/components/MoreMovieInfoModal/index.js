@@ -39,13 +39,13 @@ function MoreMovieInfo({ movie }) {
 		dispatch(getMovies());
 	}, [dispatch]);
 
-	// useEffect(() => {
-	// 	if(movie && movies) {
-	// 		dispatch(getSimilarModalMoviesAction(movie, movies))
-	// 	}
-	// }, [dispatch, movie]);
+	useEffect(() => {
+		if(movie && movies) {
+			dispatch(getSimilarModalMoviesAction(movie, movies))
+		}
+	}, [dispatch, movie]);
 
-	// const similarMovies = Object.values(useSelector(state => state.movies?.modalMovies));
+	const similarMovies = Object.values(useSelector(state => state.movies?.modalMovies));
 
 	const openMenu = () => {
 		setShowMenu(true);
@@ -176,15 +176,15 @@ function MoreMovieInfo({ movie }) {
 		}
 	}
 
-	const currentMovieGenres = movie.genres
-	const currentMovieId = movie.movieId
-
-	const similarMovies = movies.filter((movie) => {
-		return (
-			movie.movieId !== currentMovieId &&
-			currentMovieGenres.every((genre) => movie.genres?.includes(genre))
-		);
-	});
+	// const currentMovieGenres = movie.genres
+	// const currentMovieId = movie.movieId
+	//
+	// const similarMovies = movies.filter((movie) => {
+	// 	return (
+	// 		movie.movieId !== currentMovieId &&
+	// 		currentMovieGenres.every((genre) => movie.genres?.includes(genre))
+	// 	);
+	// });
 
 	const renderLikedStatus = () => {
 		if (liked) {

@@ -46,7 +46,7 @@ export const getSimilarMoviesAction = (movieName, movies) => async (dispatch) =>
         return;
     }
 
-    const response = await fetch(`http://localhost:5000/api/recommend/similar_movies`, {
+    const response = await fetch(`${config.recUrl}/api/recommend/similar_movies`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

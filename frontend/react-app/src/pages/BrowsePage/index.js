@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 import OpenModalButton from "../../components/OpenModalButton";
 import MoreMovieInfo from "../../components/MoreMovieInfoModal";
 import { getSimilarMoviesAction } from "../../store/movies";
-import {recommendedMovies} from "../../store/session";
+import { recommendedMovies } from "../../store/session";
 
 function BrowsePage() {
     const dispatch = useDispatch();
@@ -27,13 +27,13 @@ function BrowsePage() {
 
     useEffect(() => {
         dispatch(getMovies())
-            // .then(() => {
-            //     setLoading(false);
-            // })
-            // .catch((error) => {
-            //     console.error("Error fetching movies:", error);
-            //     setLoading(false);
-            // });
+            .then(() => {
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching movies:", error);
+                setLoading(false);
+            });
     }, [dispatch]);
 
     const handleVideoEnd = () => {
@@ -51,9 +51,9 @@ function BrowsePage() {
         }
     }, [profile]);
 
-    useEffect(() => {
-        dispatch(getSimilarMoviesAction(viewedMovie?.movie, movies))
-    }, [dispatch, viewedMovie]);
+    // useEffect(() => {
+    //     dispatch(getSimilarMoviesAction(viewedMovie?.movie, movies))
+    // }, [dispatch, viewedMovie]);
 
     // const randomViewedMovie = profile?.viewedMovies[Math.floor(Math.random() * profile?.viewedMovies.length)];
     // const randomMovie = movies[Math.floor(Math.random() * movies.length)];
@@ -67,16 +67,16 @@ function BrowsePage() {
         }
     }, [movies, randomMovie]);
 
-    useEffect(() => {
-        dispatch(recommendedMovies(updatedProfile, movies))
-            .then(() => {
-            setLoading(false);
-        })
-            .catch((error) => {
-                console.error("Error fetching movies:", error);
-                setLoading(false);
-            });
-    }, [dispatch, profile]);
+    // useEffect(() => {
+    //     dispatch(recommendedMovies(updatedProfile, movies))
+    //         .then(() => {
+    //         setLoading(false);
+    //     })
+    //         .catch((error) => {
+    //             console.error("Error fetching movies:", error);
+    //             setLoading(false);
+    //         });
+    // }, [dispatch, profile]);
 
 
     const myListMovies = updatedProfile?.watchLaterMovies
@@ -293,14 +293,16 @@ function BrowsePage() {
                 </div>
                 {profile?.viewedMovies?.length >= 1 && (
                     <div className="movie-section">
-                        <Carousel movies={similarMovies} title={`Because you watched ${viewedMovie?.movie?.title}`}/>
+                        {/*<Carousel movies={similarMovies} title={`Because you watched ${viewedMovie?.movie?.title}`}/>*/}
+                        <Carousel movies={movies} title={`Because you watched ${viewedMovie?.movie?.title}`}/>
                     </div>
                 )}
                 <div className="movie-section">
                     <Carousel movies={trendingMovies} title={"Trending Now"}/>
                 </div>
                 <div className="movie-section">
-                    <Carousel movies={recommended} title={`Top Picks for ${profile?.name}`}/>
+                    {/*<Carousel movies={recommended} title={`Top Picks for ${profile?.name}`}/>*/}
+                    <Carousel movies={movies} title={`Top Picks for ${profile?.name}`}/>
                 </div>
                 <div className="movie-section">
                     <Carousel movies={actionAndAdventureMovies} title={"Blockbuster Action & Adventure Movies"}/>

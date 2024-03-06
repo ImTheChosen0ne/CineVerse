@@ -13,7 +13,7 @@ function MyList() {
     const { profile } = useContext(ProfileContext);
     const { setModalContent } = useMiniModal();
     const sessionUser = useSelector(state => state.session.user);
-    const sessionProfile = sessionUser.profiles.find(profiles => profiles.profileId === profile.profileId)
+    const sessionProfile = sessionUser?.profiles?.find(profiles => profiles?.profileId === profile?.profileId)
     const [loading, setLoading] = useState(true);
 
     const onMouseEnter = (movie, event) => {
@@ -48,7 +48,7 @@ function MyList() {
             {!loading && (
                 <div className="my-list-movies">
                     <div className="my-list-movie-container">
-                        {sessionProfile.watchLaterMovies.length === 0 ?
+                        {sessionProfile?.watchLaterMovies.length === 0 ?
                             <div className="galleryMessage">You haven't added any titles to your list yet.</div>
                             :
                             <div className="my-list-movie-wrapper">

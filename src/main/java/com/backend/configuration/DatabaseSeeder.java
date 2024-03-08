@@ -96,7 +96,7 @@ public class DatabaseSeeder {
 
             userRepository.save(admin);
 
-            seedProfileRatings();
+//            seedProfileRatings();
         };
     }
 

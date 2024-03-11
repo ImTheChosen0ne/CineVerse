@@ -1,6 +1,5 @@
 package com.backend.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class LoginDTO {
     private String email;

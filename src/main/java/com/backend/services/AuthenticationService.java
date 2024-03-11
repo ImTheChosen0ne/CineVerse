@@ -85,7 +85,9 @@ public class AuthenticationService {
             Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword()));
             String token = tokenService.generateJwt(auth);
 
-            return new ResponseDTO(userRepository.findByEmail(body.getEmail()).get(), token);
+            User userDetails = (User) auth.getPrincipal();
+            return new ResponseDTO(userDetails, token);
+//            return new ResponseDTO(userRepository.findByEmail(body.getEmail()).get(), token);
         } catch (BadCredentialsException e) {
             throw new DataException("Email and password combination is invalid.");
         }

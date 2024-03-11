@@ -39,6 +39,7 @@ function ProfileButton({ user, profile }) {
 
   const handleLogout = (e) => {
     e.preventDefault();
+    history.push("/login")
     dispatch(logout());
     clearProfileData();
   };

@@ -23,7 +23,6 @@ public class User implements UserDetails {
     @JsonIgnore
     private String password;
     @Column(unique = true)
-//    @Index(name = "idx_email")
     private String email;
     private String firstName;
     private String lastName;

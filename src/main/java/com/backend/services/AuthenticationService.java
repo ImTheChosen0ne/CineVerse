@@ -41,9 +41,11 @@ public class AuthenticationService {
     }
 
     public ResponseDTO registerUser(RegistrationDTO body) {
+        String encodedPassword = passwordEncoder.encode(body.getPassword());
+
         User user = new User();
         user.setEmail(body.getEmail());
-        user.setPassword(passwordEncoder.encode(body.getPassword()));
+        user.setPassword(encodedPassword);
         user.setFirstName(body.getFirstName());
         user.setLastName(body.getLastName());
         user.setPlan(body.getPlan());

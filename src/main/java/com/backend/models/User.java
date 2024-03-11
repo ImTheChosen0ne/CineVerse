@@ -4,13 +4,15 @@ import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+//import org.hibernate.annotations.Index;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="users")
+@Table(name="users", indexes = {
+        @Index(name = "idx_email", columnList = "email", unique = true)
+})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +23,7 @@ public class User implements UserDetails {
     @JsonIgnore
     private String password;
     @Column(unique = true)
+//    @Index(name = "idx_email")
     private String email;
     private String firstName;
     private String lastName;

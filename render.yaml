@@ -52,6 +52,16 @@ services:
     buildCommand: docker build -t backend .
     healthCheckPath: /api/
     plan: free
+    envVars:
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SCHEMA
+        sync: false
+
 
   - name: CV-frontend
     type: web
@@ -68,4 +78,13 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
+    envVars:
+      - key: REACT_APP_BASE_URL
+        sync: false
+      - key: REACT_APP_SECRET_KEY
+        sync: false
+      - key: REACT_APP_PROFILE_KEY
+        sync: false
+      - key: NODE_ENV
+        sync: false
 #    plan: free

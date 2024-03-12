@@ -50,7 +50,7 @@ services:
     runtime: docker
     region: ohio
     buildCommand: docker build -t backend .
-    healthCheckPath: /
+    healthCheckPath: /api/
     plan: free
 
   - name: frontend

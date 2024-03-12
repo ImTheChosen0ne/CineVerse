@@ -48,6 +48,7 @@ services:
   - name: backend
     type: web
     runtime: docker
+    region: ohio
     buildCommand: docker build -t backend .
     healthCheckPath: /
     plan: free
@@ -55,6 +56,7 @@ services:
   - name: frontend
     type: web
     runtime: docker
+    region: ohio
     buildCommand: docker build -t frontend frontend/react-app
     healthCheckPath: /
     plan: free

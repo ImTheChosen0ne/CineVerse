@@ -83,6 +83,11 @@ services:
     envVars:
       - key: REACT_APP_BASE_URL
         sync: false
+      - key: REACT_APP_BACKEND_URL
+        fromService:
+          name: CV-backend
+          type: web
+          property: host
       - key: REACT_APP_SECRET_KEY
         sync: false
       - key: REACT_APP_PROFILE_KEY

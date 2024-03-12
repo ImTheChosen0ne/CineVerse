@@ -26,8 +26,8 @@ export const getMovies = () => async (dispatch) => {
     if (!token) {
         return;
     }
-    // const response = await fetch(`/api/movies/` , {
-    const response = await fetch(`${config.apiUrl}/api/movies/` , {
+    const response = await fetch(`/api/movies/` , {
+    // const response = await fetch(`${config.apiUrl}/api/movies/` , {
         headers: {
             "Authorization": `Bearer ${token}`,
         },
@@ -45,8 +45,8 @@ export const getSimilarMoviesAction = (movieName, movies) => async (dispatch) =>
     if (!token || !movieName || !movies) {
         return;
     }
-    // const response = await fetch(`/api/recommend/similar_movies`, {
-    const response = await fetch(`${config.recUrl}/api/recommend/similar_movies`, {
+    const response = await fetch(`/api/recommend/similar_movies`, {
+    // const response = await fetch(`${config.recUrl}/api/recommend/similar_movies`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -70,8 +70,8 @@ export const getSimilarModalMoviesAction = (movieName, movies) => async (dispatc
     if (!token || !movieName || !movies) {
         return;
     }
-    // const response = await fetch(`/api/recommend/similar_movies`, {
-    const response = await fetch(`${config.recUrl}/api/recommend/similar_movies`, {
+    const response = await fetch(`/api/recommend/similar_movies`, {
+    // const response = await fetch(`${config.recUrl}/api/recommend/similar_movies`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

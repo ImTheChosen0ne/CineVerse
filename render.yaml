@@ -49,6 +49,9 @@ services:
     type: web
     runtime: docker
     region: ohio
+    buildFilter:
+      paths:
+        - src/**
     buildCommand: docker build -t backend .
     healthCheckPath: /api/
     plan: free
@@ -76,6 +79,9 @@ services:
     buildCommand: npm install && npm run build
     healthCheckPath: /
     staticPublishPath: build
+    buildFilter:
+      paths:
+        - frontend/react-app/**
     routes:
       - type: rewrite
         source: /*

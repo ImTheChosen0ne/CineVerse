@@ -47,6 +47,7 @@
 services:
   - name: backend
     type: web
+    runtime: docker
     buildCommand: docker build -t backend .
     startCommand: docker run -p 10000:10000 backend
     healthCheckPath: /
@@ -54,6 +55,7 @@ services:
 
   - name: frontend
     type: web
+    runtime: docker
     buildCommand: docker build -t frontend frontend/react-app
     startCommand: docker run -p 3000:3000 frontend
     healthCheckPath: /

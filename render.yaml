@@ -1,46 +1,68 @@
+#services:
+#  - type: web
+#    name: backend
+#    runtime: docker
+#    repo: "https://github.com/ImTheChosen0ne/Java-web-app"
+#    plan: free
+#    region: ohio
+#    branch: dev
+#    dockerCommand: ./Java-web-app.sh
+#    envVars:
+#      - key: SPRING_PROFILES_ACTIVE
+#        value: "production"
+#      - key: SPRING_DATASOURCE_URL
+#      - key: SPRING_DATASOURCE_USERNAME
+#      - key: SPRING_DATASOURCE_PASSWORD
+#      - key: SCHEMA
+#      - key: PORT
+#        value: 8080
+#
+#  - type: web
+#    name: frontend
+#    runtime: docker
+#    plan: free
+#    region: ohio
+#    repo: "https://github.com/ImTheChosen0ne/Java-web-app"
+#    branch: dev
+#    rootDir: /frontend/react-app
+#    dockerCommand: ./frontend/react-app.sh
+#    envVars:
+#      - key: REACT_APP_API_URL
+#      - key: PORT
+#        value: 3000
+#
+#envVarGroups:
+#  - name: backend_env_cineverse
+#    envVars:
+#      - key: DATABASE_URL
+#      - key: SPRING_DATASOURCE_USERNAME
+#      - key: SPRING_DATASOURCE_PASSWORD
+#  - name: frontend_env_cineverse
+#    envVars:
+#      - key: NODE_ENV
+#      - key: REACT_APP_BACKEND_URL
+#      - key: REACT_APP_BASE_URL
+#      - key: REACT_APP_PROFILE_KEY
+#      - key: REACT_APP_SECRET_KEY
 services:
-  - type: web
-    name: backend
-    runtime: docker
-    repo: "https://github.com/ImTheChosen0ne/Java-web-app"
+  - name: backend
+    type: web
+    buildCommand: docker build -t backend .
+    startCommand: docker run -p 10000:10000 backend
+    env: {}
+    envSecrets: {}
+    automaticBuild:
+      enabled: true
+    healthCheckPath: /
     plan: free
-    region: ohio
-    branch: dev
-    dockerCommand: ./Java-web-app.sh
-    envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: "production"
-      - key: SPRING_DATASOURCE_URL
-      - key: SPRING_DATASOURCE_USERNAME
-      - key: SPRING_DATASOURCE_PASSWORD
-      - key: SCHEMA
-      - key: PORT
-        value: 8080
 
-  - type: web
-    name: frontend
-    runtime: docker
+  - name: frontend
+    type: web
+    buildCommand: docker build -t frontend frontend/react-app
+    startCommand: docker run -p 3000:3000 frontend
+    env: {}
+    envSecrets: {}
+    automaticBuild:
+      enabled: true
+    healthCheckPath: /
     plan: free
-    region: ohio
-    repo: "https://github.com/ImTheChosen0ne/Java-web-app"
-    branch: dev
-    rootDir: /frontend/react-app
-    dockerCommand: ./frontend/react-app.sh
-    envVars:
-      - key: REACT_APP_API_URL
-      - key: PORT
-        value: 3000
-
-envVarGroups:
-  - name: backend_env_cineverse
-    envVars:
-      - key: DATABASE_URL
-      - key: SPRING_DATASOURCE_USERNAME
-      - key: SPRING_DATASOURCE_PASSWORD
-  - name: frontend_env_cineverse
-    envVars:
-      - key: NODE_ENV
-      - key: REACT_APP_BACKEND_URL
-      - key: REACT_APP_BASE_URL
-      - key: REACT_APP_PROFILE_KEY
-      - key: REACT_APP_SECRET_KEY

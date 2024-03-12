@@ -95,8 +95,9 @@ const initialState = { user: null };
 export const authenticate = () => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
-	const response = await fetch(`$/api/auth/`, {
-	// const response = await fetch(`${config.apiUrl}/api/auth/`, {
+
+	// const response = await fetch(`$/api/auth/`, {
+	const response = await fetch(`${config.apiUrl}/api/auth/`, {
 		headers: {
 			"Authorization": `Bearer ${token}`,
 		},

@@ -61,6 +61,8 @@ services:
         sync: false
       - key: SCHEMA
         sync: false
+      - key: PORT
+        sync: false
 
 
   - name: CV-frontend
@@ -86,5 +88,7 @@ services:
       - key: REACT_APP_PROFILE_KEY
         sync: false
       - key: NODE_ENV
+        sync: false
+      - key: REACT_APP_RECOMMENDER_URL
         sync: false
 #    plan: free

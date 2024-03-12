@@ -56,9 +56,18 @@ services:
   - name: frontend
     type: web
     env: static
-    runtime: docker
+    buildFilter:
+      paths:
+        - frontend/react-app/**
+#    runtime: docker
     region: ohio
-    dockerfilePath: frontend/react-app/Dockerfile
-    buildCommand: docker build -t frontend frontend/react-app
+#    dockerfilePath: frontend/react-app/Dockerfile
+#    buildCommand: docker build -t frontend frontend/react-app
+    buildCommand: npm install && npm run build
     healthCheckPath: /
+    staticPublishPath: frontend/react-app/build
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
     plan: free

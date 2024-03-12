@@ -57,6 +57,7 @@ services:
     type: web
     runtime: docker
     region: ohio
+    dockerfilePath: frontend/react-app/Dockerfile/Dockerfile
     buildCommand: docker build -t frontend frontend/react-app
     healthCheckPath: /
     plan: free

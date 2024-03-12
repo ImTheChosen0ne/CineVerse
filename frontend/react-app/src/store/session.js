@@ -95,8 +95,8 @@ const initialState = { user: null };
 export const authenticate = () => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
-
-	const response = await fetch(`${config.apiUrl}/api/auth/`, {
+	const response = await fetch(`$/api/auth/`, {
+	// const response = await fetch(`${config.apiUrl}/api/auth/`, {
 		headers: {
 			"Authorization": `Bearer ${token}`,
 		},
@@ -113,7 +113,8 @@ export const authenticate = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-	const response = await fetch(`${config.apiUrl}/api/auth/login`, {
+	const response = await fetch(`/api/auth/login`, {
+	// const response = await fetch(`${config.apiUrl}/api/auth/login`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -140,7 +141,8 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-	const response = await fetch(`${config.apiUrl}/api/auth/logout`, {
+	const response = await fetch(`/api/auth/logout`, {
+	// const response = await fetch(`${config.apiUrl}/api/auth/logout`, {
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -154,7 +156,8 @@ export const logout = () => async (dispatch) => {
 };
 
 export const signUp = (email, password, firstName, lastName, profileName, plan) => async (dispatch) => {
-	const response = await fetch(`${config.apiUrl}/api/auth/register`, {
+	const response = await fetch(`/api/auth/register`, {
+	// const response = await fetch(`${config.apiUrl}/api/auth/register`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -185,7 +188,8 @@ export const signUp = (email, password, firstName, lastName, profileName, plan) 
 };
 
 export const verifyEmail = (email) => async (dispatch) => {
-	const response = await fetch(`${config.apiUrl}/api/auth/email_verification`, {
+	const response = await fetch(`/api/auth/email_verification`, {
+	// const response = await fetch(`${config.apiUrl}/api/auth/email_verification`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -211,7 +215,8 @@ export const updatedUsers = (updatedUser) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
 
-	const response = await fetch(`${config.apiUrl}/api/user/update`, {
+	const response = await fetch(`/api/user/update`, {
+	// const response = await fetch(`${config.apiUrl}/api/user/update`, {
 		method: 'PUT',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -232,7 +237,8 @@ export const createProfile = (profile) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
 
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/new`, {
+	const response = await fetch(`/api/user/profiles/new`, {
+	// const response = await fetch(`${config.apiUrl}/api/user/profiles/new`, {
 		method: "POST",
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -251,7 +257,8 @@ export const updateUserProfile = (updatedProfile) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
 
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${updatedProfile.profileId}`, {
+	const response = await fetch(`/api/user/profiles/${updatedProfile.profileId}`, {
+	// const response = await fetch(`${config.apiUrl}/api/user/profiles/${updatedProfile.profileId}`, {
 		method: 'PUT',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -271,7 +278,8 @@ export const deleteProfile = (user, profileId) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
 
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}`, {
+	const response = await fetch(`/api/user/profiles/${profileId}`, {
+	// const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}`, {
 		method: 'DELETE',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -287,7 +295,8 @@ export const createMovieRating = (profile, rating) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
 
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/rating/add`, {
+	const response = await fetch(`/api/user/profiles/${profile.profileId}/rating/add`, {
+	// const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/rating/add`, {
 		method: 'POST',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -307,7 +316,8 @@ export const updateMovieRating = (profile, updatedMovieRating) => async (dispatc
 	const token = localStorage.getItem("token");
 	if (!token) return;
 
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/rating/${updatedMovieRating.ratingId}/update`, {
+	const response = await fetch(`/api/user/profiles/${profile.profileId}/rating/${updatedMovieRating.ratingId}/update`, {
+	// const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/rating/${updatedMovieRating.ratingId}/update`, {
 		method: 'PUT',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -327,7 +337,8 @@ export const deleteMovieRating = (rating, profileId) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
 
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/rating/${rating.ratingId}/delete`, {
+	const response = await fetch(`/api/user/profiles/${profileId}/rating/${rating.ratingId}/delete`, {
+	// const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/rating/${rating.ratingId}/delete`, {
 		method: 'DELETE',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -343,7 +354,8 @@ export const createWatchLaterMovie = (profile, movie) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
 
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/watch_later/add`, {
+	const response = await fetch(`/api/user/profiles/${profile.profileId}/watch_later/add`, {
+	// const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/watch_later/add`, {
 		method: 'PUT',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -362,8 +374,8 @@ export const createWatchLaterMovie = (profile, movie) => async (dispatch) => {
 export const deleteWatchLaterMovie = (movie, profileId) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
-
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/watch_later/${movie.movieId}/delete`, {
+	const response = await fetch(`/api/user/profiles/${profileId}/watch_later/${movie.movieId}/delete`, {
+	// const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/watch_later/${movie.movieId}/delete`, {
 		method: 'DELETE',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -379,7 +391,8 @@ export const createViewedMovie = (profile, viewed) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
 
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/viewed/add`, {
+	const response = await fetch(`/api/user/profiles/${profile.profileId}/viewed/add`, {
+	// const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/viewed/add`, {
 		method: 'POST',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -399,7 +412,8 @@ export const updateViewedMovie = (profile, updatedView) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
 
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/viewed/${updatedView.viewedId}/update`, {
+	const response = await fetch(`/api/user/profiles/${profile.profileId}/viewed/${updatedView.viewedId}/update`, {
+	// const response = await fetch(`${config.apiUrl}/api/user/profiles/${profile.profileId}/viewed/${updatedView.viewedId}/update`, {
 		method: 'PUT',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -422,7 +436,8 @@ export const recommendedMovies = (profile, movies) => async (dispatch) => {
 		return;
 	}
 
-	const response = await fetch(`${config.recUrl}/api/recommend/user_recommendations`, {
+	const response = await fetch(`/api/recommend/user_recommendations`, {
+	// const response = await fetch(`${config.recUrl}/api/recommend/user_recommendations`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

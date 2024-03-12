@@ -45,7 +45,7 @@
 #      - key: REACT_APP_PROFILE_KEY
 #      - key: REACT_APP_SECRET_KEY
 services:
-  - name: backend
+  - name: CV-backend
     type: web
     runtime: docker
     region: ohio
@@ -53,7 +53,7 @@ services:
     healthCheckPath: /api/
     plan: free
 
-  - name: frontend
+  - name: CV-frontend
     type: web
     env: static
     rootDir: ./frontend/react-app

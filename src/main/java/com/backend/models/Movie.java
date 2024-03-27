@@ -13,8 +13,8 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @CsvBindByName(column = "movieId")
-    @Column(name = "movie_id")
-    private Integer movieId;
+    @Column(name = "movieid")
+    private Integer movieid;
     @CsvBindByName(column = "title")
     private String title;
     @CsvBindByName(column = "poster")
@@ -25,13 +25,15 @@ public class Movie {
     @CsvBindByName(column = "description")
     private String description;
     @ElementCollection
+    @Enumerated(EnumType.STRING)
     @CsvCustomBindByName(column = "genres", converter = GenreSetConverter.class)
     private Set<Genre> genres;
     @ElementCollection
     @CsvCustomBindByName(column = "companies", converter = StringSetConverter.class)
     private Set<String> companies;
-    @CsvBindByName(column = "releaseDate")
-    private String releaseDate;
+    @Column(name = "releasedate")
+    @CsvBindByName(column = "releasedate")
+    private String releasedate;
     @CsvBindByName(column = "runtime")
     private String runtime;
     @Column(length = 1000)
@@ -56,16 +58,18 @@ public class Movie {
     private String tagline;
     @CsvBindByName(column = "backdrop")
     private String backdrop;
-    @CsvBindByName(column = "titleImage")
-    private String titleImage;
-    @CsvBindByName(column = "dateAdded")
-    private String dateAdded;
+    @Column(name = "titleimage")
+    @CsvBindByName(column = "titleimage")
+    private String titleimage;
+    @Column(name = "dateadded")
+    @CsvBindByName(column = "dateadded")
+    private String dateadded;
     @CsvBindByName(column = "views")
     private Integer views = 0;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "movie_ratings_join",
-            joinColumns = {@JoinColumn(name = "movie_id")},
+            joinColumns = {@JoinColumn(name = "movieid")},
             inverseJoinColumns = {@JoinColumn(name = "movie_rating_id")}
     )
 
@@ -74,15 +78,15 @@ public class Movie {
     public Movie() {
         this.ratings = new HashSet<MovieRating>();
     }
-    public Movie(Integer movieId, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releaseDate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String backdrop, Set<MovieRating> ratings, String titleImage, String dateAdded, Integer views) {
-        this.movieId = movieId;
+    public Movie(Integer movieid, String title, String poster, String language, String description, Set<Genre> genres, Set<String> companies, String releasedate, String runtime, String trailer, Set<String> casts, String director, Set<String> writers, String maturity, Set<String> keywords, Double popularity, String tagline, String backdrop, Set<MovieRating> ratings, String titleimage, String dateadded, Integer views) {
+        this.movieid = movieid;
         this.title = title;
         this.poster = poster;
         this.language = language;
         this.description = description;
         this.genres = genres;
         this.companies = companies;
-        this.releaseDate = releaseDate;
+        this.releasedate = releasedate;
         this.runtime = runtime;
         this.trailer = trailer;
         this.casts = casts;
@@ -94,17 +98,17 @@ public class Movie {
         this.tagline = tagline;
         this.backdrop = backdrop;
         this.ratings = ratings;
-        this.titleImage = titleImage;
-        this.dateAdded = dateAdded;
+        this.titleimage = titleimage;
+        this.dateadded = dateadded;
         this.views = views;
     }
 
-    public Integer getMovieId() {
-        return movieId;
+    public Integer getMovieid() {
+        return movieid;
     }
 
-    public void setMovieId(Integer movieId) {
-        this.movieId = movieId;
+    public void setMovieid(Integer movieid) {
+        this.movieid = movieid;
     }
 
     public String getTitle() {
@@ -155,12 +159,12 @@ public class Movie {
         this.companies = companies;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getReleasedate() {
+        return releasedate;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setReleasedate(String releasedate) {
+        this.releasedate = releasedate;
     }
 
     public String getRuntime() {
@@ -251,13 +255,13 @@ public class Movie {
         this.ratings = ratings;
     }
 
-    public String getTitleImage() {return titleImage;}
+    public String getTitleimage() {return titleimage;}
 
-    public void setTitleImage(String titleImage) {this.titleImage = titleImage;}
+    public void setTitleimage(String titleimage) {this.titleimage = titleimage;}
 
-    public String getDateAdded() {return dateAdded;}
+    public String getDateadded() {return dateadded;}
 
-    public void setDateAdded(String dateAdded) {this.dateAdded = dateAdded;}
+    public void setDateadded(String dateadded) {this.dateadded = dateadded;}
 
     public Integer getViews() {
         return views;

@@ -106,8 +106,8 @@ function BrowseByLanguage() {
         switch (selectedSort) {
             case "Year":
                 return filteredMovies.sort((a, b) => {
-                    const dateA = new Date(a.releaseDate);
-                    const dateB = new Date(b.releaseDate);
+                    const dateA = new Date(a.releasedate);
+                    const dateB = new Date(b.releasedate);
                     return dateA.getFullYear() - dateB.getFullYear();
                 });
             case "A-Z":
@@ -178,7 +178,7 @@ function BrowseByLanguage() {
                                                             className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment mini-modal has-smaller-buttons mini-modal has-smaller-buttons"
                                                             style={{width: "40%"}}>
                                                             <img className="previewModal--player-titleTreatment-logo"
-                                                                 alt="" src={movie.titleImage}
+                                                                 alt="" src={movie.titleimage}
                                                                  style={{width: "100%", opacity: 1}}/>
                                                         </div>
                                                     </div>

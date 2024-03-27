@@ -99,7 +99,7 @@ export default function reducer(state = initialState, action) {
         case GET_MOVIES:
             const getMovies = { ...state.movies };
             action.payload.forEach((movie) => {
-                getMovies[movie.movieId] = movie;
+                getMovies[movie.movieid] = movie;
             });
             return { ...state, movies: getMovies };
         case GET_SIMILAR_MOVIES:

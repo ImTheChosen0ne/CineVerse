@@ -95,7 +95,7 @@ function SignupFormPage() {
                 <h1>Finish setting up your account</h1>
               </div>
               <div className="signup-info-text">
-                Netflix is personalized for you. Create a password to start watching Netflix.
+                CineVerse is personalized for you. Create a password to start watching CineVerse.
               </div>
             </div>
             <div className="info-form">

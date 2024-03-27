@@ -111,7 +111,7 @@ function Carousel({ movies, title }) {
                             <div className="sliderMask showPeek">
                                 <div className={`sliderContent row-with-x-columns ${animation}`} style={sliderStyle}>
                                     {movies?.map((movie, index) => (
-                                        <div key={movie?.movieId} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>
+                                        <div key={movie?.movieid} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>
                                             <div className="title-card-container">
                                                 <div className="ptrack-content">
                                                     <div className="boxart-size-16x9 boxart-container boxart-rounded">
@@ -123,7 +123,7 @@ function Carousel({ movies, title }) {
                                                         <div style={{opacity: 1, position:"absolute", bottom: 0, marginLeft: "5px"}}>
                                                             <div className="previewModal--player-titleTreatmentWrapper" style={{opacity: 1}}>
                                                                 <div className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment mini-modal has-smaller-buttons mini-modal has-smaller-buttons" style={{ width: "40%"}}>
-                                                                    <img className="previewModal--player-titleTreatment-logo" alt={movie.title} src={movie.titleImage} style={{width: "100%", opacity: 1}}/>
+                                                                    <img className="previewModal--player-titleTreatment-logo" alt={movie.title} src={movie.titleimage} style={{width: "100%", opacity: 1}}/>
                                                                 </div>
                                                             </div>
                                                         </div>

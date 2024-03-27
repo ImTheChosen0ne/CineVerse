@@ -28,14 +28,14 @@ function NewAndPopular() {
     const popular = moviesCopy?.slice().sort((a, b) => b.popularity - a.popularity);
 
     const newReleases = moviesCopy?.slice().sort((a, b) => {
-        const dateA = new Date(a.dateAdded);
-        const dateB = new Date(b.dateAdded);
+        const dateA = new Date(a.dateadded);
+        const dateB = new Date(b.dateadded);
         return dateB - dateA;
     });
 
     const worthWait = moviesCopy?.slice().sort((a, b) => {
-        const dateA = new Date(a.dateAdded);
-        const dateB = new Date(b.dateAdded);
+        const dateA = new Date(a.dateadded);
+        const dateB = new Date(b.dateadded);
         return dateB - dateA;
     }).sort(() => Math.random() - 0.5);
 

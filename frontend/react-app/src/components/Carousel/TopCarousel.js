@@ -183,7 +183,7 @@ function TopCarousel({ movies }) {
                             <div className="sliderMask showPeek">
                                 <div className={`sliderContent row-with-x-columns ${animation}`} style={sliderStyle}>
                                     {movies?.map((movie, index) => (
-                                        <div key={movie?.movieId} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>
+                                        <div key={movie?.movieid} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>
                                             <div className="title-card-container" >
                                                 <div className="title-card">
                                                     <div className="ptrack-content">
@@ -202,7 +202,7 @@ function TopCarousel({ movies }) {
                                     {/*{extendedMovies?.map((movie, index) => {*/}
                                     {/*    const svgIndex = index % top10RankSVGs.length;*/}
                                     {/*    return (*/}
-                                    {/*        <div key={movie?.movieId} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>*/}
+                                    {/*        <div key={movie?.movieid} className={`slider-item slider-item-${index}`} onMouseEnter={(event) => onMouseEnter(movie, event)}>*/}
                                     {/*            <div className="title-card-container" >*/}
                                     {/*                <div className="title-card">*/}
                                     {/*                    <div className="ptrack-content">*/}

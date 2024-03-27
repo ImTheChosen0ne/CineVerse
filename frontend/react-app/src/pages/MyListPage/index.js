@@ -52,7 +52,7 @@ function MyList() {
                             <div className="galleryMessage">You haven't added any titles to your list yet.</div>
                             :
                             <div className="my-list-movie-wrapper">
-                                {sessionProfile?.watchLaterMovies?.sort((a, b) => a.movieId - b.movieId).map((movie, index) => (
+                                {sessionProfile?.watchLaterMovies?.sort((a, b) => a.movieid - b.movieid).map((movie, index) => (
                                     <div className="ltr-1cjyscz" onMouseEnter={(event) => onMouseEnter(movie, event)}>
                                         <div className="title-card-container">
                                             <div id="title-card-0-0" className="title-card">
@@ -80,7 +80,7 @@ function MyList() {
                                                                         style={{width: "40%"}}>
                                                                         <img
                                                                             className="previewModal--player-titleTreatment-logo"
-                                                                            alt="" src={movie.titleImage}
+                                                                            alt="" src={movie.titleimage}
                                                                             style={{width: "100%", opacity: 1}}/>
                                                                     </div>
                                                                 </div>

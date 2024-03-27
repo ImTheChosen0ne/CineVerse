@@ -10,6 +10,7 @@ function Viewed() {
     const sessionUser = useSelector(state => state.session.user);
 
     const selectedProfile = sessionUser.profiles.find(user => user.name === profileName)
+    const sortedViewed = selectedProfile?.viewedMovies.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
     return (
         <div className="viewed-page">
@@ -28,7 +29,7 @@ function Viewed() {
                             </div>
                             <img src={selectedProfile.img} alt="profile image"/>
                         </header>
-                        {selectedProfile.viewedMovies.map((viewedMovie) => (
+                        {sortedViewed.map((viewedMovie) => (
                             <ul key={viewedMovie.viewedId} className="profile-activity-rating">
                                 <li className="profile-activity-row">
                                     <div className="profile-activity-row-date-view">{viewedMovie.date}</div>

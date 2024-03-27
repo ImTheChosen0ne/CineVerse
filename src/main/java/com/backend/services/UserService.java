@@ -3,6 +3,8 @@ package com.backend.services;
 import com.backend.exceptions.DataException;
 import com.backend.models.*;
 import com.backend.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -107,7 +109,7 @@ public class UserService implements UserDetailsService {
 
             if (optionalProfile.isPresent()) {
                 Profile existingProfile = optionalProfile.get();
-                Movie movie = movieRepository.findById(profileRating.getMovie().getMovieId()).orElse(null);
+                Movie movie = movieRepository.findById(profileRating.getMovie().getMovieid()).orElse(null);
 
                 if (movie != null) {
                     profileRating.setMovie(movie);
@@ -145,7 +147,7 @@ public class UserService implements UserDetailsService {
                 if (optionalExistingRating.isPresent()) {
                     ProfileRating existingProfileRating = optionalExistingRating.get();
 
-                    Movie movie = movieRepository.findById(existingProfileRating.getMovie().getMovieId()).orElse(null);
+                    Movie movie = movieRepository.findById(existingProfileRating.getMovie().getMovieid()).orElse(null);
 
                     Optional<MovieRating> optionalMovieRating = movie.getRatings().stream()
                             .filter(rating -> rating.getRatingId().equals(ratingId))
@@ -191,7 +193,7 @@ public class UserService implements UserDetailsService {
                 if (optionalRatingToRemove.isPresent()) {
                     ProfileRating removedProfileRating = optionalRatingToRemove.get();
 
-                    Movie movie = movieRepository.findById(removedProfileRating.getMovie().getMovieId()).orElse(null);
+                    Movie movie = movieRepository.findById(removedProfileRating.getMovie().getMovieid()).orElse(null);
 
                     Optional<MovieRating> optionalMovieRating = movie.getRatings().stream()
                             .filter(rating -> rating.getRatingId().equals(ratingId))
@@ -240,7 +242,7 @@ public class UserService implements UserDetailsService {
                     .findFirst();
 
             optionalProfile.ifPresent(profile -> {
-                profile.getWatchLaterMovies().removeIf(movie -> movie.getMovieId().equals(movieId));
+                profile.getWatchLaterMovies().removeIf(movie -> movie.getMovieid().equals(movieId));
                 userRepository.save(user);
             });
         });
@@ -257,7 +259,7 @@ public class UserService implements UserDetailsService {
 
             if (optionalProfile.isPresent()) {
                 Profile existingProfile = optionalProfile.get();
-                Movie movie = movieRepository.findById(viewed.getMovie().getMovieId()).orElse(null);
+                Movie movie = movieRepository.findById(viewed.getMovie().getMovieid()).orElse(null);
 
                 if (movie != null) {
                     viewed.setMovie(movie);
@@ -290,7 +292,7 @@ public class UserService implements UserDetailsService {
                 if (optionalExistingView.isPresent()) {
                     Viewed existingProfileView = optionalExistingView.get();
 
-                    Movie movie = movieRepository.findById(existingProfileView.getMovie().getMovieId()).orElse(null);
+                    Movie movie = movieRepository.findById(existingProfileView.getMovie().getMovieid()).orElse(null);
 
                     if (movie != null) {
                         movie.setViews(movie.getViews() + 1);

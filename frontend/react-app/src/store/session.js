@@ -363,7 +363,7 @@ export const deleteWatchLaterMovie = (movie, profileId) => async (dispatch) => {
 	const token = localStorage.getItem("token");
 	if (!token) return;
 
-	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/watch_later/${movie.movieId}/delete`, {
+	const response = await fetch(`${config.apiUrl}/api/user/profiles/${profileId}/watch_later/${movie.movieid}/delete`, {
 		method: 'DELETE',
 		headers: {
 			"Authorization": `Bearer ${token}`,
@@ -502,7 +502,7 @@ export default function reducer(state = initialState, action) {
 			let { profileId: removeProfileMovieWatchLater, movie: removeWatchLater } = action.payload;
 			const updatedProfiles = state.user.profiles.map(profile => {
 				if (profile.profileId === removeProfileMovieWatchLater) {
-					const updatedWatchLater = profile.watchLaterMovies.filter(movie => movie.movieId !== removeWatchLater.movieId);
+					const updatedWatchLater = profile.watchLaterMovies.filter(movie => movie.movieid !== removeWatchLater.movieid);
 					return { ...profile, watchLaterMovies: updatedWatchLater};
 				}
 				return profile;

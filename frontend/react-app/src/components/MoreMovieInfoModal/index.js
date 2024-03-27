@@ -35,6 +35,7 @@ function MoreMovieInfo({ movie }) {
 	const videoRef = useRef(null);
 	const { closeModal } = useModal();
 
+
 	useEffect(() => {
 		dispatch(getMovies());
 	}, [dispatch]);
@@ -44,7 +45,7 @@ function MoreMovieInfo({ movie }) {
 	// 		dispatch(getSimilarModalMoviesAction(movie, movies))
 	// 	}
 	// }, [dispatch, movie]);
-
+	//
 	// const similarMovies = Object.values(useSelector(state => state.movies?.modalMovies));
 
 	const openMenu = () => {
@@ -62,18 +63,18 @@ function MoreMovieInfo({ movie }) {
 		setIsMuted(!isMuted);
 	};
 
-	useEffect(() => {
-		const videoElement = videoRef.current;
-
-		videoElement.muted = isMuted;
-
-	}, [isMuted]);
+	// useEffect(() => {
+	// 	const videoElement = videoRef.current;
+	//
+	// 	videoElement.muted = isMuted;
+	//
+	// }, [isMuted]);
 
 
 	if (updatedProfile.profileRatings) {
 		for (let ratingObj of updatedProfile.profileRatings) {
 			const {rating, movie: movieObj} = ratingObj;
-			if (movieObj.movieId === movie.movieId) {
+			if (movieObj.movieid === movie.movieid) {
 				if (rating === "like") {
 					liked = true;
 				} else if (rating === "dislike") {
@@ -87,7 +88,7 @@ function MoreMovieInfo({ movie }) {
 
 	if (updatedProfile.watchLaterMovies) {
 		for (let watchMovie of updatedProfile.watchLaterMovies) {
-			if (watchMovie.movieId === movie.movieId) watchLater = true;
+			if (watchMovie.movieid === movie.movieid) watchLater = true;
 		}
 	}
 
@@ -105,7 +106,7 @@ function MoreMovieInfo({ movie }) {
 		}
 
 		const existingRating = updatedProfile.profileRatings.find(existingMovieRating =>
-			existingMovieRating.movie.movieId === movie.movieId
+			existingMovieRating.movie.movieid === movie.movieid
 		);
 
 		const updatedRating = {
@@ -144,7 +145,7 @@ function MoreMovieInfo({ movie }) {
 		}
 
 		const existingView = updatedProfile.viewedMovies.find(existingViewedMovie =>
-			existingViewedMovie.movie.movieId === movie.movieId
+			existingViewedMovie.movie.movieid === movie.movieid
 		);
 
 		const updatedViewed = {
@@ -163,7 +164,7 @@ function MoreMovieInfo({ movie }) {
 	}
 
 	const handleWatchLaterMovie = async (movie) => {
-		const isMovieInWatchLater = updatedProfile.watchLaterMovies.some(watchMovie => watchMovie.movieId === movie.movieId);
+		const isMovieInWatchLater = updatedProfile.watchLaterMovies.some(watchMovie => watchMovie.movieid === movie.movieid);
 
 		if (isMovieInWatchLater) {
 			await dispatch(deleteWatchLaterMovie(movie, profile.profileId))
@@ -177,11 +178,11 @@ function MoreMovieInfo({ movie }) {
 	}
 
 	const currentMovieGenres = movie.genres
-	const currentMovieId = movie.movieId
+	const currentMovieId = movie.movieid
 
 	const similarMovies = movies.filter((movie) => {
 		return (
-			movie.movieId !== currentMovieId &&
+			movie.movieid !== currentMovieId &&
 			currentMovieGenres.every((genre) => movie.genres?.includes(genre))
 		);
 	});
@@ -237,14 +238,14 @@ function MoreMovieInfo({ movie }) {
 				<div className="previewModal--player_container detail-modal has-smaller-buttons">
 					<div style={{position: "absolute", width: "100%", height: "100%",overflow: "hidden"}}>
 						<div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
-							<video style={{position: "absolute", width: "100%", height: "100%", objectFit: "cover"}}
-								   src={movie?.trailer}
-								   ref={videoRef}
-								   autoPlay
-								   playsInline={true}
-								   // muted
-								   onEnded={handleVideoEnd}
-							/>
+							{/*<video style={{position: "absolute", width: "100%", height: "100%", objectFit: "cover"}}*/}
+							{/*	   src={movie?.trailer}*/}
+							{/*	   ref={videoRef}*/}
+							{/*	   autoPlay*/}
+							{/*	   playsInline={true}*/}
+							{/*	   muted*/}
+							{/*	   onEnded={handleVideoEnd}*/}
+							{/*/>*/}
 						</div>
 					</div>
 					<div className="videoMerchPlayer--boxart-wrapper" style={{position: "absolute"}}>
@@ -256,8 +257,9 @@ function MoreMovieInfo({ movie }) {
 						{/*	 style={{display: "none"}}/>*/}
 					</div>
 					<div className="storyArt detail-modal has-smaller-buttons">
-
+						{/*{videoEnded && (*/}
 						<img src={movie.backdrop} alt={movie.title} className="playerModel--player__storyArt detail-modal has-smaller-buttons" style={{opacity: 1}}/>
+						{/*)}*/}
 						{/*)}*/}
 						{/*<img alt="" src="" style={{display: "none"}}/>*/}
 					</div>
@@ -266,9 +268,9 @@ function MoreMovieInfo({ movie }) {
 							<div className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment detail-modal has-smaller-buttons detail-modal has-smaller-buttons">
 								<img alt="" src="https://occ-0-616-621.1.nflxso.net/dnm/api/v6/tx1O544a9T7n8Z_G12qaboulQQE/AAAABYl2xd1rM_KgFFzuWQq0jMp3bO0PTSOds90-7LA4xP74zuqDu-nklU8Cj1izisKKmOzUXIhjCXKY_wgxPahYYP6cphU6LGQERC7PERdnwlI.png?r=317" style={{display: "none"}}/>
 								{/*<h1 className="previewModal--player-titleTreatment-logo" style={{width: "100%", opacity: 1, fontSize: "3rem", fontWeight:400, whiteSpace: "nowrap"}} >{movie.title}</h1>*/}
-								<img className="previewModal--player-titleTreatment-logo" alt="" src={movie.titleImage} style={{width: "70%", opacity: 1}}/>
+								<img className="previewModal--player-titleTreatment-logo" alt="" src={movie.titleimage} style={{width: "70%", opacity: 1}}/>
 								<div className="buttonControls--container" data-uia="mini-modal-controls">
-									<NavLink exact to={`/watch/${movie.movieId}`} className="primary-button playLink isToolkit" onClick={() => closeModal()}>
+									<NavLink exact to={`/watch/${movie.movieid}`} className="primary-button playLink isToolkit" onClick={() => closeModal()}>
 										<button className="color-primary hasLabel hasIcon ltr-podnco" onClick={() => handleViewed(movie)}>
 											<div className="ltr-1st24vv">
 												<div className="medium ltr-iyulz3">
@@ -676,7 +678,7 @@ function MoreMovieInfo({ movie }) {
 															</span>
 														</div>
 														<div className="videoMetadata--second-line">
-															<div className="year">{movie.releaseDate.split("-")[2]}</div>
+															<div className="year">{movie.releasedate.split("-")[2]}</div>
 															<span className="duration">{movie.runtime}</span>
 															<span className="player-feature-badge">HD</span>
 															<div className="ltr-bjn8wh">
@@ -800,14 +802,14 @@ function MoreMovieInfo({ movie }) {
 																			style={{width: "40%"}}>
 																			<img
 																				className="previewModal--player-titleTreatment-logo"
-																				alt="" src={movie.titleImage}
+																				alt="" src={movie.titleimage}
 																				style={{width: "100%", opacity: 1}}/>
 																		</div>
 																	</div>
 																</div>
 															</div>
 															<div className="titleCard-playIcon" onClick={() => {
-																history.push(`/watch/${movie.movieId}`)
+																history.push(`/watch/${movie.movieid}`)
 																closeModal()
 															}}>
 																<svg width="24" height="24" viewBox="0 0 24 24"
@@ -862,7 +864,7 @@ function MoreMovieInfo({ movie }) {
 																		</div>
 																		<div className="videoMetadata--second-line">
 																			<div
-																				className="year">{movie.releaseDate.split("-")[2]}</div>
+																				className="year">{movie.releasedate.split("-")[2]}</div>
 																			<span className="maturity-rating ">
 																			<span
 																				className="maturity-number">{movie.maturity}</span>
@@ -875,7 +877,7 @@ function MoreMovieInfo({ movie }) {
 																				<button className="color-supplementary hasIcon round ltr-11vo9g5" onClick={() => handleWatchLaterMovie(movie)}>
 																					<div className="ltr-1st24vv">
 																						<div className="small ltr-iyulz3">
-																							{updatedProfile.watchLaterMovies && updatedProfile.watchLaterMovies.some(watchMovie => watchMovie.movieId === movie.movieId) ? (
+																							{updatedProfile.watchLaterMovies && updatedProfile.watchLaterMovies.some(watchMovie => watchMovie.movieid === movie.movieid) ? (
 																								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
 																									 className="ltr-4z3qvp e1svuwfo1" data-name="Checkmark" aria-hidden="true">
 																									<path fill-rule="evenodd" clip-rule="evenodd"

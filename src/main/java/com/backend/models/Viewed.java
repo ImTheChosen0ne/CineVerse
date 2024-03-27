@@ -13,7 +13,7 @@ public class Viewed {
     private boolean watched;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "movie_id")
+    @JoinColumn(name = "movieid")
     private Movie movie;
 
     public Viewed() {}

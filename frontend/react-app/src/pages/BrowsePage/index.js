@@ -25,6 +25,8 @@ function BrowsePage() {
     const [videoEnded, setVideoEnded] = useState(false);
     const videoRef = useRef(null);
 
+    // const [profileSwitch, setProfileSwitch] = useState(false);
+
     useEffect(() => {
         dispatch(getMovies())
             .then(() => {
@@ -68,14 +70,25 @@ function BrowsePage() {
     }, [movies, randomMovie]);
 
     // useEffect(() => {
-    //     dispatch(recommendedMovies(updatedProfile, movies))
-    //         .then(() => {
+    //     if (profileSwitch) {
+    //         setLoading(true);
+    //     } else {
     //         setLoading(false);
-    //     })
-    //         .catch((error) => {
-    //             console.error("Error fetching movies:", error);
-    //             setLoading(false);
-    //         });
+    //     }
+    // }, [profileSwitch]);
+
+    // useEffect(() => {
+    //     if (profile) {
+    //         setProfileSwitch(true);
+    //         dispatch(recommendedMovies(updatedProfile ? updatedProfile : profile, movies))
+    //             .then(() => {
+    //                 setProfileSwitch(false);
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error fetching movies:", error);
+    //                 setProfileSwitch(false);
+    //             });
+    //     }
     // }, [dispatch, profile]);
 
 
@@ -111,8 +124,8 @@ function BrowsePage() {
     }
 
     const newReleases = moviesCopy?.slice().sort((a, b) => {
-        const dateA = new Date(a.dateAdded);
-        const dateB = new Date(b.dateAdded);
+        const dateA = new Date(a.dateadded);
+        const dateB = new Date(b.dateadded);
         return dateB - dateA;
     });
 
@@ -141,14 +154,14 @@ function BrowsePage() {
                                                 height: "100%",
                                                 overflow: "hidden"
                                             }}>
-                                                <video
-                                                    ref={videoRef}
-                                                    src={randomMovie?.trailer}
-                                                    autoPlay
-                                                    playsInline={true}
-                                                    muted
-                                                    onEnded={handleVideoEnd}
-                                                />
+                                                {/*<video*/}
+                                                {/*    ref={videoRef}*/}
+                                                {/*    src={randomMovie?.trailer}*/}
+                                                {/*    autoPlay*/}
+                                                {/*    playsInline={true}*/}
+                                                {/*    muted*/}
+                                                {/*    onEnded={handleVideoEnd}*/}
+                                                {/*/>*/}
                                             </div>
                                         </div>
                                     </div>
@@ -156,8 +169,7 @@ function BrowsePage() {
                                 <div className="motion-background-component bottom-layer full-screen">
                                     <div className="hero-image-wrapper">
                                         {/*{videoEnded && (*/}
-                                        <img className="hero static-image image-layer" src={randomMovie?.backdrop}
-                                             alt={randomMovie?.title}/>
+                                        <img className="hero static-image image-layer" src={randomMovie?.backdrop} alt={movies[6]?.title}/>
                                         {/*)}*/}
                                         <div className="trailer-vignette vignette-layer"></div>
                                         <div className="hero-vignette vignette-layer"></div>
@@ -200,7 +212,7 @@ function BrowsePage() {
                                              }}>
                                             <div className="billboard-title">
                                                 <img alt={randomMovie?.title} className="title-logo "
-                                                     src={randomMovie?.titleImage}/>
+                                                     src={randomMovie?.titleimage}/>
                                             </div>
                                         </div>
                                         <div className="info-wrapper"
@@ -227,7 +239,7 @@ function BrowsePage() {
                                             </div>
                                         </div>
                                         <div className="billboard-links button-layer forward-leaning">
-                                            <NavLink exact to={`/watch/${randomMovie?.movieId}`}
+                                            <NavLink exact to={`/watch/${movies[6]?.movieid}`}
                                                      className=" playLink isToolkit">
                                                 <button className="color-primary hasLabel hasIcon ltr-podncoo">
                                                     <div className="ltr-1st24vv">

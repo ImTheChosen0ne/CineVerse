@@ -21,7 +21,7 @@ public class Profile {
     @JoinTable(
             name="profile_movie_watch_later",
             joinColumns = {@JoinColumn(name="profile_id")},
-            inverseJoinColumns = {@JoinColumn(name="movie_id")}
+            inverseJoinColumns = {@JoinColumn(name="movieid")}
     )
 
     private Set<Movie> watchLaterMovies;

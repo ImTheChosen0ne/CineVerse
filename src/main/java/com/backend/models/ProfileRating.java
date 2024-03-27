@@ -12,7 +12,7 @@ public class ProfileRating {
     private String rating;
     private String date;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "movie_id")
+    @JoinColumn(name = "movieid")
     private Movie movie;
     public ProfileRating() {}
     public ProfileRating(Integer ratingId, String rating, String date, Movie movie) {

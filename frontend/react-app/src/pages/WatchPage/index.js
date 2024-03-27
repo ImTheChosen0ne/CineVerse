@@ -102,7 +102,7 @@ function Watch() {
         }
     };
 
-    const movie = movies?.find((movie) => movie.movieId.toString() === movieId);
+    const movie = movies?.find((movie) => movie.movieid.toString() === movieId);
 
     const formatTime = (timeInSeconds) => {
         const hours = Math.floor(timeInSeconds / 3600);

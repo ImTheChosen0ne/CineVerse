@@ -19,7 +19,7 @@ function Ratings() {
     const handleRating = async (rating, movie) => {
 
         const existingRating = selectedProfile.profileRatings.find(existingMovieRating =>
-            existingMovieRating.movie.movieId === movie.movieId
+            existingMovieRating.movie.movieid === movie.movieid
         );
 
 
@@ -36,6 +36,8 @@ function Ratings() {
         }
 
     }
+
+    const sortedRatings = selectedProfile?.profileRatings.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
     return (
         <div className="rating-page">
@@ -54,7 +56,7 @@ function Ratings() {
                             </div>
                             <img src={selectedProfile.img} alt="profile"/>
                         </header>
-                        {selectedProfile.profileRatings.map((rating) => (
+                        {sortedRatings.map((rating) => (
                             <ul key={rating.ratingId} className="profile-activity-rating">
                                 <li className="profile-activity-row">
                                     <div className="profile-activity-row-date">{rating.date}</div>

@@ -62,7 +62,7 @@ function Search() {
                                                             className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment mini-modal has-smaller-buttons mini-modal has-smaller-buttons"
                                                             style={{width: "40%"}}>
                                                             <img className="previewModal--player-titleTreatment-logo"
-                                                                 alt="" src={movie.titleImage}
+                                                                 alt="" src={movie.titleimage}
                                                                  style={{width: "100%", opacity: 1}}/>
                                                         </div>
                                                     </div>

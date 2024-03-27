@@ -33,6 +33,11 @@ function OpenMovieModal({ movie, position }) {
   const [showLikeMenu, setShowLikeMenu] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
 
+  const [videoEnded, setVideoEnded] = useState(false);
+  const handleVideoEnd = () => {
+    setVideoEnded(true);
+  };
+
   const handleToggleMute = () => {
     setIsMuted(!isMuted);
   };
@@ -89,7 +94,7 @@ function OpenMovieModal({ movie, position }) {
   if (updatedProfile.profileRatings) {
     for (let ratingObj of updatedProfile.profileRatings) {
       const { rating, movie: movieObj } = ratingObj;
-      if (movieObj.movieId === movie.movieId) {
+      if (movieObj.movieid === movie.movieid) {
         if (rating === "like") {
           liked = true;
         } else if (rating === "dislike") {
@@ -103,7 +108,7 @@ function OpenMovieModal({ movie, position }) {
 
   if (updatedProfile.watchLaterMovies) {
     for (let watchMovie of updatedProfile.watchLaterMovies) {
-      if (watchMovie.movieId === movie.movieId) watchLater = true;
+      if (watchMovie.movieid === movie.movieid) watchLater = true;
     }
   }
 
@@ -121,7 +126,7 @@ function OpenMovieModal({ movie, position }) {
     }
 
     const existingRating = updatedProfile.profileRatings.find(existingMovieRating =>
-        existingMovieRating.movie.movieId === movie.movieId
+        existingMovieRating.movie.movieid === movie.movieid
     );
 
     const updatedRating ={
@@ -160,7 +165,7 @@ function OpenMovieModal({ movie, position }) {
     }
 
     const existingView = updatedProfile.viewedMovies.find(existingViewedMovie =>
-        existingViewedMovie.movie.movieId === movie.movieId
+        existingViewedMovie.movie.movieid === movie.movieid
     );
 
     const updatedViewed ={
@@ -237,28 +242,31 @@ function OpenMovieModal({ movie, position }) {
   return (
       <div style={modalStyle} onMouseLeave={onMouseLeave} className="previewModal--container mini-modal has-smaller-buttons">
         <div className="previewModal--player_container mini-modal has-smaller-buttons">
-          <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
+          <div style={{position: "absolute", width: "100%", height: "100%", overflow: "hidden"}}>
             <div style={{position: "relative", width: "100%", height: "100%", overflow: "hidden"}}>
               {/*<video*/}
               {/*    src={movie?.trailer}*/}
               {/*    autoPlay*/}
               {/*    playsInline={true}*/}
               {/*    ref={videoRef}*/}
-              {/*    // muted*/}
+              {/*    muted*/}
               {/*    style={{position: "relative", width: "100%", height: "100%", objectFit: "cover"}}*/}
+              {/*    onEnded={handleVideoEnd}*/}
               {/*/>*/}
             </div>
           </div>
           <div className="videoMerchPlayer--boxart-wrapper" style={{position: "static"}}>
+            {/*{videoEnded && (*/}
             <img className="previewModal--boxart" src={movie?.backdrop} alt={movie?.title} style={{opacity: 1}}/>
+            {/*)}*/}
+
             {/*<img alt={movie?.title} src={movie?.backdrop} style={{display: "none"}}/>*/}
-            <img className="previewModal--boxart" src={movie?.backdrop} alt={movie?.title} style={{opacity: 1}}/>
           </div>
           <div style={{opacity: 1}}>
             <div className="previewModal--player-titleTreatmentWrapper" style={{opacity: 1}}>
               <div className="previewModal--player-titleTreatment-left previewModal--player-titleTreatment mini-modal has-smaller-buttons mini-modal has-smaller-buttons" style={{left: "1.5em", width: "32%"}}>
                 {/*<h1 className="previewModal--player-titleTreatment-logo" style={{width: "100%", opacity: 1, fontSize: "1em", fontWeight: 400, alignItems: "center", display: "flex"}}>{movie.title}</h1>*/}
-                <img className="previewModal--player-titleTreatment-logo" alt="" src={movie.titleImage} style={{width: "100%", opacity: 1}}/>
+                <img className="previewModal--player-titleTreatment-logo" alt="" src={movie.titleimage} style={{width: "100%", opacity: 1}}/>
               </div>
               <div className="mini-modal has-smaller-buttons previewModal-audioToggle" style={{opacity: 0.4, display: "block"}}>
                 <div className="global-supplemental-audio-toggle">
@@ -296,7 +304,7 @@ function OpenMovieModal({ movie, position }) {
                 <div className="previewModal--metadatAndControls mini-modal has-smaller-buttons">
                   <div className="previewModal--metadatAndControls-container">
                     <div className="buttonControls--container mini-modal has-smaller-buttons">
-                      <NavLink exact to={`/watch/${movie.movieId}`} onClick={() => closeMiniModal()} className="primary-button playLink isToolkit isRound">
+                      <NavLink exact to={`/watch/${movie.movieid}`} onClick={() => closeMiniModal()} className="primary-button playLink isToolkit isRound">
                         <button className="color-primary hasIcon round ltr-jewi6s" onClick={() => handleViewed(movie)}>
                           <div className="ltr-1st24vv">
                             <div className="small ltr-iyulz3">
